@@ -4,3 +4,6 @@
 Homestead.yaml
 Homestead.json
 .env
+composer-setup.php
+composer.phar
+/config/database.php
