@@ -8,5 +8,4 @@ class Frecuencia extends Model
 {
     protected $table = 'frecuencias';
 	protected $fillable = ['tipo', 'codigo', 'nombre'];
-	protected $primaryKey = 'id';
 }

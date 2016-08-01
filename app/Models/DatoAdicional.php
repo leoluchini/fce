@@ -8,5 +8,5 @@ class DatoAdicional extends Model
 {
     protected $table = 'datos_adicionales';
 	protected $fillable = ['descripcion'];
-	protected $primaryKey = 'id';
+
 }

@@ -12,7 +12,7 @@ class CreateFuentesTable extends Migration
             $table->increments('id');
             $table->string('sigla');
             $table->string('nombre');
-            $table->string('descripcion');
+            $table->text('descripcion');
             $table->timestamps();
         });
     }

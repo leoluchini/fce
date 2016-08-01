@@ -11,7 +11,7 @@ class CreateDatosAdicionalesTable extends Migration
         Schema::create('datos_adicionales', function(Blueprint $table)
         {
             $table->increments('id');
-            $table->string('descripcion');
+            $table->text('descripcion');
             $table->integer('informacion_id')->unsigned();
             $table->timestamps();
             // claves foraneas

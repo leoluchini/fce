@@ -12,7 +12,7 @@ class CreateIndicadoresTable extends Migration
             $table->increments('id');
             $table->string('codigo');
             $table->string('nombre');
-            $table->string('descripcion');
+            $table->text('descripcion');
             $table->integer('padre_id')->unsigned();
             $table->integer('asociacion_rango_id')->unsigned();
             $table->timestamps();

@@ -12,7 +12,7 @@ class CreateRangosTable extends Migration
             $table->increments('id');
             $table->float('valor_inicio');
             $table->float('valor_fin');
-            $table->string('descripcion');
+            $table->text('descripcion');
             $table->integer('asociacion_id')->unsigned();
             $table->timestamps();
 

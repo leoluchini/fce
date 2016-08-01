@@ -8,5 +8,5 @@ class Fuente extends Model
 {
     protected $table = 'fuentes';
 	protected $fillable = ['sigla', 'nombre', 'descripcion'];
-	protected $primaryKey = 'id';
+
 }

@@ -13,7 +13,7 @@ class CreateZonasTable extends Migration
             $table->string('tipo');
             $table->string('codigo');
             $table->string('nombre');
-            $table->string('descripcion');
+            $table->text('descripcion');
             $table->integer('zona_padre_id')->unsigned();
             $table->timestamps();
             

@@ -3,20 +3,11 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Indicador;
-use App\Models\UnidadMedida;
-use App\Models\Frecuencia;
-use App\Models\Fuente;
-use App\Models\Zona;
-use App\Models\InformacionAdicional;
-use Illuminate\Database\Eloquent\Relations\HasOne;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class InformacionIndicador extends Model
 {
     protected $table = 'informacion_indicadores';
 	protected $fillable = ['anio', 'valor'];
-	protected $primaryKey = 'id';
 
 	public function indicador()
 	{
