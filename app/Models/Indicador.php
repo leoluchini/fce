@@ -11,11 +11,11 @@ class Indicador extends Model
 
 	public function asociacion_rango()
 	{
-		return $this->hasOne('App\Models\AsociacionRango', 'id', 'asociacion_rango_id');
+		return $this->hasOne('App\Models\AsociacionRango', 'asociacion_rango_id');
 	}
 
 	public function datos()
 	{
-		return $this->hasMany('App\Models\InformacionIndicador', 'indicador_id', 'id');
+		return $this->hasMany('App\Models\InformacionIndicador', 'indicador_id');
 	}
 }

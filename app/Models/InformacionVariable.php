@@ -11,23 +11,23 @@ class InformacionVariable extends Model
 
 	public function variable()
 	{
-		return $this->hasOne('App\Models\Variable', 'id', 'variable_id');
+		return $this->hasOne('App\Models\Variable', 'variable_id');
 	}
 	public function unidad_medida()
 	{
-		return $this->hasOne('App\Models\UnidadMedida', 'id', 'unidad_medida_id');
+		return $this->hasOne('App\Models\UnidadMedida', 'unidad_medida_id');
 	}
 	public function frecuencia()
 	{
-		return $this->hasOne('App\Models\Frecuencia', 'id', 'frecuencia_id');
+		return $this->hasOne('App\Models\Frecuencia', 'frecuencia_id');
 	}
 	public function fuente()
 	{
-		return $this->hasOne('App\Models\Fuente', 'id', 'fuente_id');
+		return $this->hasOne('App\Models\Fuente', 'fuente_id');
 	}
 	public function zona()
 	{
-		return $this->hasOne('App\Models\Zona', 'id', 'zona_id');
+		return $this->hasOne('App\Models\Zona', 'zona_id');
 	}
 
 	public function informacion_adicional()

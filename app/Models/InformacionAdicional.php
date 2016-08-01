@@ -10,6 +10,6 @@ class InformacionAdicional extends Model
 
 	public function datos()
 	{
-		return $this->hasMany('App\Models\DatoAdicional', 'informacion_id', 'id');
+		return $this->hasMany('App\Models\DatoAdicional', 'informacion_id');
 	}
 }
