@@ -10,9 +10,7 @@ class CreateAsociacionRangosTable extends Migration
         Schema::create('asociacion_rangos', function(Blueprint $table)
         {
             $table->increments('id');
-            $table->string('tipo');
             $table->string('orden');
-            $table->integer('item_id')->unsigned();
             $table->timestamps();
         });
     }

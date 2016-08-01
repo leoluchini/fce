@@ -16,7 +16,7 @@ class Indicador extends Model
 
 	public function asociacion_rango()
 	{
-		return $this->hasOne('App\Models\IndicadorRango', 'id', 'item_id');
+		return $this->hasOne('App\Models\AsociacionRango', 'id', 'asociacion_rango_id');
 	}
 
 	public function datos()

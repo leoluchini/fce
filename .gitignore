@@ -7,3 +7,4 @@ Homestead.json
 composer-setup.php
 composer.phar
 /config/database.php
+/config/app.php
