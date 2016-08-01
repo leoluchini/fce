@@ -12,6 +12,7 @@ class CreateInformacionIndicadoresTable extends Migration
             $table->increments('id');
             $table->integer('anio');
             $table->float('valor');
+            $table->integer('indicador_id')->unsigned();
             $table->integer('unidad_medida_id')->unsigned();
             $table->integer('frecuencia_id')->unsigned();
             $table->integer('fuente_id')->unsigned();
@@ -19,6 +20,9 @@ class CreateInformacionIndicadoresTable extends Migration
             $table->timestamps();
             
             // claves foraneas
+            $table->foreign('indicador_id')
+                  ->references('id')
+                  ->on('indicadores');
             $table->foreign('unidad_medida_id')
                   ->references('id')
                   ->on('unidades_medida');

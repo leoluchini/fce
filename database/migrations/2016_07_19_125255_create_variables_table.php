@@ -13,7 +13,12 @@ class CreateVariablesTable extends Migration
             $table->string('codigo');
             $table->string('nombre');
             $table->string('descripcion');
+            $table->integer('padre_id')->unsigned();
             $table->timestamps();
+            // claves foraneas
+            $table->foreign('padre_id')
+                  ->references('id')
+                  ->on('variables');
         });
     }
 

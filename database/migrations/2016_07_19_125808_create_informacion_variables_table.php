@@ -12,6 +12,7 @@ class CreateInformacionVariablesTable extends Migration
             $table->increments('id');
             $table->integer('anio');
             $table->float('valor');
+            $table->integer('variable_id')->unsigned();
             $table->integer('unidad_medida_id')->unsigned();
             $table->integer('frecuencia_id')->unsigned();
             $table->integer('fuente_id')->unsigned();
@@ -19,6 +20,9 @@ class CreateInformacionVariablesTable extends Migration
             $table->timestamps();
             
             // claves foraneas
+            $table->foreign('variable_id')
+                  ->references('id')
+                  ->on('variables');
             $table->foreign('unidad_medida_id')
                   ->references('id')
                   ->on('unidades_medida');
