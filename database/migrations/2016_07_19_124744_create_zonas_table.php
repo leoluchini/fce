@@ -11,10 +11,10 @@ class CreateZonasTable extends Migration
         {
             $table->increments('id');
             $table->string('tipo');
-            $table->string('codigo');
+            $table->string('codigo')->nullable();
             $table->string('nombre');
-            $table->text('descripcion');
-            $table->integer('zona_padre_id')->unsigned();
+            $table->text('descripcion')->nullable();
+            $table->integer('zona_padre_id')->unsigned()->nullable();
             $table->timestamps();
             
             // claves foraneas

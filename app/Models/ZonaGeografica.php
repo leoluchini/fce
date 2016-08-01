@@ -11,7 +11,7 @@ class ZonaGeografica extends Model
 
 	protected $table = "zonas_geograficas";
 
-	protected static $singleTableTypeField = 'type';
+	protected static $singleTableTypeField = 'tipo';
 
 	protected static $singleTableSubclasses = [Pais::class, Provincia::class, Municipio::class];
 }

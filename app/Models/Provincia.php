@@ -2,11 +2,12 @@
 
 namespace App\Models;
 
-use ZonaGeografica;
+use App\Models\ZonaGeografica;
 
 class Provincia extends ZonaGeografica
 {
-    
+    protected static $singleTableType = 'provincia';
+
     public function pais()
     {
         return $this->belongsTo('App\Models\Pais', 'zona_padre_id');

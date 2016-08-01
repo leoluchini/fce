@@ -11,6 +11,6 @@ class AsociacionRango extends Model
 
 	public function rangos()
 	{
-		return $this->hasMany('App\Models\Rango', 'asociacion_id' )->orderBy('valor_inicio', $this->orden);
+		return $this->hasMany('App\Models\Rango', 'asociacion_id')->orderBy('valor_inicio', $this->orden);
 	}
 }
