@@ -2,6 +2,7 @@
 	<tr>
 		<td>{{$categoria->nombre}}</td>
 		<td>{{$categoria->descripcion}}</td>
+		<td>{{count($categoria->publicaciones)}}</td>
 		<td class="text-right">
 			<a title="Editar categoria" href="{{ action('CategoriaController@edit', [$categoria->id]) }}" data-toggle="tooltip" data-placement="top"><span class="glyphicon glyphicon-pencil"></span></a>
 			&nbsp;<a title="Nueva Publicacion" href="" data-toggle="tooltip" data-placement="top"><span class="glyphicon glyphicon-plus"></span></a>&nbsp;

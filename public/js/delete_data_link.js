@@ -56,7 +56,6 @@
       $('<input>', {
         'type': 'hidden',
         'name': '_token',
-          //'value': '<?php echo csrf_token(); ?>' // hmmmm...
           'value': window.csrfToken
         });
 

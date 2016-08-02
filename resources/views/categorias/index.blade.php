@@ -26,6 +26,7 @@
 			        <tr>
 			            <th><strong>Nombre</strong></p> </th>
 			            <th><strong>Descripcion</strong></p> </th>
+			            <th><strong>Publicaciones</strong></p> </th>
 			            <th class="text-right"><p> <strong>Acciones</strong></p></th>
 			        </tr>
 			    </thead>
