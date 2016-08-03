@@ -156,6 +156,7 @@ return [
         App\Providers\AuthServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        App\Providers\HelperServiceProvider::class,
 
         Collective\Html\HtmlServiceProvider::class,
         Bican\Roles\RolesServiceProvider::class,

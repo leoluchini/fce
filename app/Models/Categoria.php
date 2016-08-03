@@ -14,4 +14,8 @@ class Categoria extends Model
 		return $this->hasMany('App\Models\Publicacion')->orderBy('orden', 'ASC');
 	}
 
+	public function get_path()
+	{
+		return path_publicaciones().$this->codigo.'/';
+	}
 }

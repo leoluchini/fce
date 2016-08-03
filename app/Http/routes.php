@@ -20,3 +20,10 @@ Route::auth();
 Route::get('/home', 'HomeController@index');
 
 Route::resource('categorias','CategoriaController');
+
+Route::get('publicaciones/{categoria}', 'PublicacionController@index');
+Route::get('publicaciones/{categoria}/create', 'PublicacionController@create');
+Route::get('publicaciones/{publicacion}/edit', 'PublicacionController@edit');
+Route::delete('publicaciones/{publicacion}', 'PublicacionController@destroy');
+Route::post('publicaciones/{categoria}', 'PublicacionController@store');
+Route::patch('publicaciones/{publicacion}', 'PublicacionController@update');

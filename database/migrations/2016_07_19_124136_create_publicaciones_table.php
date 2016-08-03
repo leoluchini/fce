@@ -12,11 +12,11 @@ class CreatePublicacionesTable extends Migration
             $table->increments('id');
             $table->string('nombre');
             $table->text('descripcion');
-            $table->string('path');
-            $table->string('palabras_clave');
+            $table->string('archivo');
+            $table->text('palabras_clave');
             $table->integer('anio_publicacion');
             $table->integer('categoria_id')->unsigned();
-            $table->integer('orden');
+            $table->integer('orden')->nullable();
             $table->timestamps();
             
             // claves foraneas

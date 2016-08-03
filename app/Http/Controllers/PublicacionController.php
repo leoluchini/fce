@@ -1,0 +1,117 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+
+use App\Http\Requests;
+use App\Models\Categoria;
+use App\Models\Publicacion;
+use App\Http\Requests\PublicacionRequest;
+
+class PublicacionController extends Controller
+{
+    public function index($categoria_id)
+	{
+		try
+		{
+			$data['categoria'] = Categoria::findOrFail($categoria_id);
+			return view('publicaciones.index', $data);
+		}
+		catch(ModelNotFoundException $e)
+		{
+			\Session::flash('error', 'La categoria no existe.');
+			return redirect('categorias');
+		}
+	}
+	public function create($categoria_id)
+	{
+		try
+		{
+			$data['categoria'] = Categoria::findOrFail($categoria_id);
+			$data['publicacion'] = new Publicacion;
+			return view('publicaciones.create', $data);
+		}
+		catch(ModelNotFoundException $e)
+		{
+			\Session::flash('error', 'La categoria no existe.');
+			return redirect('categorias');
+		}
+	}
+
+	public function store($categoria_id, PublicacionRequest $request)
+	{
+		try
+		{
+			$categoria = Categoria::findOrFail($categoria_id);
+		}
+		catch(ModelNotFoundException $e)
+		{
+			\Session::flash('error', 'La categoria no existe.');
+			return redirect('categorias');
+		}
+
+		$archivo_pdf = \Request::file('archivo');
+
+		$nombreFinal = save_file($archivo_pdf, $categoria->get_path());
+		
+		$input = $request->all();
+		$input['archivo'] = $nombreFinal;
+		$input['categoria_id'] = $categoria_id;
+		$publicacion = Publicacion::create($input);
+
+		\Session::flash('noticia', 'Se creo la publicacion "'.$publicacion->nombre.'" correctamente en la categoria "'.$categoria->nombre.'"');
+		return redirect('publicaciones/'.$categoria_id);
+	}
+
+	public function edit($id)
+	{
+		try
+		{
+			$data['publicacion'] = Publicacion::findOrFail($id);
+			return view('publicaciones.edit', $data);
+		}
+		catch(ModelNotFoundException $e)
+		{
+			\Session::flash('error', 'La publicacion no existe.');
+			return redirect('categorias');
+		}
+	}
+
+	public function update($id, PublicacionRequest $request)
+	{
+		try
+		{
+			$publicacion = Publicacion::findOrFail($id);
+			$input = $request->all();
+			
+			$publicacion->update($input);
+
+			\Session::flash('noticia', 'La publicacion "'.$publicacion->nombre.'" fue actualizada con exito.');
+		}
+		catch(ModelNotFoundException $e)
+		{
+			\Session::flash('error', 'La publicacion no existe no existe.');
+			return redirect('categorias');
+		}
+		return redirect('publicaciones/'.$publicacion->categoria->id);
+	}
+
+	public function destroy($id)
+	{
+		try
+		{
+			$publicacion = Publicacion::findOrFail($id);
+		}
+		catch(ModelNotFoundException $e)
+		{
+			\Session::flash('error', 'El publicacion no existe.');
+			return redirect('categorias');
+		}
+		$publicacion->delete();
+
+		\Session::flash('noticia', 'La publicacion "'.$publicacion->nombre.'" fue eliminada con exito.');
+		
+		return redirect('publicaciones/'.$publicacion->categoria->id);
+	}
+}
