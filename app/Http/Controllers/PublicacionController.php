@@ -105,7 +105,7 @@ class PublicacionController extends Controller
 		}
 		catch(ModelNotFoundException $e)
 		{
-			\Session::flash('error', 'El publicacion no existe.');
+			\Session::flash('error', 'La publicacion no existe.');
 			return redirect('categorias');
 		}
 		$publicacion->delete();
@@ -114,4 +114,31 @@ class PublicacionController extends Controller
 		
 		return redirect('publicaciones/'.$publicacion->categoria->id);
 	}
+
+	public function ver_archivo($id)
+    {
+    	try
+    	{
+    		$publicacion = Publicacion::findOrFail($id);
+    	}
+		catch(ModelNotFoundException $e)
+		{
+			\Session::flash('error', 'La publicacion no existe.');
+			return redirect('categorias');
+		}
+        ver_pdf($publicacion->get_file_path(), 'publicaciones/'.$publicacion->categoria->id);
+    }
+    public function descargar_archivo($id)
+    {
+    	try
+    	{
+    		$publicacion = Publicacion::findOrFail($id);
+    	}
+		catch(ModelNotFoundException $e)
+		{
+			\Session::flash('error', 'La publicacion no existe.');
+			return redirect('categorias');
+		}
+        descargar_pdf($publicacion->get_file_path(), 'publicaciones/'.$publicacion->categoria->id);
+    }
 }

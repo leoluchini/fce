@@ -35,4 +35,53 @@ function quitar_tildes($cadena)
     $texto = str_replace($no_permitidas, $permitidas ,$cadena);
     return $texto;
 }
+function ver_pdf($fullpath,$url)
+{
+    archivos($fullpath,$url,"inline");
+}
+function descargar_pdf($fullpath, $url)
+{
+    archivos($fullpath,$url,"attachment");
+}
+function archivos($fullpath,$url,$disposition)
+{
+    if( is_readable($fullpath) )
+    {
+        $fd = fopen($fullpath, "rb");
+        if ($fd) {
+            $fsize = filesize($fullpath);
+            $path_parts = pathinfo($fullpath);
+            $ext = strtolower($path_parts["extension"]);
+            switch ($ext) {
+                case "pdf":
+                header("Content-type: application/pdf");
+                break;
+                case "zip":
+                header("Content-type: application/zip");
+                break;
+                default:
+                header("Content-type: application/octet-stream");
+                break;
+            }
+            header("Content-Disposition: ".$disposition."; filename=\"".$path_parts["basename"]."\"");
+            header("Content-length: $fsize");
+            header("Cache-control: private"); //use this to open files directly
+            while(!feof($fd)) {
+                $buffer = fread($fd, 1*(1024*1024));
+                echo $buffer;
+                ob_flush();
+                flush();    //These two flush commands seem to have helped with performance
+            }
+        }
+        else {
+            echo "Error opening file";
+        }
+        fclose($fd);
+    }
+    else
+    {
+        \Session::flash('error', 'El archivo al que quiere acceder no existe.');
+        return redirect($url);
+    }
+}
 ?>
