@@ -25,7 +25,8 @@
 		</div>
 		<div class="form-group @if ($errors->first('anio_publicacion')){!! 'has-error' !!}@endif">
 			{!! Form::label('anio_publicacion', '*Año', array('class' => 'control-label')) !!}
-			{!! Form::text('anio_publicacion', $publicacion->anio_publicacion, array('class' => 'form-control')) !!}
+			
+			{!! Form::select('anio_publicacion', $anios, $publicacion->anio_publicacion, array('class' => 'form-control')) !!}
 			@if ($errors->first('anio_publicacion'))<span class="help-block">{{$errors->first('anio_publicacion')}}</span>@endif
 		</div>
 		@if($metodo == 'POST')

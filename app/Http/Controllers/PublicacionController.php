@@ -30,6 +30,7 @@ class PublicacionController extends Controller
 		{
 			$data['categoria'] = Categoria::findOrFail($categoria_id);
 			$data['publicacion'] = new Publicacion;
+			$data['anios'] = array_combine(range(2015, date('Y')), range(2015, date('Y')));
 			return view('publicaciones.create', $data);
 		}
 		catch(ModelNotFoundException $e)
@@ -69,6 +70,7 @@ class PublicacionController extends Controller
 		try
 		{
 			$data['publicacion'] = Publicacion::findOrFail($id);
+			$data['anios'] = array_combine(range(2015, date('Y')), range(2015, date('Y')));
 			return view('publicaciones.edit', $data);
 		}
 		catch(ModelNotFoundException $e)
