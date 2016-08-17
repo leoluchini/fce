@@ -84,4 +84,28 @@ function archivos($fullpath,$url,$disposition)
         return redirect($url);
     }
 }
+function csv_to_array($filename='', $delimiter=',')
+{
+    if(!file_exists($filename) || !is_readable($filename))
+        return FALSE;
+ 
+    $result = array();
+    if (($handle = fopen($filename, "r")) !== FALSE) {
+        $column_headers = fgetcsv($handle); // read the row.
+        foreach($column_headers as $header) {
+                $result[$header] = array();
+        }
+        
+        while (($data = fgetcsv($handle)) !== FALSE) {
+            $i = 0;
+            foreach($result as &$column) {
+                $column[] = $data[$i++];
+            }
+
+        }
+        fclose($handle);
+    }
+    $json = json_encode($result);
+    echo $json;
+}
 ?>
