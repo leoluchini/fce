@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use App\Models\ZonaGeografica;
 
 class LecturaController extends Controller
 {
@@ -17,8 +18,12 @@ class LecturaController extends Controller
     public function index()
     {
         $csvFile = public_path().'/storage/carga.csv';
-        $areas = csv_to_array($csvFile);
-        die(var_dump($areas));
+        $datos = csv_to_array($csvFile);
+        foreach ($datos['#Zonas'] as $attributes) {
+            var_dump($attributes);
+            echo "<br>";
+            $zona = ZonaGeografica::firstOrCreate($attributes);
+        }
     }
 
     /**

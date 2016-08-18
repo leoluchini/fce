@@ -91,21 +91,16 @@ function csv_to_array($filename='', $delimiter=',')
  
     $result = array();
     if (($handle = fopen($filename, "r")) !== FALSE) {
-        $column_headers = fgetcsv($handle); // read the row.
-        foreach($column_headers as $header) {
-                $result[$header] = array();
-        }
-        
+        $header = "";
         while (($data = fgetcsv($handle)) !== FALSE) {
-            $i = 0;
-            foreach($result as &$column) {
-                $column[] = $data[$i++];
+            if( $data[0] != ""){
+                $result[$data[0]] = array();
+                $header = $data[0];
             }
-
+            $result[$header][] = [ 'codigo' => $data[1], 'nombre' => $data[2]] ;
         }
         fclose($handle);
     }
-    $json = json_encode($result);
-    echo $json;
+    return $result;
 }
 ?>
