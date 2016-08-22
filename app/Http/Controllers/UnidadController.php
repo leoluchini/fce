@@ -73,7 +73,7 @@ class UnidadController extends Controller
 		}
 		catch(ModelNotFoundException $e)
 		{
-			\Session::flash('error', 'La unidad de medida no exsiste.');
+			\Session::flash('error', 'La unidad de medida no existe.');
 		}
 		return redirect('unidades');
 	}

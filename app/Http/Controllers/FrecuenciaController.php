@@ -75,7 +75,7 @@ class FrecuenciaController extends Controller
 		}
 		catch(ModelNotFoundException $e)
 		{
-			\Session::flash('error', 'La frecuencia no exsiste.');
+			\Session::flash('error', 'La frecuencia no existe.');
 		}
 		return redirect('frecuencias');
 	}
