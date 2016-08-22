@@ -31,3 +31,4 @@ Route::get('publicaciones/ver_archivo/{publicacion}', 'PublicacionController@ver
 Route::get('publicaciones/descargar_archivo/{publicacion}', 'PublicacionController@descargar_archivo');
 
 Route::resource('unidades','UnidadController');
+Route::resource('frecuencias','FrecuenciaController');
