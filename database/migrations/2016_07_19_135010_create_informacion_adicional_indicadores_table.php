@@ -12,12 +12,8 @@ class CreateInformacionAdicionalIndicadoresTable extends Migration
             $table->integer('informacion_indicador_id')->unsigned();
             $table->integer('informacion_adicional_id')->unsigned();
             // claves foraneas
-            $table->foreign('informacion_indicador_id')
-                  ->references('id')
-                  ->on('informacion_indicadores');
-            $table->foreign('informacion_adicional_id')
-                  ->references('id')
-                  ->on('informacion_adicional');
+            //$table->foreign('informacion_indicador_id')->references('id')->on('informacion_indicadores');
+            //$table->foreign('informacion_adicional_id')->references('id')->on('informacion_adicional');
         });
     }
 

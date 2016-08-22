@@ -97,7 +97,7 @@ function csv_to_array($filename='', $delimiter=',')
                 $result[$data[0]] = array();
                 $header = $data[0];
             }
-            $result[$header][] = [ 'codigo' => $data[1], 'nombre' => $data[2]] ;
+            $result[$header][] = [ 'codigo' => $data[1], 'nombre' => $data[2]];
         }
         fclose($handle);
     }

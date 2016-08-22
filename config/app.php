@@ -160,6 +160,7 @@ return [
 
         Collective\Html\HtmlServiceProvider::class,
         Bican\Roles\RolesServiceProvider::class,
+        Maatwebsite\Excel\ExcelServiceProvider::class,
         'Laracasts\Flash\FlashServiceProvider'
 
     ],
@@ -188,6 +189,7 @@ return [
         'DB' => Illuminate\Support\Facades\DB::class,
         'Eloquent' => Illuminate\Database\Eloquent\Model::class,
         'Event' => Illuminate\Support\Facades\Event::class,
+        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
         'File' => Illuminate\Support\Facades\File::class,
         'Flash' => 'Laracasts\Flash\Flash',
         'Form' => Collective\Html\FormFacade::class,

@@ -7,6 +7,16 @@ use Illuminate\Database\Eloquent\Model;
 class Fuente extends Model
 {
     protected $table = 'fuentes';
-	protected $fillable = ['sigla', 'nombre', 'descripcion'];
+		
+		protected $fillable = ['codigo', 'nombre', 'descripcion'];
 
+
+	  public static function firstOrCreate(array $attributes)
+		{
+			if ( ! is_null($instance = self::where('codigo',$attributes['codigo'])->first()))
+			{
+				return $instance;
+			}
+			return self::create($attributes);
+		}
 }

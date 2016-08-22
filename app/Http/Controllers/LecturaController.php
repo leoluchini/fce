@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Models\ZonaGeografica;
+use App\Models\Variable;
+use App\Models\UnidadMedida;
 
 class LecturaController extends Controller
 {
@@ -19,10 +21,14 @@ class LecturaController extends Controller
     {
         $csvFile = public_path().'/storage/carga.csv';
         $datos = csv_to_array($csvFile);
+        foreach ($datos['#Variables'] as $attributes){
+            $variable = Variable::firstOrCreate($attributes);
+        }
         foreach ($datos['#Zonas'] as $attributes) {
-            var_dump($attributes);
-            echo "<br>";
             $zona = ZonaGeografica::firstOrCreate($attributes);
+        }
+        foreach ($datos['#Unidades'] as $attributes){
+            $unidad = UnidadMedida::firstOrCreate($attributes);
         }
     }
 
