@@ -37,5 +37,7 @@
     <script src="{{ asset('js/delete_data_link.js') }}"></script>
     <script src="{{ asset('js/file_inputs.js') }}"></script>
     <script src="{{ asset('js/menu.js') }}"></script>
+    @yield('scripts_adicionales')
+
 </body>
 </html>

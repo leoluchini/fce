@@ -3,31 +3,27 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateIndicadoresTable extends Migration
+class CreateCategoriaIndicadorTable extends Migration
 {
     public function up()
     {
-        Schema::create('indicadores', function(Blueprint $table)
+        Schema::create('categorias_indicadores', function(Blueprint $table)
         {
             $table->increments('id');
             $table->string('codigo');
             $table->string('nombre');
             $table->text('descripcion');
-            $table->integer('categoria_id')->unsigned();
-            $table->integer('asociacion_rango_id')->unsigned();
+            $table->integer('categoria_padre_id')->unsigned()->nullable();
             $table->timestamps();
             // claves foraneas
-            $table->foreign('categoria_id')
+            $table->foreign('categoria_padre_id')
                   ->references('id')
                   ->on('categorias_indicadores');
-            $table->foreign('asociacion_rango_id')
-                  ->references('id')
-                  ->on('asociacion_rangos');
         });
     }
 
     public function down()
     {
-        Schema::dropIfExists('indicadores');
+        Schema::dropIfExists('categorias_indicadores');
     }
 }

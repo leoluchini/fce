@@ -29,3 +29,10 @@ Route::post('publicaciones/{categoria}', 'PublicacionController@store');
 Route::patch('publicaciones/{publicacion}', 'PublicacionController@update');
 Route::get('publicaciones/ver_archivo/{publicacion}', 'PublicacionController@ver_archivo');
 Route::get('publicaciones/descargar_archivo/{publicacion}', 'PublicacionController@descargar_archivo');
+
+Route::resource('unidades','UnidadController');
+Route::resource('frecuencias','FrecuenciaController');
+Route::resource('fuentes','FuenteController');
+Route::resource('zonas','ZonaGeograficaController', ['except' => ['destroy', 'edit']]);
+Route::delete('zonas/{tipo}/{id}','ZonaGeograficaController@destroy');
+Route::get('zonas/{tipo}/{id}/edit','ZonaGeograficaController@edit');
