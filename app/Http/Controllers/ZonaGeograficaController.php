@@ -21,7 +21,6 @@ class ZonaGeograficaController extends Controller
 
 	public function create()
 	{
-		//$data['zona'] = new ZonaGeografica;
 		$data['tipos_zonas'] = array('pais' => 'Pais', 'provincia' => 'Provincia', 'municipio' => 'Municipio');
 		$paises = Pais::all()->lists('nombre', 'id')->toArray();
 		$provincias = Provincia::all()->lists('nombre', 'id')->toArray();
@@ -47,8 +46,6 @@ class ZonaGeograficaController extends Controller
 		    	$zona = Municipio::create($datos);
 		        break;
 		}
-
-
 		\Session::flash('noticia', 'La zona geografica "'.$zona->nombre.'" fue creada con exito.');
 		return redirect('zonas');
 	}
