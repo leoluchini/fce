@@ -13,7 +13,7 @@ class CreateCategoriaIndicadorTable extends Migration
             $table->string('codigo');
             $table->string('nombre');
             $table->text('descripcion');
-            $table->integer('categoria_padre_id')->unsigned();
+            $table->integer('categoria_padre_id')->unsigned()->nullable();
             $table->timestamps();
             // claves foraneas
             $table->foreign('categoria_padre_id')
