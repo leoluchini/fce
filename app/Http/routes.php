@@ -33,3 +33,6 @@ Route::get('publicaciones/descargar_archivo/{publicacion}', 'PublicacionControll
 Route::resource('unidades','UnidadController');
 Route::resource('frecuencias','FrecuenciaController');
 Route::resource('fuentes','FuenteController');
+Route::resource('zonas','ZonaGeograficaController', ['except' => ['destroy', 'edit']]);
+Route::delete('zonas/{tipo}/{id}','ZonaGeograficaController@destroy');
+Route::get('zonas/{tipo}/{id}/edit','ZonaGeograficaController@edit');

@@ -8,10 +8,10 @@
 <div class="col-md-8 col-md-offset-2">
 	{!! Form::model($frecuencia, array('action' => $accion, 'method' => $metodo, 'class' => 'form-horizontal')) !!}
 	<div class="col-md-12">
-		<div class="form-group @if ($errors->first('codigo')){!! 'has-error' !!}@endif">
+		<div class="form-group @if ($errors->first('tipo')){!! 'has-error' !!}@endif">
 			{!! Form::label('tipo', '*Tipo', array('class' => 'control-label')) !!}
 			{!! Form::select('tipo', $tipos_frecuencias, $frecuencia->tipo, array('class' => 'form-control')) !!}
-			@if ($errors->first('tipo'))<span class="help-block">{{$errors->first('codigo')}}</span>@endif
+			@if ($errors->first('tipo'))<span class="help-block">{{$errors->first('tipo')}}</span>@endif
 		</div>
 		<div class="form-group @if ($errors->first('codigo')){!! 'has-error' !!}@endif">
 			{!! Form::label('codigo', '*Codigo', array('class' => 'control-label')) !!}
