@@ -12,6 +12,8 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700">
     <!-- Fuente CUPRUM -->
     <link href="{{ asset('css/cuprum.css') }}" rel="stylesheet" type="text/css">
+    <!-- Glypicons FONTELLO -->
+    <link href="{{ asset('fontello/css/fontello.css') }}" rel="stylesheet" type="text/css">
     <!-- Carousel -->
     <link href="{{ asset('css/carousel.css') }}" rel="stylesheet" type="text/css">
     <!-- Styles -->
@@ -33,34 +35,7 @@
     </script>
 </head>
 <body id="app-layout">
-    <div class="icon_menu">
-        <span class="glyphicon glyphicon-menu-hamburger" id='hideshow'></span>
-    </div>
-
-    <div id="Menu" style="display:none">
-        <center>
-            {!! Html::image('images/logo_menu.png', '', ['class'=>'logoFCE_menu'])!!}
-        </center>
-
-        <nav>
-            <ul>
-                <li><a href="#" class="text-right">Variables</a></li>
-                <li><a href="#" class="text-right">Indicadores</a></li>
-                <li><a href="{{action('PublicacionController@front')}}" class="text-right">Publicaciones</a></li>
-            </ul>
-         </nav>
-
-        <div class="blanco contacto_menu text-right col-xs-2">
-            <a href="#">
-                <h5>{!! Html::image('images/login.png', '', ['class'=>''])!!}
-                Login</h5>
-            </a>
-
-            <p class="footer_menu"><small>(+54 221)</small> 423-6769/71/72</p>
-            <p class="footer_menu">6 Nº 777 La Plata | Bs. As.</p>
-            <p class="footer_menu"><a href="">sie@econo.unlp.edu.ar</a></p>
-        </div>
-    </div>
+   
     @yield('content')
            
     <!-- JavaScripts -->

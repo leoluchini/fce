@@ -97,7 +97,7 @@ a:hover, a:focus {text-decoration: none;} {	text-decoration: none}
 
 		.secciones_index a {color: white}
 		.secciones_index a:visited {color: white}
-		.secciones_index a:focus {color: yellow}
+		.secciones_index a:focus {color: #00555f}
 		.secciones_index a:hover {color: green}
 		.secciones_index a:active {color: orange}
 
@@ -106,11 +106,13 @@ a:hover, a:focus {text-decoration: none;} {	text-decoration: none}
 /* MENU */
 
 .icon_menu{
-	padding: 10px;
+	padding: 20px;
+	position: absolute;
+	z-index: 2;
 }
 
 .logoFCE_menu{
-	padding-top: 20px;
+	padding-top: 74px;
 }
 
 #Menu {
@@ -127,9 +129,9 @@ a:hover, a:focus {text-decoration: none;} {	text-decoration: none}
 
 		}
 		#Menu a:visited {color: white}
-		#Menu a:focus {color: yellow}
+		#Menu a:focus {color: white}
 		#Menu a:hover {}
-		#Menu a:active {color: orange}
+		#Menu a:active {color: #00555f}
 
 
 @import url(https://fonts.googleapis.com/css?family=Open+Sans:400italic,400,300italic,300);
@@ -183,12 +185,21 @@ nav ul li:hover  ul{
 
 
 .footer_menu {
-	font-size: 0.8em;
+	font-size: 0.9em;
 	margin: 0px;
 }
 
 .contacto_menu {
     position: fixed;
     bottom: 10px;
-    left: 70px
+    left: -37px
+}
+
+
+.header_frontend{
+	border-bottom: 2px solid #00555f;
+}
+
+.header_izquierda{
+margin-left: 50px
 }
