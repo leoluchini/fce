@@ -36,3 +36,5 @@ Route::resource('fuentes','FuenteController');
 Route::resource('zonas','ZonaGeograficaController', ['except' => ['destroy', 'edit']]);
 Route::delete('zonas/{tipo}/{id}','ZonaGeograficaController@destroy');
 Route::get('zonas/{tipo}/{id}/edit','ZonaGeograficaController@edit');
+
+Route::get('frontend/publicaciones', 'PublicacionController@front');

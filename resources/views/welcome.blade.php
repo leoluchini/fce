@@ -1,15 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="icon_menu">
-        <span class="glyphicon glyphicon-menu-hamburger" id='hideshow'></span>
-    </div>
-    <div id="Menu">
-        SISTEMA DE INFORMACIÓN ECONÓMICA
-        <a href="#">Variables</a>
-        <a href="#">Indicadores</a>
-        <a href="#">Publicaciones</a>
-    </div>
+
     <section class="top">
         <div class="contenedor_logos">
             <div class="col-xs-6">
@@ -27,10 +19,29 @@
 
 
     <section class="bottom">
-        <div clas="col-xs-12">
-            <h3 class="text-center">
-                <a href="#" class="index-secciones">Variables</a> | <a href="#">Indicadores</a> | <a href="#">Publicaciones</a>
-            </h3>
+        <!-- .carousel -->
+        <div id="carouselPortada" class="carousel slide" data-ride="carousel">
+          <div class="carousel-inner" role="listbox">
+            <div class="item active">
+              {{ Html::image('images/fondo-variables.jpg') }}
+            </div>
+            <div class="item">
+              {{ Html::image('images/fondo-indicadores.jpg') }}
+            </div>
+            <div class="item">
+              {{ Html::image('images/fondo-publicaciones.jpg') }}
+            </div>
+          </div>
+        </div><!-- /.carousel -->
+
+
+      <!--   <div clas="col-xs-12">
+                <p class="text-center titulo_index">
+                    Sistema de información económica
+                </p>
+               <p class="text-center secciones_index">
+                <a href="#">Variables</a> | <a href="#">Indicadores</a> | <a href="#">Publicaciones</a>
+            </p>
         </div>
 
         <div class="col-md-6 blanco contacto">
@@ -45,6 +56,6 @@
                 {!! Html::image('images/firma_unlp.png', 'Universidad Nacional de La Plata')!!}
             </div>
         </div>
-
+ -->
     </section>
 @endsection
