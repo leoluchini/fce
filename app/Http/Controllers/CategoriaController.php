@@ -73,7 +73,7 @@ class CategoriaController extends Controller
 		}
 		catch(ModelNotFoundException $e)
 		{
-			\Session::flash('error', 'La categoria no exsiste.');
+			\Session::flash('error', 'La categoria no existe.');
 		}
 		return redirect('categorias');
 	}

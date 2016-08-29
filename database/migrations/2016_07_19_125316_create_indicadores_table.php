@@ -13,13 +13,13 @@ class CreateIndicadoresTable extends Migration
             $table->string('codigo');
             $table->string('nombre');
             $table->text('descripcion');
-            $table->integer('padre_id')->unsigned();
+            $table->integer('categoria_id')->unsigned();
             $table->integer('asociacion_rango_id')->unsigned();
             $table->timestamps();
             // claves foraneas
-            $table->foreign('padre_id')
+            $table->foreign('categoria_id')
                   ->references('id')
-                  ->on('indicadores');
+                  ->on('categorias_indicadores');
             $table->foreign('asociacion_rango_id')
                   ->references('id')
                   ->on('asociacion_rangos');

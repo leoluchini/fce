@@ -160,8 +160,10 @@ return [
 
         Collective\Html\HtmlServiceProvider::class,
         Bican\Roles\RolesServiceProvider::class,
+
+        'Laracasts\Flash\FlashServiceProvider',
+        Collective\Bus\BusServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
-        'Laracasts\Flash\FlashServiceProvider'
 
     ],
 
@@ -212,7 +214,7 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-
+        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
     ],
 
 ];
