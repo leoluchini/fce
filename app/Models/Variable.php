@@ -14,6 +14,8 @@ class Variable extends Model
 		{
 			return $instance;
 		}
-		return self::create($attributes);
+		$codigo = explode("_", $attributes['codigo']);
+		$categoria = CategoriaVariable::where('codigo',$codigo[0])->first();
+		return $categoria->variables()->create($attributes);
 	}
 }

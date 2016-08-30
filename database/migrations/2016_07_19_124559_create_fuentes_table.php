@@ -10,7 +10,7 @@ class CreateFuentesTable extends Migration
         Schema::create('fuentes', function(Blueprint $table)
         {
             $table->increments('id');
-            $table->string('sigla');
+            $table->string('codigo');
             $table->string('nombre');
             $table->text('descripcion')->nullable();
             $table->timestamps();

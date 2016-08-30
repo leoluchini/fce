@@ -5,9 +5,12 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
-use App\Models\ZonaGeografica;
+use App\Models\CategoriaVariable;
+use App\Models\Fuente;
+use App\Models\InformacionVariable;
 use App\Models\Variable;
 use App\Models\UnidadMedida;
+use App\Models\ZonaGeografica;
 
 class LecturaController extends Controller
 {
@@ -21,14 +24,52 @@ class LecturaController extends Controller
     {
         $csvFile = public_path().'/storage/carga.csv';
         $datos = csv_to_array($csvFile);
-        foreach ($datos['#Variables'] as $attributes){
-            $variable = Variable::firstOrCreate($attributes);
-        }
-        foreach ($datos['#Zonas'] as $attributes) {
-            $zona = ZonaGeografica::firstOrCreate($attributes);
-        }
-        foreach ($datos['#Unidades'] as $attributes){
-            $unidad = UnidadMedida::firstOrCreate($attributes);
+        $references = [];
+        if( sizeof( array_keys($datos) ) == 5 ) 
+            return "Faltan claves para definir la informacion";
+        try {
+            foreach ($datos['#Categorias'] as $attributes){
+                $object = CategoriaVariable::firstOrCreate($attributes);
+                $references[$object->codigo] = $object->id;
+                unset($object);
+            }
+            foreach ($datos['#Variables'] as $attributes){
+                $object = Variable::firstOrCreate($attributes);
+                $references[$object->codigo] = $object->id;
+                unset($object);
+            }
+            foreach ($datos['#Zonas'] as $attributes) {
+                $object = ZonaGeografica::firstOrCreate($attributes);
+                $references[$object->codigo] = $object->id;
+                unset($object);
+            }
+            foreach ($datos['#Unidades'] as $attributes){
+                $object = UnidadMedida::firstOrCreate($attributes);
+                $references[$object->codigo] = $object->id;
+                unset($object);
+            }
+            foreach ($datos['#Fuentes'] as $attributes) {
+                $object = Fuente::firstOrCreate($attributes);
+                $references[$object->codigo] = $object->id;
+                unset($object);
+            }
+            foreach ($datos['#Datos'] as $attributes) {
+                $attributes['variable_id'] = $references[$attributes['variable_id']];
+                $attributes['zona_id'] = $references[$attributes['zona_id']];
+                $attributes['fuente_id'] = $references[$attributes['fuente_id']];
+                $attributes['unidad_medida_id'] = $references[$attributes['unidad_medida_id']];
+                $attributes['frecuencia_id'] = 1;
+                InformacionVariable::create($attributes);
+            }
+        } catch (\Exception $e) {
+            //TODO analizar si borrar el lote
+            $message = $e->getMessage();
+            if (strpos($message, 'index') !== false) {
+               return "Error al procesar el indice ".explode(":", $message)[1]." revise que esté correctamente escrito y vuelva a intentarlo.";
+            }else{
+                return $message;
+            }   
+            
         }
     }
 

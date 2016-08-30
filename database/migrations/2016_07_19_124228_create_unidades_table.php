@@ -7,7 +7,7 @@ class CreateUnidadesTable extends Migration
 {
     public function up()
     {
-        Schema::create('unidad_medidas', function(Blueprint $table)
+        Schema::create('unidades_medida', function(Blueprint $table)
         {
             $table->increments('id');
             $table->string('codigo');
@@ -19,6 +19,6 @@ class CreateUnidadesTable extends Migration
 
     public function down()
     {
-        Schema::dropIfExists('unidad_medidas');
+        Schema::dropIfExists('unidades_medida');
     }
 }
