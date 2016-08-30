@@ -84,7 +84,7 @@ function archivos($fullpath,$url,$disposition)
         return redirect($url);
     }
 }
-function csv_to_array($filename='', $delimiter=',')
+function csv_to_array($filename='', $delimiter=';')
 {
     if(!file_exists($filename) || !is_readable($filename))
         return FALSE;
@@ -92,7 +92,7 @@ function csv_to_array($filename='', $delimiter=',')
     $result = array();
     if (($handle = fopen($filename, "r")) !== FALSE) {
         $header = "";
-        while (($data = fgetcsv($handle)) !== FALSE) {
+        while (($data = fgetcsv($handle,1000, $delimiter)) !== FALSE) {
             if( $data[0] != ""){
                 $result[$data[0]] = array();
                 $header = $data[0];
