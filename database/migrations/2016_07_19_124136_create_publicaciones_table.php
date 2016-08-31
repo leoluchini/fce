@@ -11,9 +11,9 @@ class CreatePublicacionesTable extends Migration
         {
             $table->increments('id');
             $table->string('nombre');
-            $table->text('descripcion');
+            $table->text('descripcion')->nullable();
             $table->string('archivo');
-            $table->text('palabras_clave');
+            $table->text('palabras_clave')->nullable();
             $table->integer('anio_publicacion');
             $table->integer('categoria_id')->unsigned();
             $table->integer('orden')->nullable();

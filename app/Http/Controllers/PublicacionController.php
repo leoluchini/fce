@@ -62,25 +62,26 @@ class PublicacionController extends Controller
 		$publicacion = Publicacion::create($input);
 
 		\Session::flash('noticia', 'Se creo la publicacion "'.$publicacion->nombre.'" correctamente en la categoria "'.$categoria->nombre.'"');
-		return redirect('publicaciones/'.$categoria_id);
+		return redirect('categoria/'.$categoria_id.'/publicaciones');
 	}
 
-	public function edit($id)
+	public function edit($categoria_id, $id)
 	{
 		try
 		{
 			$data['publicacion'] = Publicacion::findOrFail($id);
+			$data['categoria'] = Categoria::findOrFail($categoria_id);
 			$data['anios'] = array_combine(range(2015, date('Y')), range(2015, date('Y')));
 			return view('publicaciones.edit', $data);
 		}
 		catch(ModelNotFoundException $e)
 		{
 			\Session::flash('error', 'La publicacion no existe.');
-			return redirect('categorias');
+			return redirect('categoria/'.$categoria_id.'/publicaciones');
 		}
 	}
 
-	public function update($id, PublicacionRequest $request)
+	public function update($categoria_id, $id, PublicacionRequest $request)
 	{
 		try
 		{
@@ -93,13 +94,13 @@ class PublicacionController extends Controller
 		}
 		catch(ModelNotFoundException $e)
 		{
-			\Session::flash('error', 'La publicacion no existe no existe.');
-			return redirect('categorias');
+			\Session::flash('error', 'La publicacion no existe.');
+			return redirect('categoria/'.$categoria_id.'/publicaciones');
 		}
-		return redirect('publicaciones/'.$publicacion->categoria->id);
+		return redirect('categoria/'.$categoria_id.'/publicaciones');
 	}
 
-	public function destroy($id)
+	public function destroy($categoria_id, $id)
 	{
 		try
 		{
@@ -108,13 +109,13 @@ class PublicacionController extends Controller
 		catch(ModelNotFoundException $e)
 		{
 			\Session::flash('error', 'La publicacion no existe.');
-			return redirect('categorias');
+			return redirect('categoria/'.$categoria_id.'/publicaciones');
 		}
 		$publicacion->delete();
 
 		\Session::flash('noticia', 'La publicacion "'.$publicacion->nombre.'" fue eliminada con exito.');
 		
-		return redirect('publicaciones/'.$publicacion->categoria->id);
+		return redirect('categoria/'.$categoria_id.'/publicaciones');
 	}
 
 	public function ver_archivo($id)
