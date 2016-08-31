@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\LecturaRequest;
 
 use App\Http\Requests;
 use App\Models\CategoriaVariable;
+use App\Models\Frecuencia;
 use App\Models\Fuente;
 use App\Models\InformacionVariable;
 use App\Models\Variable;
@@ -22,6 +24,46 @@ class LecturaController extends Controller
     
     public function index()
     {
+
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        return view('lectura.create');
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(LecturaRequest $request)
+    {
+        if ($request->hasFile('file')) {
+            $request->file('file')->move(public_path('storage'), 'carga.csv');
+            $this->lectura();
+        }
+        redirect(route('lectura.index'));
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        //
+    }
+
+    private function lectura(){
         $csvFile = public_path().'/storage/carga.csv';
         $datos = csv_to_array($csvFile);
         $references = [];
@@ -58,7 +100,7 @@ class LecturaController extends Controller
                 $attributes['zona_id'] = $references[$attributes['zona_id']];
                 $attributes['fuente_id'] = $references[$attributes['fuente_id']];
                 $attributes['unidad_medida_id'] = $references[$attributes['unidad_medida_id']];
-                $attributes['frecuencia_id'] = 1;
+                $attributes['frecuencia_id'] = Frecuencia::where('codigo', $attributes['frecuencia_id'])->first()->id;
                 InformacionVariable::create($attributes);
             }
         } catch (\Exception $e) {
@@ -71,71 +113,5 @@ class LecturaController extends Controller
             }   
             
         }
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
     }
 }
