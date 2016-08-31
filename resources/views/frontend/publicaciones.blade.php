@@ -7,31 +7,7 @@
         <span class="icon-menu pull-left" id='hideshow'></span>
       </div>
 
-      <!-- MENU VERTICAL -->
-      <div id="Menu" style="display:none">
-        <center>
-          {!! Html::image('images/logo_menu.png', '', ['class'=>'logoFCE_menu'])!!}
-        </center>
-
-        <nav>
-          <ul>
-            <li><a href="#" class="text-right">Variables</a></li>
-            <li><a href="#" class="text-right">Indicadores</a></li>
-            <li><a href="{{action('PublicacionController@front')}}" class="text-right">Publicaciones</a></li>
-          </ul>
-         </nav>
-
-        <div class="blanco contacto_menu text-right col-xs-2">
-          <a href="#">
-            <h5>{!! Html::image('images/login.png', '', ['class'=>''])!!}
-            Login</h5>
-          </a>
-
-          <p class="footer_menu"><small>(+54 221)</small> 423-6769 / 71 / 72</p>
-          <p class="footer_menu">6 Nº 777 La Plata | Bs. As.</p>
-          <p class="footer_menu"><a href="">sie@econo.unlp.edu.ar</a></p>
-        </div>
-      </div><!-- FIN MENU VERTICAL -->
+      
 
       <div class="header_izquierda">
         <a href="http://www.econo.unlp.edu.ar/laboratorio" target="_blank">

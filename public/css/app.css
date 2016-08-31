@@ -203,3 +203,17 @@ nav ul li:hover  ul{
 .header_izquierda{
 margin-left: 50px
 }
+
+
+.dropdown-menu{
+	border: none;
+	box-shadow: none
+}
+
+.dropdown-menu>.active>a {
+	background-color: #555
+}
+
+.dropdown-menu>.active>a:hover {
+	background-color: #444
+}

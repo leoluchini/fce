@@ -38,3 +38,5 @@ Route::delete('zonas/{tipo}/{id}','ZonaGeograficaController@destroy');
 Route::get('zonas/{tipo}/{id}/edit','ZonaGeograficaController@edit');
 
 Route::get('frontend/publicaciones', 'PublicacionController@front');
+Route::get('frontend/variables', 'PublicoController@variables');
+Route::get('frontend/indicadores', 'PublicoController@indicadores');

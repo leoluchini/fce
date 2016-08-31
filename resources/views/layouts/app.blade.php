@@ -19,7 +19,8 @@
     <!-- Styles -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
     {!!Html::style('css/app.css')!!}
-
+    <!-- Accordion -->
+    <link href="{{ asset('css/accordion.css') }}" rel="stylesheet" type="text/css">
 
     <style>
         body {
@@ -36,6 +37,32 @@
 </head>
 <body id="app-layout">
    
+    <!-- MENU VERTICAL -->
+      <div id="Menu" style="display:none">
+        <center>
+          {!! Html::image('images/logo_menu.png', '', ['class'=>'logoFCE_menu'])!!}
+        </center>
+
+        <nav>
+          <ul>
+            <li><a href="{{action('PublicoController@variables')}}" class="text-right">Variables</a></li>
+            <li><a href="{{action('PublicoController@indicadores')}}" class="text-right">Indicadores</a></li>
+            <li><a href="{{action('PublicacionController@front')}}" class="text-right">Publicaciones</a></li>
+          </ul>
+         </nav>
+
+        <div class="blanco contacto_menu text-right col-xs-2">
+          <a href="#">
+            <h5>{!! Html::image('images/login.png', '', ['class'=>''])!!}
+            Login</h5>
+          </a>
+
+          <p class="footer_menu"><small>(+54 221)</small> 423-6769 / 71 / 72</p>
+          <p class="footer_menu">6 Nº 777 La Plata | Bs. As.</p>
+          <p class="footer_menu"><a href="">sie@econo.unlp.edu.ar</a></p>
+        </div>
+      </div><!-- FIN MENU VERTICAL -->
+   
     @yield('content')
            
     <!-- JavaScripts -->
@@ -44,6 +71,12 @@
     <script src="{{ asset('js/delete_data_link.js') }}"></script>
     <script src="{{ asset('js/file_inputs.js') }}"></script>
     <script src="{{ asset('js/menu.js') }}"></script>
+    <script src="{{ asset('js/accordion.js') }}"></script>
+    
+    
+    <link href="{{ asset('js//bootstrap-multiselect/css/bootstrap-multiselect.css') }}" rel="stylesheet" type="text/css">
+    <script src="{{ asset('js/bootstrap-multiselect/js/bootstrap-multiselect.js') }}"></script>
+    <script src="{{ asset('js/bootstrap_multiselect.js') }}"></script>
     @yield('scripts_adicionales')
 
 </body>
