@@ -103,6 +103,7 @@ class LecturaController extends Controller
                 $attributes['frecuencia_id'] = Frecuencia::where('codigo', $attributes['frecuencia_id'])->first()->id;
                 InformacionVariable::create($attributes);
             }
+            //TODO borrar archivo
         } catch (\Exception $e) {
             //TODO analizar si borrar el lote
             $message = $e->getMessage();
