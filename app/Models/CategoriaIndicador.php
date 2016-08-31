@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class CategoriaIndicador extends Model
 {
     protected $table = 'categorias_indicadores';
-	protected $fillable = ['codigo', 'nombre', 'descripcion'];
+	protected $fillable = ['codigo', 'nombre', 'descripcion', 'categoria_padre_id'];
 
 	public function categoria_padre()
 	{

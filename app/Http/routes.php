@@ -21,12 +21,13 @@ Route::get('/home', 'HomeController@index');
 
 Route::resource('categorias','CategoriaController');
 
-Route::get('publicaciones/{categoria}', 'PublicacionController@index');
+/*Route::get('publicaciones/{categoria}', 'PublicacionController@index');
 Route::get('publicaciones/{categoria}/create', 'PublicacionController@create');
 Route::get('publicaciones/{publicacion}/edit', 'PublicacionController@edit');
 Route::delete('publicaciones/{publicacion}', 'PublicacionController@destroy');
 Route::post('publicaciones/{categoria}', 'PublicacionController@store');
-Route::patch('publicaciones/{publicacion}', 'PublicacionController@update');
+Route::patch('publicaciones/{publicacion}', 'PublicacionController@update');*/
+Route::resource('categoria.publicaciones','PublicacionController');
 Route::get('publicaciones/ver_archivo/{publicacion}', 'PublicacionController@ver_archivo');
 Route::get('publicaciones/descargar_archivo/{publicacion}', 'PublicacionController@descargar_archivo');
 
@@ -40,3 +41,7 @@ Route::get('zonas/{tipo}/{id}/edit','ZonaGeograficaController@edit');
 Route::get('frontend/publicaciones', 'PublicacionController@front');
 Route::get('frontend/variables', 'PublicoController@variables');
 Route::get('frontend/indicadores', 'PublicoController@indicadores');
+
+Route::resource('categorias_variables','CategoriaVariableController');
+Route::get('categorias_variables/create_sub_categoria/{categoria}','CategoriaVariableController@create_sub');
+Route::resource('categoria.variables','VariableController');

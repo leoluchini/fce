@@ -12,7 +12,7 @@ class CreateCategoriasTable extends Migration
             $table->increments('id');
             $table->string('codigo');
             $table->string('nombre');
-            $table->text('descripcion');
+            $table->text('descripcion')->nullable();
             $table->timestamps();
         });
     }

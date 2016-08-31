@@ -12,7 +12,7 @@ class CreateCategoriaVariableTable extends Migration
             $table->increments('id');
             $table->string('codigo');
             $table->string('nombre');
-            $table->text('descripcion');
+            $table->text('descripcion')->nullable();
             $table->integer('categoria_padre_id')->unsigned()->nullable();
             $table->timestamps();
             // claves foraneas

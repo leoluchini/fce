@@ -7,11 +7,16 @@ use Illuminate\Database\Eloquent\Model;
 class CategoriaVariable extends Model
 {
     protected $table = 'categorias_variables';
-	protected $fillable = ['codigo', 'nombre', 'descripcion'];
+	protected $fillable = ['codigo', 'nombre', 'descripcion', 'categoria_padre_id'];
 
 	public function categoria_padre()
 	{
-		return $this->hasOne('App\Models\CategoriaVariable', 'categoria_padre_id');
+		return $this->belongsTo('App\Models\CategoriaVariable', 'categoria_padre_id', 'id');
+	}
+
+	public function subcategorias()
+	{
+		return $this->hasMany('App\Models\CategoriaVariable', 'categoria_padre_id', 'id');
 	}
 
 	public function variables()
