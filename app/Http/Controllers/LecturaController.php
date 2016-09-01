@@ -10,6 +10,7 @@ use App\Models\CategoriaVariable;
 use App\Models\Frecuencia;
 use App\Models\Fuente;
 use App\Models\InformacionVariable;
+use App\Models\Lote;
 use App\Models\Variable;
 use App\Models\UnidadMedida;
 use App\Models\ZonaGeografica;
@@ -24,7 +25,8 @@ class LecturaController extends Controller
     
     public function index()
     {
-
+        $lotes = Lote::all();
+        return view('lectura.index')->withLotes($lotes);
     }
 
     /**
@@ -47,9 +49,11 @@ class LecturaController extends Controller
     {
         if ($request->hasFile('file')) {
             $request->file('file')->move(public_path('storage'), 'carga.csv');
-            $this->lectura();
+            $lote = Lote::create();
+            //TODO analizar si pasarlo a JOBs
+            $this->lectura($lote);
         }
-        redirect(route('lectura.index'));
+        return redirect(route('lectura.show', $lote->id));
     }
 
     /**
@@ -60,10 +64,17 @@ class LecturaController extends Controller
      */
     public function show($id)
     {
-        //
+        $lote = Lote::findOrFail($id);
+        return view('lectura.show')->withLote($lote);
     }
 
-    private function lectura(){
+    public function delete($id){
+        $lote = Lote::findOrFail($id);
+        $lote->delete();
+         return redirect(route('lectura.index'));
+    }
+
+    private function lectura($lote){
         $csvFile = public_path().'/storage/carga.csv';
         $datos = csv_to_array($csvFile);
         $references = [];
@@ -71,31 +82,37 @@ class LecturaController extends Controller
             return "Faltan claves para definir la informacion";
         try {
             foreach ($datos['#Categorias'] as $attributes){
+                $attributes['lote_id'] = $lote->id;
                 $object = CategoriaVariable::firstOrCreate($attributes);
                 $references[$object->codigo] = $object->id;
                 unset($object);
             }
             foreach ($datos['#Variables'] as $attributes){
+                $attributes['lote_id'] = $lote->id;
                 $object = Variable::firstOrCreate($attributes);
                 $references[$object->codigo] = $object->id;
                 unset($object);
             }
             foreach ($datos['#Zonas'] as $attributes) {
+                $attributes['lote_id'] = $lote->id;
                 $object = ZonaGeografica::firstOrCreate($attributes);
                 $references[$object->codigo] = $object->id;
                 unset($object);
             }
             foreach ($datos['#Unidades'] as $attributes){
+                $attributes['lote_id'] = $lote->id;
                 $object = UnidadMedida::firstOrCreate($attributes);
                 $references[$object->codigo] = $object->id;
                 unset($object);
             }
             foreach ($datos['#Fuentes'] as $attributes) {
+                $attributes['lote_id'] = $lote->id;
                 $object = Fuente::firstOrCreate($attributes);
                 $references[$object->codigo] = $object->id;
                 unset($object);
             }
             foreach ($datos['#Datos'] as $attributes) {
+                $attributes['lote_id'] = $lote->id;
                 $attributes['variable_id'] = $references[$attributes['variable_id']];
                 $attributes['zona_id'] = $references[$attributes['zona_id']];
                 $attributes['fuente_id'] = $references[$attributes['fuente_id']];

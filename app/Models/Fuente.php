@@ -8,7 +8,7 @@ class Fuente extends Model
 {
     protected $table = 'fuentes';
 		
-		protected $fillable = ['codigo', 'nombre', 'descripcion'];
+		protected $fillable = ['codigo', 'nombre', 'descripcion', 'lote_id'];
 
 
 	  public static function firstOrCreate(array $attributes)

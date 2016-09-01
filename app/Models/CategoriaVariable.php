@@ -8,7 +8,7 @@ class CategoriaVariable extends Model
 {
   protected $table = 'categorias_variables';
 
-	protected $fillable = ['codigo', 'nombre', 'descripcion', 'categoria_padre_id'];
+	protected $fillable = ['codigo', 'nombre', 'descripcion', 'categoria_padre_id', 'lote_id'];
 	
 	public static function firstOrCreate(array $attributes)
 	{

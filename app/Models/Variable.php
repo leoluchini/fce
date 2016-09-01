@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Variable extends Model
 {
 	protected $table = 'variables';
-	protected $fillable = ['codigo', 'nombre', 'descripcion', 'categoria_id'];
+	protected $fillable = ['codigo', 'nombre', 'descripcion', 'categoria_id', 'lote_id'];
 
   public static function firstOrCreate(array $attributes)
 	{
@@ -18,7 +18,7 @@ class Variable extends Model
 		$codigo = explode("_", $attributes['codigo']);
 		$categoria = CategoriaVariable::where('codigo',$codigo[0])->first();
 		return $categoria->variables()->create($attributes);
-
+	}
 
 	public function asociacion_rango()
 	{

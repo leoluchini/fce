@@ -9,7 +9,7 @@ class ZonaGeografica extends Model
 {
     use SingleTableInheritanceTrait;
 
-    protected $fillable = ['codigo', 'nombre', 'zona_padre_id', 'descripcion'];
+    protected $fillable = ['codigo', 'nombre', 'zona_padre_id', 'descripcion', 'lote_id'];
 	
 	protected $table = "zonas_geograficas";
 
