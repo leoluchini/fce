@@ -144,8 +144,4 @@ class PublicacionController extends Controller
 		}
         descargar_pdf($publicacion->get_file_path(), 'publicaciones/'.$publicacion->categoria->id);
     }
-    public function front()
-		{
-				return view('frontend.publicaciones');
-		}
 }

@@ -53,56 +53,48 @@
   	<div class="row">
       	<div class="col-md-10 col-md-offset-1">
 
-          <ul class="nav nav-tabs nav-justified">
-              <li role="presentation" class="active"><a href="#">Productivas</a></li>
-              <li role="presentation"><a href="#">Sociales</a></li>
-              <li role="presentation"><a href="#">Demográficas</a></li>
-              <li role="presentation"><a href="#">Económicas</a></li>
+          <ul class="nav nav-tabs nav-justified" role="tablist">
+            <?php $tab_status = 'class="active"' ?>
+            @foreach($categorias as $categoria)
+              <li role="presentation" {{ $tab_status }}>
+                <a href="#publicaciones_{{$categoria->id}}" aria-controls="publicaciones_{{$categoria->id}}" role="tab" data-toggle="tab">{{$categoria->nombre}}</a>
+              </li>
+              <?php $tab_status = '' ?>
+            @endforeach
           </ul>
-
-    			<table class="tabla table-responsive table table-hover table-condensed">
-    			    <thead>
-    			        <tr>
-    			            <th><strong>Nombre</strong></p> </th>
-    			            <th><strong>Descripcion</strong></p> </th>
-    			            <th><strong>Año</strong></p> </th>
-    			            <th class="text-right"><p> <strong>Acciones</strong></p></th>
-    			        </tr>
-    			    </thead>
-    			    <tbody id="tabla-datos">
-    			        <tr>
-                    <td>una publicacion</td>
-                    <td>descripcion</td>
-                    <td>2016</td>
-                    <td class="text-right">
-                      <span class="icon-mail-1 pull-right"></span>
-                      <span class="icon-down-5 pull-right"></span>
-                    </td>
-                  </tr>
-
-                  <tr>
-                    <td>una publicacion</td>
-                    <td>descripcion</td>
-                    <td>2016</td>
-                    <td class="text-right">
-                      <span class="icon-mail-1 pull-right"></span>
-                      <span class="icon-down-5 pull-right"></span>
-                    </td>
-                  </tr>
-
-                   <tr>
-                    <td>una publicacion</td>
-                    <td>descripcion</td>
-                    <td>2016</td>
-                    <td class="text-right">
-                      <span class="icon-mail-1 pull-right"></span>
-                      <span class="icon-down-5 pull-right"></span>
-                    </td>
-                  </tr>
-    			    </tbody>
-    			</table>
-  		</div>
-  	</div>
+          <div class="tab-content">
+            <?php $panel_status = 'active' ?>
+            @foreach($categorias as $categoria)
+            <div role="tabpanel" class="tab-pane {{$panel_status}}" id="publicaciones_{{$categoria->id}}">
+              <table class="tabla table-responsive table table-hover table-condensed">
+                  <thead>
+                      <tr>
+                          <th><strong>Nombre</strong></p> </th>
+                          <th><strong>Descripcion</strong></p> </th>
+                          <th><strong>Año</strong></p> </th>
+                          <th class="text-right"><p> <strong>Acciones</strong></p></th>
+                      </tr>
+                  </thead>
+                  <tbody id="tabla-datos">
+                      @foreach($categoria->publicaciones as $publicacion)
+                      <tr>
+                        <td>{{$publicacion->nombre}}</td>
+                        <td>{{$publicacion->descripcion}}</td>
+                        <td>{{$publicacion->anio_publicacion}}</td>
+                        <td class="text-right">
+                          <span class="icon-book-open pull-right"></span>
+                          <span class="icon-down-5 pull-right"></span>
+                        </td>
+                      </tr>
+                      @endforeach
+                  </tbody>
+              </table>
+            </div>
+            <?php $panel_status = '' ?>
+            @endforeach
+          </div>
+      </div>
+    </div>
 
 
     </div>

@@ -47,7 +47,7 @@
           <ul>
             <li><a href="{{action('PublicoController@variables')}}" class="text-right">Variables</a></li>
             <li><a href="{{action('PublicoController@indicadores')}}" class="text-right">Indicadores</a></li>
-            <li><a href="{{action('PublicacionController@front')}}" class="text-right">Publicaciones</a></li>
+            <li><a href="{{action('PublicoController@publicaciones')}}" class="text-right">Publicaciones</a></li>
           </ul>
          </nav>
 
