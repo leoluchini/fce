@@ -10,6 +10,6 @@ class Pais extends ZonaGeografica
 
     public function provincias()
     {
-        return $this->hasMany('App\Models\Provincia');
+        return $this->hasMany('App\Models\Provincia','zona_padre_id', 'id');
     }
 }

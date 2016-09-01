@@ -19,6 +19,7 @@ Route::auth();
 
 Route::get('/home', 'HomeController@index');
 
+Route::resource('lectura', 'LecturaController');
 Route::resource('categorias','CategoriaController');
 
 /*Route::get('publicaciones/{categoria}', 'PublicacionController@index');

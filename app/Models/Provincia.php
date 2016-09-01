@@ -15,6 +15,6 @@ class Provincia extends ZonaGeografica
 
     public function municipios()
     {
-        return $this->hasMany('App\Models\Municipio');
+        return $this->hasMany('App\Models\Municipio','zona_padre_id', 'id');
     }
 }

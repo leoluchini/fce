@@ -4,8 +4,13 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
+<<<<<<< HEAD
+    "hash": "37d97e3cfd3be2fdfd6677350ea50e86",
+    "content-hash": "4d2abce657e9a2c2e5b322be0d07abbb",
+=======
     "hash": "b1d792345ee2d8c730dfbba0a9ef4d6a",
     "content-hash": "ff7e0eb89c9d48737194b4b2f9d2d53c",
+>>>>>>> master
     "packages": [
         {
             "name": "bican/roles",
@@ -396,6 +401,18 @@
         },
         {
             "name": "laravel/framework",
+<<<<<<< HEAD
+            "version": "v5.2.43",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/laravel/framework.git",
+                "reference": "5490b8f00564bb60839002f86828e27edd1e5610"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/5490b8f00564bb60839002f86828e27edd1e5610",
+                "reference": "5490b8f00564bb60839002f86828e27edd1e5610",
+=======
             "version": "v5.2.44",
             "source": {
                 "type": "git",
@@ -406,6 +423,7 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/laravel/framework/zipball/f24b7acfb494437ef00bdd062bed61eb21535546",
                 "reference": "f24b7acfb494437ef00bdd062bed61eb21535546",
+>>>>>>> master
                 "shasum": ""
             },
             "require": {
@@ -522,6 +540,9 @@
                 "framework",
                 "laravel"
             ],
+<<<<<<< HEAD
+            "time": "2016-08-10 12:23:59"
+=======
             "time": "2016-08-23 13:03:29"
         },
         {
@@ -568,6 +589,7 @@
             "description": "The Laravel Bus (5.1) package for use in Laravel 5.2.",
             "homepage": "http://laravelcollective.com",
             "time": "2015-12-23 07:43:33"
+>>>>>>> master
         },
         {
             "name": "laravelcollective/html",

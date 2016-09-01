@@ -6,8 +6,19 @@ use Illuminate\Database\Eloquent\Model;
 
 class Variable extends Model
 {
-    protected $table = 'variables';
-	protected $fillable = ['codigo', 'nombre', 'descripcion', 'categoria_id'];
+	protected $table = 'variables';
+	protected $fillable = ['codigo', 'nombre', 'descripcion', 'categoria_id', 'lote_id'];
+
+  public static function firstOrCreate(array $attributes)
+	{
+		if ( ! is_null($instance = self::where('codigo',$attributes['codigo'])->first()))
+		{
+			return $instance;
+		}
+		$codigo = explode("_", $attributes['codigo']);
+		$categoria = CategoriaVariable::where('codigo',$codigo[0])->first();
+		return $categoria->variables()->create($attributes);
+	}
 
 	public function asociacion_rango()
 	{
@@ -16,7 +27,7 @@ class Variable extends Model
 
 	public function datos()
 	{
-		return $this->hasMany('App\Models\InformacionVAriable', 'variable_id');
+		return $this->hasMany('App\Models\InformacionVariable', 'variable_id');
 	}
 
 	public function categoria()

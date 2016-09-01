@@ -12,6 +12,6 @@ class PaisesTableSeeder extends Seeder
      */
     public function run()
     {
-        Pais::create(['codigo'=> 1, 'nombre' => 'Argentina']);
+        Pais::create(['codigo'=> "AR00000", 'nombre' => 'Argentina']);
     }
 }

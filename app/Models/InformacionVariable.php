@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class InformacionVariable extends Model
 {
     protected $table = 'informacion_variables';
-	protected $fillable = ['anio', 'valor'];
+	protected $fillable = ['anio', 'valor','variable_id', 'zona_id', 'unidad_medida_id', 'fuente_id', 'frecuencia_id', 'lote_id'];
 
 	public function variable()
 	{
