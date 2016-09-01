@@ -58,9 +58,11 @@ a:hover, a:focus {text-decoration: none;} {	text-decoration: none}
 /*BOTTOM*/
 .bottom{
 	min-height: 50%;
+	width: 100%;
 	/*background: url('../images/fondo-variables.jpg');*/
     /*background-repeat: no-repeat;*/
-    background-color: red;
+  position: fixed;
+  bottom: 0px
 }
 
 .bottom img {
@@ -87,19 +89,21 @@ a:hover, a:focus {text-decoration: none;} {	text-decoration: none}
 	padding-top: 25px;
 	font-size: 3em;
 	color: #fff;
+	text-shadow: 2px 2px 12px rgba(0,0,0,1);
 }
 
 .secciones_index{
 	font-size: 1.7em;
 	text-decoration: none;
 	color: #fff;
+	text-shadow: 2px 2px 12px rgba(0,0,0,1);
 }
 
 		.secciones_index a {color: white}
 		.secciones_index a:visited {color: white}
 		.secciones_index a:focus {color: #00555f}
-		.secciones_index a:hover {color: green}
-		.secciones_index a:active {color: orange}
+		.secciones_index a:hover {color: #00555f}
+		.secciones_index a:active {color: white}
 
 
 

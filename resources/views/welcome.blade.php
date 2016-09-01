@@ -18,24 +18,42 @@
     </section>
 
 
-    <section class="bottom">
-        <!-- .carousel -->
-        <div id="carouselPortada" class="carousel slide" data-ride="carousel">
-          <div class="carousel-inner" role="listbox">
+    <header id="myCarousel" class="carousel slide" style="height:50%">
+        <!-- Indicators -->
+        <!-- <ol class="carousel-indicators">
+            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+            <li data-target="#myCarousel" data-slide-to="1"></li>
+            <li data-target="#myCarousel" data-slide-to="2"></li>
+        </ol> -->
+
+        <!-- Wrapper for Slides -->
+        <div class="carousel-inner">
             <div class="item active">
-              {{ Html::image('images/fondo-variables.jpg') }}
+                <!-- Set the first background image using inline CSS below. -->
+                <div class="fill" style="background-image:url('{{asset('images/fondo-variables.jpg')}}');"></div>
+                <!--<div class="carousel-caption">
+                    <h2>Variables</h2>
+                </div>-->
             </div>
             <div class="item">
-              {{ Html::image('images/fondo-indicadores.jpg') }}
+                <!-- Set the second background image using inline CSS below. -->
+                <div class="fill" style="background-image:url('{{asset('images/fondo-indicadores.jpg')}}');"></div>
+                <!--<div class="carousel-caption">
+                    <h2>Caption 2</h2>
+                </div>-->
             </div>
             <div class="item">
-              {{ Html::image('images/fondo-publicaciones.jpg') }}
+                <!-- Set the third background image using inline CSS below. -->
+                <div class="fill" style="background-image:url('{{asset('images/fondo-publicaciones.jpg')}}');"></div>
+                <!--<div class="carousel-caption">
+                    <h2>Caption 3</h2>
+                </div>-->
             </div>
-          </div>
-        </div><!-- /.carousel -->
-
-
-      <!--   <div clas="col-xs-12">
+        </div>
+    </header>
+    
+    <section class="bottom">
+        <div clas="col-xs-12">
                 <p class="text-center titulo_index">
                     Sistema de información económica
                 </p>
@@ -56,6 +74,19 @@
                 {!! Html::image('images/firma_unlp.png', 'Universidad Nacional de La Plata')!!}
             </div>
         </div>
- -->
+ 
+
     </section>
+
+
+@endsection
+@section('scripts_adicionales')
+    <link href="{{ asset('startbootstrap-full-slider/css/full-slider.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ asset('startbootstrap-full-slider/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css">
+    <script src="{{ asset('startbootstrap-full-slider/js/bootstrap.min.js') }}"></script>
+    <script>
+    $('.carousel').carousel({
+        interval: 5000 //changes the speed
+    })
+    </script>
 @endsection
