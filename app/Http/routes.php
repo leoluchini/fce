@@ -28,7 +28,7 @@ Route::get('publicaciones/descargar_archivo/{publicacion}', 'PublicacionControll
 
 Route::resource('unidades','UnidadController');
 Route::resource('frecuencias','FrecuenciaController');
-Route::resource('fuentes','FuenteController');
+Route::resource('fuentes_informacion','FuenteController');
 Route::resource('zonas','ZonaGeograficaController', ['except' => ['destroy', 'edit']]);
 Route::delete('zonas/{tipo}/{id}','ZonaGeograficaController@destroy');
 Route::get('zonas/{tipo}/{id}/edit','ZonaGeograficaController@edit');
@@ -40,3 +40,5 @@ Route::get('frontend/indicadores', 'PublicoController@indicadores');
 Route::resource('categorias_variables','CategoriaVariableController');
 Route::get('categorias_variables/create_sub_categoria/{categoria}','CategoriaVariableController@create_sub');
 Route::resource('categoria.variables','VariableController');
+
+Route::get('backend', 'AdministracionController@index');

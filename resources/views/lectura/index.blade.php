@@ -26,7 +26,7 @@
 						<td>{!! $lote->created_at !!}</td>
 						<td>
 							<a class="btn btn-link btn-xs" data-toggle="tooltip" data-placement="top" title="Ver" href="{{ route('lectura.show', $lote->id)}}"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>
-							<a class="btn btn-link btn-xs confirm-delete" data-toggle="tooltip" data-placement="top" title="Borrar" href="{{ route('lectura.destroy', $lote->id)}}"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+							<a class="btn btn-link btn-xs confirm-delete" data-toggle="tooltip" data-placement="top" title="Borrar" href="{{ route('lectura.destroy', $lote->id)}}" data-method="delete" data-title="Eliminar Lote" data-confirm="¿Estas seguro que desea eliminar los datos del lote '{{$lote->id}}' ?"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
 							</td>
 					</tr>
 					@endforeach

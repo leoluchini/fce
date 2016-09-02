@@ -28,7 +28,7 @@ class FuenteController extends Controller
 		$fuente = Fuente::create($input);
 
 		\Session::flash('noticia', 'La fuente "'.$fuente->nombre.'" fue creada con exito.');
-		return redirect('fuentes');
+		return redirect('fuentes_informacion');
 	}
 
 	public function edit($id)
@@ -41,7 +41,7 @@ class FuenteController extends Controller
 		catch(ModelNotFoundException $e)
 		{
 			\Session::flash('error', 'La fuente no existe.');
-			return redirect('fuentes');
+			return redirect('fuentes_informacion');
 		}
 	}
 
@@ -60,7 +60,7 @@ class FuenteController extends Controller
 		{
 			\Session::flash('error', 'La fuente no existe.');
 		}
-		return redirect('fuentes');
+		return redirect('fuentes_informacion');
 	}
 
 	public function destroy($id)
@@ -75,6 +75,6 @@ class FuenteController extends Controller
 		{
 			\Session::flash('error', 'La fuente no existe.');
 		}
-		return redirect('fuentes');
+		return redirect('fuentes_informacion');
 	}
 }

@@ -68,7 +68,7 @@ class LecturaController extends Controller
         return view('lectura.show')->withLote($lote);
     }
 
-    public function delete($id){
+    public function destroy($id){
         $lote = Lote::findOrFail($id);
         $lote->delete();
          return redirect(route('lectura.index'));
