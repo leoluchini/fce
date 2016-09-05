@@ -58,7 +58,7 @@
                     Sistema de información económica
                 </p>
                <p class="text-center secciones_index">
-                <a href="#">Variables</a> | <a href="#">Indicadores</a> | <a href="#">Publicaciones</a>
+                <a href="{{action('PublicoController@variables')}}">Variables</a> | <a href="{{action('PublicoController@indicadores')}}">Indicadores</a> | <a href="{{action('PublicoController@publicaciones')}}">Publicaciones</a>
             </p>
         </div>
 

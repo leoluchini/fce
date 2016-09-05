@@ -1,7 +1,7 @@
-@extends('layouts.app')
+@extends('layouts.app_back')
 
 @section('content')
-	<div class='page-header'>
+	<div class='container'>
 	  <div class='btn-toolbar pull-right'>
 	    <div class='btn-group'>
 	      <a href="{{ route('lectura.create')}}" class='btn btn-primary'></span>Nueva lectura</a>

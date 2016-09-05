@@ -1,29 +1,5 @@
 @extends('layouts.app_back')
 
-<div class="col-xs-12 header_frontend">
-  <div class="row">
-    <div class="col-xs-6 row">
-      <div class="icon_menu">
-        <a href="{{action('AdministracionController@index')}}"><span class="icon-book pull-left" id='hideshow'></span></a>
-      </div>
-      <div class="header_izquierda">
-        <a href="http://www.econo.unlp.edu.ar/laboratorio" target="_blank">
-         {!! Html::image('images/menu_horizontal_LAB.png', 'Laboratorio de Desarrollo Sectorial y Territorial', ['class'=>''])!!}
-        </a>
-        <a href="http://www.econo.unlp.edu.ar" target="_blank" class="border_left">
-          {!! Html::image('images/menu_horizontal_FCE.png', 'Facultad de Ciencias Econ&oacute;micas', ['class'=>''])!!}
-        </a>
-      </div>
-    </div>
-
-    <div class="col-xs-6 row pull-right">
-      <a href="http://www.econo.unlp.edu.ar/laboratorio" target="_blank">
-       {!! Html::image('images/menu_horizontal_UNLP.png', 'Laboratorio de Desarrollo Sectorial y Territorial', ['class'=>'pull-right'])!!}
-      </a>
-    </div>
-  </div>
-</div>
-
 @section('content')
 <div class="container">
   <div class="page-header">
@@ -43,7 +19,71 @@
     </div>
   </div>
   <div class="page-body">
-  	<div class="row">
+    <div class="container">
+    <div class="row">
+
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <a href="{{action('LecturaController@index')}}">
+              <h2><span class="icon-upload"></span></h2>
+              <h3>Subir Informacion de Variables</h3>
+            </a>
+        </div>
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <a href="{{action('CategoriaVariableController@index')}}">
+              <h2><span class="icon-share-squared"></span></h2>
+              <h3>Arbol de Variables</h3>
+            </a>
+        </div>
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <a href="#">
+              <h2><span class="icon-upload-cloud"></span></h2>
+              <h3>Subir Informacion de Indicadores</h3>
+            </a>
+        </div>
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <a href="#">
+              <h2><span class="icon-th"></span></h2>
+              <h3>Arbol de Indicadores</h3>
+            </a>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <a href="{{action('FrecuenciaController@index')}}">
+              <h2><span class="icon-calendar"></span></h2>
+              <h3>Frecuencias</h3>
+            </a>
+        </div>
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <a href="{{action('FuenteController@index')}}">
+              <h2><span class="icon-archive"></span></h2>
+              <h3>Fuentes</h3>
+            </a>
+        </div>
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <a href="{{action('UnidadController@index')}}">
+              <h2><span class="icon-temperatire"></span></h2>
+              <h3>Unidades</h3>
+            </a>
+        </div>
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <a href="{{action('ZonaGeograficaController@index')}}">
+              <h2><span class="icon-globe"></span></h2>
+              <h3>Zonas Geograficas</h3>
+            </a>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4 col-sm-6 col-xs-12 col-md-offset-4">
+            <a href="{{action('CategoriaController@index')}}">
+              <h2><span class="icon-newspaper"></span></h2>
+              <h3>Categorias y Publicaciones</h3>
+            </a>
+        </div>
+      </div>
+
+    </div>
+  	<!--<div class="row">
       	<div class="col-md-10 col-md-offset-1">
           <div class="row">
             <div class="col-md-4">
@@ -77,7 +117,7 @@
             </div>
           </div>
         </div>
-    </div>
+    </div>-->
   </div>
 </div>
 </div>
