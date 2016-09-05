@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.app_back')
 
 @section('content')
 @include('publicaciones.form',['metodo' => 'PATCH',

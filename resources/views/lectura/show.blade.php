@@ -1,7 +1,7 @@
-@extends('layouts.app')
+@extends('layouts.app_back')
 
 @section('content')
-	<div class='page-header'>
+	<div class='container'>
 	  <div class='btn-toolbar pull-right'>
 	    <div class='btn-group'>
 	      <a href="{{ route('lectura.destroy', $lote->id)}}" class='btn btn-danger' data-method="delete" data-title="Eliminar Lote" data-confirm="¿Estas seguro que desea eliminar los datos del lote '{{$lote->id}}' ?"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Borrar lote</a>

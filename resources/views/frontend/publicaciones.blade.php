@@ -82,8 +82,8 @@
                         <td>{{$publicacion->descripcion}}</td>
                         <td>{{$publicacion->anio_publicacion}}</td>
                         <td class="text-right">
-                          <span class="icon-book-open pull-right"></span>
-                          <span class="icon-down-5 pull-right"></span>
+                          <a href="{{ action('PublicacionController@ver_archivo', [$publicacion->id]) }}" target="_blank"><span class="icon-book-open pull-right"></span></a>
+                          <a href="{{ action('PublicacionController@descargar_archivo', [$publicacion->id]) }}"><span class="icon-down-5 pull-right"></span></a>
                         </td>
                       </tr>
                       @endforeach

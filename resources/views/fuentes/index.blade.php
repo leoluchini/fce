@@ -1,7 +1,7 @@
-@extends('layouts.app')
+@extends('layouts.app_back')
 
 @section('content')
-<div class="page-header">
+<div class="container">
   <div class="row">
     <div class="col-md-5 col-md-offset-1"> 
       <div class=" pull-left"> 
