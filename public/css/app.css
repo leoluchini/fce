@@ -195,10 +195,10 @@ nav ul li:hover  ul{
 
 .contacto_menu {
 		background-color: rgba(0,0,0,0.5);
-		padding: 10px; 
+		padding: 10px 22px 10px; 
     position: fixed !important;
-    bottom: 10px;
-    left: -37px;
+    bottom: 0px;
+    left: -8px;
     z-index: 2
 }
 

@@ -52,8 +52,8 @@
 
         <div class="blanco contacto_menu text-right col-xs-2">
           <a href="#">
-            <h5>{!! Html::image('images/login.png', '', ['class'=>''])!!}
-            Login</h5>
+            <h4>{!! Html::image('images/login.png', '', ['class'=>''])!!}
+            Login</h4>
           </a>
 
           <p class="footer_menu"><small>(+54 221)</small> 423-6769 / 71 / 72</p>

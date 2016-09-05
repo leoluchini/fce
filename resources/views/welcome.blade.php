@@ -64,7 +64,7 @@
 
         <div class="blanco contacto_menu text-right col-xs-2">
           <a href="#">
-            <h5>Login</h5>
+            <h4>Login</h4>
           </a>
 
           <p class="footer_menu"><small>(+54 221)</small> 423-6769 / 71 / 72</p>
