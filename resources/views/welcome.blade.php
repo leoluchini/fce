@@ -58,17 +58,21 @@
                     Sistema de información económica
                 </p>
                <p class="text-center secciones_index">
-                <a href="#">Variables</a> | <a href="#">Indicadores</a> | <a href="#">Publicaciones</a>
+                <a href="{{action('PublicoController@variables')}}">Variables</a> | <a href="{{action('PublicoController@indicadores')}}">Indicadores</a> | <a href="{{action('PublicoController@publicaciones')}}">Publicaciones</a>
             </p>
         </div>
 
-        <div class="col-md-6 blanco contacto">
-            <a href="#"><h3>Login</h3></a>
-            <p>+54 221 423-6769/71/72</p>
-            <p>6 Nº 777</p>
-            <p>La Plata | Bs. As.</p>
-            <p>agustin.lodola@econo.unlp.edu.ar</p>
+        <div class="blanco contacto_menu text-right col-xs-2">
+          <a href="#">
+            <h5>Login</h5>
+          </a>
+
+          <p class="footer_menu"><small>(+54 221)</small> 423-6769 / 71 / 72</p>
+          <p class="footer_menu">6 Nº 777 La Plata | Bs. As.</p>
+          <p class="footer_menu"><a href="">sie@econo.unlp.edu.ar</a></p>
         </div>
+
+
         <div class="col-md-6 blanco">
             <div class="pull-right">
                 {!! Html::image('images/firma_unlp.png', 'Universidad Nacional de La Plata')!!}

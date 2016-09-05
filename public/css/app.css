@@ -100,10 +100,10 @@ a:hover, a:focus {text-decoration: none;} {	text-decoration: none}
 }
 
 		.secciones_index a {color: white}
-		.secciones_index a:visited {color: white}
-		.secciones_index a:focus {color: #00555f}
-		.secciones_index a:hover {color: #00555f}
-		.secciones_index a:active {color: white}
+		.secciones_index a:visited {color: white; text-decoration: none}
+		.secciones_index a:focus {color: #00555f; text-decoration: none}
+		.secciones_index a:hover {color: #00555f; text-decoration: none}
+		.secciones_index a:active {color: white; text-decoration: none}
 
 
 
@@ -194,9 +194,12 @@ nav ul li:hover  ul{
 }
 
 .contacto_menu {
-    position: fixed;
+		background-color: rgba(0,0,0,0.5);
+		padding: 10px; 
+    position: fixed !important;
     bottom: 10px;
-    left: -37px
+    left: -37px;
+    z-index: 2
 }
 
 
