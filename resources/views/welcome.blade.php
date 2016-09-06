@@ -63,9 +63,7 @@
         </div>
 
         <div class="blanco contacto_menu text-right col-xs-2">
-          <a href="#">
-            <h4>Login</h4>
-          </a>
+          @include('auth.dropdown_login')
 
           <p class="footer_menu"><small>(+54 221)</small> 423-6769 / 71 / 72</p>
           <p class="footer_menu">6 Nº 777 La Plata | Bs. As.</p>
@@ -86,8 +84,6 @@
 @endsection
 @section('scripts_adicionales')
     <link href="{{ asset('startbootstrap-full-slider/css/full-slider.css') }}" rel="stylesheet" type="text/css">
-    <link href="{{ asset('startbootstrap-full-slider/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css">
-    <script src="{{ asset('startbootstrap-full-slider/js/bootstrap.min.js') }}"></script>
     <script>
     $('.carousel').carousel({
         interval: 5000 //changes the speed

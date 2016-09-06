@@ -15,21 +15,14 @@
     <!-- Glypicons FONTELLO -->
     <link href="{{ asset('fontello/css/fontello.css') }}" rel="stylesheet" type="text/css">
 
+    <link href="{{ asset('js/bootstrap-multiselect/css/bootstrap-multiselect.css') }}" rel="stylesheet" type="text/css">
+
     <!-- Styles -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
     {!!Html::style('css/app.css')!!}
     <!-- Accordion -->
     <link href="{{ asset('css/accordion.css') }}" rel="stylesheet" type="text/css">
 
-    <style>
-        body {
-            font-family: 'Lato';
-        }
-
-        .fa-btn {
-            margin-right: 6px;
-        }
-    </style>
     <script>
         window.csrfToken = '{{ csrf_token() }}';
     </script>
@@ -51,10 +44,7 @@
          </nav>
 
         <div class="blanco contacto_menu text-right col-xs-2">
-          <a href="#">
-            <h4>{!! Html::image('images/login.png', '', ['class'=>''])!!}
-            Login</h4>
-          </a>
+          @include('auth.dropdown_login')
 
           <p class="footer_menu"><small>(+54 221)</small> 423-6769 / 71 / 72</p>
           <p class="footer_menu">6 Nº 777 La Plata | Bs. As.</p>
@@ -72,8 +62,6 @@
     <script src="{{ asset('js/menu.js') }}"></script>
     <script src="{{ asset('js/accordion.js') }}"></script>
     
-    
-    <link href="{{ asset('js/bootstrap-multiselect/css/bootstrap-multiselect.css') }}" rel="stylesheet" type="text/css">
     <script src="{{ asset('js/bootstrap-multiselect/js/bootstrap-multiselect.js') }}"></script>
     <script src="{{ asset('js/bootstrap_multiselect.js') }}"></script>
     @yield('scripts_adicionales')
