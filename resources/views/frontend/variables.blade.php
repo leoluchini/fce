@@ -67,20 +67,18 @@
                       <p class="titulos_accordion">Variables</p>
                        <div class="list-group list-plan">
                         <select 
-                          id="municipio" 
-                          name="municipio[]" 
+                          id="variable" 
+                          name="variable[]" 
                           multiple="multiple" 
-                          class="bootstrapmultiselect" 
-                          data-numeropaso="link_paso2"
+                          class="bootstrapmultiselect_unfold" 
                           data-nonselectedsext="Escoja las variables que le interesen"
                           data-allselectedtext="Todas las variables escogidas"
                           data-nselectedtext=" varibles escogidas" 
-                          data-height="250"
-                          data-maxheight="250">
-                            <option value="1" >Ringo</option>
-                            <option value="2" >Jhon</option>
-                            <option value="3" >Paul</option>
-                            <option value="4" >George</option>
+                          data-height="300"
+                          data-maxheight="300">
+                          @foreach($variables as $variable)
+                            <option value="{{$variable->id}}" >{{$variable->nombre}}</option>
+                          @endforeach
                         </select>
                       </div>
                     </div>
@@ -97,23 +95,55 @@
                         {{ HTML::image('images/ajax-loader.gif') }}
                       </div>
                       <div class="list-group list-plan">
+                        <div class="btn-group" data-toggle="buttons">
+                          <label class="btn btn-default active">
+                            <input type="radio" name="tipo_zona" id="option1" value="pais" autocomplete="off" checked> Paises
+                          </label>
+                          <label class="btn btn-default">
+                            <input type="radio" name="tipo_zona" id="option2" value="provincia" autocomplete="off"> Provincias
+                          </label>
+                          <label class="btn btn-default">
+                            <input type="radio" name="tipo_zona" id="option3" value="municipio" autocomplete="off"> Municipios
+                          </label>
+                        </div>
+                      </div>
+                      <div id="pais" class="list-group list-plan">
                         <select 
-                          id="municipio" 
-                          name="municipio[]" 
+                          id="paises" 
+                          name="paises[]" 
                           multiple="multiple" 
-                          class="bootstrapmultiselect" 
-                          data-numeropaso="link_paso2"
-                          data-nonselectedsext="Escoja las regiones donde le interesa consultar"
-                          data-allselectedtext="Todas las variables escogidas"
-                          data-nselectedtext=" varibles escogidas" 
-                          data-height="250"
-                          data-maxheight="250">
-                            <option value="1" >La rioja</option>
-                            <option value="2" >Chubut </option>
-                            <option value="3" >La Pampa</option>
-                            <option value="4" >Rio Negro</option>
-                            <option value="4" >Buenos Aires</option>
-                            <option value="4" >Misiones</option>
+                          class="bootstrapmultiselect_unfold" 
+                          data-height="300"
+                          data-maxheight="300">
+                            @foreach($paises as $zona)
+                              <option value="{{$zona->id}}" >{{$zona->nombre}}</option>
+                            @endforeach
+                        </select>
+                      </div>
+                      <div id="provincia" class="list-group list-plan" style="display:none">
+                        <select 
+                          id="provincias" 
+                          name="provincias[]" 
+                          multiple="multiple" 
+                          class="bootstrapmultiselect_unfold" 
+                          data-height="300"
+                          data-maxheight="300">
+                            @foreach($provincias as $zona)
+                              <option value="{{$zona->id}}" >{{$zona->nombre}}</option>
+                            @endforeach
+                        </select>
+                      </div>
+                      <div id="municipio" class="list-group list-plan" style="display:none">
+                        <select 
+                          id="municipios" 
+                          name="municipios[]" 
+                          multiple="multiple" 
+                          class="bootstrapmultiselect_unfold" 
+                          data-height="300"
+                          data-maxheight="300">
+                            @foreach($municipios as $zona)
+                              <option value="{{$zona->id}}" >{{$zona->nombre}}</option>
+                            @endforeach
                         </select>
                       </div>
                     </div>
@@ -131,22 +161,18 @@
                       </div>
                       <div class="list-group list-plan">
                         <select 
-                          id="municipio" 
-                          name="municipio[]" 
+                          id="periodo" 
+                          name="periodo[]" 
                           multiple="multiple" 
-                          class="bootstrapmultiselect" 
-                          data-numeropaso="link_paso2"
+                          class="bootstrapmultiselect_unfold" 
                           data-nonselectedsext="Escoja el período que le interese"
                           data-allselectedtext="Todas las variables escogidas"
                           data-nselectedtext=" varibles escogidas" 
-                          data-height="250"
-                          data-maxheight="250">
-                            <option value="1" >2000</option>
-                            <option value="2" >2001</option>
-                            <option value="3" >2002</option>
-                            <option value="4" >2003</option>
-                            <option value="4" >2004</option>
-                            <option value="4" >2005</option>
+                          data-height="300"
+                          data-maxheight="300">
+                            @foreach($periodos as $periodo)
+                              <option value="{{$periodo}}" >{{$periodo}}</option>
+                            @endforeach
                         </select>
                       </div>
                     </div>
@@ -162,22 +188,59 @@
                       <div class="loading hide">
                         {{ HTML::image('images/ajax-loader.gif') }}
                       </div>
-                      <div class="list-plan">
+                      <div class="list-group list-plan">
+                        <div class="btn-group" data-toggle="buttons">
+                          <label class="btn btn-default active">
+                            <input type="radio" name="tipo_frecuencia" id="option1" value="anual" autocomplete="off" checked> Anual
+                          </label>
+                          <label class="btn btn-default">
+                            <input type="radio" name="tipo_frecuencia" id="option2" value="semestral" autocomplete="off"> Semestral
+                          </label>
+                          <label class="btn btn-default">
+                            <input type="radio" name="tipo_frecuencia" id="option3" value="trimestral" autocomplete="off"> Trimestral
+                          </label>
+                          <label class="btn btn-default">
+                            <input type="radio" name="tipo_frecuencia" id="option4" value="mensual" autocomplete="off"> Mensual
+                          </label>
+                        </div>
+                      </div>
+                      <div id="semestral" class="list-plan" style="display:none">
                         <select 
-                          id="municipio" 
-                          name="municipio[]" 
+                          id="semestre" 
+                          name="semestre[]" 
                           multiple="multiple" 
-                          class="bootstrapmultiselect" 
-                          data-numeropaso="link_paso2"
-                          data-nonselectedsext="Escoja que frecuencia desea consultar"
-                          data-allselectedtext="Todas las variables escogidas"
-                          data-nselectedtext=" varibles escogidas" 
-                          data-height="250"
-                          data-maxheight="250">
-                            <option value="1" >Anual</option>
-                            <option value="2" >Semestral</option>
-                            <option value="3" >trimestral</option>
-                            <option value="4" >Mensual</option>
+                          class="bootstrapmultiselect_unfold_simple" 
+                          data-height="300"
+                          data-maxheight="300">
+                            @foreach($semestres as $periodo)
+                              <option value="{{$periodo->id}}" >{{$periodo->nombre}}</option>
+                            @endforeach
+                        </select>
+                      </div>
+                      <div id="trimestral" class="list-plan" style="display:none">
+                        <select 
+                          id="trimestre" 
+                          name="trimestre[]" 
+                          multiple="multiple" 
+                          class="bootstrapmultiselect_unfold_simple" 
+                          data-height="300"
+                          data-maxheight="300">
+                            @foreach($trimestres as $periodo)
+                              <option value="{{$periodo->id}}" >{{$periodo->nombre}}</option>
+                            @endforeach
+                        </select>
+                      </div>
+                      <div id="mensual" class="list-plan" style="display:none">
+                        <select 
+                          id="mes" 
+                          name="mes[]" 
+                          multiple="multiple" 
+                          class="bootstrapmultiselect_unfold_simple" 
+                          data-height="300"
+                          data-maxheight="300">
+                            @foreach($meses as $periodo)
+                              <option value="{{$periodo->id}}" >{{$periodo->nombre}}</option>
+                            @endforeach
                         </select>
                       </div>
                     </div>
@@ -191,4 +254,7 @@
 
 </div>
 
+@endsection
+@section('scripts_adicionales')
+    <script src="{{ asset('js/filtros_variables.js') }}"></script>
 @endsection
