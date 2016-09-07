@@ -43,7 +43,7 @@
           </ul>
          </nav>
 
-        <div class="blanco contacto_menu text-right col-xs-2">
+        <div class="contacto_menu text-right blanco ">
           @include('auth.dropdown_login')
 
           <p class="footer_menu"><small>(+54 221)</small> 423-6769 / 71 / 72</p>

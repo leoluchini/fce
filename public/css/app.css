@@ -32,7 +32,7 @@ html {
 	border-left: 1px solid #555
 }
 
-a:hover, a:focus {text-decoration: none;} {	text-decoration: none}
+a:hover, a:focus {text-decoration: none;}
 	 
 
 @media (min-width: 768px) { 
@@ -67,8 +67,8 @@ a:hover, a:focus {text-decoration: none;} {	text-decoration: none}
 
 .bottom img {
     position: fixed;
-    bottom: 10px;
-    right: 0px;
+    bottom: -1px;
+    right: -1px;
 }
 
 .contacto {
@@ -101,8 +101,8 @@ a:hover, a:focus {text-decoration: none;} {	text-decoration: none}
 
 		.secciones_index a {color: white}
 		.secciones_index a:visited {color: white; text-decoration: none}
-		.secciones_index a:focus {color: #00555f; text-decoration: none}
-		.secciones_index a:hover {color: #00555f; text-decoration: none}
+		.secciones_index a:focus {color: #888; text-decoration: none}
+		.secciones_index a:hover {color: #888; text-decoration: none}
 		.secciones_index a:active {color: white; text-decoration: none}
 
 
@@ -194,14 +194,45 @@ nav ul li:hover  ul{
 }
 
 .contacto_menu {
-		background-color: rgba(0,0,0,0.5);
+		width: 200px;
+		background-color: rgba(0,0,0,0.8);
 		padding: 10px 22px 10px; 
     position: fixed !important;
     bottom: 0px;
-    left: -8px;
+    left: 0px;
     z-index: 2
 }
 
+.iniciar_sesion {
+	padding: 10px 0px 10px 5px;
+	color: #fff;
+	font-size: 1.3em;
+  text-decoration: none;
+}
+
+.iniciar_sesion:hover {text-decoration: none; color: #fff} 
+.iniciar_sesion:visited {text-decoration: none; color: #fff} 
+.iniciar_sesion:active {text-decoration: none; color: #fff} 
+.iniciar_sesion:focus {text-decoration: none; color: #fff} 
+
+.contacto_menu a {
+	padding: 10px 0px 10px 5px;
+	color: #fff;
+	font-size: 1.12em;
+  text-decoration: none;
+}
+
+
+#form_login{
+		width: 200px !important;
+		background-color: rgba(0,0,0,0.8);
+    position: fixed !important;
+    bottom: 125px;
+    left: 0px;
+    z-index: 3;
+    padding: 20px;
+    border-radius: 0px
+}
 
 .header_frontend{
 	border-bottom: 2px solid #00555f;
@@ -226,7 +257,8 @@ margin-left: 50px
 }
 
 .dropdown-login{
-  min-width: 250px;
+  min-width: 200px;
   padding: 14px 14px 0;
   overflow: hidden;
 }
+

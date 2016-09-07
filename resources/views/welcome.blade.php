@@ -55,7 +55,7 @@
     <section class="bottom">
         <div clas="col-xs-12">
                 <p class="text-center titulo_index">
-                    Sistema de información económica
+                    Sistema de informaci&oacute;n econ&oacute;mica
                 </p>
                <p class="text-center secciones_index">
                 <a href="{{action('PublicoController@variables')}}">Variables</a> | <a href="{{action('PublicoController@indicadores')}}">Indicadores</a> | <a href="{{action('PublicoController@publicaciones')}}">Publicaciones</a>
