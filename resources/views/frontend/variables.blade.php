@@ -58,7 +58,7 @@
             <!-- <ol class="breadcrumb">Soy </ol> -->
 
                 <div id="accordion">
-
+                  {!! Form::open(array('action' => ['PublicoController@resultados_variables'], 'method' => 'POST', 'class' => 'form-horizontal')) !!}
                   <div id="panel-accordion-1" class="panel-accordion">
                     <div class="header">
                       <p class="numeros_accordion">1</p>
@@ -109,8 +109,8 @@
                       </div>
                       <div id="pais" class="list-group list-plan">
                         <select 
-                          id="paises" 
-                          name="paises[]" 
+                          id="pais" 
+                          name="pais[]" 
                           multiple="multiple" 
                           class="bootstrapmultiselect_unfold" 
                           data-height="300"
@@ -122,8 +122,8 @@
                       </div>
                       <div id="provincia" class="list-group list-plan" style="display:none">
                         <select 
-                          id="provincias" 
-                          name="provincias[]" 
+                          id="provincia" 
+                          name="provincia[]" 
                           multiple="multiple" 
                           class="bootstrapmultiselect_unfold" 
                           data-height="300"
@@ -135,8 +135,8 @@
                       </div>
                       <div id="municipio" class="list-group list-plan" style="display:none">
                         <select 
-                          id="municipios" 
-                          name="municipios[]" 
+                          id="municipio" 
+                          name="municipio[]" 
                           multiple="multiple" 
                           class="bootstrapmultiselect_unfold" 
                           data-height="300"
@@ -203,11 +203,15 @@
                             <input type="radio" name="tipo_frecuencia" id="option4" value="mensual" autocomplete="off"> Mensual
                           </label>
                         </div>
+                        <div class="col-md-2 col-md-offset-10">
+                        {!! Form::submit('Buscar', array('class' => 'btn btn-primary btn-block')) !!}
+                        </div>
                       </div>
+
                       <div id="semestral" class="list-plan" style="display:none">
                         <select 
-                          id="semestre" 
-                          name="semestre[]" 
+                          id="semestral" 
+                          name="semestral[]" 
                           multiple="multiple" 
                           class="bootstrapmultiselect_unfold_simple" 
                           data-height="300"
@@ -219,8 +223,8 @@
                       </div>
                       <div id="trimestral" class="list-plan" style="display:none">
                         <select 
-                          id="trimestre" 
-                          name="trimestre[]" 
+                          id="trimestral" 
+                          name="trimestral[]" 
                           multiple="multiple" 
                           class="bootstrapmultiselect_unfold_simple" 
                           data-height="300"
@@ -232,8 +236,8 @@
                       </div>
                       <div id="mensual" class="list-plan" style="display:none">
                         <select 
-                          id="mes" 
-                          name="mes[]" 
+                          id="mensual" 
+                          name="mensual[]" 
                           multiple="multiple" 
                           class="bootstrapmultiselect_unfold_simple" 
                           data-height="300"
@@ -245,7 +249,7 @@
                       </div>
                     </div>
                   </div>
-
+                  {!! Form::close() !!}
           </div>
 
       </div>

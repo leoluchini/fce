@@ -33,7 +33,26 @@ class PublicoController extends Controller
 		$data['periodos'] = array_unique(InformacionVariable::lists('anio')->toArray());
 		return view('frontend.variables', $data);
 	}
-	  public function indicadores()
+
+	public function resultados_variables(Request $request)
+	{
+		$input = $request->all();
+		//return var_dump($input);
+		$variables = $input['variable'];
+		$zonas = $input[$input['tipo_zona']];
+		$periodos = $input['periodo'];
+		$frecuencia = ($input['tipo_frecuencia'] == 'anual') ? array(Frecuencia::where('tipo', '=', 'ANIO')->first()->id) : $input[$input['tipo_frecuencia']];
+		
+		$datos['resultados'] = InformacionVariable::whereIn('variable_id', $variables)
+								->whereIn('zona_id', $zonas)
+								->whereIn('anio', $periodos)
+								->whereIn('frecuencia_id', $frecuencia)
+								->orderBy('variable_id', 'ASC')->orderBy('zona_id', 'ASC')->orderBy('anio', 'ASC')->orderBy('frecuencia_id', 'ASC')->get();
+		//$datos['resultados'] =  InformacionVariable::all();
+								
+		return view('frontend.resultados_variables', $datos);
+	}
+	public function indicadores()
 	{
 		return view('frontend.indicadores');
 	}

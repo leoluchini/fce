@@ -36,6 +36,7 @@ Route::get('zonas/{tipo}/{id}/edit','ZonaGeograficaController@edit');
 Route::get('frontend/publicaciones', 'PublicoController@publicaciones');
 Route::get('frontend/variables', 'PublicoController@variables');
 Route::get('frontend/indicadores', 'PublicoController@indicadores');
+Route::post('frontend/resultados_variables', 'PublicoController@resultados_variables');
 
 Route::resource('categorias_variables','CategoriaVariableController');
 Route::get('categorias_variables/create_sub_categoria/{categoria}','CategoriaVariableController@create_sub');
