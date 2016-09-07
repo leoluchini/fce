@@ -17,15 +17,20 @@
             </span>
         @endif
     </div>
-    <div class="checkbox">
+<!--     <div class="checkbox">
         <label>
         <input type="checkbox" name="remember"> Recordarme
         </label>
-    </div>
+    </div> -->
     <div class="form-group">
-        <button type="submit" class="btn btn-primary btn-block">
-            <span class="glyphicon glyphicon-log-in"></span> Iniciar
+        <button type="submit" class="btn btn-primary btn-sm btn-block">
+            Iniciar
         </button>
-        <a class="btn btn-link" href="{{ url('/password/reset') }}">Olvidó su clave?</a>
     </div>
+    <center>
+        <a href="{{ url('/password/reset') }}">
+            ¿Olvidó su clave?
+        </a>
+    </center>
+    
 {!! Form::close() !!}
