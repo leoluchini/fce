@@ -43,19 +43,21 @@
 			    @endif
 			    @if(count($categoria->variables) > 0)
 			    	<div role="tabpanel" class="tab-pane {{$panel_status}}" id="variables_{{$categoria->id}}">
-			    		<ul class="list-group">
+			    		<div class="col-md-10 col-md-offset-1">
 			    			@foreach($categoria->variables as $variable)
-								<li class="list-group-item">
-									<div class="pull-right">
-										<a title="Editar variable" href="{{ action('VariableController@edit', [$categoria->id, $variable->id]) }}" data-toggle="tooltip" data-placement="top">
-											<span class="glyphicon glyphicon-pencil"></span>
-										</a>
-										<a title="Eliminar variable" href="{{ action('VariableController@destroy', [$categoria->id, $variable->id]) }}" data-toggle="tooltip" data-placement="top" data-method="delete" data-title="Eliminar variable" data-confirm="¿Estas seguro que desea eliminar la variable '{{$variable->nombre}}' ?"><span class="glyphicon glyphicon-trash"></span></a>
-									</div>
+			    			<div class="row">
+								<div class="col-md-10">
 									{{ $variable->codigo }} - {{ $variable->nombre }}
-								</li>
+								</div>
+								<div class="col-md-2">
+									<a title="Editar variable" href="{{ action('VariableController@edit', [$categoria->id, $variable->id]) }}" data-toggle="tooltip" data-placement="top">
+										<span class="glyphicon glyphicon-pencil"></span>
+									</a>
+									<a title="Eliminar variable" href="{{ action('VariableController@destroy', [$categoria->id, $variable->id]) }}" data-toggle="tooltip" data-placement="top" data-method="delete" data-title="Eliminar variable" data-confirm="¿Estas seguro que desea eliminar la variable '{{$variable->nombre}}' ?"><span class="glyphicon glyphicon-trash"></span></a>
+								</div>
+							</div>
 			    			@endforeach
-						</ul>
+						</div>
 			    	</div>
 			    @endif
 			  </div>
