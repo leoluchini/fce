@@ -9,9 +9,9 @@
 	{!! Form::model($fuente, array('action' => $accion, 'method' => $metodo, 'class' => 'form-horizontal')) !!}
 	<div class="col-md-12">
 		<div class="form-group @if ($errors->first('codigo')){!! 'has-error' !!}@endif">
-			{!! Form::label('sigla', '*Sigla', array('class' => 'control-label')) !!}
-			{!! Form::text('sigla', $fuente->sigla, array('class' => 'form-control')) !!}
-			@if ($errors->first('sigla'))<span class="help-block">{{$errors->first('sigla')}}</span>@endif
+			{!! Form::label('codigo', '*Codigo', array('class' => 'control-label')) !!}
+			{!! Form::text('codigo', $fuente->codigo, array('class' => 'form-control')) !!}
+			@if ($errors->first('codigo'))<span class="help-block">{{$errors->first('codigo')}}</span>@endif
 		</div>
 		<div class="form-group @if ($errors->first('nombre')){!! 'has-error' !!}@endif">
 			{!! Form::label('nombre', '*Nombre', array('class' => 'control-label')) !!}

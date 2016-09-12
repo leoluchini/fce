@@ -48,6 +48,22 @@
     </div>
   </div>
 </div>
+<div class="container">
+    <div class="row">
+      <div class="col-xs-12"> 
+        <div class="list-group list-plan">
+          <div class="btn-group" data-toggle="buttons">
+            <label class="btn btn-default active">
+              <input type="radio" name="tipo_busqueda" id="option1" value="region_variable" autocomplete="off" checked> Region -> Variable
+            </label>
+            <label class="btn btn-default">
+              <input type="radio" name="tipo_busqueda" id="option2" value="variable_region" autocomplete="off"> Variable -> Region
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
 
 
 
@@ -62,32 +78,6 @@
                   <div id="panel-accordion-1" class="panel-accordion">
                     <div class="header">
                       <p class="numeros_accordion">1</p>
-                    </div>
-                    <div class="panelContent"> 
-                      <p class="titulos_accordion">Variables</p>
-                       <div class="list-group list-plan">
-                        <select 
-                          id="variable" 
-                          name="variable[]" 
-                          multiple="multiple" 
-                          class="bootstrapmultiselect_unfold" 
-                          data-nonselectedsext="Escoja las variables que le interesen"
-                          data-allselectedtext="Todas las variables escogidas"
-                          data-nselectedtext=" varibles escogidas" 
-                          data-height="300"
-                          data-maxheight="300">
-                          @foreach($variables as $variable)
-                            <option value="{{$variable->id}}" >{{$variable->nombre}}</option>
-                          @endforeach
-                        </select>
-                      </div>
-                    </div>
-                  </div>
-
-
-                  <div  id="panel-accordion-2" class="panel-accordion">
-                    <div class="header">
-                      <p class="numeros_accordion">2</p>
                     </div>
                     <div class="panelContent">
                       <p class="titulos_accordion">Región</p>
@@ -144,6 +134,32 @@
                             @foreach($municipios as $zona)
                               <option value="{{$zona->id}}" >{{$zona->nombre}}</option>
                             @endforeach
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+
+
+                  <div  id="panel-accordion-2" class="panel-accordion">
+                    <div class="header">
+                      <p class="numeros_accordion">2</p>
+                    </div>
+                    <div class="panelContent"> 
+                      <p class="titulos_accordion">Variables</p>
+                       <div class="list-group list-plan">
+                        <select 
+                          id="variable" 
+                          name="variable[]" 
+                          multiple="multiple" 
+                          class="bootstrapmultiselect_unfold" 
+                          data-nonselectedsext="Escoja las variables que le interesen"
+                          data-allselectedtext="Todas las variables escogidas"
+                          data-nselectedtext=" varibles escogidas" 
+                          data-height="300"
+                          data-maxheight="300">
+                          @foreach($variables as $variable)
+                            <option value="{{$variable->id}}" >{{$variable->nombre}}</option>
+                          @endforeach
                         </select>
                       </div>
                     </div>

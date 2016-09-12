@@ -24,7 +24,7 @@
 			<table class="tabla table-responsive table table-hover table-condensed">
 			    <thead>
 			        <tr>
-			            <th><strong>Sigla</strong></p> </th>
+			            <th><strong>Codigo</strong></p> </th>
 			            <th><strong>Nombre</strong></p> </th>
 			            <th class="text-right"><p> <strong>Acciones</strong></p></th>
 			        </tr>
