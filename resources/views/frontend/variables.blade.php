@@ -277,4 +277,6 @@
 @endsection
 @section('scripts_adicionales')
     <script src="{{ asset('js/filtros_variables.js') }}"></script>
+    <!--<script src="<?=base_url();?>assets/jquery/jquery-ui-1.11.2/jquery-ui.js"></script>
+<link href="<?=base_url('assets/jquery/jquery-ui-1.11.2/jquery-ui-basic.css');?>" rel="stylesheet">-->
 @endsection
