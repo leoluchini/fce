@@ -43,6 +43,8 @@ Route::group(['prefix' => 'administracion'], function()
 
 Route::get('/home', 'HomeController@index');
 Route::get('publicaciones', 'PublicoController@publicaciones');
-Route::get('variables', 'PublicoController@variables');
 Route::get('indicadores', 'PublicoController@indicadores');
+Route::get('variables', 'PublicoController@variables');
+Route::post('consulta_variables', 'PublicoController@consulta_variables');
+Route::get('consulta_regiones/{variables}', 'PublicoController@consulta_regiones');
 Route::post('resultados_variables', 'PublicoController@resultados_variables');

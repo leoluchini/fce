@@ -69,8 +69,8 @@
     <script src="{{ asset('js/accordion.js') }}"></script>
     
     
-    <link href="{{ asset('js/bootstrap-multiselect/css/bootstrap-multiselect.css') }}" rel="stylesheet" type="text/css">
-    <script src="{{ asset('js/bootstrap-multiselect/js/bootstrap-multiselect.js') }}"></script>
+    <link href="{{ asset('bootstrap-multiselect/css/bootstrap-multiselect.css') }}" rel="stylesheet" type="text/css">
+    <script src="{{ asset('bootstrap-multiselect/js/bootstrap-multiselect.js') }}"></script>
     <script src="{{ asset('js/bootstrap_multiselect.js') }}"></script>
     @yield('scripts_adicionales')
 
