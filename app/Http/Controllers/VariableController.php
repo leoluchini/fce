@@ -22,7 +22,7 @@ class VariableController extends Controller
 		catch(ModelNotFoundException $e)
 		{
 			\Session::flash('error', 'La categoria no existe.');
-			return redirect('categorias_variables');
+			return redirect('administracion/categorias_variables');
 		}
 	}
 
@@ -35,13 +35,13 @@ class VariableController extends Controller
 		catch(ModelNotFoundException $e)
 		{
 			\Session::flash('error', 'La categoria no existe.');
-			return redirect('categorias_variables');
+			return redirect('administracion/categorias_variables');
 		}
 		$input = $request->all();
 		$variable = Variable::create($input);
 
 		\Session::flash('noticia', 'Se creo la variable "'.$variable->nombre.'" correctamente en la categoria "'.$categoria->nombre.'"');
-		return redirect('categorias_variables');
+		return redirect('administracion/categorias_variables');
 	}
 
 	public function edit($categoria_id, $id)
@@ -55,7 +55,7 @@ class VariableController extends Controller
 		catch(ModelNotFoundException $e)
 		{
 			\Session::flash('error', 'La variable no existe.');
-			return redirect('categorias_variables');
+			return redirect('administracion/categorias_variables');
 		}
 	}
 
@@ -73,9 +73,9 @@ class VariableController extends Controller
 		catch(ModelNotFoundException $e)
 		{
 			\Session::flash('error', 'La variable no existe.');
-			return redirect('categorias_variables');
+			return redirect('administracion/categorias_variables');
 		}
-		return redirect('categorias_variables');
+		return redirect('administracion/categorias_variables');
 	}
 
 	public function destroy($categoria_id, $id)
@@ -87,12 +87,12 @@ class VariableController extends Controller
 		catch(ModelNotFoundException $e)
 		{
 			\Session::flash('error', 'La variable no existe.');
-			return redirect('categorias_variables');
+			return redirect('administracion/categorias_variables');
 		}
 		$variable->delete();
 
 		\Session::flash('noticia', 'La variable "'.$variable->nombre.'" fue eliminada con exito.');
 		
-		return redirect('categorias_variables');
+		return redirect('administracion/categorias_variables');
 	}
 }

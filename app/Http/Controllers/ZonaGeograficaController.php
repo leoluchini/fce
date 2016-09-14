@@ -47,7 +47,7 @@ class ZonaGeograficaController extends Controller
 		        break;
 		}
 		\Session::flash('noticia', 'La zona geografica "'.$zona->nombre.'" fue creada con exito.');
-		return redirect('zonas');
+		return redirect('administracion/zonas');
 	}
 
 	public function edit($tipo, $id)
@@ -72,7 +72,7 @@ class ZonaGeograficaController extends Controller
 		catch(ModelNotFoundException $e)
 		{
 			\Session::flash('error', 'La zona geografica no existe.');
-			return redirect('zonas');
+			return redirect('administracion/zonas');
 		}
 	}
 
@@ -103,7 +103,7 @@ class ZonaGeograficaController extends Controller
 		{
 			\Session::flash('error', 'La zona geografica no existe.');
 		}
-		return redirect('zonas');
+		return redirect('administracion/zonas');
 	}
 
 	public function destroy($tipo, $id)
@@ -128,6 +128,6 @@ class ZonaGeograficaController extends Controller
 		{
 			\Session::flash('error', 'La zona geografica no existe.');
 		}
-		return redirect('zonas');
+		return redirect('administracion/zonas');
 	}
 }

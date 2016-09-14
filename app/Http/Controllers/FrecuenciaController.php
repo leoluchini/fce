@@ -29,7 +29,7 @@ class FrecuenciaController extends Controller
 		$frecuencia = Frecuencia::create($input);
 
 		\Session::flash('noticia', 'La frecuencia "'.$frecuencia->nombre.'" fue creada con exito.');
-		return redirect('frecuencias');
+		return redirect('administracion/frecuencias');
 	}
 
 	public function edit($id)
@@ -43,7 +43,7 @@ class FrecuenciaController extends Controller
 		catch(ModelNotFoundException $e)
 		{
 			\Session::flash('error', 'La frecuencia no existe.');
-			return redirect('frecuencias');
+			return redirect('administracion/frecuencias');
 		}
 	}
 
@@ -62,7 +62,7 @@ class FrecuenciaController extends Controller
 		{
 			\Session::flash('error', 'La frecuencia no existe.');
 		}
-		return redirect('frecuencias');
+		return redirect('administracion/frecuencias');
 	}
 
 	public function destroy($id)
@@ -77,6 +77,6 @@ class FrecuenciaController extends Controller
 		{
 			\Session::flash('error', 'La frecuencia no existe.');
 		}
-		return redirect('frecuencias');
+		return redirect('administracion/frecuencias');
 	}
 }

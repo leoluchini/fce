@@ -21,7 +21,7 @@ class PublicacionController extends Controller
 		catch(ModelNotFoundException $e)
 		{
 			\Session::flash('error', 'La categoria no existe.');
-			return redirect('categorias');
+			return redirect('administracion/categorias');
 		}
 	}
 	public function create($categoria_id)
@@ -36,7 +36,7 @@ class PublicacionController extends Controller
 		catch(ModelNotFoundException $e)
 		{
 			\Session::flash('error', 'La categoria no existe.');
-			return redirect('categorias');
+			return redirect('administracion/categorias');
 		}
 	}
 
@@ -49,7 +49,7 @@ class PublicacionController extends Controller
 		catch(ModelNotFoundException $e)
 		{
 			\Session::flash('error', 'La categoria no existe.');
-			return redirect('categorias');
+			return redirect('administracion/categorias');
 		}
 
 		$archivo_pdf = \Request::file('archivo');
@@ -62,7 +62,7 @@ class PublicacionController extends Controller
 		$publicacion = Publicacion::create($input);
 
 		\Session::flash('noticia', 'Se creo la publicacion "'.$publicacion->nombre.'" correctamente en la categoria "'.$categoria->nombre.'"');
-		return redirect('categoria/'.$categoria_id.'/publicaciones');
+		return redirect('administracion/categoria/'.$categoria_id.'/publicaciones');
 	}
 
 	public function edit($categoria_id, $id)
@@ -77,7 +77,7 @@ class PublicacionController extends Controller
 		catch(ModelNotFoundException $e)
 		{
 			\Session::flash('error', 'La publicacion no existe.');
-			return redirect('categoria/'.$categoria_id.'/publicaciones');
+			return redirect('administracion/categoria/'.$categoria_id.'/publicaciones');
 		}
 	}
 
@@ -95,9 +95,9 @@ class PublicacionController extends Controller
 		catch(ModelNotFoundException $e)
 		{
 			\Session::flash('error', 'La publicacion no existe.');
-			return redirect('categoria/'.$categoria_id.'/publicaciones');
+			return redirect('administracion/categoria/'.$categoria_id.'/publicaciones');
 		}
-		return redirect('categoria/'.$categoria_id.'/publicaciones');
+		return redirect('administracion/categoria/'.$categoria_id.'/publicaciones');
 	}
 
 	public function destroy($categoria_id, $id)
@@ -109,13 +109,13 @@ class PublicacionController extends Controller
 		catch(ModelNotFoundException $e)
 		{
 			\Session::flash('error', 'La publicacion no existe.');
-			return redirect('categoria/'.$categoria_id.'/publicaciones');
+			return redirect('administracion/categoria/'.$categoria_id.'/publicaciones');
 		}
 		$publicacion->delete();
 
 		\Session::flash('noticia', 'La publicacion "'.$publicacion->nombre.'" fue eliminada con exito.');
 		
-		return redirect('categoria/'.$categoria_id.'/publicaciones');
+		return redirect('administracion/categoria/'.$categoria_id.'/publicaciones');
 	}
 
 	public function ver_archivo($id)
@@ -127,7 +127,7 @@ class PublicacionController extends Controller
 		catch(ModelNotFoundException $e)
 		{
 			\Session::flash('error', 'La publicacion no existe.');
-			return redirect('categorias');
+			return redirect('administracion/categorias');
 		}
         ver_pdf($publicacion->get_file_path(), 'publicaciones/'.$publicacion->categoria->id);
     }
@@ -140,7 +140,7 @@ class PublicacionController extends Controller
 		catch(ModelNotFoundException $e)
 		{
 			\Session::flash('error', 'La publicacion no existe.');
-			return redirect('categorias');
+			return redirect('administracion/categorias');
 		}
         descargar_pdf($publicacion->get_file_path(), 'publicaciones/'.$publicacion->categoria->id);
     }
