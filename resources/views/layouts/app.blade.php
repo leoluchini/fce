@@ -15,7 +15,6 @@
     <!-- Glypicons FONTELLO -->
     <link href="{{ asset('fontello/css/fontello.css') }}" rel="stylesheet" type="text/css">
 
-    <link href="{{ asset('js/bootstrap-multiselect/css/bootstrap-multiselect.css') }}" rel="stylesheet" type="text/css">
 
     <!-- Styles -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
@@ -62,7 +61,8 @@
     <script src="{{ asset('js/menu.js') }}"></script>
     <script src="{{ asset('js/accordion.js') }}"></script>
     
-    <script src="{{ asset('js/bootstrap-multiselect/js/bootstrap-multiselect.js') }}"></script>
+    <link href="{{ asset('bootstrap-multiselect/css/bootstrap-multiselect.css') }}" rel="stylesheet" type="text/css">
+    <script src="{{ asset('bootstrap-multiselect/js/bootstrap-multiselect.js') }}"></script>
     <script src="{{ asset('js/bootstrap_multiselect.js') }}"></script>
     @yield('scripts_adicionales')
 
