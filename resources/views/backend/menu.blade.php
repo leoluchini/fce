@@ -74,50 +74,22 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-md-4 col-sm-6 col-xs-12 col-md-offset-4">
+        <div class="col-md-3 col-sm-6 col-xs-12">
             <a href="{{action('CategoriaController@index')}}">
               <h2><span class="icon-newspaper"></span></h2>
               <h3>Categorias y Publicaciones</h3>
             </a>
         </div>
+        @role('admin')
+          <div class="col-md-3 col-sm-6 col-xs-12">
+              <a href="{{action('UserController@index')}}">
+                <h2><span class="icon-newspaper"></span></h2>
+                <h3>Usuarios</h3>
+              </a>
+          </div>
+        @endrole
       </div>
-
     </div>
-  	<!--<div class="row">
-      	<div class="col-md-10 col-md-offset-1">
-          <div class="row">
-            <div class="col-md-4">
-              <a href="{{action('LecturaController@index')}}" class="text-right"><span class="icon-info"></span>Subir Informacion de Variables</a>
-            </div>
-            <div class="col-md-4">
-              <a href="{{action('CategoriaVariableController@index')}}" class="text-right"><span class="icon-tree"></span>Arbol de Variables</a>
-            </div>
-            <div class="col-md-4">
-              <a href="{{action('CategoriaController@index')}}" class="text-right"><span class="icon-note-1"></span>Categorias y Publicaciones</a>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-4">
-              <a href="{{action('FrecuenciaController@index')}}" class="text-right"><span class="icon-note-1"></span>Frecuencias</a>
-            </div>
-            <div class="col-md-4">
-              <a href="{{action('FuenteController@index')}}" class="text-right"><span class="icon-note-1"></span>Fuentes</a>
-            </div>
-            <div class="col-md-4">
-              <a href="{{action('UnidadController@index')}}" class="text-right"><span class="icon-note-1"></span>Unidades</a>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-4">
-              <a href="{{action('ZonaGeograficaController@index')}}" class="text-right"><span class="icon-note-1"></span>Zonas Geograficas</a>
-            </div>
-            <div class="col-md-4">
-            </div>
-            <div class="col-md-4">
-            </div>
-          </div>
-        </div>
-    </div>-->
   </div>
 </div>
 </div>

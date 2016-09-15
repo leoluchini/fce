@@ -45,6 +45,15 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $e)
     {
+        if ($e instanceof \Bican\Roles\Exceptions\RoleDeniedException) {
+            Flash('Usted no tiene permisos para acceder', 'danger');
+            return redirect()->back();
+        }
+
+        if ($e instanceof \Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException){
+            return response(view('errors.404'), 404);
+        }
+        
         return parent::render($request, $e);
     }
 }
