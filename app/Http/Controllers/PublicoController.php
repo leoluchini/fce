@@ -111,7 +111,7 @@ class PublicoController extends Controller
 	public function resultados_variables(Request $request)
 	{
 		$input = $request->all();
-		$variables = $input['variable'];
+		$variables = $input['variable_id'];
 		$zonas = $input[$input['tipo_zona']];
 		$periodos = $input['periodo'];
 		$frecuencia = ($input['tipo_frecuencia'] == 'anual') ? array(Frecuencia::where('tipo', '=', 'ANIO')->first()->id) : $input[$input['tipo_frecuencia']];
