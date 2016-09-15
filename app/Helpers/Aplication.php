@@ -111,4 +111,14 @@ function csv_to_array($filename='', $delimiter=';')
     }
     return $result;
 }
+
+function boolean_html($boolean)
+{
+    if($boolean){
+        $simbol = 'ok';
+    }else{
+        $simbol = 'remove';
+    }
+    return "<span class='glyphicon glyphicon-{$simbol}' aria-hidden='true'></span>";
+}
 ?>

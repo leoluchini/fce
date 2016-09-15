@@ -17,8 +17,9 @@ Route::get('/', function () {
 
 Route::auth();
 
-Route::group(['prefix' => 'administracion'], function()
+Route::group(['prefix' => 'administracion', 'middleware' => ['auth'] ], function()
 {
+	Route::get('/',  [ 'as' => 'administracion.index', 'uses' => 'AdministracionController@index' ]);
 	Route::resource('lectura', 'LecturaController');
 	Route::resource('categorias','CategoriaController');
 
@@ -37,8 +38,8 @@ Route::group(['prefix' => 'administracion'], function()
 	Route::resource('categorias_variables','CategoriaVariableController');
 	Route::get('categorias_variables/create_sub_categoria/{categoria}','CategoriaVariableController@create_sub');
 	Route::resource('categoria.variables','VariableController');
+	Route::resource('usuarios','UserController',['except' => ['show']]);
 
-	Route::get('backend', 'AdministracionController@index');
 });
 
 Route::get('/home', 'HomeController@index');

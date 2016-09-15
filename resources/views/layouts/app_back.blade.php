@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Laravel</title>
+    <title>Administración</title>
 
     <!-- Fonts -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css" integrity="sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+" crossorigin="anonymous">
@@ -21,20 +21,12 @@
     <!-- Accordion -->
     <link href="{{ asset('css/accordion.css') }}" rel="stylesheet" type="text/css">
 
-    <style>
-        body {
-            font-family: 'Lato';
-        }
-
-        .fa-btn {
-            margin-right: 6px;
-        }
-    </style>
     <script>
         window.csrfToken = '{{ csrf_token() }}';
     </script>
 </head>
 <body id="app-layout">
+  <div class="row">
     <div class="col-xs-12 header_frontend">
       <div class="row">
         <div class="col-xs-6 row">
@@ -58,6 +50,14 @@
         </div>
       </div>
     </div>
+    </div>
+    @if (session()->has('flash_notification.message'))
+    <div class="alert alert-{{ session('flash_notification.level') }}">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+
+        {!! session('flash_notification.message') !!}
+    </div>
+    @endif
     @yield('content')
            
     <!-- JavaScripts -->

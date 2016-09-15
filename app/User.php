@@ -3,16 +3,19 @@
 namespace App;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Bican\Roles\Traits\HasRoleAndPermission;
+use Bican\Roles\Contracts\HasRoleAndPermission as HasRoleAndPermissionContract;
 
-class User extends Authenticatable
+class User extends Authenticatable implements HasRoleAndPermissionContract
 {
+    use HasRoleAndPermission;
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'roles'
     ];
 
     /**
@@ -23,4 +26,21 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function __toString()
+    {
+        return $this->name;
+    }
+
+    public function setPasswordAttribute($password)
+    {
+        return $this->attributes['password'] = bcrypt($password);
+    }
+
+    public function setRolesAttribute($rol)
+    {
+        if(!empty($rol)){
+            return $this->attachRole($rol);
+        }
+    }
 }
