@@ -45,8 +45,9 @@ class UserController extends Controller
      */
     public function store(UserRequest $request)
     {
-        $inputs = $request->all();
-        User::create($inputs);
+        $inputs = $request->except('roles');
+        $user = User::create($inputs);
+        $user->update($request->only('roles'));
         flash('Usario creado correctamente', 'success');
         return redirect(route('administracion.usuarios.index'));
     }
