@@ -8,7 +8,7 @@
 	</div>
 
 	<div class="col-md-8 col-md-offset-2">
-		{!! Form::open(['route' => 'lectura.store', 'files' => true]) !!}
+		{!! Form::open(['route' => 'administracion.lectura.store', 'files' => true]) !!}
 			<div class="form-group{{ $errors->has('file') ? ' has-error' : '' }}">
     		{{ Form::label('file', 'Archivo: ', ['class' => 'control-label']) }}
 				{!! Form::file('file', null, [ 'class' => 'form-control']) !!}

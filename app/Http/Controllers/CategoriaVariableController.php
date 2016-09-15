@@ -35,7 +35,7 @@ class CategoriaVariableController extends Controller
 		$categoria = CategoriaVariable::create($input);
 
 		\Session::flash('noticia', 'La categoria "'.$categoria->nombre.'" fue creada con exito.');
-		return redirect('categorias_variables');
+		return redirect('administracion/categorias_variables');
 	}
 
 
@@ -49,7 +49,7 @@ class CategoriaVariableController extends Controller
 		catch(ModelNotFoundException $e)
 		{
 			\Session::flash('error', 'La categoria no existe.');
-			return redirect('categorias_variables');
+			return redirect('administracion/categorias_variables');
 		}
 	}
 
@@ -68,7 +68,7 @@ class CategoriaVariableController extends Controller
 		{
 			\Session::flash('error', 'La categoria no existe.');
 		}
-		return redirect('categorias_variables');
+		return redirect('administracion/categorias_variables');
 	}
 
 	public function destroy($id)
@@ -83,6 +83,6 @@ class CategoriaVariableController extends Controller
 		{
 			\Session::flash('error', 'La categoria no existe.');
 		}
-		return redirect('categorias_variables');
+		return redirect('administracion/categorias_variables');
 	}
 }

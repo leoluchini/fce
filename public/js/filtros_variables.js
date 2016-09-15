@@ -73,9 +73,9 @@ $(function(){
 							{
 			                	response($.map(data, function (value, key) { 
 			                        return {
-			                        	label: value,
-			                            value: value,
-			                            key: key
+			                        	label: value.valor,
+			                            value: value.valor,
+			                            key: value.clave
 			                        };
 			                   	}));
 		                	}

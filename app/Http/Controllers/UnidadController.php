@@ -28,7 +28,7 @@ class UnidadController extends Controller
 		$unidad = UnidadMedida::create($input);
 
 		\Session::flash('noticia', 'La unidad de medida "'.$unidad->nombre.'" fue creada con exito.');
-		return redirect('unidades');
+		return redirect('administracion/unidades');
 	}
 
 	public function edit($id)
@@ -41,7 +41,7 @@ class UnidadController extends Controller
 		catch(ModelNotFoundException $e)
 		{
 			\Session::flash('error', 'La unidad de medida no existe.');
-			return redirect('unidades');
+			return redirect('administracion/unidades');
 		}
 	}
 
@@ -60,7 +60,7 @@ class UnidadController extends Controller
 		{
 			\Session::flash('error', 'La unidad de medida no existe.');
 		}
-		return redirect('unidades');
+		return redirect('administracion/unidades');
 	}
 
 	public function destroy($id)
@@ -75,6 +75,6 @@ class UnidadController extends Controller
 		{
 			\Session::flash('error', 'La unidad de medida no existe.');
 		}
-		return redirect('unidades');
+		return redirect('administracion/unidades');
 	}
 }

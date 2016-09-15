@@ -53,7 +53,7 @@ class LecturaController extends Controller
             //TODO analizar si pasarlo a JOBs
             $this->lectura($lote);
         }
-        return redirect(route('lectura.show', $lote->id));
+        return redirect(route('administracion.lectura.show', $lote->id));
     }
 
     /**
@@ -71,7 +71,7 @@ class LecturaController extends Controller
     public function destroy($id){
         $lote = Lote::findOrFail($id);
         $lote->delete();
-         return redirect(route('lectura.index'));
+         return redirect(route('administracion.lectura.index'));
     }
 
     private function lectura($lote){

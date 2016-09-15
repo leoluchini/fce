@@ -51,7 +51,34 @@ class PublicoController extends Controller
 		else{
 			$res = Variable::whereRaw($string_consulta)->get();
 		}
-		$resultados = $res->lists('nombre', 'id')->toArray();
+		
+		$temporal = $res->lists('nombre', 'id')->toArray();
+		$ids = array();
+		$resultados = array();
+		foreach($temporal as $key => $temp){
+			$ids[] = $key;
+			$resultados[] = array('clave' => $key, 'valor' => $temp);
+		}
+		foreach($res as $variable){
+			if($variable->tema){
+				foreach($variable->tema->variables as $var_asociada){
+					if(!in_array($var_asociada->id, $ids)){
+						$resultados[] = array('clave' => $var_asociada->id, 'valor' => $var_asociada->nombre.' (asociada por tema)');
+					}
+				}
+			}
+		}
+
+		/*$resultados = $res->lists('nombre', 'id')->toArray();
+		foreach($res as $variable){
+			if($variable->tema){
+				foreach($variable->tema->variables as $var_asociada){
+					if(!array_key_exists($var_asociada->id, $resultados)){
+						$resultados[$var_asociada->id] = $var_asociada->nombre.' (asociada por tema)';
+					}
+				}
+			}
+		}*/
 		return response()->json($resultados);
 	}
 	public function consulta_regiones($variables)
