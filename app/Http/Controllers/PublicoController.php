@@ -122,6 +122,28 @@ class PublicoController extends Controller
 								->whereIn('frecuencia_id', $frecuencia)
 								->orderBy('variable_id', 'ASC')->orderBy('zona_id', 'ASC')->orderBy('anio', 'ASC')->orderBy('frecuencia_id', 'ASC')->get();
 								
+		$datos['busqueda'] = array('Variables' => Variable::find($variables)->lists('nombre')->toArray(),
+								   'Regiones' => ZonaGeografica::find($zonas)->lists('nombre')->toArray(),
+								   'Periodos' => $periodos,
+								   'Frecuencias' => Frecuencia::find($frecuencia)->lists('nombre')->toArray());
+		$info_var = array('variables' => array(), 'regiones' => array(), 'aniofrec' => array());
+		$data_var = array();
+		foreach($datos['resultados'] as $res)
+		{
+			if(!isset($info_var['variables'][$res->variable->id])){
+				$info_var['variables'][$res->variable->id] = $res->variable->nombre;
+			}
+			if(!isset($info_var['regiones'][$res->zona->id])){
+				$info_var['regiones'][$res->zona->id] = $res->zona->nombre;
+			}
+			$anio_frecuencia = $res->anio.'-'.$res->frecuencia->id;
+			if(!isset($info_var['aniofrec'][$anio_frecuencia])){
+				$info_var['aniofrec'][$anio_frecuencia] = ($res->frecuencia->tipo == 'ANIO') ? $res->anio : $res->anio.' '.$res->frecuencia->nombre;
+			}
+			$data_var[$res->variable->id][$res->zona->id][$anio_frecuencia] = $res->valor;
+		}
+		$datos['info_pivot'] = $info_var;
+		$datos['data_pivot'] = $data_var;
 		return view('frontend.resultados_variables', $datos);
 	}
 

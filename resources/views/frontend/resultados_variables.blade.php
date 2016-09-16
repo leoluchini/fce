@@ -54,12 +54,28 @@
 <div class="page-body">
   <!-- Plan Section -->
     <div class="container">
-      <table class="table table-condensed">
+      <ol class="breadcrumb">
+        @foreach($busqueda as $label => $colection)
+          @if(count($colection) > 1)
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{$label}} ({{count($colection)}})<span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                @foreach($colection as $item)
+                <li><a href="#">{{$item}}</a></li>
+                @endforeach
+              </ul>
+            </li>
+          @else
+          <li> {{$colection[0]}} </li>
+          @endif
+        @endforeach
+      </ol>
+      <table class="table table-condensed tabla_resultados_paginada">
         <thead>
           <tr>
             <th>Variable</th>
             <th>Zona</th>
-            <th>Año/Periodo</th>
+            <th>Año/Frecuencia</th>
             <th>Valor</th>
             <th>Unidad</th>
             <th>Fuente</th>
@@ -79,6 +95,46 @@
         </tbody>
       </table>
     </div>
+    <hr>
+    <div class="container">
+      <?php $total = 0 ?>
+      @foreach($info_pivot['variables'] as $id_var => $nombre)
+        <table class="table">
+        <thead>
+          <tr>
+            <th>{{$nombre}}</th>
+            @foreach($info_pivot['aniofrec'] as $id_aniofrec => $aniofrec)
+            <th>{{$aniofrec}}</th>
+            @endforeach
+            <th>TOTAL</th>
+          </tr>
+        </thead>
+        <tbody>
+          @foreach($info_pivot['regiones'] as $id_reg => $zona)
+            <tr>
+                <td>{{ $zona }}</td>
+                @foreach($info_pivot['aniofrec'] as $id_aniofrec => $aniofrec)
+                <td>{{$data_pivot[$id_var][$id_reg][$id_aniofrec]}}</td>
+                @endforeach
+                <td><strong>{{ array_sum($data_pivot[$id_var][$id_reg]) }}</strong></td>
+                <?php $total += array_sum($data_pivot[$id_var][$id_reg]) ?>
+            </tr>
+          @endforeach
+            <tr>
+                <td> - </td>
+                @foreach($info_pivot['aniofrec'] as $id_aniofrec => $aniofrec)
+                <?php $tot_reg = 0 ?>
+                  @foreach($info_pivot['regiones'] as $id_reg => $zona)
+                    <?php $tot_reg += $data_pivot[$id_var][$id_reg][$id_aniofrec] ?>
+                  @endforeach
+                <td><strong>{{$tot_reg}}</strong></td>
+                @endforeach
+                <td><strong>{{ $total }}</strong></td>
+            </tr>
+        </tbody>
+      </table>
+      @endforeach
+    </div>
 </section>
 
 
@@ -86,5 +142,10 @@
 
 @endsection
 @section('scripts_adicionales')
-    <script src="{{ asset('js/filtros_variables.js') }}"></script>
+    
+    <link href="{{ asset('DataTables-1.10.12/css/dataTables.bootstrap.min.css') }}" rel="stylesheet" type="text/css">
+    <script src="{{ asset('DataTables-1.10.12/js/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('DataTables-1.10.12/js/dataTables.bootstrap.min.js') }}"></script>
+    
+    <script src="{{ asset('js/tabla_paginada.js') }}"></script>
 @endsection
