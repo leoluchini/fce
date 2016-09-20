@@ -12,7 +12,7 @@ $(function(){
 			activePanel = this;
 		 };
     });
-
+/*
     $("body").on('click',".list-group-item", function(event){
     	event.stopPropagation();
     	event.preventDefault();
@@ -41,5 +41,5 @@ $(function(){
         event.stopPropagation();
         event.preventDefault();
         $($(this).attr('href')).click();  
-    })
+    })*/
 });

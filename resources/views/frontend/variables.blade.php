@@ -1,49 +1,16 @@
 @extends('layouts.app')
 
-<div class="col-xs-12 header_frontend">
-  <div class="row">
-    <div class="col-xs-6 row">
-
-      <div class="icon_menu">
-        <span class="icon-menu pull-left" id='hideshow'></span>
-      </div>
-
-      <div class="header_izquierda">
-        <a href="http://www.econo.unlp.edu.ar/laboratorio" target="_blank">
-         {!! Html::image('images/menu_horizontal_LAB.png', 'Laboratorio de Desarrollo Sectorial y Territorial', ['class'=>''])!!}
-        </a>
-        <a href="http://www.econo.unlp.edu.ar" target="_blank" class="border_left">
-          {!! Html::image('images/menu_horizontal_FCE.png', 'Facultad de Ciencias Econ&oacute;micas', ['class'=>''])!!}
-        </a>
-      </div>
-
-    </div>
-
-    <div class="col-xs-6 row pull-right">
-      <a href="http://www.econo.unlp.edu.ar/laboratorio" target="_blank">
-       {!! Html::image('images/menu_horizontal_UNLP.png', 'Laboratorio de Desarrollo Sectorial y Territorial', ['class'=>'pull-right'])!!}
-      </a>
-    </div>
-
-  </div>
-</div>
-
-
-
-
+@include('layouts.header')
 
 @section('content')
 <div class="container">
-  <div class="page-header">
     <div class="row">
-
       <div class="col-xs-12"> 
-        <div class=" pull-left"> 
-          <h2>
+        <div class="page-header">
+          <h1>
             <span class="icon-th-list-2"></span>
             Variables
-          </h2>
-        </div>
+          </h1>
       </div>
     </div>
   </div>
@@ -51,37 +18,125 @@
 <div class="container">
     <div class="row">
       <div class="col-xs-12"> 
+        
         <div class="list-group list-plan">
-          <div class="btn-group" data-toggle="buttons">
-            <label class="btn btn-default active">
-              <input type="radio" name="tipo_busqueda" id="busqueda_option1" value="region_variable" autocomplete="off" checked> Region -> Variable
-            </label>
-            <label class="btn btn-default">
-              <input type="radio" name="tipo_busqueda" id="busqueda_option2" value="variable_region" autocomplete="off"> Variable -> Region
-            </label>
+          <div data-toggle="buttons">
+            <h4>Genrerar búsqueda por
+<!--               <label>
+                <input type="radio" id="busqueda_option1" name="tipo_busqueda" value="region_variable"/>
+              </label> -->
+              <button  class="btn btn-none active">
+                <input type="radio" name="tipo_busqueda" id="busqueda_option1" value="region_variable" autocomplete="off" checked>
+                <h4>Territorio</h4>
+              </button>
+              o por
+              <button class="btn btn-none">
+                <input type="radio" name="tipo_busqueda" id="busqueda_option2" value="variable_region" autocomplete="off">
+                <h4>Variable</h4>
+              </button>
+            </h4>
           </div>
         </div>
       </div>
     </div>
 </div>
 
-
-
 <div class="page-body">
     <section id="plan" class="full-section">
         <div class="container">
+
+<!-- 
+          <div id="accordion2">
+
+            <div class="panel" style="width: 44px;">
+              <div class="header">
+                <div  class="texto-vertical-2">PASO 1</div>
+              </div>
+
+              <div class="panelContent p1">
+                      
+              </div>
+            </div>
+
+            <div class="panel" style="width: 44px;">
+              <div class="pink dark1">2</div>
+              <div class="panelContent p2"> <strong>Section 2 Header</strong><br>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. In iaculis volutpat quam, non suscipit arcu accumsan at. Aliquam pellentesque.
+              </div>
+            </div>
+
+            <div class="panel" style="width: 44px;">
+              <div class="pink dark2">3</div>
+              <div class="panelContent p3"> <strong>Section 3 Header</strong><br>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. In iaculis volutpat quam, non suscipit arcu accumsan at. Aliquam pellentesque.
+              </div>
+            </div>
+
+          </div> FIN ACCORDION2 -->
+
+
                 <div id="accordion">
                   {!! Form::open(array('action' => ['PublicoController@resultados_variables'], 'method' => 'POST', 'class' => 'form-horizontal')) !!}
                   <div id="panel-accordion-1" class="panel-accordion">
+<!-- TERRITORIO-->
                     <div class="header" id="div_paso_1">
-                      <p class="numeros_accordion">1</p>
+                      <div  class="texto-vertical-2">PASO 1</div>
                     </div>
+
                     <div class="panelContent">
-                      <p class="titulos_accordion">Región</p>
+                      <h3 class="titulos_accordion">Territorio</h3>
+                      <hr>
+
                       <div class="loading hide">
                         {{ HTML::image('images/ajax-loader.gif') }}
                       </div>
-                      <div class="list-group list-plan">
+                      <ul class="nav nav-tabs nav-justified altura" role="tablist">
+                          <li role="presentation" class="active">
+                            <a href="#div_pais" role="tab" data-toggle="tab" aria-controls="div_pais">Países</a>
+                            
+                          </li>
+                          <li role="presentation">
+                            <a href="#div_provincia" role="tab" data-toggle="tab" aria-controls="div_provincia">Provincias</a>
+                          </li>
+                          <li role="presentation">
+                            <a href="#div_municipio" role="tab" data-toggle="tab" aria-controls="div_municipio">Municipios</a>
+                          </li>
+                      </ul>
+
+                      <div class="tab-content">
+                         <div id="div_pais" role="tabpanel" class="tab-pane active" >
+                            <select 
+                              id="pais" 
+                              name="pais[]" 
+                              multiple="multiple" 
+                              class="bootstrapmultiselect_unfold" 
+                              data-height="300"
+                              data-maxheight="300">
+                            </select>
+                          </div>
+                          <div id="div_provincia" role="tabpanel" class="tab-pane">
+                           <select 
+                              id="provincia" 
+                              name="provincia[]" 
+                              multiple="multiple" 
+                              class="bootstrapmultiselect_unfold" 
+                              data-height="300"
+                              data-maxheight="300">
+                            </select>
+                          </div>
+                          <div id="div_municipio"role="tabpanel" class="tab-pane">
+                             <select 
+                              id="municipio" 
+                              name="municipio[]" 
+                              multiple="multiple" 
+                              class="bootstrapmultiselect_unfold" 
+                              data-height="300"
+                              data-maxheight="300">
+                            </select>
+                          </div>
+                      </div>
+                     
+                     <!--  <div class="list-group list-plan">
                         <div class="btn-group" data-toggle="buttons">
                           <label class="btn btn-default active">
                             <input type="radio" name="tipo_zona" id="region_option1" value="pais" autocomplete="off" checked> Paises
@@ -93,47 +148,21 @@
                             <input type="radio" name="tipo_zona" id="region_option3" value="municipio" autocomplete="off"> Municipios
                           </label>
                         </div>
-                      </div>
-                      <div id="div_pais" class="list-group list-plan">
-                        <select 
-                          id="pais" 
-                          name="pais[]" 
-                          multiple="multiple" 
-                          class="bootstrapmultiselect_unfold" 
-                          data-height="300"
-                          data-maxheight="300">
-                        </select>
-                      </div>
-                      <div id="div_provincia" class="list-group list-plan" style="display:none">
-                        <select 
-                          id="provincia" 
-                          name="provincia[]" 
-                          multiple="multiple" 
-                          class="bootstrapmultiselect_unfold" 
-                          data-height="300"
-                          data-maxheight="300">
-                        </select>
-                      </div>
-                      <div id="div_municipio" class="list-group list-plan" style="display:none">
-                        <select 
-                          id="municipio" 
-                          name="municipio[]" 
-                          multiple="multiple" 
-                          class="bootstrapmultiselect_unfold" 
-                          data-height="300"
-                          data-maxheight="300">
-                        </select>
-                      </div>
+                      </div> -->
                     </div>
                   </div>
+                     
 
+<!-- VARIABLES -->
 
                   <div  id="panel-accordion-2" class="panel-accordion">
                     <div class="header">
-                      <p class="numeros_accordion">2</p>
+                      <div  class="texto-vertical-2">PASO 2</div>
                     </div>
                     <div class="panelContent"> 
-                      <p class="titulos_accordion">Variables</p>
+                      <h3 class="titulos_accordion">Variables</h3>
+                      <hr>
+
                        <div class="list-group list-plan">
                         <label id="var_reg" style="display:none">Las variables seleccionadas condicionarán las regiones del paso 2</label>
                         <label id="reg_var">Las variables estan condicionadas por las regiones seleccionadas en el paso 1</label>
@@ -159,13 +188,15 @@
                     </div>
                   </div>
 
-
+<!-- PERIODO -->
                   <div  id="panel-accordion-3" class="panel-accordion">
                     <div class="header">
-                      <p class="numeros_accordion">3</p>
+                      <div  class="texto-vertical-2">PASO 3</div>
                     </div>
                     <div class="panelContent">
-                      <p class="titulos_accordion">Período</p>
+                      <h3 class="titulos_accordion">Período</h3>
+                      <hr>
+
                       <div class="loading hide">
                         {{ HTML::image('images/ajax-loader.gif') }}
                       </div>
@@ -188,13 +219,15 @@
                     </div>
                   </div>
 
-
+<!-- FRECUENCIA -->
                   <div class="panel-accordion">
                     <div class="header">
-                      <p class="numeros_accordion">4</p>
+                      <div  class="texto-vertical-2">PASO 4</div>
                     </div>
                     <div class="panelContent">
-                      <p class="titulos_accordion">Frecuencia</p>
+                      <h3 class="titulos_accordion">Frecuencia</h3>
+                      <hr>
+
                       <div class="loading hide">
                         {{ HTML::image('images/ajax-loader.gif') }}
                       </div>

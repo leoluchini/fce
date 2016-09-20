@@ -262,3 +262,60 @@ margin-left: 50px
   overflow: hidden;
 }
 
+.texto-vertical-2 {
+    writing-mode: vertical-lr;
+    transform: rotate(180deg);
+    font-size: 1.5em;
+    padding: 0px 12px 17px 5px;
+    color: white;
+}
+
+.numeros_accordion {
+    text-align: center;
+}
+
+.titulos_accordion {
+    font-size: 1.5em;
+    padding: 10px 5px 0 5px;
+    color: #00555f;
+}
+
+
+.list-group button > input{
+	display: none
+}
+
+.btn-none: {
+	    color: transparent;
+    background-color: none;
+    border-color: none;
+}
+
+.btn-none:active {
+	  background-color: transparent !important;
+    border-color: none;
+    box-shadow: none !important
+}
+
+.btn:active {
+	  background-color: transparent !important;
+    border-color: none;
+    box-shadow: none !important
+}
+
+.btn-none:focus {
+	  background-color: transparent !important;
+    border-color: none;
+    box-shadow: none !important
+
+}
+
+button { 
+	background-color: transparent;
+	box-shadow: none !important
+}
+
+
+.altura {
+	height: 50px;
+}

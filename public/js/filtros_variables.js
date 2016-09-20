@@ -6,12 +6,12 @@ $(function(){
 	  }
 	  return replaceString;
 	};
-	$('input[name="tipo_zona"]').on('change', function(){
+	/*$('input[name="tipo_zona"]').on('change', function(){
 		$('div#div_pais').hide();
 		$('div#div_provincia').hide();
 		$('div#div_municipio').hide();
 		$('div#div_'+$(this).val()).show();
-	});
+	});*/
 	$('input[name="tipo_frecuencia"]').on('change', function(){
 		$('div#div_semestral').hide();
 		$('div#div_trimestral').hide();
