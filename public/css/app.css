@@ -307,15 +307,23 @@ margin-left: 50px
 	  background-color: transparent !important;
     border-color: none;
     box-shadow: none !important
-
 }
 
 button { 
 	background-color: transparent;
-	box-shadow: none !important
+	box-shadow: none !important;
 }
 
 
 .altura {
 	height: 50px;
 }
+
+
+.list-group .btn {
+	padding: 0px !important
+}
+
+
+.azul_FCE {color: #0065a4}
+.azul_FCE_apagado {color: rgba(0,101,194,0.5);}

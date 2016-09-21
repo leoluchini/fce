@@ -21,18 +21,18 @@
         
         <div class="list-group list-plan">
           <div data-toggle="buttons">
-            <h4>Genrerar búsqueda por
-<!--               <label>
+            <h4>Realizar búsqueda por
+              <!--<label>
                 <input type="radio" id="busqueda_option1" name="tipo_busqueda" value="region_variable"/>
               </label> -->
               <button  class="btn btn-none active">
                 <input type="radio" name="tipo_busqueda" id="busqueda_option1" value="region_variable" autocomplete="off" checked>
-                <h4>Territorio</h4>
+                <h4 class="azul_FCE"><span class="icon-check-1"></span>Territorio</h4>
               </button>
               o por
               <button class="btn btn-none">
                 <input type="radio" name="tipo_busqueda" id="busqueda_option2" value="variable_region" autocomplete="off">
-                <h4>Variable</h4>
+                <h4 class="azul_FCE_apagado"><span class="icon-check-empty"></span>Variable</h4>
               </button>
             </h4>
           </div>
