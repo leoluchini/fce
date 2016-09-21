@@ -55,6 +55,7 @@
   <!-- Plan Section -->
     <div class="container">
       <ol class="breadcrumb">
+        DETALLES DE LA CONSULTA: 
         @foreach($busqueda as $label => $colection)
           @if(count($colection) > 1)
             <li class="dropdown">
@@ -69,8 +70,11 @@
           <li> {{$colection[0]}} </li>
           @endif
         @endforeach
+        <div class="pull-right" ><a href="#"><span class="icon-spin3"></span></a></div>
       </ol>
-      <table class="table table-condensed tabla_resultados_paginada">
+
+<!-- TABLA COMUN -->
+<!--       <table class="table table-condensed tabla_resultados_paginada">
         <thead>
           <tr>
             <th>Variable</th>
@@ -94,19 +98,22 @@
           @endforeach
         </tbody>
       </table>
-    </div>
-    <hr>
-    <div class="container">
+    <hr> -->
+<!-- FIN TABLA COMUN -->
+
+
+<!-- TABLA PIVOT-->
       <?php $total = 0 ?>
       @foreach($info_pivot['variables'] as $id_var => $nombre)
-        <table class="table">
+      <div class="table-responsive"></div>
+        <table class="table table-condensed table-hover">
         <thead>
-          <tr>
+          <tr class="azul_FCE_bg blanco">
             <th>{{$nombre}}</th>
             @foreach($info_pivot['aniofrec'] as $id_aniofrec => $aniofrec)
-            <th>{{$aniofrec}}</th>
+            <th class="text-right">{{$aniofrec}}</th>
             @endforeach
-            <th>TOTAL</th>
+            <th class="text-right">TOTAL MUN.</th>
           </tr>
         </thead>
         <tbody>
@@ -114,35 +121,41 @@
             <tr>
                 <td>{{ $zona }}</td>
                 @foreach($info_pivot['aniofrec'] as $id_aniofrec => $aniofrec)
-                <td>{{$data_pivot[$id_var][$id_reg][$id_aniofrec]}}</td>
+                <td class="text-right">{{$data_pivot[$id_var][$id_reg][$id_aniofrec]}}</td>
                 @endforeach
-                <td><strong>{{ array_sum($data_pivot[$id_var][$id_reg]) }}</strong></td>
+                <td class="text-right"><strong>{{ array_sum($data_pivot[$id_var][$id_reg]) }}</strong></td>
                 <?php $total += array_sum($data_pivot[$id_var][$id_reg]) ?>
             </tr>
           @endforeach
-            <tr>
-                <td> - </td>
+            <tr class="gris_table_bg">
+                <td><strong>TOTAL ANUAL</strong></td>
                 @foreach($info_pivot['aniofrec'] as $id_aniofrec => $aniofrec)
                 <?php $tot_reg = 0 ?>
                   @foreach($info_pivot['regiones'] as $id_reg => $zona)
                     <?php $tot_reg += $data_pivot[$id_var][$id_reg][$id_aniofrec] ?>
                   @endforeach
-                <td><strong>{{$tot_reg}}</strong></td>
+                <td class="text-right"><strong>{{$tot_reg}}</strong></td>
                 @endforeach
-                <td><strong>{{ $total }}</strong></td>
+                <td class="text-right"><strong>{{ $total }}</strong></td>
             </tr>
         </tbody>
       </table>
+      <hr>
       @endforeach
+<!-- FIN TABLA PIVOT-->
+
       <!-- Button trigger modal -->
       <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
         Launch demo modal
       </button>
-    </div>
-</section>
+
+    </div> <!-- fin container -->
+</div><!-- fin page-body -->
 
 
-</div>
+
+
+
 
 @endsection
 @section('scripts_adicionales')

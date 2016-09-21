@@ -10,7 +10,14 @@ html {
 
 }
 
-
+/*COLORES*/
+.azul_FCE {color: #0065a4}
+.azul_FCE_bg {background-color: #0065a4}
+.azul_FCE_apagado {color: rgba(0,101,194,0.5);}
+.azul_FCE_apagado_bg {background-color: rgba(0,101,194,0.5);}
+.blanco {color: #fff}
+.gris_table {color: #f5f5f5}
+.gris_table_bg {background-color: #f5f5f5}
 
 /* I N  D E X*/
 
@@ -323,7 +330,3 @@ button {
 .list-group .btn {
 	padding: 0px !important
 }
-
-
-.azul_FCE {color: #0065a4}
-.azul_FCE_apagado {color: rgba(0,101,194,0.5);}
