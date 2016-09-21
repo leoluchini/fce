@@ -44,39 +44,8 @@
 <div class="page-body">
     <section id="plan" class="full-section">
         <div class="container">
-
-<!-- 
-          <div id="accordion2">
-
-            <div class="panel" style="width: 44px;">
-              <div class="header">
-                <div  class="texto-vertical-2">PASO 1</div>
-              </div>
-
-              <div class="panelContent p1">
-                      
-              </div>
-            </div>
-
-            <div class="panel" style="width: 44px;">
-              <div class="pink dark1">2</div>
-              <div class="panelContent p2"> <strong>Section 2 Header</strong><br>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. In iaculis volutpat quam, non suscipit arcu accumsan at. Aliquam pellentesque.
-              </div>
-            </div>
-
-            <div class="panel" style="width: 44px;">
-              <div class="pink dark2">3</div>
-              <div class="panelContent p3"> <strong>Section 3 Header</strong><br>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. In iaculis volutpat quam, non suscipit arcu accumsan at. Aliquam pellentesque.
-              </div>
-            </div>
-
-          </div> FIN ACCORDION2 -->
-
-
+              {!! Form::open(array('action' => ['PublicoController@resultados_variables'], 'method' => 'POST', 'class' => 'form-horizontal')) !!}
                 <div id="accordion">
-                  {!! Form::open(array('action' => ['PublicoController@resultados_variables'], 'method' => 'POST', 'class' => 'form-horizontal')) !!}
                   <div id="panel-accordion-1" class="panel-accordion">
 <!-- TERRITORIO-->
                     <div class="header" id="div_paso_1">
@@ -91,18 +60,18 @@
                         {{ HTML::image('images/ajax-loader.gif') }}
                       </div>
                       <ul class="nav nav-tabs nav-justified altura" role="tablist">
-                          <li role="presentation" class="active">
+                          <li role="presentation" class="solapa_zona active" data-region="pais">
                             <a href="#div_pais" role="tab" data-toggle="tab" aria-controls="div_pais">Países</a>
                             
                           </li>
-                          <li role="presentation">
+                          <li role="presentation" class="solapa_zona" data-region="provincia">
                             <a href="#div_provincia" role="tab" data-toggle="tab" aria-controls="div_provincia">Provincias</a>
                           </li>
-                          <li role="presentation">
+                          <li role="presentation" class="solapa_zona" data-region="municipio">
                             <a href="#div_municipio" role="tab" data-toggle="tab" aria-controls="div_municipio">Municipios</a>
                           </li>
                       </ul>
-
+                      <input type="hidden" id="tipo_zona" name="tipo_zona" value="pais">
                       <div class="tab-content">
                          <div id="div_pais" role="tabpanel" class="tab-pane active" >
                             <select 
@@ -135,20 +104,6 @@
                             </select>
                           </div>
                       </div>
-                     
-                     <!--  <div class="list-group list-plan">
-                        <div class="btn-group" data-toggle="buttons">
-                          <label class="btn btn-default active">
-                            <input type="radio" name="tipo_zona" id="region_option1" value="pais" autocomplete="off" checked> Paises
-                          </label>
-                          <label class="btn btn-default">
-                            <input type="radio" name="tipo_zona" id="region_option2" value="provincia" autocomplete="off"> Provincias
-                          </label>
-                          <label class="btn btn-default">
-                            <input type="radio" name="tipo_zona" id="region_option3" value="municipio" autocomplete="off"> Municipios
-                          </label>
-                        </div>
-                      </div> -->
                     </div>
                   </div>
                      
@@ -232,70 +187,75 @@
                         {{ HTML::image('images/ajax-loader.gif') }}
                       </div>
                       <div class="list-group list-plan">
-                        <div class="btn-group" data-toggle="buttons">
-                          <label class="btn btn-default active">
-                            <input type="radio" name="tipo_frecuencia" id="frecuencia_option1" value="anual" autocomplete="off" checked> Anual
-                          </label>
-                          <label class="btn btn-default">
-                            <input type="radio" name="tipo_frecuencia" id="frecuencia_option2" value="semestral" autocomplete="off"> Semestral
-                          </label>
-                          <label class="btn btn-default">
-                            <input type="radio" name="tipo_frecuencia" id="frecuencia_option3" value="trimestral" autocomplete="off"> Trimestral
-                          </label>
-                          <label class="btn btn-default">
-                            <input type="radio" name="tipo_frecuencia" id="frecuencia_option4" value="mensual" autocomplete="off"> Mensual
-                          </label>
-                        </div>
-                        <div class="col-md-2 col-md-offset-10">
-                        {!! Form::submit('Buscar', array('class' => 'btn btn-primary btn-block')) !!}
+                        <ul class="nav nav-tabs nav-justified altura" role="tablist">
+                          <li role="presentation" class="solapa_frecuencia active" data-frecuencia="anual">
+                            <a href="#div_anual" role="tab" data-toggle="tab" aria-controls="div_anual">Anual</a>
+                          </li>
+                          <li role="presentation" class="solapa_frecuencia" data-frecuencia="semestral">
+                            <a href="#div_semestral" role="tab" data-toggle="tab" aria-controls="div_semestral">Semestral</a>
+                          </li>
+                          <li role="presentation" class="solapa_frecuencia" data-frecuencia="trimestral">
+                            <a href="#div_trimestral" role="tab" data-toggle="tab" aria-controls="div_trimestral">Trimestral</a>
+                          </li>
+                          <li role="presentation" class="solapa_frecuencia" data-frecuencia="mensual">
+                            <a href="#div_mensual" role="tab" data-toggle="tab" aria-controls="div_mensual">Mensual</a>
+                          </li>
+                        </ul>
+                        <input type="hidden" id="tipo_frecuencia" name="tipo_frecuencia" value="anual">
+                        <div class="tab-content">
+                            <div id="div_anual" role="tabpanel" class="tab-pane active">
+                            </div>
+                            <div id="div_semestral" role="tabpanel" class="tab-pane">
+                            <select 
+                              id="semestral" 
+                              name="semestral[]" 
+                              multiple="multiple" 
+                              class="bootstrapmultiselect_unfold_simple" 
+                              data-height="150"
+                              data-maxheight="150">
+                                @foreach($semestres as $periodo)
+                                  <option value="{{$periodo->id}}" >{{$periodo->nombre}}</option>
+                                @endforeach
+                            </select>
+                          </div>
+                          <div id="div_trimestral" role="tabpanel" class="tab-pane">
+                            <select 
+                              id="trimestral" 
+                              name="trimestral[]" 
+                              multiple="multiple" 
+                              class="bootstrapmultiselect_unfold_simple" 
+                              data-height="150"
+                              data-maxheight="150">
+                                @foreach($trimestres as $periodo)
+                                  <option value="{{$periodo->id}}" >{{$periodo->nombre}}</option>
+                                @endforeach
+                            </select>
+                          </div>
+                          <div id="div_mensual" role="tabpanel" class="tab-pane">
+                            <select 
+                              id="mensual" 
+                              name="mensual[]" 
+                              multiple="multiple" 
+                              class="bootstrapmultiselect_unfold_simple" 
+                              data-height="150"
+                              data-maxheight="150">
+                                @foreach($meses as $periodo)
+                                  <option value="{{$periodo->id}}" >{{$periodo->nombre}}</option>
+                                @endforeach
+                            </select>
+                          </div>
                         </div>
                       </div>
-                      <div class="list-group list-plan">
-                        <div id="div_semestral" class="list-plan" style="display:none">
-                          <select 
-                            id="semestral" 
-                            name="semestral[]" 
-                            multiple="multiple" 
-                            class="bootstrapmultiselect_unfold_simple" 
-                            data-height="300"
-                            data-maxheight="300">
-                              @foreach($semestres as $periodo)
-                                <option value="{{$periodo->id}}" >{{$periodo->nombre}}</option>
-                              @endforeach
-                          </select>
-                        </div>
-                        <div id="div_trimestral" class="list-plan" style="display:none">
-                          <select 
-                            id="trimestral" 
-                            name="trimestral[]" 
-                            multiple="multiple" 
-                            class="bootstrapmultiselect_unfold_simple" 
-                            data-height="300"
-                            data-maxheight="300">
-                              @foreach($trimestres as $periodo)
-                                <option value="{{$periodo->id}}" >{{$periodo->nombre}}</option>
-                              @endforeach
-                          </select>
-                        </div>
-                        <div id="div_mensual" class="list-plan" style="display:none">
-                          <select 
-                            id="mensual" 
-                            name="mensual[]" 
-                            multiple="multiple" 
-                            class="bootstrapmultiselect_unfold_simple" 
-                            data-height="300"
-                            data-maxheight="300">
-                              @foreach($meses as $periodo)
-                                <option value="{{$periodo->id}}" >{{$periodo->nombre}}</option>
-                              @endforeach
-                          </select>
-                        </div>
-                      </div>
+
                     </div>
                   </div>
-                  {!! Form::close() !!}
           </div>
-
+          <div class="row">
+            <div class="col-md-1 col-md-offset-11">
+              {!! Form::submit('Buscar', array('class' => 'btn btn-primary btn-block')) !!}
+            </div>
+          </div>
+          {!! Form::close() !!}
       </div>
     </section>
 

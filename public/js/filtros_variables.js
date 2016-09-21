@@ -6,21 +6,14 @@ $(function(){
 	  }
 	  return replaceString;
 	};
-	/*$('input[name="tipo_zona"]').on('change', function(){
-		$('div#div_pais').hide();
-		$('div#div_provincia').hide();
-		$('div#div_municipio').hide();
-		$('div#div_'+$(this).val()).show();
-	});*/
-	$('input[name="tipo_frecuencia"]').on('change', function(){
-		$('div#div_semestral').hide();
-		$('div#div_trimestral').hide();
-		$('div#div_mensual').hide();
-		if($(this).val() != 'anual'){
-			$('div#div_'+$(this).val()).show();
-		}
+	$('li.solapa_zona').on('click', function(){
+		$('input#tipo_zona').val($(this).data('region'));
+	});
+	$('li.solapa_frecuencia').on('click', function(){
+		$('input#tipo_frecuencia').val($(this).data('frecuencia'));
 	});
 	$('input[name="tipo_busqueda"]').on('change', function(){
+		switch_tipo_busqueda();
 		if($(this).val() == 'variable_region'){
 			var filtro_region = $('div#panel-accordion-1').find('div.panelContent');
 			var filtro_variable = $('div#panel-accordion-2').find('div.panelContent');
@@ -47,11 +40,11 @@ $(function(){
 					texto = $('#variable').val().toLowerCase();
 					texto = texto.replaceArray(["á", "é", "í", "ó", "ú"], ["a", "e", "i", "o", "u"]);
 					var zonas = [];
-					$('#'+$('input[name="tipo_zona"]:checked').val()).find('option:selected').each(function(){ 
+					$('#'+$('input[name="tipo_zona"]').val()).find('option:selected').each(function(){ 
 						zonas.push($(this).val()); 
 					});
 					datos = { tipo_busqueda: $('input[name="tipo_busqueda"]:checked').val(),
-							 tipo_zona: $('input[name="tipo_zona"]:checked').val(),
+							 tipo_zona: $('input[name="tipo_zona"]').val(),
 							 regiones: zonas,
 							 busqueda: texto,
 							 _token: $( "#variable" ).data('token')};
@@ -206,4 +199,15 @@ function limpiar_variables_regiones()
 	$('#lista_tags').empty();
 	reset_regiones();
 	$('#div_paso_1').trigger('click');
+}
+function switch_tipo_busqueda()
+{
+	op1 = $('input#busqueda_option1').parent().find('h4');
+	op2 = $('input#busqueda_option2').parent().find('h4');
+	clase_h4 = op1.attr('class');
+	clase_span = op1.find('span').attr('class');
+	op1.removeClass().addClass(op2.attr('class'));
+	op1.find('span').removeClass().addClass(op2.find('span').attr('class'));
+	op2.removeClass().addClass(clase_h4);
+	op2.find('span').removeClass().addClass(clase_span);
 }
