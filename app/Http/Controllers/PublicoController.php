@@ -126,12 +126,16 @@ class PublicoController extends Controller
 								   'Regiones' => ZonaGeografica::find($zonas)->lists('nombre')->toArray(),
 								   'Periodos' => $periodos,
 								   'Frecuencias' => Frecuencia::find($frecuencia)->lists('nombre')->toArray());
-		$info_var = array('variables' => array(), 'regiones' => array(), 'aniofrec' => array());
+		$info_var = array('variables' => array(), 'unidades' => array(), 'regiones' => array(), 'aniofrec' => array());
 		$data_var = array();
+		$data_var_inversa = array();
 		foreach($datos['resultados'] as $res)
 		{
 			if(!isset($info_var['variables'][$res->variable->id])){
 				$info_var['variables'][$res->variable->id] = $res->variable->nombre;
+			}
+			if(!isset($info_var['unidades'][$res->variable->id])){
+				$info_var['unidades'][$res->variable->id] = $res->unidad_medida->nombre;
 			}
 			if(!isset($info_var['regiones'][$res->zona->id])){
 				$info_var['regiones'][$res->zona->id] = $res->zona->nombre;
@@ -141,9 +145,36 @@ class PublicoController extends Controller
 				$info_var['aniofrec'][$anio_frecuencia] = ($res->frecuencia->tipo == 'ANIO') ? $res->anio : $res->anio.' '.$res->frecuencia->nombre;
 			}
 			$data_var[$res->variable->id][$res->zona->id][$anio_frecuencia] = $res->valor;
+			$data_var_inversa[$res->variable->id][$anio_frecuencia][$res->zona->id] = $res->valor;
 		}
+
+		$info_adicional = array();
+		foreach($info_var['variables'] as $k => $v)
+		{
+			$prom_frecuencia = array();
+			$prom_region = array();
+			$min = null;
+			$max = null;
+			foreach($data_var[$k] as $key => $value)
+			{
+				$prom_frecuencia[] = array_sum($value) / count($info_var['aniofrec']);
+				$actual_min = min($value);
+				$actual_max = max($value);
+				$min = ($min == null) ? $actual_min : (($actual_min < $min) ? $actual_min : $min);
+				$max = ($max == null) ? $actual_max : (($actual_max > $max) ? $actual_max : $max);
+			}
+			foreach($data_var_inversa[$k] as $key => $value)
+			{
+				$prom_region[] = array_sum($value) / count($info_var['regiones']);
+			}
+			$info_adicional[$k] = array('minimo' => $min, 'maximo' => $max, 'promedio_frecuencia' => $prom_frecuencia, 'promedio_regional' => $prom_region);
+		}
+
+
 		$datos['info_pivot'] = $info_var;
 		$datos['data_pivot'] = $data_var;
+		$datos['data_pivot_inversa'] = $data_var_inversa;
+		$datos['datos_adicionales'] = $info_adicional;
 		return view('frontend.resultados_variables', $datos);
 	}
 

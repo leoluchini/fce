@@ -121,9 +121,9 @@
                        <div class="list-group list-plan">
                         <label id="var_reg" style="display:none">Las variables seleccionadas condicionarán las regiones del paso 2</label>
                         <label id="reg_var">Las variables estan condicionadas por las regiones seleccionadas en el paso 1</label>
-                        <a class="btn btn-default btn-xs btn-menu" id="listo_seleccion" data-cerrar="1" style="display:none">
+                        <!--<a class="btn btn-default btn-xs btn-menu" id="listo_seleccion" data-cerrar="1" style="display:none">
                           Cerrar Lista
-                        </a>
+                        </a>-->
                         <input type="text" 
                                 class="form-control" 
                                 id="variable" 

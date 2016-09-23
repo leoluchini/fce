@@ -78,7 +78,7 @@ $(function(){
 		minLength: 3,
 		select: function( event, ui ) {
 					event.preventDefault();
-
+					$( "#variable" ).data('close', 'false');
     				if(ui.item.key != 0)
     				{
     					if($('#lista_tags').find('input[name="variable_id['+ui.item.key+']"]').length == 0){
@@ -94,24 +94,35 @@ $(function(){
 			},
 		search: function(){$('#variable').addClass('image_background_loading');},
         open: function(){
-        	$('#listo_seleccion').data('cerrar', '0');
-        	$('#listo_seleccion').show();
+        	/*$('#listo_seleccion').data('cerrar', '0');
+        	$('#listo_seleccion').show();*/
         	$('#variable').removeClass('image_background_loading');
         },
         close: function (event, ui) {
-        	if($('#listo_seleccion').data('cerrar') == 0){
+        	if($( "#variable" ).data('close') == 'false'){
+        		$( "#variable" ).data('close', 'true');
+        		if (!$("ul.ui-autocomplete").is(":visible")) {
+		            $("ul.ui-autocomplete").show();
+		        }
+        	}
+        	else{
+	        	$('#variable').val('');
+				actualizar_regiones();
+        	}
+
+        	/*if($('#listo_seleccion').data('cerrar') == 0){
 		        if (!$("ul.ui-autocomplete").is(":visible")) {
 		            $("ul.ui-autocomplete").show();
 		        }
 		    }
 		    else{
 		    	$('#listo_seleccion').hide();
-		    }
+		    }*/
 	    },
 	});
-	$('#listo_seleccion').on('click', function(){
+	/*$('#listo_seleccion').on('click', function(){
 		cerrar_autocompletar();
-	});
+	});*/
 	$(document).on("click", "a[class*='mb-tag-remove']", function(e) {
 		e.preventDefault();
 		$(this).parent().remove();
@@ -120,23 +131,23 @@ $(function(){
 			reset_regiones();
 		}
 	});
-	$('div.header').on('click', function(){
+	/*$('div.header').on('click', function(){
 		if($('#listo_seleccion').data('cerrar') == 0){
 			cerrar_autocompletar();
 		}
-	});
+	});*/
 
 	$(window).load(function(e) {
 		reset_regiones();
 	});
 });
-function cerrar_autocompletar()
+/*function cerrar_autocompletar()
 {
 	$('#listo_seleccion').data('cerrar', '1');
 	$('#variable').val('');
 	$('#variable').autocomplete('close');
 	actualizar_regiones();
-}
+}*/
 function actualizar_regiones()
 {
 	if($('input[name="tipo_busqueda"]:checked').val() == 'variable_region')

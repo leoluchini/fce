@@ -138,6 +138,46 @@
                 @endforeach
                 <td class="text-right"><strong>{{ $total }}</strong></td>
             </tr>
+            <tr>
+                <td colspan="{{ (count($info_pivot['aniofrec']) + 2) }}">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <h4>
+                        Graficos por region: 
+                        <a href="#" title="Grafico de linea" class="link_grafico" data-grafico="region_{{$id_var}}_linea">
+                          <span class="icon-chart-line"></span>
+                        </a>
+                        <a href="#" title="Grafico de radar" class="link_grafico" data-grafico="region_{{$id_var}}_radar">
+                          <span class="icon-chart-pie-outline"></span>
+                        </a>
+                        <a href="#" title="Grafico de columnas" class="link_grafico" data-grafico="region_{{$id_var}}_columna">
+                          <span class="icon-chart-bar-1"></span>
+                        </a>
+                        <a href="#" title="Grafico de puntos" class="link_grafico" data-grafico="region_{{$id_var}}_puntos">
+                          <span class="icon-chart-alt-outline"></span>
+                        </a>
+                      </h4>
+                    </div>
+                    <div class="col-md-6">
+                      <h4>
+                        Graficos por frecuencia: 
+                        <a href="#" title="Grafico de linea" class="link_grafico" data-grafico="frecuencia_{{$id_var}}_linea">
+                          <span class="icon-chart-line"></span>
+                        </a>
+                        <a href="#" title="Grafico de radar" class="link_grafico" data-grafico="frecuencia_{{$id_var}}_radar">
+                          <span class="icon-chart-pie-outline"></span>
+                        </a>
+                        <a href="#" title="Grafico de columnas" class="link_grafico" data-grafico="frecuencia_{{$id_var}}_columna">
+                          <span class="icon-chart-bar-1"></span>
+                        </a>
+                        <a href="#" title="Grafico de puntos" class="link_grafico" data-grafico="frecuencia_{{$id_var}}_puntos">
+                          <span class="icon-chart-alt-outline"></span>
+                        </a>
+                      </h4>
+                    </div>
+                  </div>
+                </td>
+            </tr>
         </tbody>
       </table>
       <hr>
@@ -145,17 +185,14 @@
 <!-- FIN TABLA PIVOT-->
 
       <!-- Button trigger modal -->
-      <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+      <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#modal_variables">
         Launch demo modal
       </button>
 
     </div> <!-- fin container -->
 </div><!-- fin page-body -->
 
-
-
-
-
+@include('frontend.graficos_variables')
 
 @endsection
 @section('scripts_adicionales')
@@ -169,95 +206,7 @@
     <script src="{{ asset('Highcharts-4.2.6/js/highcharts.js') }}"></script>
     <script src="{{ asset('Highcharts-4.2.6/js/highcharts-more.js') }}"></script>
     <script src="{{ asset('Highcharts-4.2.6/js/modules/exporting.js') }}"></script>
-    <script>
-      $(function () {
-        $('#myModal').on('shown.bs.modal', function() {
-          var ancho = $('#grafico').parent().outerWidth() - 30;
-          $('#grafico').highcharts({
-              chart: {
-                  type: 'column',
-                  width: ancho
-              },
-              title: {
-                  text: 'Monthly Average Rainfall'
-              },
-              subtitle: {
-                  text: 'Source: WorldClimate.com'
-              },
-              xAxis: {
-                  categories: [
-                      'Jan',
-                      'Feb',
-                      'Mar',
-                      'Apr',
-                      'May',
-                      'Jun',
-                      'Jul',
-                      'Aug',
-                      'Sep',
-                      'Oct',
-                      'Nov',
-                      'Dec'
-                  ],
-                  crosshair: true
-              },
-              yAxis: {
-                  min: 0,
-                  title: {
-                      text: 'Rainfall (mm)'
-                  }
-              },
-              tooltip: {
-                  headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-                  pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-                      '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
-                  footerFormat: '</table>',
-                  shared: true,
-                  useHTML: true
-              },
-              plotOptions: {
-                  column: {
-                      pointPadding: 0.2,
-                      borderWidth: 0
-                  }
-              },
-              series: [{
-                  name: 'Tokyo',
-                  data: [49.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4]
-
-              }, {
-                  name: 'New York',
-                  data: [83.6, 78.8, 98.5, 93.4, 106.0, 84.5, 105.0, 104.3, 91.2, 83.5, 106.6, 92.3]
-
-              }, {
-                  name: 'London',
-                  data: [48.9, 38.8, 39.3, 41.4, 47.0, 48.3, 59.0, 59.6, 52.4, 65.2, 59.3, 51.2]
-
-              }, {
-                  name: 'Berlin',
-                  data: [42.4, 33.2, 34.5, 39.7, 52.6, 75.5, 57.4, 60.4, 47.6, 39.1, 46.8, 51.1]
-
-              }]
-          });
-        })
-    });
-    </script>
+    <script src="{{ asset('js/funciones_graficos.js') }}"></script>
+    <script src="{{ asset('js/graficos_variables.js') }}"></script>
+    
 @endsection
-
-<!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Grafico de variable</h4>
-      </div>
-      <div class="modal-body">
-        <div id="grafico">
-        </div>
-      </div>
-      <div class="modal-footer">
-      </div>
-    </div>
-  </div>
-</div>
