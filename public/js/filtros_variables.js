@@ -129,25 +129,25 @@ $(function(){
 
 	$('#consulta_variables').submit(function() {
 		isValid = true;
-		errores = '<h4>Debe completar todos los pasos del formulario antes de poder continuar con la consulta.</h4>';
+		errores = '<h4>Debe completar los 4 pasos del formulario para poder realizar la consulta.</h4>';
 		if($('#lista_tags').find('input[name^="variable_id"]').length == 0){
 			isValid = false;
-			errores += '<p>Debe seleccionar al menos una variable</p>';
+			errores += '<p>Le faltan completar los siguientes pasos:</p>';
 		}
 		if($('#'+$('input[name="tipo_zona"]').val()).find('option:selected').length == 0){
 			isValid = false;
-			errores += '<p>Debe seleccionar al menos una region</p>';
+			errores += '<p>Paso 2: Region</p>';
 		}
 		if($('select#periodo').find('option:selected').length == 0){
 			isValid = false;
-			errores += '<p>Debe seleccionar al menos un periodo</p>';
+			errores += '<p>Paso 3: Período</p>';
 		}
 		if(($('#tipo_frecuencia').val() != 'anual')&&($('#'+$('input[name="tipo_frecuencia"]').val()).find('option:selected').length == 0)){
 			isValid = false;
-			errores += '<p>Debe seleccionar al menos una frecuencia</p>';
+			errores += '<p>Paso 4: Frecuencia</p>';
 		}
 		if(!isValid){
-			$('#generic_modal').find('#myModalLabel').empty().append('Formulario incompleto');
+			$('#generic_modal').find('#myModalLabel').empty().append('<span class="icon-info-circled-alt"></span>Formulario incompleto');
 			$('#generic_modal').find('.modal-body').empty().append(errores);
 			$('#generic_modal').modal('show');
 		}
