@@ -1,17 +1,10 @@
 $(function(){
-	$(window).load(function(e) {
-		/*jQuery.each(info_json.info.variables, function() {
-			alert(this)
-		});*/
-	});
+
   $(".link_grafico").on('click', function(e){
     e.preventDefault();
     $('div#graficos_generados').append($('#contenedor_grafico').contents());
     if($('div#graficos_generados').find('#'+$(this).data('grafico')).length == 0)
     {
-      //$('#contenedor_grafico').append($($('#loading_image').html()));
-      //$('#modal_variables').modal('show');
-      //$('#contenedor_grafico').data('grafico', $(this).data('grafico'));
       partes = $(this).data('grafico').split('_');
       variable = {id:partes[1], descripcion:variables[partes[1]], unidad:unidades[partes[1]]};
       serie = [];
@@ -56,63 +49,53 @@ $(function(){
       $('div#graficos_generados').append(div);
     }
     $('#modal_variables').modal('show');
-    //$('#contenedor_grafico').empty();
     $('#contenedor_grafico').append($('div#graficos_generados').find('#'+$(this).data('grafico')));
   });
+  
+  $(".link_grafico_comparativo").on('click', function(e){
+    e.preventDefault();
+    $('div#graficos_generados').append($('#contenedor_grafico').contents());
+    if($('div#graficos_generados').find('#'+$(this).data('grafico')).length == 0)
+    {
+      partes = $(this).data('grafico').split('_');
+      
+      var item = {id: partes[1], descripcion:frecuencias[partes[1]], unidad:""};
+      var categorias = get_values(regiones);
+      var lista_info = [];
+      var info_multieje = [];
 
-	$('#modal_variables').on('shown.bs.modal', function() {
-        /*$('#contenedor_grafico').empty();
-		    $('#contenedor_grafico').append($($('#loading_image').html()));*/
-        /*grafico = $('div#graficos_generados').find('#'+$(this).data('grafico')).clone();
-        $('#contenedor_grafico').append(grafico);*/
-          /*var ancho = $('#contenedor_grafico').outerWidth() - 30;
-          div = $("<div></div>");
-          div.highcharts({
-              chart: {
-                  type: 'column',
-                  width: ancho
-              },
-              title: {
-                  text: variables[1]
-              },
-              subtitle: {
-                  text: 'Source: WorldClimate.com'
-              },
-              xAxis: {
-                  categories: get_values(frecuencias),
-                  crosshair: true
-              },
-              yAxis: {
-                  min: 0,
-                  title: {
-                      text: 'Rainfall (mm)'
-                  }
-              },
-              tooltip: {
-                  headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-                  pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-                      '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
-                  footerFormat: '</table>',
-                  shared: true,
-                  useHTML: true
-              },
-              plotOptions: {
-                  column: {
-                      pointPadding: 0.2,
-                      borderWidth: 0
-                  }
-              },
-              series: [{
-                  name: regiones[26],
-                  data:  get_int_values(datos_region_anio[1][26])
-              }, {
-                  name: regiones[27],
-                  data: get_int_values(datos_region_anio[1][27])
+      jQuery.each(variables, function(key, value) {
+          valores = get_int_values(datos_anio_region[key][partes[1]]);
+          var info = {
+                      name: value,
+                      data: valores
+                    };
+          lista_info.push(info);
+          var info_m = {
+                      variable: {id:key, descripcion:value, unidad:unidades[key]},
+                      info: info
+                    };;
+          info_multieje.push(info_m);
+      });
 
-              }]
-          });
-		      $('#contenedor_grafico').append(div);*/
-        });
+      ancho = 838;
+      switch(partes[2]) {
+          case 'linea':
+              div = generar_div_grafico_linea(ancho, item, categorias, lista_info, partes[0]);
+              break;
+          case 'radar':
+              div = generar_div_grafico_radar(ancho, item, categorias, lista_info, partes[0]);
+              break;
+          case 'lineamultieje':
+              div = generar_div_grafico_linea_multieje(ancho, item, categorias, info_multieje, partes[0]);
+              break;
+      }
+
+      $('div#graficos_generados').append(div);
+    }
+    $('#modal_variables').modal('show');
+    $('#contenedor_grafico').append($('div#graficos_generados').find('#'+$(this).data('grafico')));
+  });
 });
 
 function get_values(asociativo)

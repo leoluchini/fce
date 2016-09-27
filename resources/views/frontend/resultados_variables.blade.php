@@ -182,13 +182,36 @@
       </table>
       <hr>
       @endforeach
+      <div class="table-responsive"></div>
+        <table class="table table-condensed table-hover">
+        <thead>
+          <tr class="azul_FCE_bg blanco">
+            <th>Graficos Comparativos</th>
+            @foreach($info_pivot['aniofrec'] as $id_aniofrec => $aniofrec)
+            <th class="text-right">{{$aniofrec}}</th>
+            @endforeach
+          </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td></td>
+                @foreach($info_pivot['aniofrec'] as $id_aniofrec => $aniofrec)
+                  <td class="text-right">
+                    <a href="#" title="Grafico de linea" class="link_grafico_comparativo" data-grafico="comparativo_{{$id_aniofrec}}_linea">
+                        <span class="icon-chart-line"></span>
+                      </a>
+                      <a href="#" title="Grafico de radar" class="link_grafico_comparativo" data-grafico="comparativo_{{$id_aniofrec}}_radar">
+                        <span class="icon-chart-pie-outline"></span>
+                      </a>
+                      <a href="#" title="Grafico de linea multieje" class="link_grafico_comparativo" data-grafico="comparativo_{{$id_aniofrec}}_lineamultieje">
+                        <span class="icon-chart-area"></span>
+                      </a>
+                  </td>
+                @endforeach
+            </tr>
+        </tbody>
+      </table>
 <!-- FIN TABLA PIVOT-->
-
-      <!-- Button trigger modal -->
-      <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#modal_variables">
-        Launch demo modal
-      </button>
-
     </div> <!-- fin container -->
 </div><!-- fin page-body -->
 
@@ -205,6 +228,7 @@
 
     <script src="{{ asset('Highcharts-4.2.6/js/highcharts.js') }}"></script>
     <script src="{{ asset('Highcharts-4.2.6/js/highcharts-more.js') }}"></script>
+    <script src="{{ asset('Highcharts-4.2.6/js/themes/sand-signika.js') }}"></script>
     <script src="{{ asset('Highcharts-4.2.6/js/modules/exporting.js') }}"></script>
     <script src="{{ asset('js/funciones_graficos.js') }}"></script>
     <script src="{{ asset('js/graficos_variables.js') }}"></script>

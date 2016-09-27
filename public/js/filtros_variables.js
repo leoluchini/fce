@@ -88,6 +88,8 @@ $(function(){
 							tag.find('span[class="texto"]').prop('title', ui.item.label);
 							tag.find('input').prop('name', 'variable_id['+ui.item.key+']');
 							tag.find('input').val(ui.item.key);
+							//$("#tilde_variable_agregada").show(400, function(){ $("#tilde_variable_agregada").hide(400) });
+							$("#tilde_variable_agregada").fadeIn(400).fadeOut(400);
 							$('#lista_tags').append(tag);
 						}
 					}
@@ -109,20 +111,8 @@ $(function(){
 	        	$('#variable').val('');
 				actualizar_regiones();
         	}
-
-        	/*if($('#listo_seleccion').data('cerrar') == 0){
-		        if (!$("ul.ui-autocomplete").is(":visible")) {
-		            $("ul.ui-autocomplete").show();
-		        }
-		    }
-		    else{
-		    	$('#listo_seleccion').hide();
-		    }*/
 	    },
 	});
-	/*$('#listo_seleccion').on('click', function(){
-		cerrar_autocompletar();
-	});*/
 	$(document).on("click", "a[class*='mb-tag-remove']", function(e) {
 		e.preventDefault();
 		$(this).parent().remove();
@@ -131,23 +121,45 @@ $(function(){
 			reset_regiones();
 		}
 	});
-	/*$('div.header').on('click', function(){
-		if($('#listo_seleccion').data('cerrar') == 0){
-			cerrar_autocompletar();
+
+	$('div#paso_3').on('click', function(){
+		$('#carga_periodos').show();
+		actualizar_periodos();
+	});
+
+	$('#consulta_variables').submit(function() {
+		isValid = true;
+		errores = '<h4>Debe completar todos los pasos del formulario antes de poder continuar con la consulta.</h4>';
+		if($('#lista_tags').find('input[name^="variable_id"]').length == 0){
+			isValid = false;
+			errores += '<p>Debe seleccionar al menos una variable</p>';
 		}
-	});*/
+		if($('#'+$('input[name="tipo_zona"]').val()).find('option:selected').length == 0){
+			isValid = false;
+			errores += '<p>Debe seleccionar al menos una region</p>';
+		}
+		if($('select#periodo').find('option:selected').length == 0){
+			isValid = false;
+			errores += '<p>Debe seleccionar al menos un periodo</p>';
+		}
+		if(($('#tipo_frecuencia').val() != 'anual')&&($('#'+$('input[name="tipo_frecuencia"]').val()).find('option:selected').length == 0)){
+			isValid = false;
+			errores += '<p>Debe seleccionar al menos una frecuencia</p>';
+		}
+		if(!isValid){
+			$('#generic_modal').find('#myModalLabel').empty().append('Formulario incompleto');
+			$('#generic_modal').find('.modal-body').empty().append(errores);
+			$('#generic_modal').modal('show');
+		}
+	    return isValid;
+	});
 
 	$(window).load(function(e) {
 		reset_regiones();
+		reset_select_with_list($('select#periodo'), $('#listado_periodos'));
 	});
 });
-/*function cerrar_autocompletar()
-{
-	$('#listo_seleccion').data('cerrar', '1');
-	$('#variable').val('');
-	$('#variable').autocomplete('close');
-	actualizar_regiones();
-}*/
+
 function actualizar_regiones()
 {
 	if($('input[name="tipo_busqueda"]:checked').val() == 'variable_region')
@@ -192,11 +204,11 @@ function update_region(select, datos, mensaje)
 }
 function reset_regiones()
 {
-	reset_region($('select#pais'), $('#listado_paises'));
-	reset_region($('select#provincia'), $('#listado_provincias'));
-	reset_region($('select#municipio'), $('#listado_municipios'));
+	reset_select_with_list($('select#pais'), $('#listado_paises'));
+	reset_select_with_list($('select#provincia'), $('#listado_provincias'));
+	reset_select_with_list($('select#municipio'), $('#listado_municipios'));
 }
-function reset_region(select, listado)
+function reset_select_with_list(select, listado)
 {
 	select.multiselect('disable');
 	select.find('option').remove();
@@ -209,6 +221,7 @@ function limpiar_variables_regiones()
 {
 	$('#lista_tags').empty();
 	reset_regiones();
+	reset_select_with_list($('select#periodo'), $('#listado_periodos'));
 	$('#div_paso_1').trigger('click');
 }
 function switch_tipo_busqueda()
@@ -221,4 +234,47 @@ function switch_tipo_busqueda()
 	op1.find('span').removeClass().addClass(op2.find('span').attr('class'));
 	op2.removeClass().addClass(clase_h4);
 	op2.find('span').removeClass().addClass(clase_span);
+}
+
+function actualizar_periodos()
+{
+	var variables = [];
+	$('#lista_tags').find('input[name^="variable_id"]').each(function(){
+		variables.push($(this).val()); 
+	});
+	var zonas = [];
+	$('#'+$('input[name="tipo_zona"]').val()).find('option:selected').each(function(){ 
+		zonas.push($(this).val()); 
+	});
+	datos = {regiones: zonas,
+			 variables: variables,
+			 _token: $( "#variable" ).data('token')};
+	if((variables.length > 0)&&(zonas.length > 0)){
+		$.ajax({
+        	url: $('#periodo').data('urlconsulta'),
+			type: 'POST',
+			dataType: 'json',
+			data: datos,
+			success: function (data) {
+
+				$('#periodo').multiselect('disable');
+				$('#periodo').find('option').remove();
+				if(data.length > 0)
+				{
+					$.each(data, function(key, value) {
+						$('#periodo').append('<option value="'+value+'" > '+value+' </option>');
+					});
+				}
+				else{
+					$('#periodo').append('<option value="0" disabled> No existe informacion para la combinacion de variables/regiones seleccionadas </option>');
+				}
+
+				$('#periodo').multiselect('rebuild');
+				$('#periodo').multiselect('refresh');
+				$('#periodo').multiselect('enable');
+
+           	}
+       	});
+	}
+	$('#carga_periodos').hide();
 }

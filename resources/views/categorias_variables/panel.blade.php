@@ -48,6 +48,9 @@
 			    			<div class="row">
 								<div class="col-md-10">
 									{{ $variable->codigo }} - {{ $variable->nombre }}
+									@if($variable->tema)
+										&nbsp;&nbsp;<span class="badge alert-info" data-toggle="tooltip" data-placement="right" title="Variable madre">{{$variable->tema->nombre}}</span>
+									@endif
 								</div>
 								<div class="col-md-2">
 									<a title="Editar variable" href="{{ action('VariableController@edit', [$categoria->id, $variable->id]) }}" data-toggle="tooltip" data-placement="top">

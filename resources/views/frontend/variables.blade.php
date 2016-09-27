@@ -44,7 +44,7 @@
 <div class="page-body">
     <section id="plan" class="full-section">
         <div class="container">
-              {!! Form::open(array('action' => ['PublicoController@resultados_variables'], 'method' => 'POST', 'class' => 'form-horizontal')) !!}
+              {!! Form::open(array('action' => ['PublicoController@resultados_variables'], 'method' => 'POST', 'class' => 'form-horizontal', 'id' => 'consulta_variables' )) !!}
                 <div id="accordion">
                   <div id="panel-accordion-1" class="panel-accordion">
 <!-- TERRITORIO-->
@@ -121,9 +121,9 @@
                        <div class="list-group list-plan">
                         <label id="var_reg" style="display:none">Las variables seleccionadas condicionarán las regiones del paso 2</label>
                         <label id="reg_var">Las variables estan condicionadas por las regiones seleccionadas en el paso 1</label>
-                        <!--<a class="btn btn-default btn-xs btn-menu" id="listo_seleccion" data-cerrar="1" style="display:none">
-                          Cerrar Lista
-                        </a>-->
+                        <div id="tilde_variable_agregada" class="pull-right" style="display:none">
+                          <span class="icon-ok-outline"></span>
+                        </div>
                         <input type="text" 
                                 class="form-control" 
                                 id="variable" 
@@ -145,7 +145,7 @@
 
 <!-- PERIODO -->
                   <div  id="panel-accordion-3" class="panel-accordion">
-                    <div class="header">
+                    <div class="header" id="paso_3">
                       <div  class="texto-vertical-2">PASO 3</div>
                     </div>
                     <div class="panelContent">
@@ -156,6 +156,10 @@
                         {{ HTML::image('images/ajax-loader.gif') }}
                       </div>
                       <div class="list-group list-plan">
+                        <label id="carga_periodos" style="display:none">
+                          <img src="{{ asset('images/ajax-loader.gif') }}">
+                          Calculando periodos con informacion para la seleccion realizada de variables y regiones
+                        </label>
                         <select 
                           id="periodo" 
                           name="periodo[]" 
@@ -165,10 +169,8 @@
                           data-allselectedtext="Todas las variables escogidas"
                           data-nselectedtext=" varibles escogidas" 
                           data-height="300"
-                          data-maxheight="300">
-                            @foreach($periodos as $periodo)
-                              <option value="{{$periodo}}" >{{$periodo}}</option>
-                            @endforeach
+                          data-maxheight="300"
+                          data-urlconsulta="{{action('PublicoController@consulta_periodos')}}">
                         </select>
                       </div>
                     </div>
@@ -286,6 +288,11 @@
 <script type="text/html" id="listado_municipios">
   @foreach($municipios as $zona)
     <option value="{{$zona->id}}" >{{$zona->nombre}}</option>
+  @endforeach
+</script>
+<script type="text/html" id="listado_periodos">
+  @foreach($periodos as $periodo)
+    <option value="{{$periodo}}" >{{$periodo}}</option>
   @endforeach
 </script>
 @endsection

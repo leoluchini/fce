@@ -285,7 +285,7 @@ function generar_div_grafico_puntos(ancho, variable, categorias, serie, prefijo,
 function generar_div_grafico_linea_multieje(ancho, variable, categorias, serie, prefijo)
 {
     var div = $('<div></div>');
-    div.prop('id', prefijo+'_'+variable.id+'_linea_multieje');
+    div.prop('id', prefijo+'_'+variable.id+'_lineamultieje');
 
     var ejes = [];
     var info_serie = [];

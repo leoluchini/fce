@@ -177,6 +177,17 @@ class PublicoController extends Controller
 		$datos['datos_adicionales'] = $info_adicional;
 		return view('frontend.resultados_variables', $datos);
 	}
+	public function consulta_periodos(Request $request)
+	{
+		$input = $request->all();
+
+		$resultados = InformacionVariable::whereIn('informacion_variables.zona_id', $input['regiones'])
+										 ->whereIn('informacion_variables.variable_id', $input['variables'])
+										 ->get();
+		$periodos = array_unique($resultados->lists('anio')->toArray());
+		
+		return response()->json($periodos);
+	}
 
 	public function indicadores()
 	{

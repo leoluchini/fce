@@ -49,3 +49,4 @@ Route::get('variables', 'PublicoController@variables');
 Route::post('consulta_variables', 'PublicoController@consulta_variables');
 Route::get('consulta_regiones/{variables}', 'PublicoController@consulta_regiones');
 Route::post('resultados_variables', 'PublicoController@resultados_variables');
+Route::post('consulta_periodos', 'PublicoController@consulta_periodos');
