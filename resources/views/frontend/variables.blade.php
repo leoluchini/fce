@@ -251,7 +251,7 @@
                   </div>
           </div>
           <div class="row">
-            <div class="col-md-1 col-md-offset-11">
+            <div class="col-md-1 pull-right">
               {!! Form::submit('Buscar', array('class' => 'btn btn-primary btn-block')) !!}
             </div>
           </div>

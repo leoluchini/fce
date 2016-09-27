@@ -70,7 +70,7 @@
           <li> {{$colection[0]}} </li>
           @endif
         @endforeach
-        <div class="pull-right" ><a href="#"><span class="icon-spin3"></span></a></div>
+        <div class="pull-right" data-toggle="tooltip" data-placement="top" title="Redefinir la consulta"><a href="{{action('PublicoController@variables')}}"><span class="icon-spin3"></span></a></div>
       </ol>
 
 <!-- TABLA COMUN -->
