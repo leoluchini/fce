@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Models\CategoriaVariable;
+use App\Models\Tema;
 use App\Http\Requests\CategoriaVariableRequest;
 
 class CategoriaVariableController extends Controller
@@ -84,5 +85,11 @@ class CategoriaVariableController extends Controller
 			\Session::flash('error', 'La categoria no existe.');
 		}
 		return redirect('administracion/categorias_variables');
+	}
+
+	public function temas()
+	{
+		$data['temas'] = Tema::all();
+		return view('categorias_variables.temas', $data);
 	}
 }
