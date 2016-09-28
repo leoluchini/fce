@@ -1,23 +1,28 @@
 @extends('layouts.app_back')
 
 @section('content')
+
 <div class="container">
-  <div class="row">
-    <div class="col-md-5 col-md-offset-1"> 
-      <div class=" pull-left"> 
-        <h4>
-          <span class="glyphicon glyphicon-record"></span>
-          Listado de Frecuencias
-        </h4>
+  <div class="page-header">
+    <div class="row">
+      <div class="col-xs-12"> 
+        <div class=" pull-left"> 
+          <h2>
+            <span class="icon-box-2"></span>
+            Frecuencias
+          </h2>
+        </div>
+        <div class="pull-right">
+	      	<h4>
+	        	<a title="Nueva frecuencia" href="{{ action('FrecuenciaController@create') }}" data-toggle="tooltip" data-placement="top"><span class="glyphicon glyphicon-plus"></span></a>
+	      	</h4>
+    		</div>
       </div>
-    </div>
-     <div class="col-md-5">
-      <h4 class="pull-right">
-        <a title="Nueva frecuencia" href="{{ action('FrecuenciaController@create') }}" data-toggle="tooltip" data-placement="top"><span class="glyphicon glyphicon-plus"></span></a>
-      </h4>
     </div>
   </div>
 </div>
+
+
 <div class="page-body">
 	<div class="row">
     	<div class="col-md-10 col-md-offset-1"> 
@@ -31,7 +36,7 @@
 			        </tr>
 			    </thead>
 			    <tbody id="tabla-datos">
-			        @include('frecuencias.datos',['frecuencias' => $frecuencias])
+			      @include('frecuencias.datos',['frecuencias' => $frecuencias])
 			    </tbody>
 			</table>
 		</div>

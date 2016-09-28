@@ -23,11 +23,11 @@
 		  <div class="panel-body">
 
 
-						<div class="panel-group" id="accordion_{{$categoria->id}}" role="tablist" aria-multiselectable="true">
 							@foreach($categoria->subcategorias as $subcategoria)
+						<div class="panel-group" id="accordion_{{$categoria->id}}" role="tablist" aria-multiselectable="true">
 								@include('categorias_variables.panel',['categoria' => $subcategoria, 'grupo' => 'accordion_'.$categoria->id])
-							@endforeach
 						</div>
+							@endforeach
 
 
 

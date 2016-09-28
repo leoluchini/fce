@@ -4,88 +4,107 @@
 <div class="container">
   <div class="page-header">
     <div class="row">
-
       <div class="col-xs-12"> 
         <div class=" pull-left"> 
           <h2>
-            <span class="icon-list"></span>
-            Modulos
+            <span class="icon-box-2"></span>
+            M&oacute;dulos
           </h2>
         </div>
       </div>
-
-        </h4>
-      </div>
     </div>
   </div>
-  <div class="page-body">
-    <div class="container">
+</div>
+
+<div class="page-body">
+  <div class="container">
     <div class="row">
 
         <div class="col-md-3 col-sm-6 col-xs-12">
+          <center>
             <a href="{{action('LecturaController@index')}}">
-              <h2><span class="icon-upload"></span></h2>
-              <h3>Subir Informacion de Variables</h3>
+              <h2><span class="icon-upload-cloud-outline"></span></h2>
+              <h4>Subir variables</h4>
             </a>
+          </center>
         </div>
+
         <div class="col-md-3 col-sm-6 col-xs-12">
+          <center>
             <a href="{{action('CategoriaVariableController@index')}}">
-              <h2><span class="icon-share-squared"></span></h2>
-              <h3>Arbol de Variables</h3>
+              <h2><span class="icon-flow-tree"></span></h2>
+              <h4>&Aacute;rbol de variables</h4>
             </a>
+          </center>
         </div>
         <div class="col-md-3 col-sm-6 col-xs-12">
+          <center>
             <a href="#">
               <h2><span class="icon-upload-cloud"></span></h2>
-              <h3>Subir Informacion de Indicadores</h3>
+              <h4>Subir indicadores</h4>
             </a>
+          </center>
         </div>
         <div class="col-md-3 col-sm-6 col-xs-12">
+          <center>
             <a href="#">
-              <h2><span class="icon-th"></span></h2>
-              <h3>Arbol de Indicadores</h3>
+              <h2><span class="icon-flow-tree "></span></h2>
+              <h4>&Aacute;rbol de indicadores</h4>
             </a>
+          </center>
         </div>
       </div>
       <div class="row">
         <div class="col-md-3 col-sm-6 col-xs-12">
+          <center>
             <a href="{{action('FrecuenciaController@index')}}">
-              <h2><span class="icon-calendar"></span></h2>
-              <h3>Frecuencias</h3>
+              <h2><span class="icon-calendar-8"></span></h2>
+              <h4>Frecuencias</h4>
             </a>
+          </center>
         </div>
         <div class="col-md-3 col-sm-6 col-xs-12">
+          <center>
             <a href="{{action('FuenteController@index')}}">
               <h2><span class="icon-archive"></span></h2>
-              <h3>Fuentes</h3>
+              <h4>Fuentes</h4>
             </a>
+          </center>
         </div>
         <div class="col-md-3 col-sm-6 col-xs-12">
+          <center>
             <a href="{{action('UnidadController@index')}}">
-              <h2><span class="icon-temperatire"></span></h2>
-              <h3>Unidades</h3>
+              <h2><span class="icon-ruler"></span></h2>
+              <h4>Unidades</h4>
+            </center>
             </a>
         </div>
         <div class="col-md-3 col-sm-6 col-xs-12">
+          <center>
             <a href="{{action('ZonaGeograficaController@index')}}">
-              <h2><span class="icon-globe"></span></h2>
-              <h3>Zonas Geograficas</h3>
+              <h2><span class="icon-location-7"></span></h2>
+              <h4>Territorios</h4>
             </a>
+          </center>
         </div>
       </div>
       <div class="row">
         <div class="col-md-3 col-sm-6 col-xs-12">
+          <center>
             <a href="{{action('CategoriaController@index')}}">
               <h2><span class="icon-newspaper"></span></h2>
-              <h3>Categorias y Publicaciones</h3>
+              <h4>Categorias y Publicaciones</h4>
             </a>
+          </center>
         </div>
         @role('admin')
           <div class="col-md-3 col-sm-6 col-xs-12">
+            <center>
               <a href="{{action('UserController@index')}}">
-                <h2><span class="icon-newspaper"></span></h2>
-                <h3>Usuarios</h3>
+                <h2><span class="icon-user-6"></span></h2>
+                <h4>Usuarios</h4>
               </a>
+            </center>
           </div>
         @endrole
       </div>

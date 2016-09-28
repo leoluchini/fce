@@ -1,33 +1,40 @@
 @extends('layouts.app_back')
 
 @section('content')
+
 <div class="container">
-  <div class="row">
-    <div class="col-md-5 col-md-offset-1"> 
-      <div class=" pull-left"> 
-        <h4>
-          <span class="glyphicon glyphicon-record"></span>
-          Listado de Usuarios
-        </h4>
+  <div class="page-header">
+    <div class="row">
+      <div class="col-xs-12"> 
+        <div class=" pull-left"> 
+          <h2>
+            <span class="icon-box-2"></span>
+            Usuarios
+          </h2>
+        </div>
+        <div class="pull-right">
+          <h4>
+            <a href="{{ route('administracion.usuarios.create') }}" title="Nuevo usuario"  data-toggle="tooltip" data-placement="top"><span class="glyphicon glyphicon-plus"></span></a>
+          </h4>
+        </div>
       </div>
-    </div>
-     <div class="col-md-5">
-      <h4 class="pull-right">
-        <a href="{{ route('administracion.usuarios.create') }}" title="Nuevo usuario"  data-toggle="tooltip" data-placement="top"><span class="glyphicon glyphicon-plus"></span></a>
-      </h4>
     </div>
   </div>
 </div>
+
+
+
 <div class="page-body">
-	<div class="row">
-    	<div class="col-md-10 col-md-offset-1"> 
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12"> 
 			<table class="tabla table-responsive table table-hover table-condensed">
 			    <thead>
 			        <tr>
                   <th><strong>Nombre</strong></p> </th>
                   <th><strong>Email</strong></p> </th>
-                  <th><strong>Activo?</strong></p> </th>
-			            <th><strong>Administrador?</strong></p> </th>
+                  <th><strong>Activo</strong></p> </th>
+			            <th><strong>Administrador</strong></p> </th>
 			            <th class="text-right"><p> <strong>Acciones</strong></p></th>
 			        </tr>
 			    </thead>
@@ -48,6 +55,7 @@
 			    </tbody>
 			</table>
 		</div>
+  </div>
 	</div>
 </div>
 @endsection
