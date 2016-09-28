@@ -343,3 +343,15 @@ button {
 .list-group-item {
 	border: none;
 }
+
+.var_nivel_1 {
+	background-color: #0065a4;
+}
+
+.var_nivel_2 {
+	background-color: #8c8c8b;
+}
+
+.var_nivel_3 {
+	background-color: #c6c6c5;
+}
