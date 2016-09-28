@@ -42,6 +42,24 @@
               </div>
             </div>
           @endforeach
+          <div class="panel panel-default">
+              <div class="panel-heading" role="tab" id="headingSintema">
+                <h4 class="panel-title">
+                  <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseSintema" aria-expanded="true" aria-controls="collapseSintema">
+                    Otras (sin variable madre)
+                  </a>
+                </h4>
+              </div>
+              <div id="collapseSintema" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingSintema">
+                <div class="panel-body">
+                  <ul class="list-group">
+                    @foreach($variables as $variable)
+                      <li class="list-group-item">{{$variable->nombre}}</li>
+                    @endforeach
+                  </ul>
+                </div>
+              </div>
+            </div>
         </div>
 		</div>
 	</div>

@@ -8,7 +8,7 @@ class CreateRelacionTema extends Migration
     public function up()
     {
         Schema::table('variables', function ($table) {
-            $table->integer('tema_id')->unsigned()->nullable();
+            $table->integer('tema_id')->unsigned()->nullable()->default(null);
             $table->foreign('tema_id')->references('id')->on('temas');
         });
     }

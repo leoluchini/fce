@@ -15,7 +15,7 @@ class Variable extends Model
 		{
 			return $instance;
 		}
-		$codigo = explode("_", $attributes['codigo']);
+		$codigo = explode("-", $attributes['codigo']);
 		$categoria = CategoriaVariable::where('codigo',$codigo[0])->first();
 		if(isset($attributes['tema'])){
 			$datos = explode("_", $attributes['tema']);

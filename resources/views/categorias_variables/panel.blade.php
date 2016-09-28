@@ -2,7 +2,7 @@
 		
 
 		<!-- CATEGORIA -->
-		<div class="panel-heading" role="tab" id="heading_{{$categoria->id}}">
+		<div class="panel-heading var_nivel_{{$nivel}}" role="tab" id="heading_{{$categoria->id}}">
 		  <h4 class="panel-title">
 		    <a class="pull-left" role="button" data-toggle="collapse" data-parent="#{{$grupo}}" href="#collapse_{{$categoria->id}}" aria-expanded="true" aria-controls="collapseOne">
 		      <p class="blanco"><strong>{{$categoria->codigo}}</strong> - {{$categoria->nombre}}</p>
@@ -23,11 +23,11 @@
 		  <div class="panel-body">
 
 
-							@foreach($categoria->subcategorias as $subcategoria)
+				@foreach($categoria->subcategorias as $subcategoria)
 						<div class="panel-group" id="accordion_{{$categoria->id}}" role="tablist" aria-multiselectable="true">
-								@include('categorias_variables.panel',['categoria' => $subcategoria, 'grupo' => 'accordion_'.$categoria->id])
+								@include('categorias_variables.panel',['categoria' => $subcategoria, 'grupo' => 'accordion_'.$categoria->id, 'nivel' => ++$nivel])
 						</div>
-							@endforeach
+				@endforeach
 
 
 

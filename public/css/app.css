@@ -345,13 +345,13 @@ button {
 }
 
 .var_nivel_1 {
-	background-color: #0065a4;
+	background-color: #0065a4 !important;
 }
 
 .var_nivel_2 {
-	background-color: #8c8c8b;
+	background-color: #8c8c8b !important;
 }
 
 .var_nivel_3 {
-	background-color: #c6c6c5;
+	background-color: #c6c6c5 !important;
 }

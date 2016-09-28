@@ -26,9 +26,7 @@
 	<div class="container">
 		<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 		@foreach($categorias as $categoria)
-			@if($categoria->categoria_padre == null)
-				@include('categorias_variables.panel',['categoria' => $categoria, 'grupo' => 'accordion'])
-			@endif
+				@include('categorias_variables.panel',['categoria' => $categoria, 'grupo' => 'accordion', 'nivel' => 1])
 		@endforeach
 	  </div>
 	</div>

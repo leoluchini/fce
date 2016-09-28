@@ -7,13 +7,14 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Models\CategoriaVariable;
 use App\Models\Tema;
+use App\Models\Variable;
 use App\Http\Requests\CategoriaVariableRequest;
 
 class CategoriaVariableController extends Controller
 {
     public function index()
 	{
-		$data['categorias'] = CategoriaVariable::all();
+		$data['categorias'] = CategoriaVariable::whereNull('categoria_padre_id')->get();
 		return view('categorias_variables.index', $data);
 	}
 
@@ -90,6 +91,7 @@ class CategoriaVariableController extends Controller
 	public function temas()
 	{
 		$data['temas'] = Tema::all();
+		$data['variables'] = Variable::whereNull('tema_id')->get();
 		return view('categorias_variables.temas', $data);
 	}
 }
