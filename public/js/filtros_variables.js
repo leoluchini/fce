@@ -35,6 +35,7 @@ $(function(){
 
 	
 	$( "#variable" ).autocomplete({
+		delay: 600,
 		source: function (request, response) {
 					var ruta = $('#variable').data('urlconsulta');
 					texto = $('#variable').val().toLowerCase();
