@@ -6,15 +6,16 @@
     <div class="row">
       <div class="col-xs-12"> 
         <div class="page-header">
-          <h1>
+          <h1 class="pull-left">
             <span class="icon-th-list-2"></span>
-            Listado de variables
+              Listado de variables
           </h1>
-          <h4 class="pull-right">
+          <div class="pull-right">
             <a title="Nueva categoria" href="{{ action('CategoriaVariableController@create') }}" data-toggle="tooltip" data-placement="top"><span class="glyphicon glyphicon-plus"></span></a>
             <a title="Variables agrupadas" href="{{ action('VariableController@temas') }}" data-toggle="tooltip" data-placement="top"><span class="glyphicon glyphicon-list-alt"></span></a>
             <a title="Busquedas sin resultados" href="{{ action('VariableController@busquedas') }}" data-toggle="tooltip" data-placement="top"><span class="icon-binoculars"></span></a>
-          </h4>
+          </div>
+          <div class="clearfix"></div>
       </div>
     </div>
   </div>

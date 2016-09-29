@@ -26,6 +26,7 @@
     </script>
 </head>
 <body id="app-layout">
+    @section('menu_back')
   <div class="row">
     <div class="col-xs-12 header_frontend">
       <div class="row">
@@ -51,6 +52,7 @@
       </div>
     </div>
     </div>
+    @show
     @if (session()->has('flash_notification.message'))
     <div class="alert alert-{{ session('flash_notification.level') }}">
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>

@@ -25,3 +25,25 @@
 
   </div>
 </div>
+<!-- MENU VERTICAL -->
+      <div id="Menu" style="display:none">
+        <center>
+          {!! Html::image('images/logo_menu.png', '', ['class'=>'logoFCE_menu'])!!}
+        </center>
+
+        <nav>
+          <ul>
+            <li><a href="{{action('PublicoController@variables')}}" class="text-right">Variables</a></li>
+            <li><a href="{{action('PublicoController@indicadores')}}" class="text-right">Indicadores</a></li>
+            <li><a href="{{action('PublicoController@publicaciones')}}" class="text-right">Publicaciones</a></li>
+          </ul>
+         </nav>
+
+        <div class="contacto_menu text-right blanco ">
+          @include('auth.dropdown_login')
+
+          <p class="footer_menu"><small>(+54 221)</small> 423-6769 / 71 / 72</p>
+          <p class="footer_menu">6 Nº 777 La Plata | Bs. As.</p>
+          <p class="footer_menu"><a href="">sie@econo.unlp.edu.ar</a></p>
+        </div>
+      </div><!-- FIN MENU VERTICAL -->
