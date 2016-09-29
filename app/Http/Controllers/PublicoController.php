@@ -13,6 +13,7 @@ use App\Models\Municipio;
 use App\Models\Frecuencia;
 use App\Models\InformacionVariable;
 use App\Models\ZonaGeografica;
+use App\Models\VariableSinResultados;
 
 class PublicoController extends Controller
 {
@@ -51,7 +52,9 @@ class PublicoController extends Controller
 		else{
 			$res = Variable::whereRaw($string_consulta)->get();
 		}
-		
+		if(count($res->toArray()) == 0){
+			VariableSinResultados::firstOrCreate($input['busqueda']);
+		}
 		$temporal = $res->lists('nombre', 'id')->toArray();
 		$ids = array();
 		$resultados = array();

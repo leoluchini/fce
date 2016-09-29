@@ -29,9 +29,4 @@ class InformacionVariable extends Model
 	{
 		return $this->hasOne('App\Models\ZonaGeografica', 'id', 'zona_id');
 	}
-
-	public function informacion_adicional()
-	{
-		return $this->belongsToMany('App\Models\InformacionAdicional', 'informacion_adicional_variables', 'informacion_variable_id', 'informacion_adicional_id');
-	}
 }

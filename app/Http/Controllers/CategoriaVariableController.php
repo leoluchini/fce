@@ -6,8 +6,6 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Models\CategoriaVariable;
-use App\Models\Tema;
-use App\Models\Variable;
 use App\Http\Requests\CategoriaVariableRequest;
 
 class CategoriaVariableController extends Controller
@@ -88,10 +86,5 @@ class CategoriaVariableController extends Controller
 		return redirect('administracion/categorias_variables');
 	}
 
-	public function temas()
-	{
-		$data['temas'] = Tema::all();
-		$data['variables'] = Variable::whereNull('tema_id')->get();
-		return view('categorias_variables.temas', $data);
-	}
+	
 }

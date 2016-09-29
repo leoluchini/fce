@@ -39,7 +39,8 @@ Route::group(['prefix' => 'administracion', 'middleware' => ['auth'] ], function
 	Route::get('categorias_variables/create_sub_categoria/{categoria}','CategoriaVariableController@create_sub');
 	Route::resource('categoria.variables','VariableController');
 	Route::resource('usuarios','UserController',['except' => ['show']]);
-	Route::get('variables_agrupadas','CategoriaVariableController@temas');
+	Route::get('variables/agrupadas','VariableController@temas');
+	Route::get('variables/busquedas_sin_resultados','VariableController@busquedas');
 
 });
 

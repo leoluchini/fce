@@ -29,9 +29,4 @@ class InformacionIndicador extends Model
 	{
 		return $this->hasOne('App\Models\Zona', 'zona_id');
 	}
-
-	public function informacion_adicional()
-	{
-		return $this->belongsToMany('App\Models\InformacionAdicional', 'informacion_adicional_indicadores', 'informacion_indicador_id', 'informacion_adicional_id');
-	}
 }

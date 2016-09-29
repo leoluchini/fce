@@ -27,7 +27,7 @@
               <div class="panel-heading" role="tab" id="heading{{$tema->id}}">
                 <h4 class="panel-title">
                   <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse{{$tema->id}}" aria-expanded="true" aria-controls="collapse{{$tema->id}}">
-                    {{$tema->nombre}}
+                    <p class="blanco">{{$tema->nombre}}</p>
                   </a>
                 </h4>
               </div>
@@ -46,7 +46,7 @@
               <div class="panel-heading" role="tab" id="headingSintema">
                 <h4 class="panel-title">
                   <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseSintema" aria-expanded="true" aria-controls="collapseSintema">
-                    Otras (sin variable madre)
+                    <p class="blanco">Otras (sin variable madre)</p>
                   </a>
                 </h4>
               </div>

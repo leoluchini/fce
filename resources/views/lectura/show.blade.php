@@ -18,7 +18,7 @@
 	                <h4 class="panel-title">
 	                  <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseCategorias" aria-expanded="true" aria-controls="collapseCategorias">
 	                    <span class="badge pull-right">{!! $lote->categorias->count() !!}</span>
-			    		Categorias
+			    		<p class="blanco">Categorias</p>
 	                  </a>
 	                </h4>
 	              </div>
@@ -37,7 +37,7 @@
 	                <h4 class="panel-title">
 	                  <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseVariables" aria-expanded="true" aria-controls="collapseVariables">
 	                    <span class="badge pull-right">{!! $lote->variables->count() !!}</span>
-			    		Variables
+			    		<p class="blanco">Variables</p>
 	                  </a>
 	                </h4>
 	              </div>
@@ -56,7 +56,7 @@
 	                <h4 class="panel-title">
 	                  <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseUnidades" aria-expanded="true" aria-controls="collapseUnidades">
 	                    <span class="badge pull-right">{!! $lote->unidades->count() !!}</span>
-			    		Unidades de medida
+			    		<p class="blanco">Unidades de medida</p>
 	                  </a>
 	                </h4>
 	              </div>
@@ -75,7 +75,7 @@
 	                <h4 class="panel-title">
 	                  <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseZonas" aria-expanded="true" aria-controls="collapseZonas">
 	                    <span class="badge pull-right">{!! $lote->zonas->count() !!}</span>
-		    			Zonas Geograficas
+		    			<p class="blanco">Zonas Geograficas</p>
 	                  </a>
 	                </h4>
 	              </div>
@@ -94,7 +94,7 @@
 	                <h4 class="panel-title">
 	                  <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFuentes" aria-expanded="true" aria-controls="collapseFuentes">
 	                    <span class="badge pull-right">{!! $lote->fuentes->count() !!}</span>
-			    		Fuentes
+			    		<p class="blanco">Fuentes</p>
 	                  </a>
 	                </h4>
 	              </div>
@@ -113,7 +113,7 @@
 	                <h4 class="panel-title">
 	                  <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseDatos" aria-expanded="true" aria-controls="collapseDatos">
 	                    <span class="badge pull-right">{!! $lote->datos->count() !!}</span>
-			    		Datos
+			    		<p class="blanco">Datos</p>
 	                  </a>
 	                </h4>
 	              </div>

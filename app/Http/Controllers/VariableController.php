@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Models\CategoriaVariable;
 use App\Models\Variable;
+use App\Models\Tema;
+use App\Models\VariableSinResultados;
 use App\Http\Requests\VariableRequest;
 
 class VariableController extends Controller
@@ -94,5 +96,17 @@ class VariableController extends Controller
 		\Session::flash('noticia', 'La variable "'.$variable->nombre.'" fue eliminada con exito.');
 		
 		return redirect('administracion/categorias_variables');
+	}
+
+	public function temas()
+	{
+		$data['temas'] = Tema::all();
+		$data['variables'] = Variable::whereNull('tema_id')->get();
+		return view('variables.temas', $data);
+	}
+	public function busquedas()
+	{
+		$data['busquedas'] = VariableSinResultados::all();
+		return view('variables.busquedas', $data);
 	}
 }

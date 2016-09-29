@@ -12,7 +12,8 @@
           </h1>
           <h4 class="pull-right">
             <a title="Nueva categoria" href="{{ action('CategoriaVariableController@create') }}" data-toggle="tooltip" data-placement="top"><span class="glyphicon glyphicon-plus"></span></a>
-            <a title="Variables agrupadas" href="{{ action('CategoriaVariableController@temas') }}" data-toggle="tooltip" data-placement="top"><span class="glyphicon glyphicon-list-alt"></span></a>
+            <a title="Variables agrupadas" href="{{ action('VariableController@temas') }}" data-toggle="tooltip" data-placement="top"><span class="glyphicon glyphicon-list-alt"></span></a>
+            <a title="Busquedas sin resultados" href="{{ action('VariableController@busquedas') }}" data-toggle="tooltip" data-placement="top"><span class="icon-binoculars"></span></a>
           </h4>
       </div>
     </div>
