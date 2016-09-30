@@ -39,7 +39,8 @@ class PublicoController extends Controller
 	{
 		$input = $request->all();
 		$query = "'%".str_replace(' ', '%', $input['busqueda'])."%'";
-		$string_consulta = "replace(replace(replace(replace(replace(LOWER(\"variables\".\"nombre\"), 'á', 'a'), 'é', 'e'), 'í', 'i'), 'ó', 'o'), 'ú', 'u') like ".$query;
+		//$string_consulta = "replace(replace(replace(replace(replace(LOWER(\"variables\".\"nombre\"), 'á', 'a'), 'é', 'e'), 'í', 'i'), 'ó', 'o'), 'ú', 'u') like ".$query;
+		$string_consulta = "nombre like ".$query;
 		if(($input['tipo_busqueda'] == 'region_variable')&&(count($input['regiones'] > 0)))
 		{
 			$res = Variable::select('variables.*')
@@ -72,16 +73,6 @@ class PublicoController extends Controller
 			}
 		}
 
-		/*$resultados = $res->lists('nombre', 'id')->toArray();
-		foreach($res as $variable){
-			if($variable->tema){
-				foreach($variable->tema->variables as $var_asociada){
-					if(!array_key_exists($var_asociada->id, $resultados)){
-						$resultados[$var_asociada->id] = $var_asociada->nombre.' (asociada por tema)';
-					}
-				}
-			}
-		}*/
 		return response()->json($resultados);
 	}
 	public function consulta_regiones($variables)
