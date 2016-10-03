@@ -22,6 +22,7 @@ Route::group(['prefix' => 'administracion', 'middleware' => ['auth'] ], function
 	Route::get('/',  [ 'as' => 'administracion.index', 'uses' => 'AdministracionController@index' ]);
 	Route::resource('lectura', 'LecturaController');
 	Route::resource('categorias','CategoriaController');
+	Route::get('lectura/lote/{lote}/datos', 'LecturaController@datos_lote');
 
 	Route::resource('categoria.publicaciones','PublicacionController');
 	Route::get('publicaciones/ver_archivo/{publicacion}', 'PublicacionController@ver_archivo');

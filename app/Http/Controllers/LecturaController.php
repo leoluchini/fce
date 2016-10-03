@@ -68,6 +68,12 @@ class LecturaController extends Controller
         return view('lectura.show')->withLote($lote);
     }
 
+    public function datos_lote($id)
+    {
+        $lote = Lote::findOrFail($id);
+        return view('lectura.datos')->withLote($lote);
+    }
+
     public function destroy($id){
         $lote = Lote::findOrFail($id);
         $lote->delete();

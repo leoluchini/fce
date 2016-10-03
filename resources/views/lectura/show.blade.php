@@ -3,6 +3,9 @@
 @section('content')
 	<div class='container'>
 	  <div class='btn-toolbar pull-right'>
+	    <h4 class="pull-left">
+	    	<a title="Volver" href="{{ action('LecturaController@index') }}" data-toggle="tooltip" data-placement="top"><span class="glyphicon glyphicon-triangle-left"></span></a>
+	  	</h4>
 	    <div class='btn-group'>
 	      <a href="{{ route('administracion.lectura.destroy', $lote->id)}}" class='btn btn-danger' data-method="delete" data-title="Eliminar Lote" data-confirm="¿Estas seguro que desea eliminar los datos del lote '{{$lote->id}}' ?"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Borrar lote</a>
 	    </div>
@@ -112,48 +115,15 @@
 	              <div class="panel-heading" role="tab" id="headingDatos">
 	                <h4 class="panel-title">
 	                  <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseDatos" aria-expanded="true" aria-controls="collapseDatos">
-	                    <span class="badge pull-right">{!! $lote->datos->count() !!}</span>
+	                    <a href="{{action('LecturaController@datos_lote', $lote->id)}}"><span class="badge pull-right">{!! $lote->datos->count() !!}</span></a>
 			    		<p class="blanco">Datos</p>
 	                  </a>
 	                </h4>
 	              </div>
 	              <div id="collapseDatos" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingDatos">
-	                <div class="panel-body">
-	                   <table class="table table-condensed tabla_resultados_paginada">
-				        <thead>
-				          <tr>
-				            <th>Variable</th>
-				            <th>Zona</th>
-				            <th>Año/Frecuencia</th>
-				            <th>Valor</th>
-				            <th>Unidad</th>
-				            <th>Fuente</th>
-				          </tr>
-				        </thead>
-				        <tbody>
-				            @foreach( $lote->datos as $info )
-				              <tr>
-				                  <td>{{ $info->variable->nombre }}</td>
-				                  <td>{{ $info->zona->nombre }}</td>
-				                  <td>{{ $info->anio }}{{ ($info->frecuencia->tipo != 'ANIO') ? ' / '.$info->frecuencia->nombre : '' }}</td>
-				                  <td>{{ number_format($info->valor, 2, ',', '.') }}</td>
-				                  <td>{{ $info->unidad_medida->nombre }}</td>
-				                  <td><span title="{{ $info->fuente->descripcion }}" data-toggle="tooltip" data-placement="top">{{ $info->fuente->codigo }}</span></td>
-				              </tr>
-				          @endforeach
-				        </tbody>
-				      </table>
-	                </div>
 	              </div>
 	            </div>
 	        </div>		
 		</div>
 	</div>
-@endsection
-
-@section('scripts_adicionales')
-    <link href="{{ asset('DataTables-1.10.12/css/dataTables.bootstrap.min.css') }}" rel="stylesheet" type="text/css">
-    <script src="{{ asset('DataTables-1.10.12/js/jquery.dataTables.min.js') }}"></script>
-    <script src="{{ asset('DataTables-1.10.12/js/dataTables.bootstrap.min.js') }}"></script>
-    <script src="{{ asset('js/tabla_paginada.js') }}"></script>
 @endsection
