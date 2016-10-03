@@ -14,6 +14,7 @@ use App\Models\Lote;
 use App\Models\Variable;
 use App\Models\UnidadMedida;
 use App\Models\ZonaGeografica;
+use Illuminate\Support\Facades\DB;
 
 class LecturaController extends Controller
 {
@@ -65,7 +66,15 @@ class LecturaController extends Controller
     public function show($id)
     {
         $lote = Lote::findOrFail($id);
-        return view('lectura.show')->withLote($lote);
+
+        $cantidad = DB::table('informacion_variables')
+                 ->select(DB::raw('count(*) as cantidad'))
+                 ->where('lote_id', '=', $id)
+                 ->get();
+        $cantidad_datos = $cantidad[0]->cantidad;
+        
+        return view('lectura.show', ['lote' => $lote, 'cantidad' => $cantidad_datos]);
+        //return view('lectura.show')->withLote($lote);
     }
 
     public function datos_lote($id)
@@ -81,6 +90,8 @@ class LecturaController extends Controller
     }
 
     private function lectura($lote){
+        ini_set('memory_limit', '-1');
+        ini_set('max_execution_time', 123456);
         $csvFile = public_path().'/storage/carga.csv';
         $datos = csv_to_array($csvFile);
         $references = [];

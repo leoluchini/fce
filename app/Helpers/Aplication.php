@@ -98,7 +98,7 @@ function csv_to_array($filename='', $delimiter=';')
                 $header = $data[0];
             }
             if($header == "#Datos"){
-                $result[$header][] = [ 'variable_id' => $data[1], 'zona_id' => $data[2], 'unidad_medida_id' => $data[3], 'fuente_id' => $data[4], 'frecuencia_id' => $data[5], 'anio' => $data[6], 'valor' => $data[7]];
+                $result[$header][] = [ 'variable_id' => $data[1], 'zona_id' => $data[2], 'unidad_medida_id' => $data[3], 'fuente_id' => $data[4], 'frecuencia_id' => $data[5], 'anio' => $data[6], 'valor' => (float)str_replace(',', '.', $data[7])];
             }else{
                 if(($header == "#Variables")&&(isset($data[3]))&&($data[3] != "")){
                     $result[$header][] = [ 'codigo' => $data[1], 'nombre' => $data[2], 'tema' => $data[3]];
@@ -128,7 +128,7 @@ function txt_to_array($filename='')
             $header = $data[0];
         }
         if($header == "#Datos"){
-            $result[$header][] = [ 'variable_id' => $data[1], 'zona_id' => $data[2], 'unidad_medida_id' => $data[3], 'fuente_id' => $data[4], 'frecuencia_id' => $data[5], 'anio' => $data[6], 'valor' => $data[7]];
+            $result[$header][] = [ 'variable_id' => $data[1], 'zona_id' => $data[2], 'unidad_medida_id' => $data[3], 'fuente_id' => $data[4], 'frecuencia_id' => $data[5], 'anio' => $data[6], 'valor' => (float)str_replace(',', '.', $data[7])];
         }else{
             if(($header == "#Variables")&&(isset($data[3]))&&($data[3] != "")){
                 $result[$header][] = [ 'codigo' => $data[1], 'nombre' => $data[2], 'tema' => $data[3]];
