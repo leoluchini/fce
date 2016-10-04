@@ -149,4 +149,79 @@ class LecturaController extends Controller
             
         }
     }
+
+    public function create_txt()
+    {
+        return view('lectura.create_txt');
+    }
+
+    public function store_txt(LecturaRequest $request)
+    {
+        if ($request->hasFile('file')) {
+            $request->file('file')->move(public_path('storage'), 'carga.txt');
+            $lote = Lote::create();
+            $this->lectura_txt($lote);
+        }
+        return redirect(route('administracion.lectura.show', $lote->id));
+    }
+    private function lectura_txt($lote){
+        ini_set('memory_limit', '-1');
+        ini_set('max_execution_time', 123456);
+        $csvFile = public_path().'/storage/carga.txt';
+        $datos = txt_to_array($csvFile);
+        $references = [];
+        if( sizeof( array_keys($datos) ) == 5 ) 
+            return "Faltan claves para definir la informacion";
+        try {
+            foreach ($datos['#Categorias'] as $attributes){
+                $attributes['lote_id'] = $lote->id;
+                $object = CategoriaVariable::firstOrCreate($attributes);
+                $references[$object->codigo] = $object->id;
+                unset($object);
+            }
+            foreach ($datos['#Variables'] as $attributes){
+                $attributes['lote_id'] = $lote->id;
+                $object = Variable::firstOrCreate($attributes);
+                $references[$object->codigo] = $object->id;
+                unset($object);
+            }
+            foreach ($datos['#Zonas'] as $attributes) {
+                $attributes['lote_id'] = $lote->id;
+                $object = ZonaGeografica::firstOrCreate($attributes);
+                $references[$object->codigo] = $object->id;
+                unset($object);
+            }
+            foreach ($datos['#Unidades'] as $attributes){
+                $attributes['lote_id'] = $lote->id;
+                $object = UnidadMedida::firstOrCreate($attributes);
+                $references[$object->codigo] = $object->id;
+                unset($object);
+            }
+            foreach ($datos['#Fuentes'] as $attributes) {
+                $attributes['lote_id'] = $lote->id;
+                $object = Fuente::firstOrCreate($attributes);
+                $references[$object->codigo] = $object->id;
+                unset($object);
+            }
+            foreach ($datos['#Datos'] as $attributes) {
+                $attributes['lote_id'] = $lote->id;
+                $attributes['variable_id'] = $references[$attributes['variable_id']];
+                $attributes['zona_id'] = $references[$attributes['zona_id']];
+                $attributes['fuente_id'] = $references[$attributes['fuente_id']];
+                $attributes['unidad_medida_id'] = $references[$attributes['unidad_medida_id']];
+                $attributes['frecuencia_id'] = Frecuencia::where('codigo', $attributes['frecuencia_id'])->first()->id;
+                InformacionVariable::create($attributes);
+            }
+            //TODO borrar archivo
+        } catch (\Exception $e) {
+            //TODO analizar si borrar el lote
+            $message = $e->getMessage();
+            if (strpos($message, 'index') !== false) {
+               return "Error al procesar el indice ".explode(":", $message)[1]." revise que esté correctamente escrito y vuelva a intentarlo.";
+            }else{
+                return $message;
+            }   
+            
+        }
+    }
 }

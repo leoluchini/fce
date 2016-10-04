@@ -92,10 +92,10 @@ class PublicoController extends Controller
 					$paises[] = ['id' => $zona->id, 'nombre' => $zona->nombre];
 					break;
 				case 'provincia':
-					$provincias[] = ['id' => $zona->id, 'nombre' => $zona->nombre];
+					$provincias[] = ['id' => $zona->id, 'nombre' => $zona->nombre.' ('.$zona->pais->nombre.')'];
 					break;
 				case 'municipio':
-					$municipios[] = ['id' => $zona->id, 'nombre' => $zona->nombre];
+					$municipios[] = ['id' => $zona->id, 'nombre' => $zona->nombre.' ('.$zona->provincia->nombre.', '.$zona->provincia->pais->nombre.')'];
 					break;
 			}
 		}

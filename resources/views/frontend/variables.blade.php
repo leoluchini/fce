@@ -282,12 +282,12 @@
 </script>
 <script type="text/html" id="listado_provincias">
   @foreach($provincias as $zona)
-    <option value="{{$zona->id}}" >{{$zona->nombre}}</option>
+    <option value="{{$zona->id}}" >{{$zona->nombre}} ({{$zona->pais->nombre}})</option>
   @endforeach
 </script>
 <script type="text/html" id="listado_municipios">
   @foreach($municipios as $zona)
-    <option value="{{$zona->id}}" >{{$zona->nombre}}</option>
+    <option value="{{$zona->id}}" >{{$zona->nombre}} ({{$zona->provincia->nombre}}, {{$zona->provincia->pais->nombre}})</option>
   @endforeach
 </script>
 <script type="text/html" id="listado_periodos">

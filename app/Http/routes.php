@@ -23,6 +23,8 @@ Route::group(['prefix' => 'administracion', 'middleware' => ['auth'] ], function
 	Route::resource('lectura', 'LecturaController');
 	Route::resource('categorias','CategoriaController');
 	Route::get('lectura/lote/{lote}/datos', 'LecturaController@datos_lote');
+	Route::get('lectura/create/txt', 'LecturaController@create_txt')->name('administracion.lectura.create_txt');
+	Route::post('lectura/store/txt', 'LecturaController@store_txt')->name('administracion.lectura.store_txt');
 
 	Route::resource('categoria.publicaciones','PublicacionController');
 	Route::get('publicaciones/ver_archivo/{publicacion}', 'PublicacionController@ver_archivo');
