@@ -118,8 +118,13 @@ $(function(){
 		e.preventDefault();
 		$(this).parent().remove();
 
-		if($('#lista_tags').find('input[name^="variable_id"]').length == 0){
-			reset_regiones();
+		if($('input[name="tipo_busqueda"]:checked').val() == 'variable_region'){
+			if($('#lista_tags').find('input[name^="variable_id"]').length == 0){
+				reset_regiones();
+			}
+			else{
+				actualizar_regiones();
+			}
 		}
 	});
 

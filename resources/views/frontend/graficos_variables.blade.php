@@ -23,6 +23,7 @@
 var variables = <?php echo json_encode($info_pivot['variables']) ?>;
 var unidades = <?php echo json_encode($info_pivot['unidades']) ?>;
 var regiones = <?php echo json_encode($info_pivot['regiones']) ?>;
+var fuentes = <?php echo json_encode($info_pivot['fuentes']) ?>;
 var frecuencias = <?php echo json_encode($info_pivot['aniofrec']) ?>;
 var datos_region_anio = <?php echo json_encode($data_pivot) ?>;
 var datos_anio_region = <?php echo json_encode($data_pivot_inversa) ?>;

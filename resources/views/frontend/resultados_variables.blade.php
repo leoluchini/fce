@@ -44,7 +44,7 @@
       </ol>
 
 <!-- TABLA COMUN -->
-<!--       <table class="table table-condensed tabla_resultados_paginada">
+<table class="table table-condensed tabla_resultados_paginada">
         <thead>
           <tr>
             <th>Variable</th>
@@ -68,7 +68,7 @@
           @endforeach
         </tbody>
       </table>
-    <hr> -->
+    <hr>
 <!-- FIN TABLA COMUN -->
 
 
@@ -79,7 +79,7 @@
         <table class="table table-condensed table-hover">
         <thead>
           <tr class="azul_FCE_bg blanco">
-            <th>{{$nombre}}</th>
+            <th>{{$nombre}} ( {{$info_pivot['unidades'][$id_var]}} ) / {{$info_pivot['fuentes'][$id_var]}}</th>
             @foreach($info_pivot['aniofrec'] as $id_aniofrec => $aniofrec)
             <th class="text-right">{{$aniofrec}}</th>
             @endforeach

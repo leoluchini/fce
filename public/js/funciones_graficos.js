@@ -11,8 +11,11 @@ function generar_div_grafico_linea(ancho, variable, categorias, serie, prefijo)
             x: -20 //center
         },
         subtitle: {
-            text: 'Fuente: ...',
+            text: variable.fuente, //Fuente
             x: -20
+        },
+        credits: {
+            text: 'Facultad de Ciencias Economicas - Universidad Nacional de La Plata',
         },
         xAxis: {
             categories: categorias
@@ -76,10 +79,12 @@ function generar_div_grafico_radar(ancho, variable, categorias, serie, prefijo)
             x: -20 //center
         },
         subtitle: {
-            text: 'Fuente: ...',
+            text: variable.fuente, //Fuente
             x: -20
         },
-        
+        credits: {
+            text: 'Facultad de Ciencias Economicas - Universidad Nacional de La Plata',
+        },
         pane: {
             size: '100%'
         },
@@ -169,8 +174,11 @@ function generar_div_grafico_columna(ancho, variable, categorias, serie, prefijo
             x: -20 //center
         },
         subtitle: {
-            text: 'Fuente: ...',
+            text: variable.fuente, //Fuente
             x: -20
+        },
+        credits: {
+            text: 'Facultad de Ciencias Economicas - Universidad Nacional de La Plata',
         },
         xAxis: {
             categories: categorias
@@ -252,8 +260,11 @@ function generar_div_grafico_puntos(ancho, variable, categorias, serie, prefijo,
             x: -20 //center
         },
         subtitle: {
-            text: 'Fuente: ...',
+            text: variable.fuente, //Fuente
             x: -20
+        },
+        credits: {
+            text: 'Facultad de Ciencias Economicas - Universidad Nacional de La Plata',
         },
         series: info_serie_puntos,
         exporting: {
@@ -323,8 +334,11 @@ function generar_div_grafico_linea_multieje(ancho, variable, categorias, serie, 
             x: -20 //center
         },
         subtitle: {
-            text: 'Fuente: ...',
+            text: variable.fuente, //Fuente
             x: -20
+        },
+        credits: {
+            text: 'Facultad de Ciencias Economicas - Universidad Nacional de La Plata',
         },
         xAxis: [{
             categories: categorias,

@@ -120,7 +120,7 @@ class PublicoController extends Controller
 								   'Regiones' => ZonaGeografica::find($zonas)->lists('nombre')->toArray(),
 								   'Periodos' => $periodos,
 								   'Frecuencias' => Frecuencia::find($frecuencia)->lists('nombre')->toArray());
-		$info_var = array('variables' => array(), 'unidades' => array(), 'regiones' => array(), 'aniofrec' => array());
+		$info_var = array('variables' => array(), 'unidades' => array(), 'fuentes' => array(), 'regiones' => array(), 'aniofrec' => array());
 		$data_var = array();
 		$data_var_inversa = array();
 		foreach($datos['resultados'] as $res)
@@ -130,6 +130,9 @@ class PublicoController extends Controller
 			}
 			if(!isset($info_var['unidades'][$res->variable->id])){
 				$info_var['unidades'][$res->variable->id] = $res->unidad_medida->nombre;
+			}
+			if(!isset($info_var['fuentes'][$res->variable->id])){
+				$info_var['fuentes'][$res->variable->id] = $res->fuente->nombre;
 			}
 			if(!isset($info_var['regiones'][$res->zona->id])){
 				$info_var['regiones'][$res->zona->id] = $res->zona->nombre;
@@ -178,7 +181,7 @@ class PublicoController extends Controller
 		$resultados = InformacionVariable::whereIn('informacion_variables.zona_id', $input['regiones'])
 										 ->whereIn('informacion_variables.variable_id', $input['variables'])
 										 ->get();
-		$periodos = array_unique($resultados->lists('anio')->toArray());
+		$periodos = array_values(array_unique($resultados->lists('anio')->toArray()));
 		
 		return response()->json($periodos);
 	}
