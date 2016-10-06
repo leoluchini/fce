@@ -117,9 +117,17 @@ a:hover, a:focus {text-decoration: none;}
 /* MENU */
 
 .icon_menu{
-	padding: 20px;
+	padding: 20px 5px 20px 20px;
 	position: absolute;
 	z-index: 2;
+	font-size: 1.5em;
+}
+
+.icon_home{
+	padding: 20px 20px 20px 65px;
+	position: absolute;
+	z-index: 1;
+	font-size: 1.5em;
 }
 
 .logoFCE_menu{
@@ -246,7 +254,7 @@ nav ul li:hover  ul{
 }
 
 .header_izquierda{
-margin-left: 50px
+/*margin-left: 75px*/
 }
 
 
