@@ -27,8 +27,6 @@ Route::group(['prefix' => 'administracion', 'middleware' => ['auth'] ], function
 	Route::post('lectura/store/txt', 'LecturaController@store_txt')->name('administracion.lectura.store_txt');
 
 	Route::resource('categoria.publicaciones','PublicacionController');
-	Route::get('publicaciones/ver_archivo/{publicacion}', 'PublicacionController@ver_archivo');
-	Route::get('publicaciones/descargar_archivo/{publicacion}', 'PublicacionController@descargar_archivo');
 
 	Route::resource('unidades','UnidadController');
 	Route::resource('frecuencias','FrecuenciaController');
@@ -46,11 +44,16 @@ Route::group(['prefix' => 'administracion', 'middleware' => ['auth'] ], function
 	Route::get('variables/busquedas_sin_resultados','VariableController@busquedas');
 
 });
+Route::get('publicaciones/ver_archivo/{publicacion}', 'PublicacionController@ver_archivo');
+Route::get('publicaciones/descargar_archivo/{publicacion}', 'PublicacionController@descargar_archivo');
 
 Route::get('/home', 'HomeController@index');
 Route::get('publicaciones', 'PublicoController@publicaciones');
 Route::get('indicadores', 'PublicoController@indicadores');
-Route::get('variables', 'PublicoController@variables');
+//Route::get('variables', 'PublicoController@variables');
+Route::match(array('GET', 'POST'), "variables", array(
+    'uses' => 'PublicoController@variables',
+));
 Route::post('consulta_variables', 'PublicoController@consulta_variables');
 Route::get('consulta_regiones/{variables}', 'PublicoController@consulta_regiones');
 Route::post('resultados_variables', 'PublicoController@resultados_variables');

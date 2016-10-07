@@ -40,7 +40,8 @@
           <li> {{$colection[0]}} </li>
           @endif
         @endforeach
-        <div class="pull-right" data-toggle="tooltip" data-placement="top" title="Redefinir la consulta"><a href="{{action('PublicoController@variables')}}"><span class="icon-spin3"></span></a></div>
+        <div class="pull-right" data-toggle="tooltip" data-placement="top" title="Redefinir la consulta"><a href="#" id="reformular_consulta"><span class="icon-spin3"></span></a></div>
+        @include('frontend.form_oculto_variables')
       </ol>
 
 <!-- TABLA COMUN -->
@@ -200,6 +201,7 @@
     <script src="{{ asset('Highcharts-4.2.6/js/highcharts-more.js') }}"></script>
     <script src="{{ asset('Highcharts-4.2.6/js/themes/sand-signika.js') }}"></script>
     <script src="{{ asset('Highcharts-4.2.6/js/modules/exporting.js') }}"></script>
+    <script src="{{ asset('js/resultados_variables.js') }}"></script>
     <script src="{{ asset('js/funciones_graficos.js') }}"></script>
     <script src="{{ asset('js/graficos_variables.js') }}"></script>
     

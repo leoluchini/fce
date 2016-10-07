@@ -15,10 +15,22 @@
     </div>
   </div>
 </div>
-<div class="container">
+<div class="container" id="espera_carga_previa" style="{{ isset($consulta) ? 'display:block' : 'display:none' }}">
+  <div class="row">
+    <div class="col-xs-12"> 
+      <div class="progress">
+        <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+          Cargando consulta previa
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{!! Form::open(array('action' => ['PublicoController@resultados_variables'], 'method' => 'POST', 'class' => 'form-horizontal', 'id' => 'consulta_variables' )) !!}
+<div class="container" id="div_titulo_busqueda" style="{{ isset($consulta) ? 'display:none' : 'display:block' }}">
     <div class="row">
       <div class="col-xs-12"> 
-        
         <div class="list-group list-plan">
           <div data-toggle="buttons">
             <h4>Realizar búsqueda por
@@ -41,10 +53,9 @@
     </div>
 </div>
 
-<div class="page-body">
+<div class="page-body" id="div_pagina" style="{{ isset($consulta) ? 'display:none' : 'display:block' }}">
     <section id="plan" class="full-section">
         <div class="container">
-              {!! Form::open(array('action' => ['PublicoController@resultados_variables'], 'method' => 'POST', 'class' => 'form-horizontal', 'id' => 'consulta_variables' )) !!}
                 <div id="accordion">
                   <div id="panel-accordion-1" class="panel-accordion">
 <!-- TERRITORIO-->
@@ -257,12 +268,17 @@
               {!! Form::submit('Buscar', array('class' => 'btn btn-primary btn-block')) !!}
             </div>
           </div>
-          {!! Form::close() !!}
       </div>
     </section>
-
-
 </div>
+{!! Form::close() !!}
+
+@if(isset($consulta))
+<script>
+  var consulta = <?php echo json_encode($consulta) ?>;
+</script>
+@endif
+
 <style>
   .image_background_loading{
     background: white url("{{ asset('images/ajax-loader.gif') }}") right no-repeat;

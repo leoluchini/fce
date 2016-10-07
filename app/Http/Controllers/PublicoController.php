@@ -23,7 +23,7 @@ class PublicoController extends Controller
 		return view('frontend.publicaciones', $data);
 	}
 
-    public function variables()
+    public function variables(Request $request)
 	{
 		$data['paises'] = Pais::all();
 		$data['provincias'] = Provincia::all();
@@ -32,6 +32,10 @@ class PublicoController extends Controller
 		$data['trimestres'] = Frecuencia::where('tipo', '=', 'TRIMESTRE')->get();
 		$data['meses'] = Frecuencia::where('tipo', '=', 'MES')->get();
 		$data['periodos'] = array_unique(InformacionVariable::lists('anio')->toArray());
+		if($request->isMethod('post')){
+			$data['consulta'] = $request->all();
+			$data['consulta']['variable_name'] = Variable::whereIn('variables.id', $data['consulta']['variable_id'])->get()->lists('nombre', 'id');
+		}
 		return view('frontend.variables', $data);
 	}
 
@@ -172,6 +176,7 @@ class PublicoController extends Controller
 		$datos['data_pivot'] = $data_var;
 		$datos['data_pivot_inversa'] = $data_var_inversa;
 		$datos['datos_adicionales'] = $info_adicional;
+		$datos['filtros'] = $input;
 		return view('frontend.resultados_variables', $datos);
 	}
 	public function consulta_periodos(Request $request)

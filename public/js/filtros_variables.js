@@ -128,9 +128,15 @@ $(function(){
 		}
 	});
 
-	$('div#paso_3').on('click', function(){
-		$('#carga_periodos').show();
-		actualizar_periodos();
+	$('#pais, #provincia, #municipio').on('change', function(){
+		if(!marca_actulizacion_periodos && ($('input[name="tipo_busqueda"]:checked').val() == 'variable_region')){
+			marca_actulizacion_periodos = true;
+			setTimeout(function(){
+				marca_actulizacion_periodos = false;
+				$('#carga_periodos').show();
+				actualizar_periodos();
+			}, 1500);
+		}
 	});
 
 	$('#consulta_variables').submit(function() {
@@ -163,31 +169,41 @@ $(function(){
 	$(window).load(function(e) {
 		reset_regiones();
 		reset_select_with_list($('select#periodo'), $('#listado_periodos'));
+		if (typeof consulta !== 'undefined') {
+			cargar_consulta_previa();
+		}
 	});
 });
 
-function actualizar_regiones()
+var actualizando_regiones = false;
+function actualizar_regiones(callback)
 {
-	if($('input[name="tipo_busqueda"]:checked').val() == 'variable_region')
-	{
-		var lista = '';
-		$('#lista_tags').find('input[name^="variable_id"]').each(function(){
-			lista = (lista == '')  ? lista + $(this).val() : lista + '-' + $(this).val();
-		});
-		if(lista != ''){
-			var ruta = $('#variable').data('consultaregiones');
-			ruta = ruta.replace(":query:", lista);
-			$.ajax({
-				url: ruta,
-				type: 'GET',
-				dataType: 'json',
-				success: function (data) {
-					update_region($('select#pais'), data.paises, 'No existen paises con informacion para las variables seleccionadas');
-					update_region($('select#provincia'), data.provincias, 'No existen provincias con informacion para las variables seleccionadas');
-					update_region($('select#municipio'), data.municipios, 'No existen municipios con informacion para las variables seleccionadas');
-				},
+	if(!actualizando_regiones){
+		actualizando_regiones = true;
+		if($('input[name="tipo_busqueda"]:checked').val() == 'variable_region')
+		{
+			var lista = '';
+			$('#lista_tags').find('input[name^="variable_id"]').each(function(){
+				lista = (lista == '')  ? lista + $(this).val() : lista + '-' + $(this).val();
 			});
+			if(lista != ''){
+				var ruta = $('#variable').data('consultaregiones');
+				ruta = ruta.replace(":query:", lista);
+				$.ajax({
+					url: ruta,
+					type: 'GET',
+					dataType: 'json',
+					success: function (data) {
+						update_region($('select#pais'), data.paises, 'No existen paises con informacion para las variables seleccionadas');
+						update_region($('select#provincia'), data.provincias, 'No existen provincias con informacion para las variables seleccionadas');
+						update_region($('select#municipio'), data.municipios, 'No existen municipios con informacion para las variables seleccionadas');
+						if (typeof callback !== 'undefined') { callback(); }
+						actualizando_regiones = false;
+					},
+				});
+			}
 		}
+		actualizando_regiones = false;
 	}
 }
 function update_region(select, datos, mensaje)
@@ -241,46 +257,144 @@ function switch_tipo_busqueda()
 	op2.removeClass().addClass(clase_h4);
 	op2.find('span').removeClass().addClass(clase_span);
 }
-
-function actualizar_periodos()
+var marca_actulizacion_periodos = false;
+var actualizando_periodos = false;
+function actualizar_periodos(callback)
 {
-	var variables = [];
-	$('#lista_tags').find('input[name^="variable_id"]').each(function(){
-		variables.push($(this).val()); 
-	});
-	var zonas = [];
-	$('#'+$('input[name="tipo_zona"]').val()).find('option:selected').each(function(){ 
-		zonas.push($(this).val()); 
-	});
-	datos = {regiones: zonas,
-			 variables: variables,
-			 _token: $( "#variable" ).data('token')};
-	if((variables.length > 0)&&(zonas.length > 0)){
-		$.ajax({
-        	url: $('#periodo').data('urlconsulta'),
-			type: 'POST',
-			dataType: 'json',
-			data: datos,
-			success: function (data) {
+	if(!actualizando_periodos){
+		actualizando_periodos = true;
+		var variables = [];
+		$('#lista_tags').find('input[name^="variable_id"]').each(function(){
+			variables.push($(this).val()); 
+		});
+		var zonas = [];
+		$('#'+$('input[name="tipo_zona"]').val()).find('option:selected').each(function(){ 
+			zonas.push($(this).val()); 
+		});
+		datos = {regiones: zonas,
+				 variables: variables,
+				 _token: $( "#variable" ).data('token')};
+		if((variables.length > 0)&&(zonas.length > 0)){
+			$.ajax({
+	        	url: $('#periodo').data('urlconsulta'),
+				type: 'POST',
+				dataType: 'json',
+				data: datos,
+				success: function (data) {
 
-				$('#periodo').multiselect('disable');
-				$('#periodo').find('option').remove();
-				if(data.length > 0)
-				{
-					$.each(data, function(key, value) {
-						$('#periodo').append('<option value="'+value+'" > '+value+' </option>');
-					});
-				}
-				else{
-					$('#periodo').append('<option value="0" disabled> No existe informacion para la combinacion de variables/regiones seleccionadas </option>');
-				}
+					$('#periodo').multiselect('disable');
+					$('#periodo').find('option').remove();
+					if(data.length > 0)
+					{
+						$.each(data, function(key, value) {
+							$('#periodo').append('<option value="'+value+'" > '+value+' </option>');
+						});
+					}
+					else{
+						$('#periodo').append('<option value="0" disabled> No existe informacion para la combinacion de variables/regiones seleccionadas </option>');
+					}
 
-				$('#periodo').multiselect('rebuild');
-				$('#periodo').multiselect('refresh');
-				$('#periodo').multiselect('enable');
-
-           	}
-       	});
+					$('#periodo').multiselect('rebuild');
+					$('#periodo').multiselect('refresh');
+					$('#periodo').multiselect('enable');
+					if (typeof callback !== 'undefined') { callback(); }
+					actualizando_periodos = false;
+	           	}
+	       	});
+		}
+		$('#carga_periodos').hide();
+		actualizando_periodos = false;
 	}
-	$('#carga_periodos').hide();
+}
+
+function cargar_consulta_previa()
+{
+	//$('#espera_carga_previa').show();
+	//carga tipo de busqueda
+	if(consulta.tipo_busqueda == 'variable_region'){
+		$('#busqueda_option2').prop('checked', true);
+		$('#busqueda_option2').trigger('change');
+		carga_previa_variables();
+	}
+	else{
+		carga_previa_regiones();
+	}
+}
+function carga_previa_variables()
+{
+ 	//carga de variables
+	var num_var = $.map(consulta.variable_id, function(el) { return el }).length;
+	$.each(consulta.variable_id, function(key, value) {
+		var tag = $($('#agregar_variable').html());
+		var texto = (consulta.variable_name[value].length > 60) ? consulta.variable_name[value].substring(0, 60)+'...' : consulta.variable_name[value];
+		tag.find('span[class="texto"]').html(texto);
+		tag.find('span[class="texto"]').prop('title', consulta.variable_name[value]);
+		tag.find('input').prop('name', 'variable_id['+value+']');
+		tag.find('input').val(value);
+		$('#lista_tags').append(tag);
+		if(! --num_var){
+			if(consulta.tipo_busqueda == 'variable_region'){
+				actualizar_regiones(carga_previa_regiones);
+			}
+			else{
+				//llamo a actualizar los periodos y cargarlos
+				actualizar_periodos(carga_previa_anios);
+			}
+		}
+	});
+}
+function carga_previa_regiones()
+{
+	//carga de regiones
+	var num_regiones = $.map(consulta.regiones, function(el) { return el }).length;
+	$('#'+consulta.tipo_zona).multiselect('disable');
+	$.each(consulta.regiones, function(key, value) {
+		$('#'+consulta.tipo_zona).find('option[value="'+value+'"]').prop('selected', true);
+		if(! --num_regiones){
+			$('#'+consulta.tipo_zona).multiselect('refresh');
+			$('#'+consulta.tipo_zona).multiselect('enable');
+			$('a[href="#div_'+consulta.tipo_zona+'"]').click();
+			if(consulta.tipo_busqueda == 'region_variable'){
+				carga_previa_variables();
+			}
+			else{
+				//llamo a actualizar los periodos y cargarlos
+				actualizar_periodos(carga_previa_anios);
+			}
+		}
+	});
+}
+function carga_previa_anios()
+{
+	var num_anios = $.map(consulta.periodo, function(el) { return el }).length;
+	$('select#periodo').multiselect('disable');
+	$.each(consulta.periodo, function(key, value) {
+		$('#periodo').find('option[value="'+value+'"]').prop('selected', true);
+		if(! --num_anios){
+			$('select#periodo').multiselect('refresh');
+			$('select#periodo').multiselect('enable');
+		}
+	});
+	carga_previa_frecuencia();
+}
+function carga_previa_frecuencia()
+{
+	if(consulta.tipo_frecuencia != 'anios'){
+		var num_frecuencias = $.map(consulta.frecuencias, function(el) { return el }).length;
+		$('#'+consulta.tipo_frecuencia).multiselect('disable');
+		$.each(consulta.frecuencias, function(key, value) {
+			$('#'+consulta.tipo_frecuencia).find('option[value="'+value+'"]').prop('selected', true);
+			if(! --num_frecuencias){
+				$('#'+consulta.tipo_frecuencia).multiselect('refresh');
+				$('#'+consulta.tipo_frecuencia).multiselect('enable');
+				$('a[href="#div_'+consulta.tipo_frecuencia+'"]').click();
+			}
+		});
+	}
+	$('#div_paso_1').click();
+	setTimeout(function(){
+		$('#div_titulo_busqueda').show();
+		$('#div_pagina').show();
+		$('#espera_carga_previa').hide();
+	}, 500);
 }
