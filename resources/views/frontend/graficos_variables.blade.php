@@ -4,11 +4,24 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">Grafico de variable</h4>
+        <h2 class="modal-title">
+            <span class="icon-th-list-2"></span>
+            Grafico de variable
+          </h2>
       </div>
       <div id="contenedor_grafico" class="modal-body">
       </div>
       <div class="modal-footer">
+            <center>
+      <div class="header_izquierda">
+        <a href="http://www.econo.unlp.edu.ar/laboratorio" target="_blank">
+         {!! Html::image('images/menu_horizontal_LAB.png', 'Laboratorio de Desarrollo Sectorial y Territorial', ['class'=>''])!!}
+        </a>
+        <a href="http://www.econo.unlp.edu.ar" target="_blank" class="border_left">
+          {!! Html::image('images/menu_horizontal_FCE.png', 'Facultad de Ciencias Econ&oacute;micas', ['class'=>''])!!}
+        </a>
+      </div>
+</center>
       </div>
     </div>
   </div>

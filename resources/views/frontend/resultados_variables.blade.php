@@ -77,10 +77,11 @@
       <?php $total = 0 ?>
       @foreach($info_pivot['variables'] as $id_var => $nombre)
       <div class="table-responsive"></div>
+      <p class="help-block text-right" >FUENTE: {{$info_pivot['fuentes'][$id_var]}}</p>
         <table class="table table-condensed table-hover">
         <thead>
           <tr class="azul_FCE_bg blanco">
-            <th>{{$nombre}} ( {{$info_pivot['unidades'][$id_var]}} ) / {{$info_pivot['fuentes'][$id_var]}}</th>
+            <th>{{$nombre}} <small>( en {{$info_pivot['unidades'][$id_var]}} )</small></th>
             @foreach($info_pivot['aniofrec'] as $id_aniofrec => $aniofrec)
             <th class="text-right">{{$aniofrec}}</th>
             @endforeach

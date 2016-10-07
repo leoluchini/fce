@@ -7,7 +7,7 @@
   <div class="page-header">
     <div class="row">
 
-      <div class="col-xs-12"> 
+      <div class="col-xs-8"> 
         <div class=" pull-left"> 
           <h2>
             <span class="icon-note-1"></span>
@@ -15,8 +15,27 @@
           </h2>
         </div>
       </div>
-
-        </h4>
+        <div class="col-xs-3"> 
+           <div class=" pull-right buscador"> 
+            <div class="input-group input-group-sm">
+              <span class="input-group-addon" id="sizing-addon3"><span class="icon-search-8"></span> </span>
+              <input type="text" class="form-control" placeholder="Username" aria-describedby="sizing-addon3">
+            </div>    
+          </div>
+        </div>
+        <div class="col-xs-1 buscador"> 
+          <div class="dropdown">
+            <button class="btn btn-default btn-sm dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+              Año
+              <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+              <li><a href="#">2014</a></li>
+              <li><a href="#">2015</a></li>
+              <li><a href="#">2016</a></li>
+            </ul>
+          </div>
+        </div>
       </div>
     </div>
   </div>

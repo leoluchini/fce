@@ -363,3 +363,12 @@ button {
 .var_nivel_3 {
 	background-color: #c6c6c5 !important;
 }
+
+.help-block {
+	margin-bottom: 0px !important;
+}
+
+.buscador {
+	margin-top: 30px;
+
+}
