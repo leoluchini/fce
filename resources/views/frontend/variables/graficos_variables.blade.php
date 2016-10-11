@@ -12,16 +12,16 @@
       <div id="contenedor_grafico" class="modal-body">
       </div>
       <div class="modal-footer">
-            <center>
-      <div class="header_izquierda">
-        <a href="http://www.econo.unlp.edu.ar/laboratorio" target="_blank">
-         {!! Html::image('images/menu_horizontal_LAB.png', 'Laboratorio de Desarrollo Sectorial y Territorial', ['class'=>''])!!}
-        </a>
-        <a href="http://www.econo.unlp.edu.ar" target="_blank" class="border_left">
-          {!! Html::image('images/menu_horizontal_FCE.png', 'Facultad de Ciencias Econ&oacute;micas', ['class'=>''])!!}
-        </a>
-      </div>
-</center>
+        <center>
+          <div class="header_izquierda">
+            <a href="http://www.econo.unlp.edu.ar/laboratorio" target="_blank">
+             {!! Html::image('images/menu_horizontal_LAB.png', 'Laboratorio de Desarrollo Sectorial y Territorial', ['class'=>''])!!}
+            </a>
+            <a href="http://www.econo.unlp.edu.ar" target="_blank" class="border_left">
+              {!! Html::image('images/menu_horizontal_FCE.png', 'Facultad de Ciencias Econ&oacute;micas', ['class'=>''])!!}
+            </a>
+          </div>
+        </center>
       </div>
     </div>
   </div>

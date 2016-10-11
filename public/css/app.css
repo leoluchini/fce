@@ -292,7 +292,7 @@ nav ul li:hover  ul{
 .titulos_accordion {
     font-size: 1.5em;
     padding: 10px 5px 0 5px;
-    color: #00555f;
+    color: #333;
 }
 
 
@@ -371,4 +371,12 @@ button {
 .buscador {
 	margin-top: 30px;
 
+}
+
+.well_fce {
+    background-color: transparent;
+    border: 1px solid transparent;
+    border-radius: 0px;
+    -webkit-box-shadow: none;
+    box-shadow: none;
 }

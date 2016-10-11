@@ -123,7 +123,7 @@
                       <div  class="texto-vertical-2">PASO 2</div>
                     </div>
                     <div class="panelContent"> 
-                      <h3 class="titulos_accordion">Variables <a id="arbol_consulta" href="#" style="display:none"><span class="icon-list-nested"></span></a></h3>
+                      <h3 class="titulos_accordion">Variables <a id="arbol_consulta" href="#" style="display:none"><span class="icon-flow-tree pull-right"></span></a></h3>
                       <hr>
 
                        <div class="list-group list-plan" id="div_lista_seleccion_autocompletar">
