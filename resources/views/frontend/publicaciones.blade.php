@@ -20,7 +20,7 @@
            <div class=" pull-right buscador"> 
             <div class="input-group input-group-sm">
               <span class="input-group-addon" id="sizing-addon3"><span class="icon-search-8"></span> </span>
-              <input name="busqueda" type="text" class="form-control" placeholder="Busqueda" aria-describedby="sizing-addon3" value="{{isset($filtros['busqueda']) ? $filtros['busqueda'] : '' }}">
+              <input name="busqueda" type="text" class="form-control" placeholder="Busqueda" aria-describedby="sizing-addon3" value="{{(isset($filtros['busqueda']) && ($filtros['busqueda'] != '')) ? $filtros['busqueda'] : '' }}">
             </div>    
           </div>
         </div>
@@ -66,8 +66,17 @@
                   </thead>
                   <tbody id="tabla-datos">
                       @foreach($categoria->publicaciones as $publicacion)
-                        @if(isset($filtros))
-                          @if(preg_match($filtros['regex'], $publicacion->nombre))
+                        @if(isset($filtros['regex']) || isset($filtros['anio']))
+                          @if(  ((isset($filtros['regex']) && ($filtros['anio'] != ''))
+                                && (preg_match($filtros['regex'], $publicacion->nombre) || preg_match($filtros['regex'], $publicacion->palabras_clave))
+                                && ($publicacion->anio_publicacion == $filtros['anio']))
+                              ||
+                                ((isset($filtros['regex']) && ($filtros['anio'] == ''))
+                                && (preg_match($filtros['regex'], $publicacion->nombre) || preg_match($filtros['regex'], $publicacion->palabras_clave)))
+                              ||
+                                ((!isset($filtros['regex']) && ($filtros['anio'] != ''))
+                                && ($publicacion->anio_publicacion == $filtros['anio']))
+                              )
                             <tr>
                               <td>{{$publicacion->nombre}}</td>
                               <td>{{$publicacion->descripcion}}</td>

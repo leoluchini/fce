@@ -26,7 +26,7 @@ class PublicoController extends Controller
 		//$data['filtros']['busqueda'] = '/^(?=.*fi)(?=.*uno).*$/';
 		if($request->isMethod('post')){
 			$data['filtros'] = $request->all();
-			if(isset($data['filtros']['busqueda'])){
+			if(isset($data['filtros']['busqueda']) && ($data['filtros']['busqueda'] != '')){
 				$data['filtros']['regex'] = '/^';
 				$palabras = explode(' ', $data['filtros']['busqueda']);
 				foreach($palabras as $palabra){
