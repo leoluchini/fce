@@ -79,7 +79,7 @@
                             <a href="#div_provincia" role="tab" data-toggle="tab" aria-controls="div_provincia">Provincias</a>
                           </li>
                           <li role="presentation" class="solapa_zona" data-region="municipio">
-                            <a href="#div_municipio" role="tab" data-toggle="tab" aria-controls="div_municipio">Municipios</a>
+                            <a href="#div_municipio" role="tab" data-toggle="tab" aria-controls="div_municipio">Municipios/Departamentos</a>
                           </li>
                       </ul>
                       <input type="hidden" id="tipo_zona" name="tipo_zona" value="pais">

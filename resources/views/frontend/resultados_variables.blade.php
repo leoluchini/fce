@@ -40,8 +40,10 @@
           <li> {{$colection[0]}} </li>
           @endif
         @endforeach
-        <div class="pull-right" data-toggle="tooltip" data-placement="top" title="Redefinir la consulta"><a href="#" id="reformular_consulta"><span class="icon-spin3"></span></a></div>
-        @include('frontend.form_oculto_variables')
+        <div class="pull-right">
+          <a href="#" id="reformular_consulta" data-toggle="tooltip" data-placement="top" title="Redefinir la consulta"><span class="icon-spin3"></span></a>
+          <a href="#" id="descargar_excel" data-toggle="tooltip" data-placement="top" title="Descargar Excel"><span class="icon-file-excel"></span></a>
+        </div>
       </ol>
 
 <!-- TABLA COMUN -->
@@ -64,7 +66,7 @@
                   <td>{{ $info->anio }}{{ ($info->frecuencia->tipo != 'ANIO') ? ' / '.$info->frecuencia->nombre : '' }}</td>
                   <td>{{ number_format($info->valor, 2, ',', '.') }}</td>
                   <td>{{ $info->unidad_medida->nombre }}</td>
-                  <td><span title="{{ $info->fuente->descripcion }}" data-toggle="tooltip" data-placement="top">{{ $info->fuente->codigo }}</span></td>
+                  <td><span title="{{ $info->fuente->nombre }}" data-toggle="tooltip" data-placement="top">{{ $info->fuente->codigo }}</span></td>
               </tr>
           @endforeach
         </tbody>
@@ -186,7 +188,7 @@
 <!-- FIN TABLA PIVOT-->
     </div> <!-- fin container -->
 </div><!-- fin page-body -->
-
+@include('frontend.form_oculto_variables')
 @include('frontend.graficos_variables')
 
 @endsection

@@ -150,4 +150,13 @@ function boolean_html($boolean)
     }
     return "<span class='glyphicon glyphicon-{$simbol}' aria-hidden='true'></span>";
 }
+function get_anios($datos = null)
+{
+    $lista = $datos ? $datos : array();
+    for($i = 2015; $i <= date('Y'); $i++)
+    {   
+        $lista[$i] = $i;
+    }
+    return $lista;
+}
 ?>

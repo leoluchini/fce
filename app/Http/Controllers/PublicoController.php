@@ -17,9 +17,22 @@ use App\Models\VariableSinResultados;
 
 class PublicoController extends Controller
 {
-	public function publicaciones()
+	public function publicaciones(Request $request)
 	{
 		$data['categorias'] = Categoria::all();
+		$data['anios'] = get_anios(['' => 'Todos']);
+		//$data['filtros']['busqueda'] = '/^(?=.*fi)(?=.*uno).*$/';
+		if($request->isMethod('post')){
+			$data['filtros'] = $request->all();
+			if(isset($data['filtros']['busqueda'])){
+				$data['filtros']['regex'] = '/^';
+				$palabras = explode(' ', $data['filtros']['busqueda']);
+				foreach($palabras as $palabra){
+					$data['filtros']['regex'] .= '(?=.*'.$palabra.')';
+				}
+				$data['filtros']['regex'] .= '.*$/';
+			}
+		}
 		return view('frontend.publicaciones', $data);
 	}
 
@@ -189,6 +202,55 @@ class PublicoController extends Controller
 		$periodos = array_values(array_unique($resultados->lists('anio')->toArray()));
 		
 		return response()->json($periodos);
+	}
+
+	public function descarga_variables_excel(Request $request)
+	{
+		$input = $request->all();
+		$variables = $input['variable_id'];
+		$zonas = $input['regiones'];
+		$periodos = $input['periodo'];
+		$frecuencia = isset($input['frecuencias']) ? $input['frecuencias'] : array(Frecuencia::where('tipo', '=', 'ANIO')->first()->id);
+		
+		$resultados = InformacionVariable::whereIn('variable_id', $variables)
+								->whereIn('zona_id', $zonas)
+								->whereIn('anio', $periodos)
+								->whereIn('frecuencia_id', $frecuencia)
+								->orderBy('variable_id', 'ASC')->orderBy('zona_id', 'ASC')->orderBy('anio', 'ASC')->orderBy('frecuencia_id', 'ASC')->get();
+
+		$columna_region = ($input['tipo_zona'] == 'municipio') ? 'Municipio/Departamento' : ucfirst($input['tipo_zona']);
+		\Excel::create('Variables', function($excel) use ($resultados, $columna_region)
+		{
+		    $excel->sheet('Hoja Excel de Variables', function($sheet) use ($resultados, $columna_region)
+		    {		
+			    // tamaño de las celdas automatico
+			 	$sheet->setAutoSize(true);
+		    	// titulos en negrita
+			    $sheet->cells('A1:F1', function($cells){$cells->setFontWeight('bold');});
+			    $sheet->mergeCells("A1:F1");
+			    $sheet->cells('A2:F2', function($cells){$cells->setFontWeight('bold');});
+			    $sheet->cells('A:F', function($cells){$cells->setAlignment('left');});
+
+			    $data=[];
+			    array_push($data, array('Fecha de descarga: '.date('d/m/Y'), '', '','','',''));
+			    array_push($data, array('Variable', $columna_region, 'Año/Periodo','Valor','Unidad de medida','Fuente'));
+			    foreach($resultados as $resultado)
+			    {
+			    	$periodo = ($resultado->frecuencia->tipo != 'ANIO') ? $resultado->anio .' / '.  $resultado->frecuencia->nombre : $resultado->anio;
+		    		array_push($data, array($resultado->variable->nombre, 
+		    								$resultado->zona->nombre, 
+		    								$periodo, 
+		    								number_format($resultado->valor, 2, ',', '.'), 
+		    								$resultado->unidad_medida->nombre, 
+		    								$resultado->fuente->nombre
+		    								));
+			    }
+
+			    $sheet->fromArray($data, null, 'A1', false, false);
+		    });
+
+		})->export('xlsx');
+
 	}
 
 	public function indicadores()

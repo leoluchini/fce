@@ -1,4 +1,5 @@
-{!! Form::open(array('action' => ['PublicoController@variables'], 'method' => 'POST', 'style' => 'display:none', 'id' => 'datos_consulta')) !!}
+<div id="contenedor_forms" style="display:none">
+{!! Form::open(array('action' => ['PublicoController@variables'], 'method' => 'POST', 'style' => 'display:none', 'id' => 'datos_consulta', 'data-urlexcel' => action('PublicoController@descarga_variables_excel'))) !!}
   <input type="hidden" name="tipo_busqueda" value="{{$filtros['tipo_busqueda']}}">
   <input type="hidden" name="tipo_zona" value="{{$filtros['tipo_zona']}}">
   @foreach($filtros[$filtros['tipo_zona']] as $valor)
@@ -17,3 +18,4 @@
     @endforeach
   @endif
 {!! Form::close() !!}
+</div>

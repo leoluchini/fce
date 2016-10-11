@@ -48,12 +48,14 @@ Route::get('publicaciones/ver_archivo/{publicacion}', 'PublicacionController@ver
 Route::get('publicaciones/descargar_archivo/{publicacion}', 'PublicacionController@descargar_archivo');
 
 Route::get('/home', 'HomeController@index');
-Route::get('publicaciones', 'PublicoController@publicaciones');
+Route::match(array('GET', 'POST'), "publicaciones", array(
+    'uses' => 'PublicoController@publicaciones',
+));
 Route::get('indicadores', 'PublicoController@indicadores');
-//Route::get('variables', 'PublicoController@variables');
 Route::match(array('GET', 'POST'), "variables", array(
     'uses' => 'PublicoController@variables',
 ));
+Route::post('excel_variables', 'PublicoController@descarga_variables_excel');
 Route::post('consulta_variables', 'PublicoController@consulta_variables');
 Route::get('consulta_regiones/{variables}', 'PublicoController@consulta_regiones');
 Route::post('resultados_variables', 'PublicoController@resultados_variables');

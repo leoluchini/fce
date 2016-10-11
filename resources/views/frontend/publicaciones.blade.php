@@ -15,27 +15,26 @@
           </h2>
         </div>
       </div>
+      {!! Form::open(array('action' => ['PublicoController@publicaciones'], 'method' => 'POST')) !!}
         <div class="col-xs-3"> 
            <div class=" pull-right buscador"> 
             <div class="input-group input-group-sm">
               <span class="input-group-addon" id="sizing-addon3"><span class="icon-search-8"></span> </span>
-              <input type="text" class="form-control" placeholder="Username" aria-describedby="sizing-addon3">
+              <input name="busqueda" type="text" class="form-control" placeholder="Busqueda" aria-describedby="sizing-addon3" value="{{isset($filtros['busqueda']) ? $filtros['busqueda'] : '' }}">
             </div>    
           </div>
         </div>
         <div class="col-xs-1 buscador"> 
-          <div class="dropdown">
-            <button class="btn btn-default btn-sm dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-              Año
-              <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-              <li><a href="#">2014</a></li>
-              <li><a href="#">2015</a></li>
-              <li><a href="#">2016</a></li>
-            </ul>
+          <div class="input-group input-group-sm">
+            <select name="anio" class="form-control form-control-sm">
+              @foreach($anios as $key => $value)
+                <?php $selected = isset($filtros['anio']) ? (($key == $filtros['anio']) ? 'selected' : '') : '' ?>
+                <option value="{{$key}}" {{$selected}}>{{$value}}</option>
+              @endforeach
+            </select>
           </div>
         </div>
+        {!! Form::close() !!}
       </div>
     </div>
   </div>
@@ -67,15 +66,29 @@
                   </thead>
                   <tbody id="tabla-datos">
                       @foreach($categoria->publicaciones as $publicacion)
-                      <tr>
-                        <td>{{$publicacion->nombre}}</td>
-                        <td>{{$publicacion->descripcion}}</td>
-                        <td>{{$publicacion->anio_publicacion}}</td>
-                        <td class="text-right">
-                          <a href="{{ action('PublicacionController@ver_archivo', [$publicacion->id]) }}" target="_blank"><span class="icon-book-open pull-right"></span></a>
-                          <a href="{{ action('PublicacionController@descargar_archivo', [$publicacion->id]) }}"><span class="icon-down-5 pull-right"></span></a>
-                        </td>
-                      </tr>
+                        @if(isset($filtros))
+                          @if(preg_match($filtros['regex'], $publicacion->nombre))
+                            <tr>
+                              <td>{{$publicacion->nombre}}</td>
+                              <td>{{$publicacion->descripcion}}</td>
+                              <td>{{$publicacion->anio_publicacion}}</td>
+                              <td class="text-right">
+                                <a href="{{ action('PublicacionController@ver_archivo', [$publicacion->id]) }}" target="_blank"><span class="icon-book-open pull-right"></span></a>
+                                <a href="{{ action('PublicacionController@descargar_archivo', [$publicacion->id]) }}"><span class="icon-down-5 pull-right"></span></a>
+                              </td>
+                            </tr>
+                          @endif
+                        @else
+                          <tr>
+                            <td>{{$publicacion->nombre}}</td>
+                            <td>{{$publicacion->descripcion}}</td>
+                            <td>{{$publicacion->anio_publicacion}}</td>
+                            <td class="text-right">
+                              <a href="{{ action('PublicacionController@ver_archivo', [$publicacion->id]) }}" target="_blank"><span class="icon-book-open pull-right"></span></a>
+                              <a href="{{ action('PublicacionController@descargar_archivo', [$publicacion->id]) }}"><span class="icon-down-5 pull-right"></span></a>
+                            </td>
+                          </tr>
+                        @endif
                       @endforeach
                   </tbody>
               </table>
