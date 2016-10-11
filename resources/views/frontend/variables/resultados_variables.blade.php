@@ -188,8 +188,8 @@
 <!-- FIN TABLA PIVOT-->
     </div> <!-- fin container -->
 </div><!-- fin page-body -->
-@include('frontend.form_oculto_variables')
-@include('frontend.graficos_variables')
+@include('frontend.variables.form_oculto_variables')
+@include('frontend.variables.graficos_variables')
 
 @endsection
 @section('scripts_adicionales')

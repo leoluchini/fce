@@ -20,6 +20,7 @@ $(function(){
 			$('div#panel-accordion-1').append(filtro_variable);
 			$('div#panel-accordion-2').append(filtro_region);
 			filtro_variable.find('#var_reg').show();
+			$('#arbol_consulta').show();
 			filtro_variable.find('#reg_var').hide();
 		}
 		else{
@@ -28,6 +29,7 @@ $(function(){
 			$('div#panel-accordion-1').append(filtro_region);
 			$('div#panel-accordion-2').append(filtro_variable);
 			filtro_variable.find('#var_reg').hide();
+			$('#arbol_consulta').hide();
 			filtro_variable.find('#reg_var').show();
 		}
 		limpiar_variables_regiones();
@@ -36,6 +38,8 @@ $(function(){
 	
 	$( "#variable" ).autocomplete({
 		delay: 600,
+		appendTo: '#div_lista_seleccion_autocompletar',
+		position: { my : "left bottom", at: "left top" },
 		source: function (request, response) {
 					var ruta = $('#variable').data('urlconsulta');
 					texto = $('#variable').val().toLowerCase();
@@ -83,22 +87,13 @@ $(function(){
     				if(ui.item.key != 0)
     				{
     					if($('#lista_tags').find('input[name="variable_id['+ui.item.key+']"]').length == 0){
-		    				var tag = $($('#agregar_variable').html());
-		    				var texto = (ui.item.label.length > 60) ? ui.item.label.substring(0, 60)+'...' : ui.item.label;
-							tag.find('span[class="texto"]').html(texto);
-							tag.find('span[class="texto"]').prop('title', ui.item.label);
-							tag.find('input').prop('name', 'variable_id['+ui.item.key+']');
-							tag.find('input').val(ui.item.key);
-							//$("#tilde_variable_agregada").show(400, function(){ $("#tilde_variable_agregada").hide(400) });
+    						agregar_tag_variable(ui.item.key, ui.item.label);
 							$("#tilde_variable_agregada").fadeIn(400).fadeOut(400);
-							$('#lista_tags').append(tag);
 						}
 					}
 			},
 		search: function(){$('#variable').addClass('image_background_loading');},
         open: function(){
-        	/*$('#listo_seleccion').data('cerrar', '0');
-        	$('#listo_seleccion').show();*/
         	$('#variable').removeClass('image_background_loading');
         },
         close: function (event, ui) {
@@ -397,4 +392,15 @@ function carga_previa_frecuencia()
 		$('#div_pagina').show();
 		$('#espera_carga_previa').hide();
 	}, 500);
+}
+
+function agregar_tag_variable(id, nombre)
+{
+	var tag = $($('#agregar_variable').html());
+	var texto = (nombre.length > 60) ? nombre.substring(0, 60)+'...' : nombre;
+	tag.find('span[class="texto"]').html(texto);
+	tag.find('span[class="texto"]').prop('title', nombre);
+	tag.find('input').prop('name', 'variable_id['+id+']');
+	tag.find('input').val(id);
+	$('#lista_tags').append(tag);
 }

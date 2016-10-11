@@ -34,9 +34,6 @@
         <div class="list-group list-plan">
           <div data-toggle="buttons">
             <h4>Realizar búsqueda por
-              <!--<label>
-                <input type="radio" id="busqueda_option1" name="tipo_busqueda" value="region_variable"/>
-              </label> -->
               <button  class="btn btn-none active">
                 <input type="radio" name="tipo_busqueda" id="busqueda_option1" value="region_variable" autocomplete="off" checked>
                 <h4 class="azul_FCE"><span class="icon-check-1"></span>Territorio</h4>
@@ -126,10 +123,10 @@
                       <div  class="texto-vertical-2">PASO 2</div>
                     </div>
                     <div class="panelContent"> 
-                      <h3 class="titulos_accordion">Variables</h3>
+                      <h3 class="titulos_accordion">Variables <a id="arbol_consulta" href="#" style="display:none"><span class="icon-list-nested"></span></a></h3>
                       <hr>
 
-                       <div class="list-group list-plan">
+                       <div class="list-group list-plan" id="div_lista_seleccion_autocompletar">
                         <label id="var_reg" style="display:none">Las variables seleccionadas condicionarán las regiones del paso 2</label>
                         <label id="reg_var">Las variables estan condicionadas por las regiones seleccionadas en el paso 1</label>
                         <div id="tilde_variable_agregada" class="pull-right" style="display:none">
@@ -272,7 +269,7 @@
     </section>
 </div>
 {!! Form::close() !!}
-
+@include('frontend.variables.variables_arbol_consulta')
 @if(isset($consulta))
 <script>
   var consulta = <?php echo json_encode($consulta) ?>;
@@ -283,6 +280,7 @@
   .image_background_loading{
     background: white url("{{ asset('images/ajax-loader.gif') }}") right no-repeat;
   }
+  .ui-autocomplete { height: 200px; overflow-y: scroll; overflow-x: hidden; width: 55% !important;}
 </style>
 <script type="text/html" id="agregar_variable">
   <li style="opacity: 1; list-style-type: none" data-tag="">
@@ -314,6 +312,7 @@
 @endsection
 @section('scripts_adicionales')
     <script src="{{ asset('js/filtros_variables.js') }}"></script>
+    <script src="{{ asset('js/arbol_consulta_variables.js') }}"></script>
     <link href="{{ asset('jquery-ui-1.12.0.smoothness/jquery-ui.min.css') }}" rel="stylesheet">
     <script src="{{ asset('jquery-ui-1.12.0.smoothness/jquery-ui.min.js') }}"></script>
 @endsection

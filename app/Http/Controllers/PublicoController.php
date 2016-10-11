@@ -14,6 +14,8 @@ use App\Models\Frecuencia;
 use App\Models\InformacionVariable;
 use App\Models\ZonaGeografica;
 use App\Models\VariableSinResultados;
+use App\Models\Tema;
+use App\Models\CategoriaVariable;
 
 class PublicoController extends Controller
 {
@@ -45,11 +47,17 @@ class PublicoController extends Controller
 		$data['trimestres'] = Frecuencia::where('tipo', '=', 'TRIMESTRE')->get();
 		$data['meses'] = Frecuencia::where('tipo', '=', 'MES')->get();
 		$data['periodos'] = array_unique(InformacionVariable::lists('anio')->toArray());
+
+		$data['temas'] = Tema::all();
+		$data['categorias'] = CategoriaVariable::whereNull('categoria_padre_id')->get();
+		$data['variables_sin_tema'] = Variable::whereNull('tema_id')->get();
+
+
 		if($request->isMethod('post')){
 			$data['consulta'] = $request->all();
 			$data['consulta']['variable_name'] = Variable::whereIn('variables.id', $data['consulta']['variable_id'])->get()->lists('nombre', 'id');
 		}
-		return view('frontend.variables', $data);
+		return view('frontend.variables.variables', $data);
 	}
 
 	public function consulta_variables(Request $request)
@@ -190,7 +198,7 @@ class PublicoController extends Controller
 		$datos['data_pivot_inversa'] = $data_var_inversa;
 		$datos['datos_adicionales'] = $info_adicional;
 		$datos['filtros'] = $input;
-		return view('frontend.resultados_variables', $datos);
+		return view('frontend.variables.resultados_variables', $datos);
 	}
 	public function consulta_periodos(Request $request)
 	{
