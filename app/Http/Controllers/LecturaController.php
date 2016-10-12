@@ -35,10 +35,10 @@ class LecturaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    /*public function create()
     {
         return view('lectura.create');
-    }
+    }*/
 
     /**
      * Store a newly created resource in storage.
@@ -46,7 +46,7 @@ class LecturaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(LecturaRequest $request)
+    /*public function store(LecturaRequest $request)
     {
         if ($request->hasFile('file')) {
             $request->file('file')->move(public_path('storage'), 'carga.csv');
@@ -55,7 +55,7 @@ class LecturaController extends Controller
             $this->lectura($lote);
         }
         return redirect(route('administracion.lectura.show', $lote->id));
-    }
+    }*/
 
     /**
      * Display the specified resource.
@@ -150,12 +150,12 @@ class LecturaController extends Controller
         }
     }
 
-    public function create_txt()
+    public function create()
     {
-        return view('lectura.create_txt');
+        return view('lectura.create');
     }
 
-    public function store_txt(LecturaRequest $request)
+    public function store(LecturaRequest $request)
     {
         if ($request->hasFile('file')) {
             $request->file('file')->move(public_path('storage'), 'carga.txt');

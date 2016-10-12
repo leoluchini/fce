@@ -26,33 +26,7 @@
     </script>
 </head>
 <body id="app-layout">
-    @section('menu_back')
-  <div class="row">
-    <div class="col-xs-12 header_frontend">
-      <div class="row">
-        <div class="col-xs-6 row">
-          <div class="icon_menu">
-            <a href="{{action('AdministracionController@index')}}"><span class="icon-book pull-left" id='hideshow'></span></a>
-          </div>
-          <div class="header_izquierda">
-            <a href="http://www.econo.unlp.edu.ar/laboratorio" target="_blank">
-             {!! Html::image('images/menu_horizontal_LAB.png', 'Laboratorio de Desarrollo Sectorial y Territorial', ['class'=>''])!!}
-            </a>
-            <a href="http://www.econo.unlp.edu.ar" target="_blank" class="border_left">
-              {!! Html::image('images/menu_horizontal_FCE.png', 'Facultad de Ciencias Econ&oacute;micas', ['class'=>''])!!}
-            </a>
-          </div>
-        </div>
-
-        <div class="col-xs-6 row pull-right">
-          <a href="http://www.econo.unlp.edu.ar/laboratorio" target="_blank">
-           {!! Html::image('images/menu_horizontal_UNLP.png', 'Laboratorio de Desarrollo Sectorial y Territorial', ['class'=>'pull-right'])!!}
-          </a>
-        </div>
-      </div>
-    </div>
-    </div>
-    @show
+    @include('layouts.header')
     @if (session()->has('flash_notification.message'))
     <div class="alert alert-{{ session('flash_notification.level') }}">
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>

@@ -1,8 +1,5 @@
 @extends('layouts.app_back')
 
-@section('menu_back')
-  @include('layouts.header')
-@endsection
 @section('content')
 <div class="container">
   <div class="page-header">
