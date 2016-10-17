@@ -380,3 +380,11 @@ button {
     -webkit-box-shadow: none;
     box-shadow: none;
 }
+
+.indice_variables {
+	padding-left: 20px
+}
+
+.subcategoria {
+	padding-left: 10px;
+}

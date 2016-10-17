@@ -9,7 +9,10 @@
             Grafico de variable
           </h2>
       </div>
-      <div id="contenedor_grafico" class="modal-body">
+      <div  class="modal-body">
+        <center id="contenedor_grafico">
+
+        </center>
       </div>
       <div class="modal-footer">
         <center>

@@ -87,8 +87,8 @@
                               name="pais[]" 
                               multiple="multiple" 
                               class="bootstrapmultiselect_unfold" 
-                              data-height="300"
-                              data-maxheight="300">
+                              data-height="200"
+                              data-maxheight="200">
                             </select>
                           </div>
                           <div id="div_provincia" role="tabpanel" class="tab-pane">
@@ -97,8 +97,8 @@
                               name="provincia[]" 
                               multiple="multiple" 
                               class="bootstrapmultiselect_unfold" 
-                              data-height="300"
-                              data-maxheight="300">
+                              data-height="200"
+                              data-maxheight="200">
                             </select>
                           </div>
                           <div id="div_municipio"role="tabpanel" class="tab-pane">
@@ -107,8 +107,8 @@
                               name="municipio[]" 
                               multiple="multiple" 
                               class="bootstrapmultiselect_unfold" 
-                              data-height="300"
-                              data-maxheight="300">
+                              data-height="200"
+                              data-maxheight="200">
                             </select>
                           </div>
                       </div>
@@ -261,8 +261,8 @@
                   </div>
           </div>
           <div class="row">
-            <div class="col-md-1 pull-right">
-              {!! Form::submit('Buscar', array('class' => 'btn btn-primary btn-block')) !!}
+            <div class="col-md-12 ">
+              {!! Form::submit('Buscar', array('class' => 'btn btn-primary btn-block', 'disabled' => "disabled")) !!}
             </div>
           </div>
       </div>
