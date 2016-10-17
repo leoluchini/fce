@@ -24,23 +24,14 @@
 
 
 <div class="page-body">
+
   <div class="container">
-    <div class="row">
-      <div class="col-xs-12"> 
-			<table class="tabla table-responsive table table-hover table-condensed">
-			    <thead>
-			        <tr>
-			            <th><strong>Codigo</strong></p> </th>
-			            <th><strong>Nombre</strong></p> </th>
-			            <th class="text-right"><p> <strong>Acciones</strong></p></th>
-			        </tr>
-			    </thead>
-			    <tbody id="tabla-datos">
-			        @include('zonas.datos',['zonas' => $zonas])
-			    </tbody>
-			</table>
+    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+    @foreach($zonas as $zona)
+        @include('zonas.panel',['zona' => $zona, 'grupo' => 'accordion', 'nivel' => 1])
+    @endforeach
     </div>
-		</div>
-	</div>
+  </div>
+
 </div>
 @endsection

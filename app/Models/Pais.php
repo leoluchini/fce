@@ -12,4 +12,15 @@ class Pais extends ZonaGeografica
     {
         return $this->hasMany('App\Models\Provincia','zona_padre_id', 'id');
     }
+
+    public function tieneHijos()
+    {
+    	return (count($this->provincias->toArray()) > 0);
+    }
+
+    public function hijos()
+    {
+    	return $this->provincias();
+    }
+
 }

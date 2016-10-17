@@ -56,6 +56,11 @@
             </a>
           </div>
         </center>
+          <div class="row">
+            <div class="col-md-2 col-md-offset-10">
+              <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
+            </div>
+          </div>
       </div>
     </div>
   </div>

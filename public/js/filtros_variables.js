@@ -20,7 +20,6 @@ $(function(){
 			$('div#panel-accordion-1').append(filtro_variable);
 			$('div#panel-accordion-2').append(filtro_region);
 			filtro_variable.find('#var_reg').show();
-			$('#arbol_consulta').show();
 			filtro_variable.find('#reg_var').hide();
 		}
 		else{
@@ -29,7 +28,6 @@ $(function(){
 			$('div#panel-accordion-1').append(filtro_region);
 			$('div#panel-accordion-2').append(filtro_variable);
 			filtro_variable.find('#var_reg').hide();
-			$('#arbol_consulta').hide();
 			filtro_variable.find('#reg_var').show();
 		}
 		limpiar_variables_regiones();
@@ -86,10 +84,7 @@ $(function(){
 					$( "#variable" ).data('close', 'false');
     				if(ui.item.key != 0)
     				{
-    					if($('#lista_tags').find('input[name="variable_id['+ui.item.key+']"]').length == 0){
-    						agregar_tag_variable(ui.item.key, ui.item.label);
-							$("#tilde_variable_agregada").fadeIn(400).fadeOut(400);
-						}
+    					agregar_tag_variable(ui.item.key, ui.item.label);
 					}
 			},
 		search: function(){$('#variable').addClass('image_background_loading');},
@@ -396,11 +391,14 @@ function carga_previa_frecuencia()
 
 function agregar_tag_variable(id, nombre)
 {
-	var tag = $($('#agregar_variable').html());
-	var texto = (nombre.length > 60) ? nombre.substring(0, 60)+'...' : nombre;
-	tag.find('span[class="texto"]').html(texto);
-	tag.find('span[class="texto"]').prop('title', nombre);
-	tag.find('input').prop('name', 'variable_id['+id+']');
-	tag.find('input').val(id);
-	$('#lista_tags').append(tag);
+	if($('#lista_tags').find('input[name="variable_id['+id+']"]').length == 0){
+		var tag = $($('#agregar_variable').html());
+		var texto = (nombre.length > 60) ? nombre.substring(0, 60)+'...' : nombre;
+		tag.find('span[class="texto"]').html(texto);
+		tag.find('span[class="texto"]').prop('title', nombre);
+		tag.find('input').prop('name', 'variable_id['+id+']');
+		tag.find('input').val(id);
+		$('#lista_tags').append(tag);
+		$("#tilde_variable_agregada").fadeIn(400).fadeOut(400);
+	}
 }

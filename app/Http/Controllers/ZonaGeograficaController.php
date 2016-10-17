@@ -15,7 +15,7 @@ class ZonaGeograficaController extends Controller
 {
     public function index()
 	{
-		$data['zonas'] = ZonaGeografica::all();
+		$data['zonas'] = Pais::all();
 		return view('zonas.index', $data);
 	}
 

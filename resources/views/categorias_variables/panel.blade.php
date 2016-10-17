@@ -21,37 +21,34 @@
 
 		<div id="collapse_{{$categoria->id}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
 		  <div class="panel-body">
+	  		<?php $nivel++; ?>
+			@foreach($categoria->subcategorias as $subcategoria)
+					<div class="panel-group" id="accordion_{{$subcategoria->id}}" role="tablist" aria-multiselectable="true">
+							@include('categorias_variables.panel',['categoria' => $subcategoria, 'grupo' => 'accordion_'.$subcategoria->id, 'nivel' => $nivel])
+					</div>
+			@endforeach
 
+			<!-- VARIABLE -->
+			<ul class="list-group">
+    		@foreach($categoria->variables as $variable)
+    			<li class="list-group-item">
+    				<strong>{{ $variable->codigo }}</strong> - {{ $variable->nombre }}
+						@if($variable->tema)
+								<span class="label label-default" data-toggle="tooltip" data-placement="right" title="Variable madre">{{$variable->tema->nombre}}</span>
+						@endif
+						<div class="pull-right">
+							<a title="Editar variable" href="{{ action('VariableController@edit', [$categoria->id, $variable->id]) }}" data-toggle="tooltip" data-placement="top">
+								<span class="icon-edit"></span>
+							</a>
 
-				@foreach($categoria->subcategorias as $subcategoria)
-						<div class="panel-group" id="accordion_{{$categoria->id}}" role="tablist" aria-multiselectable="true">
-								@include('categorias_variables.panel',['categoria' => $subcategoria, 'grupo' => 'accordion_'.$categoria->id, 'nivel' => ++$nivel])
+							<a title="Eliminar variable" href="{{ action('VariableController@destroy', [$categoria->id, $variable->id]) }}" data-toggle="tooltip" data-placement="top" data-method="delete" data-title="Eliminar variable" data-confirm="¿Estas seguro que desea eliminar la variable '{{$variable->nombre}}' ?">
+								<span class="icon-trash-4"></span>
+							</a>
 						</div>
-				@endforeach
-
-
-
-						<!-- VARIABLE -->
-	    			<ul class="list-group">
-			    		@foreach($categoria->variables as $variable)
-			    			<li class="list-group-item">
-			    				<strong>{{ $variable->codigo }}</strong> - {{ $variable->nombre }}
-									@if($variable->tema)
-											<span class="label label-default" data-toggle="tooltip" data-placement="right" title="Variable madre">{{$variable->tema->nombre}}</span>
-									@endif
-									<div class="pull-right">
-										<a title="Editar variable" href="{{ action('VariableController@edit', [$categoria->id, $variable->id]) }}" data-toggle="tooltip" data-placement="top">
-											<span class="icon-edit"></span>
-										</a>
-
-										<a title="Eliminar variable" href="{{ action('VariableController@destroy', [$categoria->id, $variable->id]) }}" data-toggle="tooltip" data-placement="top" data-method="delete" data-title="Eliminar variable" data-confirm="¿Estas seguro que desea eliminar la variable '{{$variable->nombre}}' ?">
-											<span class="icon-trash-4"></span>
-										</a>
-									</div>
-			    			</li>
-		    			@endforeach
-						</ul>
-						<!-- FIN VARIABLE -->
+    			</li>
+			@endforeach
+			</ul>
+			<!-- FIN VARIABLE -->
 		  </div>
 		</div>
 	</div>

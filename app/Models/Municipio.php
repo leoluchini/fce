@@ -12,4 +12,9 @@ class Municipio extends ZonaGeografica
     {
         return $this->belongsTo('App\Models\Provincia', 'zona_padre_id');
     }
+
+    public function tieneHijos()
+    {
+    	return false;
+    }
 }
