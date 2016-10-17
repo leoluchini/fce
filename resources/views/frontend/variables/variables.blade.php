@@ -281,6 +281,38 @@
     background: white url("{{ asset('images/ajax-loader.gif') }}") right no-repeat;
   }
   .ui-autocomplete { height: 200px; overflow-y: scroll; overflow-x: hidden; width: 55% !important;}
+  .options-wrapper {
+    max-height: 210px !important;
+    overflow-x: hidden;
+    overflow-y: auto; 
+    padding: 0 30px;
+  }
+  .multiselect-container>.options-wrapper>li{padding:0}
+  .multiselect-container>.options-wrapper>li>a.multiselect-all label{font-weight:700}
+  .multiselect-container>.options-wrapper>li.multiselect-group label{margin:0;padding:3px 20px 3px 20px;height:100%;font-weight:700}
+  .multiselect-container>.options-wrapper>li.multiselect-group-clickable label{cursor:pointer}
+  .multiselect-container>.options-wrapper>li>a{padding:0}
+  .multiselect-container>.options-wrapper>li>a>label{margin:0;height:100%;cursor:pointer;font-weight:400;padding:3px 20px 3px 40px}
+  .multiselect-container>.options-wrapper>li>a>label.radio,.multiselect-container>.options-wrapper>li>a>label.checkbox{margin:0}
+  .multiselect-container>.options-wrapper>li>a>label>input[type=checkbox]{margin-bottom:5px}
+  .dropdown-menu > .options-wrapper > li > a {
+      clear: both;
+      color: #333;
+      display: block;
+      font-weight: 400;
+      line-height: 1.42857;
+      padding: 3px 20px;
+      white-space: nowrap;
+  }
+  .dropdown-menu > .options-wrapper > .active > a {
+      background-color: #555;
+  }
+  .dropdown-menu > .options-wrapper > .active > a, .dropdown-menu > .options-wrapper > .active > a:focus, .dropdown-menu > .options-wrapper > .active > a:hover {
+      /*background-color: #337ab7;*/
+      color: #fff;
+      outline: 0 none;
+      text-decoration: none;
+  }
 </style>
 <script type="text/html" id="agregar_variable">
   <li style="opacity: 1; list-style-type: none" data-tag="">
@@ -313,6 +345,6 @@
 @section('scripts_adicionales')
     <script src="{{ asset('js/filtros_variables.js') }}"></script>
     <script src="{{ asset('js/arbol_consulta_variables.js') }}"></script>
-    <link href="{{ asset('jquery-ui-1.12.0.smoothness/jquery-ui.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('jquery-ui-1.12.0.smoothness/jquery-ui.min.css') }}" rel="stylesheet">*
     <script src="{{ asset('jquery-ui-1.12.0.smoothness/jquery-ui.min.js') }}"></script>
 @endsection

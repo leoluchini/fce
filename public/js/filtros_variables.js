@@ -111,6 +111,7 @@ $(function(){
 		if($('input[name="tipo_busqueda"]:checked').val() == 'variable_region'){
 			if($('#lista_tags').find('input[name^="variable_id"]').length == 0){
 				reset_regiones();
+				fijar_busqueda_multiselect();
 			}
 			else{
 				actualizar_regiones();
@@ -162,6 +163,7 @@ $(function(){
 		if (typeof consulta !== 'undefined') {
 			cargar_consulta_previa();
 		}
+		fijar_busqueda_multiselect();
 	});
 });
 
@@ -187,6 +189,7 @@ function actualizar_regiones(callback)
 						update_region($('select#pais'), data.paises, 'No existen paises con informacion para las variables seleccionadas');
 						update_region($('select#provincia'), data.provincias, 'No existen provincias con informacion para las variables seleccionadas');
 						update_region($('select#municipio'), data.municipios, 'No existen municipios con informacion para las variables seleccionadas');
+						fijar_busqueda_multiselect();
 						if (typeof callback !== 'undefined') { callback(); }
 						actualizando_regiones = false;
 					},
@@ -234,6 +237,7 @@ function limpiar_variables_regiones()
 	$('#lista_tags').empty();
 	reset_regiones();
 	reset_select_with_list($('select#periodo'), $('#listado_periodos'));
+	fijar_busqueda_multiselect();
 	$('#div_paso_1').trigger('click');
 }
 function switch_tipo_busqueda()
@@ -287,6 +291,7 @@ function actualizar_periodos(callback)
 					$('#periodo').multiselect('rebuild');
 					$('#periodo').multiselect('refresh');
 					$('#periodo').multiselect('enable');
+					fijar_busqueda_multiselect();
 					if (typeof callback !== 'undefined') { callback(); }
 					actualizando_periodos = false;
 	           	}
@@ -343,6 +348,7 @@ function carga_previa_regiones()
 		if(! --num_regiones){
 			$('#'+consulta.tipo_zona).multiselect('refresh');
 			$('#'+consulta.tipo_zona).multiselect('enable');
+			fijar_busqueda_multiselect();
 			$('a[href="#div_'+consulta.tipo_zona+'"]').click();
 			if(consulta.tipo_busqueda == 'region_variable'){
 				carga_previa_variables();
@@ -363,6 +369,7 @@ function carga_previa_anios()
 		if(! --num_anios){
 			$('select#periodo').multiselect('refresh');
 			$('select#periodo').multiselect('enable');
+			fijar_busqueda_multiselect();
 		}
 	});
 	carga_previa_frecuencia();
@@ -377,6 +384,7 @@ function carga_previa_frecuencia()
 			if(! --num_frecuencias){
 				$('#'+consulta.tipo_frecuencia).multiselect('refresh');
 				$('#'+consulta.tipo_frecuencia).multiselect('enable');
+				fijar_busqueda_multiselect();
 				$('a[href="#div_'+consulta.tipo_frecuencia+'"]').click();
 			}
 		});
@@ -401,4 +409,13 @@ function agregar_tag_variable(id, nombre)
 		$('#lista_tags').append(tag);
 		$("#tilde_variable_agregada").fadeIn(400).fadeOut(400);
 	}
+}
+
+function fijar_busqueda_multiselect()
+{
+	$(document).find('ul.list_fixed_search').each(function(){
+		if($(this).find('div[class="options-wrapper"]').length == 0){
+			$(this).find('li:not(.filter)').wrapAll('<div class="options-wrapper"></div>');
+		}
+	});
 }
