@@ -262,7 +262,7 @@
           </div>
           <div class="row">
             <div class="col-md-12 ">
-              {!! Form::submit('Buscar', array('class' => 'btn btn-primary btn-block', 'disabled' => "disabled")) !!}
+              {!! Form::submit('Buscar', array('class' => 'btn btn-primary btn-block')) !!}
             </div>
           </div>
       </div>
