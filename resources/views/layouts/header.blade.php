@@ -8,6 +8,9 @@
 
       <div class="icon_home">
         <a href="{{url('/')}}"><span class="icon-home-3 pull-left"></span></a>
+        @if(Auth::user())
+          <a href="{{url('/administracion')}}"><span class="icon-cogs pull-right"></span></a>
+        @endif
       </div>
     </div>
 

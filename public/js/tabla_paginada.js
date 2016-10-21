@@ -1,9 +1,4 @@
-$(function()
-{
-	$(document).ready(function() 
-	{
-	    $('table.tabla_resultados_paginada').dataTable(
-	    {
+var data_tables_global_config = {
 	    	"language": 
 	    	{
             	"sProcessing":     "Procesando...",
@@ -30,7 +25,14 @@ $(function()
 					"sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
 					"sSortDescending": ": Activar para ordenar la columna de manera descendente"
 				}    
-            }
-	    });
+            },
+            pageLength: 5,
+            lengthMenu: [ 5, 20, 50, 100 ]
+	    };
+$(function()
+{
+	$(document).ready(function() 
+	{
+	    $('table.tabla_resultados_paginada').dataTable(data_tables_global_config);
 	});
 });
