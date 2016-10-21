@@ -2,18 +2,21 @@
 
 @section('content')
 <div class="container">
-  <div class="page-header">
-    <div class="row">
-      <div class="col-xs-12"> 
-        <div class=" pull-left"> 
-          <h2>
-            <span class="icon-box-2"></span>
-            Subir variables <small>(por lotes)</small>
-          </h2>
-        </div>
-        <div class=" pull-right"> 
-	      <a href="{{ route('administracion.lectura.create')}}" class='btn btn-primary'></span>Nueva lectura</a>
-      	</div>
+  <div class="row">
+    <div class="col-xs-12"> 
+  		<div class="page-header">
+
+				<div class="pull-right">
+	        <div class="btn-group">
+	          <a href="{{ route('administracion.lectura.create')}}" class='btn btn-primary'></span>Nueva lectura</a>
+	        </div>
+	      </div>
+
+	      <h1>
+	        <span class="icon-box-2"></span>
+	        Subir variables <small>(por lotes)</small>
+	      </h1>
+
       </div>
     </div>
   </div>

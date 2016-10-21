@@ -1,17 +1,29 @@
 @extends('layouts.app_back')
 
 @section('content')
-	<div class='container'>
-	  <div class='btn-toolbar pull-right'>
-	    <h4 class="pull-left">
-	    	<a title="Volver" href="{{ action('LecturaController@index') }}" data-toggle="tooltip" data-placement="top"><span class="glyphicon glyphicon-triangle-left"></span></a>
-	  	</h4>
-	    <div class='btn-group'>
-	      <a href="{{ route('administracion.lectura.destroy', $lote->id)}}" class='btn btn-danger' data-method="delete" data-title="Eliminar Lote" data-confirm="¿Estas seguro que desea eliminar los datos del lote '{{$lote->id}}' ?"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Borrar lote</a>
-	    </div>
-	  </div>
-	  <h2>Lectura de archivos</h2>
-	</div>
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12"> 
+  		<div class="page-header">
+
+				<div class="pull-right">
+	        <div class="btn-group">
+	    			<a title="Volver" href="{{ action('LecturaController@index') }}" data-toggle="tooltip" data-placement="top"><span class="glyphicon glyphicon-triangle-left"></span></a>
+
+	     			<a href="{{ route('administracion.lectura.destroy', $lote->id)}}" class='btn btn-danger' data-method="delete" data-title="Eliminar Lote" data-confirm="¿Estas seguro que desea eliminar los datos del lote '{{$lote->id}}' ?"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Borrar lote</a>
+	        </div>
+	      </div>
+
+	      <h1>
+	        <span class="icon-box-2"></span>
+	        Lectura de archivos
+	      </h1>
+
+      </div>
+    </div>
+  </div>
+</div>
+
 	<div class="row">
 		<div class="col-md-8 col-md-offset-2">
 			<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">

@@ -2,15 +2,13 @@
 
 @section('content')
 <div class="container">
-  <div class="page-header">
-    <div class="row">
-      <div class="col-xs-12"> 
-        <div class=" pull-left"> 
-          <h2>
+  <div class="row">
+    <div class="col-xs-12"> 
+      <div class="page-header">
+          <h1>
             <span class="icon-box-2"></span>
             M&oacute;dulos
-          </h2>
-        </div>
+          </h1>
       </div>
     </div>
   </div>
