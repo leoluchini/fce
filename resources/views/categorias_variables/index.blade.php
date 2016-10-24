@@ -16,8 +16,8 @@
           </div>
 
           <h1>
-            <span class="icon-th-list-2"></span>
-              Listado de variables
+            <span class="icon-flow-tree"></span>
+              &Aacute;rbol de variables
           </h1>
 
       </div>

@@ -388,3 +388,8 @@ button {
 .subcategoria {
 	padding-left: 10px;
 }
+
+.page-header .breadcrumb {
+	  position: absolute;
+    top: 0px;
+}

@@ -2,24 +2,26 @@
 
 @section('content')
 <div class="container">
-  <div class="page-header">
-    <div class="row">
-      <div class="col-xs-12"> 
-        <div class=" pull-left"> 
-          <h2>
-            <span class="icon-box-2"></span>
-            Categorías y publicaciones
-          </h2>
-        </div>
+  <div class="row">
+    <div class="col-xs-12"> 
+      <div class="page-header">
+
         <div class="pull-right">
-          <h4>
-		        <a title="Nueva categoria" href="{{ action('CategoriaController@create') }}" data-toggle="tooltip" data-placement="top"><span class="glyphicon glyphicon-plus"></span></a>
-          </h4>
+          <div class="btn-group">
+            <a title="Nueva categoria" href="{{ action('CategoriaController@create') }}" data-toggle="tooltip" data-placement="top"><span class="glyphicon glyphicon-plus"></span></a>
+          </div>
         </div>
+
+        <h1>
+          <span class="icon-newspaper"></span>
+          Categorías y publicaciones
+        </h1>
+
       </div>
     </div>
   </div>
 </div>
+
 
 
 

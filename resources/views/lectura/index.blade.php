@@ -13,7 +13,7 @@
 	      </div>
 
 	      <h1>
-	        <span class="icon-box-2"></span>
+	        <span class="icon-upload-cloud-outline"></span>
 	        Subir variables <small>(por lotes)</small>
 	      </h1>
 

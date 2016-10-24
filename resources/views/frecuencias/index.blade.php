@@ -1,22 +1,22 @@
 @extends('layouts.app_back')
 
 @section('content')
-
 <div class="container">
-  <div class="page-header">
-    <div class="row">
-      <div class="col-xs-12"> 
-        <div class=" pull-left"> 
-          <h2>
-            <span class="icon-box-2"></span>
-            Frecuencias
-          </h2>
-        </div>
-        <div class="pull-right">
-	      	<h4>
+  <div class="row">
+    <div class="col-xs-12"> 
+  		<div class="page-header">
+
+				<div class="pull-right">
+	        <div class="btn-group">
 	        	<a title="Nueva frecuencia" href="{{ action('FrecuenciaController@create') }}" data-toggle="tooltip" data-placement="top"><span class="glyphicon glyphicon-plus"></span></a>
-	      	</h4>
-    		</div>
+	        </div>
+	      </div>
+
+	      <h1>
+	        <span class="icon-calendar-8"></span>
+          Frecuencias
+	      </h1>
+
       </div>
     </div>
   </div>

@@ -64,7 +64,7 @@
         <div class="col-md-3 col-sm-6 col-xs-12">
           <center>
             <a href="{{action('FuenteController@index')}}">
-              <h2><span class="icon-archive"></span></h2>
+              <h2><span class="icon-archive-1"></span></h2>
               <h4>Fuentes</h4>
             </a>
           </center>
@@ -99,7 +99,7 @@
           <div class="col-md-3 col-sm-6 col-xs-12">
             <center>
               <a href="{{action('UserController@index')}}">
-                <h2><span class="icon-user-6"></span></h2>
+                <h2><span class="icon-user-7"></span></h2>
                 <h4>Usuarios</h4>
               </a>
             </center>
