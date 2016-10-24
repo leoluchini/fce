@@ -1,7 +1,5 @@
 @extends('layouts.app')
 
-@include('layouts.header')
-
 @section('content')
 <div class="container">
     <div class="row">
@@ -65,7 +63,7 @@
                       <hr>
 
                       <div class="loading hide">
-                        {{ HTML::image('images/ajax-loader.gif') }}
+                        {{ Html::image('images/ajax-loader.gif') }}
                       </div>
                       <ul class="nav nav-tabs nav-justified altura" role="tablist">
                           <li role="presentation" class="solapa_zona active" data-region="pais">
@@ -161,7 +159,7 @@
                       <hr>
 
                       <div class="loading hide">
-                        {{ HTML::image('images/ajax-loader.gif') }}
+                        {{ Html::image('images/ajax-loader.gif') }}
                       </div>
                       <div class="list-group list-plan">
                         <label id="carga_periodos" style="display:none">
@@ -194,7 +192,7 @@
                       <hr>
 
                       <div class="loading hide">
-                        {{ HTML::image('images/ajax-loader.gif') }}
+                        {{ Html::image('images/ajax-loader.gif') }}
                       </div>
                       <div class="list-group list-plan">
                         <ul class="nav nav-tabs nav-justified altura" role="tablist">

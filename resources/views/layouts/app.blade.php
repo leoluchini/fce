@@ -27,7 +27,7 @@
     </script>
 </head>
 <body id="app-layout">
-   
+    @include('layouts.header')
     @yield('content')
            
     <!-- JavaScripts -->

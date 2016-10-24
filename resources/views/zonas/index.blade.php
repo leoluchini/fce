@@ -27,7 +27,7 @@
 <div class="page-body">
 
   <div class="container">
-    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true" style="overflow:auto;">
     @foreach($zonas as $zona)
         @include('zonas.panel',['zona' => $zona, 'grupo' => 'accordion', 'nivel' => 1])
     @endforeach

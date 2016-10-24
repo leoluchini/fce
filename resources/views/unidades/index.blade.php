@@ -25,8 +25,7 @@
 
 <div class="page-body">
   <div class="container">
-    <div class="row">
-    	<div class="col-xs-12"> 
+   	<div class="col-xs-12"> 
 			<table class="tabla table-responsive table table-hover table-condensed">
 			    <thead>
 			        <tr>
@@ -41,7 +40,6 @@
 			    </tbody>
 			</table>
 		</div>
-	</div>
 	</div>
 </div>
 @endsection

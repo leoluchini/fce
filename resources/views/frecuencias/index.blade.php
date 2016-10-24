@@ -24,7 +24,7 @@
 
 
 <div class="page-body">
-	<div class="row">
+	<div class="container">
     	<div class="col-md-10 col-md-offset-1"> 
 			<table class="tabla table-responsive table table-hover table-condensed">
 			    <thead>

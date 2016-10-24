@@ -1,7 +1,5 @@
 @extends('layouts.app')
 
-@include('layouts.header')
-
 @section('content')
 <div class="container">
   <div class="page-header">
@@ -64,7 +62,7 @@
                     <div class="panelContent">
                       <p class="titulos_accordion">Región</p>
                       <div class="loading hide">
-                        {{ HTML::image('images/ajax-loader.gif') }}
+                        {{ Html::image('images/ajax-loader.gif') }}
                       </div>
                       <div class="list-group list-plan">
                         <select 
@@ -97,7 +95,7 @@
                     <div class="panelContent">
                       <p class="titulos_accordion">Período</p>
                       <div class="loading hide">
-                        {{ HTML::image('images/ajax-loader.gif') }}
+                        {{ Html::image('images/ajax-loader.gif') }}
                       </div>
                       <div class="list-group list-plan">
                         <select 
@@ -130,7 +128,7 @@
                     <div class="panelContent">
                       <p class="titulos_accordion">Frecuencia</p>
                       <div class="loading hide">
-                        {{ HTML::image('images/ajax-loader.gif') }}
+                        {{ Html::image('images/ajax-loader.gif') }}
                       </div>
                       <div class="list-plan">
                         <select 
