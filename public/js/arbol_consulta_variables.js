@@ -1,5 +1,6 @@
 $(document).ready(function () {
 	$('#arbol_consulta').on('click', function(){
+		actualizar_variables_seleccionadas();
 		$('#modal_consulta').modal('show');
 	});
 	$('label.tree-toggler').click(function () {
@@ -9,8 +10,27 @@ $(document).ready(function () {
   	$('a.selector_variable').on('click', function(e){
   		e.preventDefault();
   		agregar_tag_variable($(this).data('id'), $(this).data('nombre'));
+  		actualizar_variables_seleccionadas();
   	});
   	$('#modal_consulta').on('hidden.bs.modal', function () {
 		actualizar_regiones();
 	});
 });
+
+function actualizar_variables_seleccionadas()
+{
+	$('#modal_consulta').find('ul#lista_seleccion_arbol').remove();
+	lista = '';
+	$('#lista_tags').find('input[name^="variable_id"]').each(function(){
+		lista = lista + '<li>' + $(this).prev().attr('title') + '</li>';
+	});
+	if(lista == ''){
+		$('#modal_consulta').find('p#texto_seleccion_arbol').empty().text($('#modal_consulta').find('p#texto_seleccion_arbol').data('default'));
+	}
+	else{
+		$('#modal_consulta').find('p#texto_seleccion_arbol').empty().text('Usted seleccionó: ');
+		ul = $('<ul id="lista_seleccion_arbol" style="overflow:auto;max-height: 60px;"></ul>');
+		ul.append(lista);
+		ul.insertAfter($('#modal_consulta').find('p#texto_seleccion_arbol'));
+	}
+}

@@ -141,7 +141,7 @@
                                 data-consultaregiones="{{action('PublicoController@consulta_regiones', [':query:'])}}" />
                       </div>
                       <div class="col-md-12" id="div_lista_tags">
-                        <div class="mb-container">
+                        <div class="mb-container" style="overflow:auto;max-height: 180px;">
                           <ul style="padding-left: 0px" id="lista_tags">
                           </ul>
                         </div>
@@ -176,7 +176,8 @@
                           data-nselectedtext=" varibles escogidas" 
                           data-height="300"
                           data-maxheight="300"
-                          data-urlconsulta="{{action('PublicoController@consulta_periodos')}}">
+                          data-urlconsulta="{{action('PublicoController@consulta_periodos')}}"
+                          data-consultafrec="{{action('PublicoController@consulta_frecuencias')}}">
                         </select>
                       </div>
                     </div>
@@ -195,23 +196,44 @@
                         {{ Html::image('images/ajax-loader.gif') }}
                       </div>
                       <div class="list-group list-plan">
+                        <label id="carga_frecuencias" style="display:none">
+                          <img src="{{ asset('images/ajax-loader.gif') }}">
+                          Calculando frecuencias con informacion para la seleccion realizada de variables, regiones y periodos
+                        </label>
                         <ul class="nav nav-tabs nav-justified altura" role="tablist">
                           <li role="presentation" class="solapa_frecuencia active" data-frecuencia="anual">
-                            <a href="#div_anual" role="tab" data-toggle="tab" aria-controls="div_anual">Anual</a>
+                            <a href="#div_anual" role="tab" data-toggle="tab" aria-controls="div_anual">
+                              Anual
+                              <span id="frec_anual_ok" class="icon-ok-squared" style="display:none"></span>
+                              <span id="frec_anual_no" class="icon-block" style="display:none"></span>
+                            </a>
                           </li>
                           <li role="presentation" class="solapa_frecuencia" data-frecuencia="semestral">
-                            <a href="#div_semestral" role="tab" data-toggle="tab" aria-controls="div_semestral">Semestral</a>
+                            <a href="#div_semestral" role="tab" data-toggle="tab" aria-controls="div_semestral">
+                              Semestral
+                              <span id="frec_semestral_ok" class="icon-ok-squared" style="display:none"></span>
+                              <span id="frec_semestral_no" class="icon-block" style="display:none"></span>
+                            </a>
                           </li>
                           <li role="presentation" class="solapa_frecuencia" data-frecuencia="trimestral">
-                            <a href="#div_trimestral" role="tab" data-toggle="tab" aria-controls="div_trimestral">Trimestral</a>
+                            <a href="#div_trimestral" role="tab" data-toggle="tab" aria-controls="div_trimestral">
+                              Trimestral
+                              <span id="frec_trimestral_ok" class="icon-ok-squared" style="display:none"></span>
+                              <span id="frec_trimestral_no" class="icon-block" style="display:none"></span>
+                            </a>
                           </li>
                           <li role="presentation" class="solapa_frecuencia" data-frecuencia="mensual">
-                            <a href="#div_mensual" role="tab" data-toggle="tab" aria-controls="div_mensual">Mensual</a>
+                            <a href="#div_mensual" role="tab" data-toggle="tab" aria-controls="div_mensual">
+                              Mensual
+                              <span id="frec_mensual_ok" class="icon-ok-squared" style="display:none"></span>
+                              <span id="frec_mensual_no" class="icon-block" style="display:none"></span>
+                            </a>
                           </li>
                         </ul>
                         <input type="hidden" id="tipo_frecuencia" name="tipo_frecuencia" value="anual">
                         <div class="tab-content">
                             <div id="div_anual" role="tabpanel" class="tab-pane active">
+                              <p>Resultados por año</p>
                             </div>
                             <div id="div_semestral" role="tabpanel" class="tab-pane">
                             <select 
@@ -280,7 +302,7 @@
   }
   .ui-autocomplete { height: 200px; overflow-y: scroll; overflow-x: hidden; width: 55% !important;}
   .options-wrapper {
-    max-height: 210px !important;
+    max-height: 150px !important;
     overflow-x: hidden;
     overflow-y: auto; 
     padding: 0 30px;

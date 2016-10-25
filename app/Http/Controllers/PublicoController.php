@@ -211,6 +211,18 @@ class PublicoController extends Controller
 		
 		return response()->json($periodos);
 	}
+	public function consulta_frecuencias(Request $request)
+	{
+		$input = $request->all();
+
+		$resultados = InformacionVariable::whereIn('informacion_variables.zona_id', $input['regiones'])
+										 ->whereIn('informacion_variables.variable_id', $input['variables'])
+										 ->whereIn('informacion_variables.anio', $input['periodos'])
+										 ->get();
+		$frecuencias = array_values(array_unique($resultados->lists('frecuencia_id')->toArray()));
+		
+		return response()->json(array('frecuencias' => $frecuencias));
+	}
 
 	public function descarga_variables_excel(Request $request)
 	{

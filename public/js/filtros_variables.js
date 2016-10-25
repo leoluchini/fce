@@ -129,6 +129,16 @@ $(function(){
 			}, 1500);
 		}
 	});
+	$('#periodo').on('change', function(){
+		if(!marca_actulizacion_frecuencias){
+			marca_actulizacion_frecuencias = true;
+			setTimeout(function(){
+				marca_actulizacion_frecuencias = false;
+				$('#carga_frecuencias').show();
+				actualizar_frecuencias();
+			}, 1500);
+		}
+	});
 
 	$('#consulta_variables').submit(function() {
 		isValid = true;
@@ -302,6 +312,84 @@ function actualizar_periodos(callback)
 	}
 }
 
+
+var marca_actulizacion_frecuencias = false;
+var actualizando_frecuencias = false;
+function actualizar_frecuencias(callback)
+{
+	if(!actualizando_frecuencias){
+		actualizando_frecuencias = true;
+		var variables = [];
+		$('#lista_tags').find('input[name^="variable_id"]').each(function(){
+			variables.push($(this).val()); 
+		});
+		var zonas = [];
+		$('#'+$('input[name="tipo_zona"]').val()).find('option:selected').each(function(){ 
+			zonas.push($(this).val()); 
+		});
+		var periodos = [];
+		$('#periodo').find('option:selected').each(function(){ 
+			periodos.push($(this).val()); 
+		});
+		datos = {regiones: zonas,
+				 variables: variables,
+				 periodos: periodos,
+				 _token: $( "#variable" ).data('token')};
+		if((variables.length > 0)&&(zonas.length > 0)&&(periodos.length > 0)){
+			$.ajax({
+	        	url: $('#periodo').data('consultafrec'),
+				type: 'POST',
+				dataType: 'json',
+				data: datos,
+				success: function (data) {
+					if(data['frecuencias'].indexOf(1) !== -1){
+						$('#frec_anual_ok').show();
+						$('#frec_anual_no').hide();
+					}
+					else{
+						$('#frec_anual_no').show();
+						$('#frec_anual_ok').hide();	
+					}
+					check_frecuencias($('#semestral'), data['frecuencias']);
+					check_frecuencias($('#trimestral'), data['frecuencias']);
+					check_frecuencias($('#mensual'), data['frecuencias']);
+					if (typeof callback !== 'undefined') { callback(); }
+					actualizando_frecuencias = false;
+	           	}
+	       	});
+		}
+		$('#carga_frecuencias').hide();
+		actualizando_frecuencias = false;
+	}
+}
+function check_frecuencias(select, datos)
+{
+	select.multiselect('disable');
+	num_options = select.find('option').length;
+	$.each(select.find('option'), function() {
+		valor = $(this).val();
+		if(datos.indexOf(+valor) !== -1){
+			$(this).removeAttr("disabled")
+		}
+		else{
+			$(this).attr('disabled', 'disabled');
+		}
+		if(! --num_options){
+			if(select.find('option:enabled').length > 0){
+				$('#frec_'+select.prop('id')+'_ok').show();
+				$('#frec_'+select.prop('id')+'_no').hide();
+			}
+			else{
+				$('#frec_'+select.prop('id')+'_no').show();
+				$('#frec_'+select.prop('id')+'_ok').hide();
+			}
+			select.multiselect('rebuild');
+			select.multiselect('refresh');
+			select.multiselect('enable');
+		}
+	});
+}
+
 function cargar_consulta_previa()
 {
 	//$('#espera_carga_previa').show();
@@ -372,7 +460,8 @@ function carga_previa_anios()
 			fijar_busqueda_multiselect();
 		}
 	});
-	carga_previa_frecuencia();
+	actualizar_frecuencias(carga_previa_frecuencia);
+	//carga_previa_frecuencia();
 }
 function carga_previa_frecuencia()
 {

@@ -12,7 +12,9 @@
 
       <div class="modal-body">
           <div class="col-md-12">
-            Seleccione la variable que desee consultar
+            <p id="texto_seleccion_arbol" data-default="Seleccione las variables que desee consultar">
+              Seleccione las variables que desee consultar
+            </p>
             <div class="row">
               <div class="col-md-6">
                 <h3>Por Categorias</h3>
@@ -36,7 +38,7 @@
                             @include('frontend.variables.variables_tema_consulta',['categoria' => $categoria])
                           @endforeach
                           <li class="subcategoria">
-                            <label class="tree-toggler nav-header"><span class="icon-plus"></span>Variables sin tema</label>
+                            <label class="tree-toggler nav-header"><span class="icon-plus"></span>Otras</label>
                             <ul class="nav nav-list tree  indice_variables">
                                 @foreach($variables_sin_tema as $variable)
                                     <li><a href="#" class="selector_variable" data-id="{{$variable->id}}" data-nombre="{{$variable->nombre}}">{{ $variable->nombre }}</a></li>
