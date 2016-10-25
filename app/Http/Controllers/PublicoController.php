@@ -88,7 +88,7 @@ class PublicoController extends Controller
 			$ids[] = $key;
 			$resultados[] = array('clave' => $key, 'valor' => $temp);
 		}
-		foreach($res as $variable){
+		/*foreach($res as $variable){
 			if($variable->tema){
 				foreach($variable->tema->variables as $var_asociada){
 					if(!in_array($var_asociada->id, $ids)){
@@ -96,7 +96,7 @@ class PublicoController extends Controller
 					}
 				}
 			}
-		}
+		}*/
 
 		return response()->json($resultados);
 	}

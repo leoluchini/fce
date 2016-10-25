@@ -32,7 +32,7 @@
               <div class="col-md-6">
                 <h3>Por Temas</h3>
                 <div class="well well_fce">
-                  <div style="overflow-y: scroll; overflow-x: hidden; height: 200px;">
+                  <div style="overflow-y: scroll; overflow-x: hidden; height: 200px;" id="arbol_temas_variables">
                       <ul class="nav nav-list">
                           @foreach($temas as $tema)
                             @include('frontend.variables.variables_tema_consulta',['categoria' => $categoria])

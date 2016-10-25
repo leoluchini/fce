@@ -167,6 +167,19 @@ $(function(){
 	    return isValid;
 	});
 
+	$(document).on("click", "a[class*='ver_variables_relacionadas']", function(e) {
+		e.preventDefault();
+		span = $(this).prev();
+		input = $(this).next();
+		enlace = $('#arbol_temas_variables').find('a[class="selector_variable"][data-id="'+input.val()+'"]');
+		lista = enlace.closest('ul');
+		label = lista.prev();
+
+		$('#generic_modal').find('#myModalLabel').empty().append('<span class="icon-info-circled-alt"></span>Variables relacionadas a "'+span.attr('title')+'" por el tema "'+label.text()+'"');
+		$('#generic_modal').find('.modal-body').empty().append(lista.clone().css({'display':'block','max-height':'250px','overflow':'auto'}));
+		$('#generic_modal').modal('show');
+	});
+
 	$(window).load(function(e) {
 		reset_regiones();
 		reset_select_with_list($('select#periodo'), $('#listado_periodos'));

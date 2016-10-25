@@ -337,6 +337,7 @@
 <script type="text/html" id="agregar_variable">
   <li style="opacity: 1; list-style-type: none" data-tag="">
     <span class="texto"></span>
+    <a href="#" class="ver_variables_relacionadas" title="Ver variables relacionadas"><span class="icon-link-outline"></span></a>
     <input type="hidden" value="" name="">
     <a class="mb-tag-remove pull-right"><span class="glyphicon glyphicon-remove-circle" data-toggle="tooltip" data-placement="bottom" title="Eliminar"></span> </a>
   </li>
