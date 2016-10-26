@@ -15,7 +15,7 @@ class ZonaGeograficaController extends Controller
 {
     public function index()
 	{
-		$data['zonas'] = Pais::all();
+		$data['zonas'] = Pais::orderBy('id')->get();
 		return view('zonas.index', $data);
 	}
 

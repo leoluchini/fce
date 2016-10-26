@@ -12,7 +12,7 @@ class UnidadController extends Controller
 {
     public function index()
 	{
-		$data['unidades'] = UnidadMedida::all();
+		$data['unidades'] = UnidadMedida::orderBy('id')->get();
 		return view('unidades.index', $data);
 	}
 

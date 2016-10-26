@@ -11,7 +11,8 @@ class Categoria extends Model
 
 	public function publicaciones()
 	{
-		return $this->hasMany('App\Models\Publicacion')->orderBy('orden', 'ASC');
+		//return $this->hasMany('App\Models\Publicacion')->orderBy('orden', 'ASC');
+		return $this->hasMany('App\Models\Publicacion')->orderBy('id', 'ASC');
 	}
 
 	public function get_path()

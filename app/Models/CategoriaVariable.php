@@ -27,11 +27,11 @@ class CategoriaVariable extends Model
 
 	public function subcategorias()
 	{
-		return $this->hasMany('App\Models\CategoriaVariable', 'categoria_padre_id', 'id');
+		return $this->hasMany('App\Models\CategoriaVariable', 'categoria_padre_id', 'id')->orderBy('id', 'ASC');
 	}
 
 	public function variables()
 	{
-		return $this->hasMany('App\Models\Variable', 'categoria_id');
+		return $this->hasMany('App\Models\Variable', 'categoria_id')->orderBy('id', 'ASC');
 	}
 }

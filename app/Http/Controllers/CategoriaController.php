@@ -12,7 +12,7 @@ class CategoriaController extends Controller
 {
     public function index()
 	{
-		$data['categorias'] = Categoria::all();
+		$data['categorias'] = Categoria::orderBy('id')->get();
 		return view('categorias.index', $data);
 	}
 

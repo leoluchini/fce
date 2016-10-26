@@ -12,7 +12,7 @@ class FuenteController extends Controller
 {
     public function index()
 	{
-		$data['fuentes'] = Fuente::all();
+		$data['fuentes'] = Fuente::orderBy('id')->get();
 		return view('fuentes.index', $data);
 	}
 

@@ -12,7 +12,7 @@ class FrecuenciaController extends Controller
 {
     public function index()
 	{
-		$data['frecuencias'] = Frecuencia::all();
+		$data['frecuencias'] = Frecuencia::orderBy('id')->get();
 		return view('frecuencias.index', $data);
 	}
 
