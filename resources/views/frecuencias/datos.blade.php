@@ -4,9 +4,9 @@
 		<td>{{$frecuencia->codigo}}</td>
 		<td>{{$frecuencia->nombre}}</td>
 		<td class="text-right">
-			<a title="Editar frecuencia" href="{{ action('FrecuenciaController@edit', [$frecuencia->id]) }}" data-toggle="tooltip" data-placement="top"><span class="glyphicon glyphicon-pencil"></span></a>
+			<a title="Editar frecuencia" href="{{ action('FrecuenciaController@edit', [$frecuencia->id]) }}" data-toggle="tooltip" data-placement="top"><span class="icon-edit"></span></a>
 			&nbsp;
-			<a title="Eliminar frecuencia" href="{{ action('FrecuenciaController@destroy', [$frecuencia->id]) }}" data-toggle="tooltip" data-placement="top" data-method="delete" data-title="Eliminar frecuencia" data-confirm="¿Estas seguro que desea eliminar la frecuencia '{{$frecuencia->nombre}}' ?"><span class="glyphicon glyphicon-trash"></span></a>	
+			<a title="Eliminar frecuencia" href="{{ action('FrecuenciaController@destroy', [$frecuencia->id]) }}" data-toggle="tooltip" data-placement="top" data-method="delete" data-title="Eliminar frecuencia" data-confirm="¿Estas seguro que desea eliminar la frecuencia '{{$frecuencia->nombre}}' ?"><span class="icon-trash-4"></span></a>	
 		</td>
 	</tr>
 @endforeach

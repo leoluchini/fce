@@ -6,9 +6,9 @@
 	      <p class="blanco"><strong>{{$zona->codigo}}</strong> - {{$zona->nombre}}</p>
 	    </a>
 		  <div class="pull-right">
-		  	<a title="Editar zona geografica" href="{{ action('ZonaGeograficaController@edit', [$zona->tipo, $zona->id]) }}" data-toggle="tooltip" data-placement="top"><span class="glyphicon glyphicon-pencil blanco"></span></a>
+		  	<a title="Editar zona geografica" href="{{ action('ZonaGeograficaController@edit', [$zona->tipo, $zona->id]) }}" data-toggle="tooltip" data-placement="top"><span class="icon-edit blanco"></span></a>
 			&nbsp;
-			<a title="Eliminar zona geografica" href="{{ action('ZonaGeograficaController@destroy', [$zona->tipo, $zona->id]) }}" data-toggle="tooltip" data-placement="top" data-method="delete" data-title="Eliminar zona geografica" data-confirm="¿Estas seguro que desea eliminar la zona geografica '{{$zona->nombre}}' ?"><span class="glyphicon glyphicon-trash blanco"></span></a>
+			<a title="Eliminar zona geografica" href="{{ action('ZonaGeograficaController@destroy', [$zona->tipo, $zona->id]) }}" data-toggle="tooltip" data-placement="top" data-method="delete" data-title="Eliminar zona geografica" data-confirm="¿Estas seguro que desea eliminar la zona geografica '{{$zona->nombre}}' ?"><span class="icon-trash-4 blanco"></span></a>
 		  </div>
 		  <div class="clearfix"></div>
 	  </h4>

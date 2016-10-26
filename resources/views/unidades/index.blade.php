@@ -5,7 +5,7 @@
   <div class="row">
     <div class="col-xs-12"> 
       <div class="page-header">
-
+        @include('generic.breadcrumb_simple',['modulo' => 'Unidades'])
         <div class="pull-right">
           <div class="btn-group">
             <a title="Nueva unidad" href="{{ action('UnidadController@create') }}" data-toggle="tooltip" data-placement="top"><span class="glyphicon glyphicon-plus"></span></a>

@@ -2,10 +2,11 @@
     <div class="row">
       <div class="col-xs-12"> 
         <div class="page-header">
-          <h1>
+        	@include('generic.breadcrumb_multiple',['modulo' => $accion_breadcrumb, 'enlaces' => array('Variables' => $cancelar)])
+          <h3>
             <span class="icon-edit"></span>
             {{$titulo}}
-          </h1>
+          </h3>
       </div>
     </div>
   </div>

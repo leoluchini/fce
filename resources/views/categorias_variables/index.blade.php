@@ -6,6 +6,7 @@
     <div class="row">
       <div class="col-xs-12"> 
         <div class="page-header">
+          @include('generic.breadcrumb_simple',['modulo' => 'Variables'])
           
           <div class="pull-right">
             <div class="btn-group">
@@ -29,10 +30,12 @@
 
 <div class="page-body">
 	<div class="container">
-		<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true" style="overflow:auto;">
-		@foreach($categorias as $categoria)
-				@include('categorias_variables.panel',['categoria' => $categoria, 'grupo' => 'accordion', 'nivel' => 1])
-		@endforeach
+    <div class="col-xs-12">
+  		<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true" style="overflow:auto;">
+  		@foreach($categorias as $categoria)
+  				@include('categorias_variables.panel',['categoria' => $categoria, 'grupo' => 'accordion', 'nivel' => 1])
+  		@endforeach
+      </div>
 	  </div>
 	</div>
 </div>

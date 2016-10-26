@@ -5,8 +5,8 @@
   <div class="row">
     <div class="col-xs-12"> 
   		<div class="page-header">
-
-				<div class="pull-right">
+  		  @include('generic.breadcrumb_simple',['modulo' => 'Frecuencias'])
+		  <div class="pull-right">
 	        <div class="btn-group">
 	        	<a title="Nueva frecuencia" href="{{ action('FrecuenciaController@create') }}" data-toggle="tooltip" data-placement="top"><span class="glyphicon glyphicon-plus"></span></a>
 	        </div>
@@ -25,7 +25,7 @@
 
 <div class="page-body">
 	<div class="container">
-    	<div class="col-md-10 col-md-offset-1"> 
+    	<div class="col-md-12"> 
 			<table class="tabla table-responsive table table-hover table-condensed">
 			    <thead>
 			        <tr>

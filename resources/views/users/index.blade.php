@@ -5,7 +5,7 @@
   <div class="row">
     <div class="col-xs-12"> 
       <div class="page-header">
-
+        @include('generic.breadcrumb_simple',['modulo' => 'Usuarios'])
         <div class="pull-right">
           <div class="btn-group">
             <a href="{{ route('administracion.usuarios.create') }}" title="Nuevo usuario"  data-toggle="tooltip" data-placement="top"><span class="glyphicon glyphicon-plus"></span></a>

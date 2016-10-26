@@ -3,24 +3,21 @@
 @section('content')
 <div class="container">
   <div class="row">
-    <div class="col-md-5 col-md-offset-1"> 
-      <div class=" pull-left"> 
-        <h4>
-          <span class="glyphicon glyphicon-record"></span>
-          Listado de Variables agrupados por Variable Madre
-        </h4>
+    <div class="col-xs-12">  
+      <div class="page-header">
+        @include('generic.breadcrumb_multiple',['modulo' => 'Variables madre', 'enlaces' => array('Variables' => action('CategoriaVariableController@index'))])
+        <h2>
+          <span class="icon-flow-tree"></span>
+          Listado de Variables agrupadas por Variable Madre
+        </h2>
       </div>
-    </div>
-     <div class="col-md-5">
-      <h4 class="pull-right">
-        <a title="Categorias" href="{{ action('CategoriaVariableController@index') }}" data-toggle="tooltip" data-placement="top"><span class="glyphicon glyphicon-triangle-left"></span></a>
-      </h4>
     </div>
   </div>
 </div>
+
 <div class="page-body">
-	<div class="row">
-    	<div class="col-md-8 col-md-offset-2"> 
+  <div class="container">
+      <div class="col-xs-12">
     		<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true" style="overflow:auto">
           @foreach($temas as $tema)
             <div class="panel panel-default">

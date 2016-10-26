@@ -4,6 +4,7 @@
 @include('categorias.form',['metodo' => 'POST',
 							'titulo' => 'Nueva Categoria',
 							'accion' => ['CategoriaController@store'],
+							'accion_breadcrumb' => 'Crear',
 							'boton' => 'Crear',
 							'cancelar' => action('CategoriaController@index'),
 ])

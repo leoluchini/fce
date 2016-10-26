@@ -5,7 +5,7 @@
   <div class="row">
     <div class="col-xs-12"> 
       <div class="page-header">
-
+        @include('generic.breadcrumb_simple',['modulo' => 'Territorios'])
         <div class="pull-right">
           <div class="btn-group">
              <a title="Nueva zona geografica" href="{{ action('ZonaGeograficaController@create') }}" data-toggle="tooltip" data-placement="top"><span class="glyphicon glyphicon-plus"></span></a>
@@ -25,14 +25,15 @@
 
 
 <div class="page-body">
-
   <div class="container">
-    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true" style="overflow:auto;">
-    @foreach($zonas as $zona)
-        @include('zonas.panel',['zona' => $zona, 'grupo' => 'accordion', 'nivel' => 1])
-    @endforeach
+    <div class="col-xs-12"> 
+      <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true" style="overflow:auto;">
+      @foreach($zonas as $zona)
+          @include('zonas.panel',['zona' => $zona, 'grupo' => 'accordion', 'nivel' => 1])
+      @endforeach
+      </div>
     </div>
-  </div>
 
+  </div>
 </div>
 @endsection
