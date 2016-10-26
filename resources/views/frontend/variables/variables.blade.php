@@ -59,7 +59,12 @@
                     </div>
 
                     <div class="panelContent">
-                      <h3 class="titulos_accordion">Territorio</h3>
+                      <h3 class="titulos_accordion">
+                          Territorio&nbsp;
+                          <a id="activar_cascada" href="#" data-toggle="tooltip" data-placement="bottom" title="Activar filtro de territorios en cascada"><span class="icon-toggle-off pull-right"></span></a>
+                          <a id="desactivar_cascada" href="#" data-toggle="tooltip" data-placement="bottom" title="Desactivar filtro de territorios en cascada" style="display:none"><span class="icon-toggle-on pull-right"></span></a>
+                          <input id="filtro_cascada" type="checkbox" style="display:none">
+                        </h3>
                       <hr>
 
                       <div class="loading hide">
@@ -67,14 +72,14 @@
                       </div>
                       <ul class="nav nav-tabs nav-justified altura" role="tablist">
                           <li role="presentation" class="solapa_zona active" data-region="pais">
-                            <a href="#div_pais" role="tab" data-toggle="tab" aria-controls="div_pais">Países</a>
+                            <a href="#div_pais" role="tab" data-toggle="tab" aria-controls="div_pais"><span class="icon-right-open-1 icono_filtro_cascada" style="display:none"></span>Países</a>
                             
                           </li>
                           <li role="presentation" class="solapa_zona" data-region="provincia">
-                            <a href="#div_provincia" role="tab" data-toggle="tab" aria-controls="div_provincia">Provincias</a>
+                            <a href="#div_provincia" role="tab" data-toggle="tab" aria-controls="div_provincia"><span class="icon-right-open-1 icono_filtro_cascada" style="display:none"></span>Provincias</a>
                           </li>
                           <li role="presentation" class="solapa_zona" data-region="municipio">
-                            <a href="#div_municipio" role="tab" data-toggle="tab" aria-controls="div_municipio">Municipios/Departamentos</a>
+                            <a href="#div_municipio" role="tab" data-toggle="tab" aria-controls="div_municipio"><span class="icon-right-open-1 icono_filtro_cascada" style="display:none"></span>Municipios/Departamentos</a>
                           </li>
                       </ul>
                       <input type="hidden" id="tipo_zona" name="tipo_zona" value="pais">
@@ -305,7 +310,7 @@
     max-height: 150px !important;
     overflow-x: hidden;
     overflow-y: auto; 
-    padding: 0 30px;
+    padding: 0 0px;
   }
   .multiselect-container>.options-wrapper>li{padding:0}
   .multiselect-container>.options-wrapper>li>a.multiselect-all label{font-weight:700}
@@ -333,6 +338,9 @@
       outline: 0 none;
       text-decoration: none;
   }
+  .ui-autocomplete.ui-widget {
+    font-family: "cuprumregular" !important;
+  }
 </style>
 <script type="text/html" id="agregar_variable">
   <li style="opacity: 1; list-style-type: none" data-tag="">
@@ -349,12 +357,12 @@
 </script>
 <script type="text/html" id="listado_provincias">
   @foreach($provincias as $zona)
-    <option value="{{$zona->id}}" >{{$zona->nombre}} ({{$zona->pais->nombre}})</option>
+    <option value="{{$zona->id}}" data-padreid="{{$zona->pais->id}}">{{$zona->nombre}} ({{$zona->pais->nombre}})</option>
   @endforeach
 </script>
 <script type="text/html" id="listado_municipios">
   @foreach($municipios as $zona)
-    <option value="{{$zona->id}}" >{{$zona->nombre}} ({{$zona->provincia->nombre}}, {{$zona->provincia->pais->nombre}})</option>
+    <option value="{{$zona->id}}" data-padreid="{{$zona->provincia->id}}">{{$zona->nombre}} ({{$zona->provincia->nombre}}, {{$zona->provincia->pais->nombre}})</option>
   @endforeach
 </script>
 <script type="text/html" id="listado_periodos">

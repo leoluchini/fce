@@ -21,6 +21,10 @@ $(function(){
 			$('div#panel-accordion-2').append(filtro_region);
 			filtro_variable.find('#var_reg').show();
 			filtro_variable.find('#reg_var').hide();
+			$('#activar_cascada').hide();
+			$('#desactivar_cascada').hide();
+			$('#filtro_cascada').prop('checked', false);
+			$('#filtro_cascada').trigger('change');
 		}
 		else{
 			var filtro_variable = $('div#panel-accordion-1').find('div.panelContent');
@@ -29,6 +33,8 @@ $(function(){
 			$('div#panel-accordion-2').append(filtro_variable);
 			filtro_variable.find('#var_reg').hide();
 			filtro_variable.find('#reg_var').show();
+			//$('#div_filtro_cascada').show();
+			$('#activar_cascada').show();
 		}
 		limpiar_variables_regiones();
 	});
@@ -128,6 +134,24 @@ $(function(){
 				actualizar_periodos();
 			}, 1500);
 		}
+		if($('#filtro_cascada').is(':checked')){
+			if(($(this).prop('id') == 'pais')||($(this).prop('id') == 'provincia')){
+				var select = '';
+				if($(this).prop('id') == 'pais'){
+					select =  'select#provincia';
+					reset_select_with_list($('select#provincia'), $('#listado_provincias'));
+				}
+				else{
+					select =  'select#municipio';
+					reset_select_with_list($('select#municipio'), $('#listado_municipios'));
+				}
+				seleccionados = [];
+				$(this).find('option:selected').each(function(){
+					seleccionados.push(+$(this).val());
+				});
+				filtrar_region(seleccionados, select);
+			}
+		}
 	});
 	$('#periodo').on('change', function(){
 		if(!marca_actulizacion_frecuencias){
@@ -178,6 +202,30 @@ $(function(){
 		$('#generic_modal').find('#myModalLabel').empty().append('<span class="icon-info-circled-alt"></span>Variables relacionadas a "'+span.attr('title')+'" por el tema "'+label.text()+'"');
 		$('#generic_modal').find('.modal-body').empty().append(lista.clone().css({'display':'block','max-height':'250px','overflow':'auto'}));
 		$('#generic_modal').modal('show');
+	});
+
+	$('#activar_cascada').on('click', function(e){
+		e.preventDefault();
+		$(this).hide();
+		$('#desactivar_cascada').show();
+		$('#filtro_cascada').prop('checked', true);
+		$('#filtro_cascada').trigger('change');
+	});
+	$('#desactivar_cascada').on('click', function(e){
+		e.preventDefault();
+		$(this).hide();
+		$('#activar_cascada').show();
+		$('#filtro_cascada').prop('checked', false);
+		$('#filtro_cascada').trigger('change');
+	});
+	$('#filtro_cascada').on('change', function(){
+		if($(this).is(':checked')){
+			$('span.icono_filtro_cascada').show();
+		}
+		else{
+			$('span.icono_filtro_cascada').hide();
+			reset_regiones();
+		}
 	});
 
 	$(window).load(function(e) {
@@ -520,4 +568,18 @@ function fijar_busqueda_multiselect()
 			$(this).find('li:not(.filter)').wrapAll('<div class="options-wrapper"></div>');
 		}
 	});
+}
+
+function filtrar_region(padres, select)
+{
+	$(select).multiselect('disable');
+	$(select).find('option').each(function(){
+		if(padres.indexOf(+$(this).data('padreid')) == -1){
+			$(this).remove();
+		}
+	});
+	$(select).multiselect('rebuild');
+	$(select).multiselect('refresh');
+	$(select).multiselect('enable');
+	fijar_busqueda_multiselect();
 }

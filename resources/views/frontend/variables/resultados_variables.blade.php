@@ -85,7 +85,7 @@
             @foreach($info_pivot['aniofrec'] as $id_aniofrec => $aniofrec)
             <th class="text-right">{{$aniofrec}}</th>
             @endforeach
-            <th class="text-right">TOTAL MUN.</th>
+            <th class="text-right">TOTAL REGION</th>
           </tr>
         </thead>
         <tbody>
@@ -100,7 +100,7 @@
             </tr>
           @endforeach
             <tr class="gris_table_bg">
-                <td><strong>TOTAL ANUAL</strong></td>
+                <td><strong>TOTAL FREC.</strong></td>
                 @foreach($info_pivot['aniofrec'] as $id_aniofrec => $aniofrec)
                 <?php $tot_reg = 0 ?>
                   @foreach($info_pivot['regiones'] as $id_reg => $zona)
