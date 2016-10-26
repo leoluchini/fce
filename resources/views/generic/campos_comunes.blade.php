@@ -9,7 +9,7 @@
 	@if ($errors->first('nombre'))<span class="help-block">{{$errors->first('nombre')}}</span>@endif
 </div>
 <div class="form-group @if ($errors->first('descripcion')){!! 'has-error' !!}@endif">
-	{!! Form::label('descripcion', '*Descripción', array('class' => 'control-label')) !!}
+	{!! Form::label('descripcion', 'Descripción', array('class' => 'control-label')) !!}
 	{!! Form::textarea('descripcion', ($object != null ? $object->descripcion : ''), array('class' => 'form-control')) !!} 
 	@if ($errors->first('descripcion'))<span class="help-block">{{$errors->first('descripcion')}}</span>@endif
 </div>

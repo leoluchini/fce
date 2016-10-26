@@ -26,7 +26,6 @@ class CategoriaRequest extends Request
         return [
             'codigo' => 'required',
             'nombre' => 'required',
-            'descripcion' => 'required',
         ];
     }
 }

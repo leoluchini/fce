@@ -24,7 +24,7 @@ class FuenteRequest extends Request
     public function rules()
     {
         return [
-            'sigla' => 'required',
+            'codigo' => 'required',
             'nombre' => 'required',
         ];
     }

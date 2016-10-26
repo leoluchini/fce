@@ -21,7 +21,7 @@
 <div class="page-body">
 	<div class="row">
     	<div class="col-md-8 col-md-offset-2"> 
-        <div class="list-group">
+        <div class="list-group" style="overflow:auto;max-height:380px">
           @foreach($busquedas as $busqueda)
             <a href="#" class="list-group-item active">{{$busqueda->busqueda}}</a>
           @endforeach

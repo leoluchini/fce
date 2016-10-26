@@ -61,8 +61,8 @@
                     <div class="panelContent">
                       <h3 class="titulos_accordion">
                           Territorio&nbsp;
-                          <a id="activar_cascada" href="#" data-toggle="tooltip" data-placement="bottom" title="Activar filtro de territorios en cascada"><span class="icon-toggle-off pull-right"></span></a>
-                          <a id="desactivar_cascada" href="#" data-toggle="tooltip" data-placement="bottom" title="Desactivar filtro de territorios en cascada" style="display:none"><span class="icon-toggle-on pull-right"></span></a>
+                          <a id="activar_cascada" href="#"><span class="icon-toggle-off pull-right" data-toggle="tooltip" data-placement="left" title="Activar filtro de territorios en cascada"></span></a>
+                          <a id="desactivar_cascada" href="#" style="display:none"><span class="icon-toggle-on pull-right" data-toggle="tooltip" data-placement="left" title="Desactivar filtro de territorios en cascada"></span></a>
                           <input id="filtro_cascada" type="checkbox" style="display:none">
                         </h3>
                       <hr>
@@ -126,7 +126,7 @@
                       <div  class="texto-vertical-2">PASO 2</div>
                     </div>
                     <div class="panelContent"> 
-                      <h3 class="titulos_accordion">Variables <a id="arbol_consulta" href="#"><span class="icon-flow-tree pull-right"></span></a></h3>
+                      <h3 class="titulos_accordion">Variables <a id="arbol_consulta" href="#"><span class="icon-flow-tree pull-right" data-toggle="tooltip" data-placement="left" title="Arbol de variables"></span></a></h3>
                       <hr>
 
                        <div class="list-group list-plan" id="div_lista_seleccion_autocompletar">
@@ -345,7 +345,7 @@
 <script type="text/html" id="agregar_variable">
   <li style="opacity: 1; list-style-type: none" data-tag="">
     <span class="texto"></span>
-    <a href="#" class="ver_variables_relacionadas" title="Ver variables relacionadas"><span class="icon-link-outline"></span></a>
+    <a href="#" class="ver_variables_relacionadas" ><span class="icon-link-outline" data-toggle="tooltip" data-placement="bottom" title="Ver variables relacionadas"></span></a>
     <input type="hidden" value="" name="">
     <a class="mb-tag-remove pull-right"><span class="glyphicon glyphicon-remove-circle" data-toggle="tooltip" data-placement="bottom" title="Eliminar"></span> </a>
   </li>

@@ -24,7 +24,7 @@ class LecturaRequest extends Request
     public function rules()
     {
         return [
-            'file' => 'required|mimes:csv,txt'
+            'file' => 'required|mimes:txt'
         ];
     }
 }

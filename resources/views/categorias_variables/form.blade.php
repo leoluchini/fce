@@ -15,7 +15,7 @@
 
 <div class="page-body">
 	<div class="container">
-		<div class="col-md-4 col-md-offset-4">
+		<div class="col-md-8 col-md-offset-2">
 			{!! Form::model($categoria, array('action' => $accion, 'method' => $metodo, 'class' => 'form-horizontal')) !!}
 			<div class="col-md-12">
 				@include('generic.campos_comunes',['object' => $categoria])

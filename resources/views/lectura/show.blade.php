@@ -26,7 +26,7 @@
 
 	<div class="row">
 		<div class="col-md-8 col-md-offset-2">
-			<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+			<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true" style="overflow:auto;">
 	          
 	            <div class="panel panel-default">
 	              <div class="panel-heading" role="tab" id="headingCategorias">
@@ -127,7 +127,9 @@
 	              <div class="panel-heading" role="tab" id="headingDatos">
 	                <h4 class="panel-title">
 	                  <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseDatos" aria-expanded="true" aria-controls="collapseDatos">
-	                    <a href="{{action('LecturaController@datos_lote', $lote->id)}}"><span class="badge pull-right">{!! $cantidad !!}</span></a>
+	                    <!--<a href="{{action('LecturaController@datos_lote', $lote->id)}}">-->
+	                    	<span class="badge pull-right">{!! $cantidad !!}</span>
+	                    <!--</a>-->
 			    		<p class="blanco">Datos</p>
 	                  </a>
 	                </h4>

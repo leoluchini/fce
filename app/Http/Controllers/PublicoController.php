@@ -66,7 +66,7 @@ class PublicoController extends Controller
 		$query = "'%".str_replace(' ', '%', $input['busqueda'])."%'";
 		//$string_consulta = "replace(replace(replace(replace(replace(LOWER(\"variables\".\"nombre\"), 'á', 'a'), 'é', 'e'), 'í', 'i'), 'ó', 'o'), 'ú', 'u') like ".$query;
 		$string_consulta = "nombre like ".$query;
-		if(($input['tipo_busqueda'] == 'region_variable')&&(count($input['regiones'] > 0)))
+		if(($input['tipo_busqueda'] == 'region_variable') && isset($input['regiones']))
 		{
 			$res = Variable::select('variables.*')
 				->whereRaw($string_consulta)
