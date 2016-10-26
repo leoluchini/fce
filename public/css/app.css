@@ -23,7 +23,7 @@ html {
 
 
 /*TOP*/
-.top{
+.cuadro-superior{
 	min-height: 50%;
 	background-color: #fff;
 	position: relative;
@@ -63,16 +63,14 @@ a:hover, a:focus {text-decoration: none;}
 
 
 /*BOTTOM*/
-.bottom{
+.cuadro-inferior{
 	min-height: 50%;
 	width: 100%;
-	/*background: url('../images/fondo-variables.jpg');*/
-    /*background-repeat: no-repeat;*/
   position: fixed;
   bottom: 0px
 }
 
-.bottom img {
+.cuadro-inferior img {
     position: fixed;
     bottom: -1px;
     right: -1px;
