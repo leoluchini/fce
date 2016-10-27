@@ -2,7 +2,7 @@
 
 @section('content')
 @include('categorias_variables.form',['metodo' => 'POST',
-							'titulo' => 'Nueva Categoria',
+							'titulo' => 'Nueva categor&iacute;a',
 							'accion' => ['CategoriaVariableController@store'],
 							'accion_breadcrumb' => 'Crear Categoria',
 							'boton' => 'Crear',

@@ -3,10 +3,10 @@
       <div class="col-xs-12"> 
         <div class="page-header">
 		  @include('generic.breadcrumb_multiple',['modulo' => $accion_breadcrumb, 'enlaces' => array('Fuentes' => $cancelar)])
-          <h3>
+          <h1>
             <span class="icon-edit"></span>
             {{$titulo}}
-          </h3>
+          </h1>
       </div>
     </div>
   </div>

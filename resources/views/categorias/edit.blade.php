@@ -2,7 +2,7 @@
 
 @section('content')
 @include('categorias.form',['metodo' => 'PATCH',
-							'titulo' => 'Edicion de categoria',
+							'titulo' => 'Edici&oacute;n de categor&iacute;as y publicaciones',
 							'accion' => ['CategoriaController@update', $categoria->id],
 							'accion_breadcrumb' => 'Editar',
 							'boton' => 'Guardar',

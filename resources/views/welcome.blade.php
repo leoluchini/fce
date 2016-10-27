@@ -42,11 +42,12 @@
     
     <section class="cuadro-inferior">
         <div clas="col-xs-12">
+                <div class="marco_negro"></div>
                 <p class="text-center titulo_index">
-                    Sistema de informaci&oacute;n econ&oacute;mica
+                    lab<i>DATA</i>
                 </p>
                <p class="text-center secciones_index">
-                <a href="{{action('PublicoController@variables')}}">Variables</a> | <a href="{{action('PublicoController@indicadores')}}">Indicadores</a> | <a href="{{action('PublicoController@publicaciones')}}">Publicaciones</a>
+                <a href="{{action('PublicoController@variables')}}">Variables</a><a href="{{action('PublicoController@indicadores')}}">Indicadores</a><a href="{{action('PublicoController@publicaciones')}}">Publicaciones</a>
             </p>
         </div>
 

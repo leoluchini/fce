@@ -5,11 +5,11 @@
   <div class="row">
     <div class="col-xs-12">
       <div class="page-header">
-        @include('generic.breadcrumb_multiple',['modulo' => 'Busquedas', 'enlaces' => array('Variables' => action('CategoriaVariableController@index'))])
-        <h2>
+        @include('generic.breadcrumb_multiple',['modulo' => 'Busquedas', 'enlaces' => array('&Aacute;rbol de variables' => action('CategoriaVariableController@index'))])
+        <h1>
           <span class="icon-flow-tree"></span>
           Busquedas de variables sin resultados
-        </h2>
+        </h1>
       </div>
     </div>
   </div>

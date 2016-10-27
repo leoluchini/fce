@@ -7,7 +7,7 @@
       <div class="page-header">
           <h1>
             <span class="icon-box-2"></span>
-            M&oacute;dulos
+            Men&uacute; administraci&oacute;n
           </h1>
       </div>
     </div>

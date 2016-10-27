@@ -2,7 +2,7 @@
 
 @section('content')
 @include('frecuencias.form',['metodo' => 'PATCH',
-							'titulo' => 'Edicion de frecuencia',
+							'titulo' => 'Edici&oacute;n de frecuencia',
 							'accion' => ['FrecuenciaController@update', $frecuencia->id],
 							'accion_breadcrumb' => 'Editar',
 							'boton' => 'Guardar',

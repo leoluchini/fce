@@ -6,7 +6,7 @@
     <div class="row">
       <div class="col-xs-12"> 
         <div class="page-header">
-          @include('generic.breadcrumb_simple',['modulo' => 'Variables'])
+          @include('generic.breadcrumb_simple',['modulo' => '&Aacute;rbol de variables'])
           
           <div class="pull-right">
             <div class="btn-group">

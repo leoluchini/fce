@@ -5,7 +5,7 @@
   <div class="row">
     <div class="col-xs-12"> 
       <div class="page-header">
-        @include('generic.breadcrumb_multiple',['modulo' => 'Publicaciones', 'enlaces' => array('Categorias' => action('CategoriaController@index'))])
+        @include('generic.breadcrumb_multiple',['modulo' => 'Publicaciones', 'enlaces' => array('Categor&iacute;as y publicaciones' => action('CategoriaController@index'))])
         <div class="pull-right">
           <div class="btn-group">
             <a title="Nueva publicacion" href="{{ action('PublicacionController@create', [$categoria->id]) }}" data-toggle="tooltip" data-placement="top"><span class="glyphicon glyphicon-plus"></span></a>

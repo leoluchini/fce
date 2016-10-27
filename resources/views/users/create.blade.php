@@ -6,10 +6,10 @@
 	      <div class="col-xs-12"> 
 	        <div class="page-header">
 	          @include('generic.breadcrumb_multiple',['modulo' => 'Crear', 'enlaces' => array('Usuarios' => route('administracion.usuarios.index'))])
-	          <h3>
+	          <h1>
 	            <span class="icon-edit"></span>
 	            Nuevo usuario
-	          </h3>
+	          </h1>
 	      </div>
 	    </div>
 	  </div>

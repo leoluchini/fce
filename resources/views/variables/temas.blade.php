@@ -5,11 +5,11 @@
   <div class="row">
     <div class="col-xs-12">  
       <div class="page-header">
-        @include('generic.breadcrumb_multiple',['modulo' => 'Variables madre', 'enlaces' => array('Variables' => action('CategoriaVariableController@index'))])
-        <h2>
+        @include('generic.breadcrumb_multiple',['modulo' => 'Variables madre', 'enlaces' => array('&Aacute;rbol de variables' => action('CategoriaVariableController@index'))])
+        <h1>
           <span class="icon-flow-tree"></span>
           Listado de Variables agrupadas por Variable Madre
-        </h2>
+        </h1>
       </div>
     </div>
   </div>

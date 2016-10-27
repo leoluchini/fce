@@ -1,16 +1,24 @@
 <div class="col-xs-12 header_frontend">
   <div class="row">
+
     <div class="col-xs-4">
+      <div class="row">
+        <div class="icon_menu">
+          <span class="icon-menu pull-left" id='hideshow'></span>
+        </div>
 
-      <div class="icon_menu">
-        <span class="icon-menu pull-left" id='hideshow'></span>
-      </div>
+        <div class="icon_home">
+          <a href="{{url('/')}}"><span class="icon-home-3 pull-left"></span></a>
+        </div>
 
-      <div class="icon_home">
-        <a href="{{url('/')}}"><span class="icon-home-3 pull-left"></span></a>
-        @if(Auth::user())
-          <a href="{{url('/administracion')}}"><span class="icon-cogs pull-right"></span></a>
-        @endif
+        <div class="icon_administracion">
+          @if(Auth::user())
+            <a href="{{url('/administracion')}}"><span class="icon-cogs pull-right"></span></a>
+          @endif
+        </div>
+
+
+
       </div>
     </div>
 
@@ -28,12 +36,16 @@
     </div>
 
     <div class="col-xs-4 pull-right">
+      <div class="row">
       <a href="http://www.econo.unlp.edu.ar/laboratorio" target="_blank">
        {!! Html::image('images/menu_horizontal_UNLP.png', 'Laboratorio de Desarrollo Sectorial y Territorial', ['class'=>'pull-right'])!!}
       </a>
+      </div>
     </div>
+
   </div>
 </div>
+
 <!-- MENU VERTICAL -->
       <div id="Menu" style="display:none">
         <center>

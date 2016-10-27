@@ -2,9 +2,9 @@
 
 @section('content')
 @include('categorias_variables.form',['metodo' => 'POST',
-							'titulo' => 'Nueva Subcategoria de "'.$padre->nombre.'"',
+							'titulo' => 'Nueva subcategor&iacute;a de "'.$padre->nombre.'"',
 							'accion' => ['CategoriaVariableController@store'],
-							'accion_breadcrumb' => 'Crear Categoria',
+							'accion_breadcrumb' => 'Nueva categor&iacute;a',
 							'boton' => 'Crear',
 							'cancelar' => action('CategoriaVariableController@index'),
 							'padre' => $padre,

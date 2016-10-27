@@ -6,10 +6,10 @@
       <div class="col-xs-12"> 
         <div class="page-header">
           @include('generic.breadcrumb_multiple',['modulo' => 'Editar', 'enlaces' => array('Territorios' => action('ZonaGeograficaController@index'))])
-          <h3>
+          <h1>
             <span class="icon-edit"></span>
-            Edicion de zona geografica
-          </h3>
+            Edici&oacute;n de territorio
+          </h1>
       </div>
     </div>
   </div>
