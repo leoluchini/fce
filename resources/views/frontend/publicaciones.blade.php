@@ -2,43 +2,47 @@
 
 @section('content')
 <div class="container">
-  <div class="page-header">
-    <div class="row">
-
-      <div class="col-xs-8"> 
-        <div class=" pull-left"> 
-          <h2>
+  <div class="row">
+    <div class="col-xs-12"> 
+      <div class="page-header">
+        <div class="row">
+        <div class="col-md-6">
+          <h1>
             <span class="icon-note-1"></span>
             Publicaciones
-          </h2>
+          </h1>
+        </div>
+        <div class="col-md-6">
+          {!! Form::open(array('action' => ['PublicoController@publicaciones'], 'method' => 'POST', "class" => "form-inline")) !!}
+          <div class="col-xs-12 buscador">
+            <div class="pull-right"> 
+              <div class="form-group">
+                <div class="input-group input-group-sm">
+                  <span class="input-group-addon" id="sizing-addon3"><span class="icon-search-8"></span> </span>
+                  <input name="busqueda" type="text" class="form-control" placeholder="Busqueda" aria-describedby="sizing-addon3" value="{{(isset($filtros['busqueda']) && ($filtros['busqueda'] != '')) ? $filtros['busqueda'] : '' }}">
+                </div>    
+              </div>
+              <div class="form-group">
+                <div class="input-group input-group-sm">
+                  <select name="anio" class="form-control form-control-sm">
+                    @foreach($anios as $key => $value)
+                      <?php $selected = isset($filtros['anio']) ? (($key == $filtros['anio']) ? 'selected' : '') : '' ?>
+                      <option value="{{$key}}" {{$selected}}>{{$value}}</option>
+                    @endforeach
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+          {!! Form::close() !!}
         </div>
       </div>
-      {!! Form::open(array('action' => ['PublicoController@publicaciones'], 'method' => 'POST')) !!}
-        <div class="col-xs-3"> 
-           <div class=" pull-right buscador"> 
-            <div class="input-group input-group-sm">
-              <span class="input-group-addon" id="sizing-addon3"><span class="icon-search-8"></span> </span>
-              <input name="busqueda" type="text" class="form-control" placeholder="Busqueda" aria-describedby="sizing-addon3" value="{{(isset($filtros['busqueda']) && ($filtros['busqueda'] != '')) ? $filtros['busqueda'] : '' }}">
-            </div>    
-          </div>
-        </div>
-        <div class="col-xs-1 buscador"> 
-          <div class="input-group input-group-sm">
-            <select name="anio" class="form-control form-control-sm">
-              @foreach($anios as $key => $value)
-                <?php $selected = isset($filtros['anio']) ? (($key == $filtros['anio']) ? 'selected' : '') : '' ?>
-                <option value="{{$key}}" {{$selected}}>{{$value}}</option>
-              @endforeach
-            </select>
-          </div>
-        </div>
-        {!! Form::close() !!}
       </div>
     </div>
   </div>
-  <div class="page-body">
+
   	<div class="row">
-      	<div class="col-md-10 col-md-offset-1">
+      	<div class="col-md-12">
 
           <ul class="nav nav-tabs nav-justified" role="tablist">
             <?php $tab_status = 'class="active"' ?>
@@ -108,6 +112,5 @@
 
 
     </div>
-  </div>
-</div>
+
 @endsection

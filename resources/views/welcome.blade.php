@@ -18,7 +18,7 @@
     </section>
 
 
-    <header id="myCarousel" class="carousel slide" style="height:50%">
+    <header id="myCarousel" class="carousel slide" style="height:60%">
  
         <!-- Wrapper for Slides -->
         <div class="carousel-inner">
@@ -43,6 +43,7 @@
     <section class="cuadro-inferior">
         <div clas="col-xs-12">
                 <div class="marco_negro"></div>
+                <div class="marco_negro_B"></div>
                 <p class="text-center titulo_index">
                     lab<i>DATA</i>
                 </p>

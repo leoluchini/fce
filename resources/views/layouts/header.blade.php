@@ -4,18 +4,23 @@
     <div class="col-xs-4">
       <div class="row">
         <div class="icon_menu">
-          <span class="icon-menu pull-left" id='hideshow'></span>
+          <span class="icon-menu pull-left" id='hideshow' style="cursor:pointer"></span>
         </div>
 
-        <div class="icon_home">
-          <a href="{{url('/')}}"><span class="icon-home-3 pull-left"></span></a>
-        </div>
+        @if(Route::getCurrentRoute()->getPath() != '/')
+          <div class="icon_home">    
+            <a href="{{url('/')}}">
+              <span class="icon-home-3 pull-left"></span>
+            </a>
+          </div>
+        @endif
 
-        <div class="icon_administracion">
-          @if(Auth::user())
-            <a href="{{url('/administracion')}}"><span class="icon-cogs pull-right"></span></a>
-          @endif
-        </div>
+        @if(Auth::user())
+          <div class="icon_administracion">
+              <a href="{{url('/administracion')}}">
+                <span class="icon-cogs pull-right"></span></a>
+          </div>
+        @endif
 
 
 
@@ -48,9 +53,11 @@
 
 <!-- MENU VERTICAL -->
       <div id="Menu" style="display:none">
-        <center>
-          {!! Html::image('images/logo_menu.png', '', ['class'=>'logoFCE_menu'])!!}
-        </center>
+        <div class="logo_labdata text-right" >
+          <h1>
+            lab<i>DATA</i>
+          </h1>
+        </div>
 
         <nav>
           <ul>
