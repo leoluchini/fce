@@ -5,18 +5,16 @@
   <div class="row">
     <div class="col-xs-12"> 
   		<div class="page-header">
-
-				<div class="pull-right">
-	        <div class="btn-group">
-	    			<a title="Volver" href="{{ action('LecturaController@index') }}" data-toggle="tooltip" data-placement="top"><span class="glyphicon glyphicon-triangle-left"></span></a>
-
-	     			<a href="{{ route('administracion.lectura.destroy', $lote->id)}}" class='btn btn-danger' data-method="delete" data-title="Eliminar Lote" data-confirm="¿Estas seguro que desea eliminar los datos del lote '{{$lote->id}}' ?"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Borrar lote</a>
-	        </div>
+  			@include('generic.breadcrumb_multiple',['modulo' => 'Lote', 'enlaces' => array('Subir variables' => action('LecturaController@index'))])
+			<div class="pull-right">
+		        <div class="btn-group">
+	     			<a href="{{ route('administracion.lectura.destroy', $lote->id)}}" data-method="delete" data-title="Eliminar Lote" data-confirm="¿Estas seguro que desea eliminar los datos del lote '{{$lote->id}}' ?" data-toggle="tooltip" data-placement="top" title="Borar lote"><span class="icon-trash-4"></span></a>
+		        </div>
 	      </div>
 
 	      <h1>
 	        <span class="icon-box-2"></span>
-	        Lectura de archivos
+	        Lote
 	      </h1>
 
       </div>

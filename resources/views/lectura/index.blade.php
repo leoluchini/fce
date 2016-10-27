@@ -5,12 +5,12 @@
   <div class="row">
     <div class="col-xs-12"> 
   		<div class="page-header">
-
-				<div class="pull-right">
-	        <div class="btn-group">
-	          <a href="{{ route('administracion.lectura.create')}}" class='btn btn-primary'></span>Nueva lectura</a>
-	        </div>
-	      </div>
+  		@include('generic.breadcrumb_simple',['modulo' => 'Subir variables'])
+			<div class="pull-right">
+		        <div class="btn-group">
+		          <a title="Nueva lectura" href="{{ route('administracion.lectura.create')}}" data-toggle="tooltip" data-placement="top"><span class="icon-upload-outline"></span></a>
+		        </div>
+		    </div>
 
 	      <h1>
 	        <span class="icon-upload-cloud-outline"></span>
@@ -47,7 +47,7 @@
 									<span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
 								</a>
 								<a class="btn btn-link btn-xs confirm-delete" data-toggle="tooltip" data-placement="top" title="Borrar" href="{{ route('administracion.lectura.destroy', $lote->id)}}" data-method="delete" data-title="Eliminar Lote" data-confirm="¿Estas seguro que desea eliminar los datos del lote '{{$lote->id}}' ?">
-									<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+									<span class="icon-trash-4"></span>
 								</a>
 								</td>
 						</tr>
