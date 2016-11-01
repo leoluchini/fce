@@ -45,7 +45,7 @@
       </ol>
 
 <!-- TABLA COMUN -->
-<!--<table class="table table-condensed tabla_resultados_paginada">
+<table class="table table-condensed tabla_resultados_paginada">
         <thead>
           <tr>
             <th>Variable</th>
@@ -69,7 +69,7 @@
           @endforeach
         </tbody>
       </table>
-    <hr>-->
+    <hr>
 <!-- FIN TABLA COMUN -->
 
 

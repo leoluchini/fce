@@ -23,7 +23,7 @@ function actualizar_variables_seleccionadas()
 	$('#modal_consulta').find('ul#lista_seleccion_arbol').remove();
 	lista = '';
 	$('#lista_tags').find('input[name^="variable_id"]').each(function(){
-		lista = lista + '<li>' + $(this).prev().attr('title') + '</li>';
+		lista = lista + '<li>' + $(this).parent().find('span.texto').attr('title') + '</li>';
 	});
 	if(lista == ''){
 		$('#modal_consulta').find('p#texto_seleccion_arbol').empty().text($('#modal_consulta').find('p#texto_seleccion_arbol').data('default'));

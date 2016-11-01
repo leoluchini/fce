@@ -16,7 +16,7 @@
         @endif
 
         @if(Auth::user())
-          <div class="icon_administracion_index">
+          <div class="{{ (Route::getCurrentRoute()->getPath() != '/') ? 'icon_administracion' : 'icon_administracion_index' }}">
               <a href="{{url('/administracion')}}">
                 <span class="icon-cogs pull-right"></span></a>
           </div>
