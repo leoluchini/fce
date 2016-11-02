@@ -122,7 +122,8 @@ function txt_to_array($filename='')
     
     $lines = file($filename, FILE_IGNORE_NEW_LINES);
     foreach ($lines as $line) {
-        $data = explode("\t", $line);
+        $encoded_line = iconv(mb_detect_encoding($line, mb_detect_order(), true), "UTF-8", $line);
+        $data = explode("\t", $encoded_line);
         if( $data[0] != ""){
             $result[$data[0]] = array();
             $header = $data[0];
