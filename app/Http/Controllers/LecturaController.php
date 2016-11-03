@@ -176,39 +176,39 @@ class LecturaController extends Controller
             foreach ($datos['#Categorias'] as $attributes){
                 $attributes['lote_id'] = $lote->id;
                 $object = CategoriaVariable::firstOrCreate($attributes);
-                $references[$object->codigo] = $object->id;
+                $references[strtolower($object->codigo)] = $object->id;
                 unset($object);
             }
             foreach ($datos['#Variables'] as $attributes){
                 $attributes['lote_id'] = $lote->id;
                 $object = Variable::firstOrCreate($attributes);
-                $references[$object->codigo] = $object->id;
+                $references[strtolower($object->codigo)] = $object->id;
                 unset($object);
             }
             foreach ($datos['#Zonas'] as $attributes) {
                 $attributes['lote_id'] = $lote->id;
                 $object = ZonaGeografica::firstOrCreate($attributes);
-                $references[$object->codigo] = $object->id;
+                $references[strtolower($object->codigo)] = $object->id;
                 unset($object);
             }
             foreach ($datos['#Unidades'] as $attributes){
                 $attributes['lote_id'] = $lote->id;
                 $object = UnidadMedida::firstOrCreate($attributes);
-                $references[$object->codigo] = $object->id;
+                $references[strtolower($object->codigo)] = $object->id;
                 unset($object);
             }
             foreach ($datos['#Fuentes'] as $attributes) {
                 $attributes['lote_id'] = $lote->id;
                 $object = Fuente::firstOrCreate($attributes);
-                $references[$object->codigo] = $object->id;
+                $references[strtolower($object->codigo)] = $object->id;
                 unset($object);
             }
             foreach ($datos['#Datos'] as $attributes) {
                 $attributes['lote_id'] = $lote->id;
-                $attributes['variable_id'] = $references[$attributes['variable_id']];
-                $attributes['zona_id'] = $references[$attributes['zona_id']];
-                $attributes['fuente_id'] = $references[$attributes['fuente_id']];
-                $attributes['unidad_medida_id'] = $references[$attributes['unidad_medida_id']];
+                $attributes['variable_id'] = $references[strtolower($attributes['variable_id'])];
+                $attributes['zona_id'] = $references[strtolower($attributes['zona_id'])];
+                $attributes['fuente_id'] = $references[strtolower($attributes['fuente_id'])];
+                $attributes['unidad_medida_id'] = $references[strtolower($attributes['unidad_medida_id'])];
                 $attributes['frecuencia_id'] = Frecuencia::where('codigo', $attributes['frecuencia_id'])->first()->id;
                 InformacionVariable::create($attributes);
             }

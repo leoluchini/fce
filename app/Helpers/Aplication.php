@@ -124,17 +124,17 @@ function txt_to_array($filename='')
     foreach ($lines as $line) {
         $encoded_line = iconv(mb_detect_encoding($line, mb_detect_order(), true), "UTF-8", $line);
         $data = explode("\t", $encoded_line);
-        if( $data[0] != ""){
-            $result[$data[0]] = array();
-            $header = $data[0];
+        if( trim($data[0]) != ""){
+            $result[trim($data[0])] = array();
+            $header = trim($data[0]);
         }
         if($header == "#Datos"){
-            $result[$header][] = [ 'variable_id' => $data[1], 'zona_id' => $data[2], 'unidad_medida_id' => $data[3], 'fuente_id' => $data[4], 'frecuencia_id' => $data[5], 'anio' => $data[6], 'valor' => (float)str_replace(',', '.', $data[7])];
+            $result[$header][] = [ 'variable_id' => trim($data[1]), 'zona_id' => trim($data[2]), 'unidad_medida_id' => trim($data[3]), 'fuente_id' => trim($data[4]), 'frecuencia_id' => trim($data[5]), 'anio' => trim($data[6]), 'valor' => (float)str_replace(',', '.', trim($data[7]))];
         }else{
             if(($header == "#Variables")&&(isset($data[3]))&&($data[3] != "")){
-                $result[$header][] = [ 'codigo' => $data[1], 'nombre' => $data[2], 'tema' => $data[3]];
+                $result[$header][] = [ 'codigo' => trim($data[1]), 'nombre' => trim($data[2]), 'tema' => trim($data[3])];
             }else{
-                $result[$header][] = [ 'codigo' => $data[1], 'nombre' => $data[2]];
+                $result[$header][] = [ 'codigo' => trim($data[1]), 'nombre' => trim($data[2])];
             }
         }
     }
