@@ -31,12 +31,13 @@ function transponer_tabla(tabla)
         if($(this).parent().is('thead')){
         	$(this).find("th").each(function(){
                 i++;
-                if(newrows[i] === undefined) { newrows[i] = $("<tr></tr>"); }
                 if(i != 1){
-                	newrows[i].append('<td>'+$(this).html()+'</td>');
+                    if(newrows[i] === undefined) { newrows[i] = $("<tr></tr>"); }
+                    newrows[i].append('<td>'+$(this).html()+'</td>');
                 }
                 else{
-                	newrows[i].append('<th class="azul_FCE_bg blanco">'+$(this).html()+'</th>');
+                    if(newrows[i] === undefined) { newrows[i] = $('<tr class="azul_FCE_bg blanco"></tr>'); }
+                	newrows[i].append('<th >'+$(this).html()+'</th>');
                 }
             });
         }
@@ -45,10 +46,10 @@ function transponer_tabla(tabla)
                 i++;
                 if(newrows[i] === undefined) { newrows[i] = $("<tr></tr>"); }
                 if(i == 1){
-                	newrows[i].append('<th class="azul_FCE_bg blanco">'+$(this).html()+'</th>');
+                	newrows[i].append('<th class="text-right">'+$(this).html()+'</th>');
                 }
                 else{
-                	newrows[i].append('<td>'+$(this).html()+'</td>');
+                	newrows[i].append('<td class="text-right">'+$(this).html()+'</td>');
                 }
             });
         }

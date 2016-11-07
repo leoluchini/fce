@@ -96,6 +96,14 @@ $(function(){
     $('#modal_variables').modal('show');
     $('#contenedor_grafico').append($('div#graficos_generados').find('#'+$(this).data('grafico')));
   });
+
+  $('input[name="tablas_p"]').on('change', function(){
+    refresh_check_tablas();
+    $('#div_tablas_pivot_variables').hide();
+    $('#div_tablas_pivot_regiones').hide();
+    $('#div_tablas_pivot_frecuencias').hide();
+    $('#div_tablas_pivot_'+$(this).val()).show();
+  });
 });
 
 function get_values(asociativo)
@@ -113,4 +121,17 @@ function get_int_values(asociativo)
 		arr.push(+value);
 	});
 	return arr;
+}
+
+function refresh_check_tablas()
+{
+  $('input[name="tablas_p"]:checked').parent().find('h4').removeClass().addClass('azul_FCE');
+  $('input[name="tablas_p"]:checked').parent().find('span').removeClass().addClass('icon-check-1');
+  var id_check = $('input[name="tablas_p"]:checked').prop('id')
+  $('input[name="tablas_p"]').each(function(){
+    if($(this).prop('id') != id_check){
+      $(this).parent().find('h4').removeClass().addClass('azul_FCE_apagado');
+      $(this).parent().find('span').removeClass().addClass('icon-check-empty');
+    }
+  });
 }
