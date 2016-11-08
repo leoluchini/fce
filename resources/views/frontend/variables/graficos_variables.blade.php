@@ -44,4 +44,6 @@ var frecuencias = <?php echo json_encode($info_pivot['aniofrec']) ?>;
 var datos_region_anio = <?php echo json_encode($data_pivot) ?>;
 var datos_anio_region = <?php echo json_encode($data_pivot_inversa) ?>;
 var datos_adicionales = <?php echo json_encode($datos_adicionales) ?>;
+var datos_adicionales_region = <?php echo json_encode($datos_adicionales_region) ?>;
+var datos_adicionales_frecuencia = <?php echo json_encode($datos_adicionales_frecuencia) ?>;
 </script>

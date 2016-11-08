@@ -21,6 +21,14 @@ $(function(){
 		transponer_tabla($(tab));
 		$(tab).DataTable(data_tables_global_config);
 	});
+
+    $('input[name="tablas_p"]').on('change', function(){
+        refresh_check_tablas();
+        $('#div_tablas_pivot_variables').hide();
+        $('#div_tablas_pivot_regiones').hide();
+        $('#div_tablas_pivot_frecuencias').hide();
+        $('#div_tablas_pivot_'+$(this).val()).show();
+    });
 });
 
 function transponer_tabla(tabla)
@@ -62,4 +70,17 @@ function transponer_tabla(tabla)
     	tabla.find('tbody').append(this);
     });
     tabla.find('thead').append(tabla.find("tbody").find('tr').first());
+}
+
+function refresh_check_tablas()
+{
+  $('input[name="tablas_p"]:checked').parent().find('h4').removeClass().addClass('azul_FCE');
+  $('input[name="tablas_p"]:checked').parent().find('span').removeClass().addClass('icon-check-1');
+  var id_check = $('input[name="tablas_p"]:checked').prop('id')
+  $('input[name="tablas_p"]').each(function(){
+    if($(this).prop('id') != id_check){
+      $(this).parent().find('h4').removeClass().addClass('azul_FCE_apagado');
+      $(this).parent().find('span').removeClass().addClass('icon-check-empty');
+    }
+  });
 }

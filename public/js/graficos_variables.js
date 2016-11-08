@@ -97,12 +97,109 @@ $(function(){
     $('#contenedor_grafico').append($('div#graficos_generados').find('#'+$(this).data('grafico')));
   });
 
-  $('input[name="tablas_p"]').on('change', function(){
-    refresh_check_tablas();
-    $('#div_tablas_pivot_variables').hide();
-    $('#div_tablas_pivot_regiones').hide();
-    $('#div_tablas_pivot_frecuencias').hide();
-    $('#div_tablas_pivot_'+$(this).val()).show();
+  /////////////////////////////////////////////////////
+  $(".link_grafico_region").on('click', function(e){
+    e.preventDefault();
+    $('div#graficos_generados').append($('#contenedor_grafico').contents());
+    if($('div#graficos_generados').find('#'+$(this).data('grafico')).length == 0)
+    {
+      partes = $(this).data('grafico').split('_');
+      variable = {id:partes[1], descripcion:regiones[partes[1]], unidad:'', fuente: ''};
+      serie = [];
+      if(partes[0] == 'regvariable'){
+        categorias = get_values(frecuencias);
+        jQuery.each(variables, function(key, value) {
+          lista = get_int_values(datos_region_anio[key][partes[1]]);
+          dato = {
+                  name: variables[key],
+                  data: lista
+                };
+          serie.push(dato);
+        });
+      }
+      else{
+        categorias = get_values(variables);
+        jQuery.each(frecuencias, function(key, value) {
+          lista = get_int_values(datos_anio_region_variable[key][partes[1]]);
+          dato = {
+                  name: frecuencias[key],
+                  data: lista
+                };
+          serie.push(dato);
+        });
+      }
+      ancho = 838;
+      switch(partes[2]) {
+          case 'linea':
+              div = generar_div_grafico_linea(ancho, variable, categorias, serie, partes[0]);
+              break;
+          case 'radar':
+              div = generar_div_grafico_radar(ancho, variable, categorias, serie, partes[0]);
+              break;
+          case 'columna':
+              promedio = (partes[0] == 'regvariable') ? datos_adicionales_region[partes[1]].promedio_variable : datos_adicionales_region[partes[1]].promedio_frecuencia;
+              div = generar_div_grafico_columna(ancho, variable, categorias, serie, partes[0], promedio);
+              break;
+          case 'puntos':
+              div = generar_div_grafico_puntos(ancho, variable, categorias, serie, partes[0], datos_adicionales_region[partes[1]].max, datos_adicionales_region[partes[1]].min);
+              break;
+      }
+      $('div#graficos_generados').append(div);
+    }
+    $('#modal_variables').modal('show');
+    $('#contenedor_grafico').append($('div#graficos_generados').find('#'+$(this).data('grafico')));
+  });
+
+  $(".link_grafico_frecuencia").on('click', function(e){
+    e.preventDefault();
+    $('div#graficos_generados').append($('#contenedor_grafico').contents());
+    if($('div#graficos_generados').find('#'+$(this).data('grafico')).length == 0)
+    {
+      partes = $(this).data('grafico').split('_');
+      variable = {id:partes[1], descripcion:frecuencias[partes[1]], unidad:'', fuente: ''};
+      serie = [];
+      if(partes[0] == 'frecregion'){
+        categorias = get_values(variables);
+        jQuery.each(regiones, function(key, value) {
+          lista = get_int_values(datos_anio_region_variable[partes[1]][key]);
+          dato = {
+                  name: regiones[key],
+                  data: lista
+                };
+          serie.push(dato);
+        });
+      }
+      else{
+        categorias = get_values(regiones);
+        jQuery.each(variables, function(key, value) {
+          lista = get_int_values(datos_anio_region[key][partes[1]]);
+          dato = {
+                  name: variables[key],
+                  data: lista
+                };
+          serie.push(dato);
+        });
+      }
+      ancho = 838;
+      switch(partes[2]) {
+          case 'linea':
+              div = generar_div_grafico_linea(ancho, variable, categorias, serie, partes[0]);
+              break;
+          case 'radar':
+              div = generar_div_grafico_radar(ancho, variable, categorias, serie, partes[0]);
+              break;
+          case 'columna':
+              promedio = (partes[0] == 'frecregion') ? datos_adicionales_frecuencia[partes[1]].promedio_regional : datos_adicionales_frecuencia[partes[1]].promedio_variable;
+              div = generar_div_grafico_columna(ancho, variable, categorias, serie, partes[0], promedio);
+              break;
+          case 'puntos':
+              div = generar_div_grafico_puntos(ancho, variable, categorias, serie, partes[0], datos_adicionales_frecuencia[partes[1]].max, datos_adicionales_frecuencia[partes[1]].min);
+              break;
+      }
+      $('div#graficos_generados').append(div);
+    }
+    $('#modal_variables').modal('show');
+    $('#contenedor_grafico').append($('div#graficos_generados').find('#'+$(this).data('grafico')));
   });
 });
 
@@ -121,17 +218,4 @@ function get_int_values(asociativo)
 		arr.push(+value);
 	});
 	return arr;
-}
-
-function refresh_check_tablas()
-{
-  $('input[name="tablas_p"]:checked').parent().find('h4').removeClass().addClass('azul_FCE');
-  $('input[name="tablas_p"]:checked').parent().find('span').removeClass().addClass('icon-check-1');
-  var id_check = $('input[name="tablas_p"]:checked').prop('id')
-  $('input[name="tablas_p"]').each(function(){
-    if($(this).prop('id') != id_check){
-      $(this).parent().find('h4').removeClass().addClass('azul_FCE_apagado');
-      $(this).parent().find('span').removeClass().addClass('icon-check-empty');
-    }
-  });
 }

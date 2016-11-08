@@ -37,6 +37,42 @@
         </tbody>
       </table>
       <p class="help-block text-right" ><a href="#" class="transponer_pivot" data-tablaid="tabla_pivot_region_{{$id_reg}}" data-toggle="tooltip" data-placement="top" title="Transponer datos de la tabla">Transponer tabla <span class="icon-exchange"></span></a></p>
+      <div class="row">
+          <div class="col-md-6">
+            <h4>
+              Graficos por variable: 
+              <a href="#" title="Grafico de linea" class="link_grafico_region" data-grafico="regvariable_{{$id_reg}}_linea">
+                <span class="icon-chart-line"></span>
+              </a>
+              <a href="#" title="Grafico de radar" class="link_grafico_region" data-grafico="regvariable_{{$id_reg}}_radar">
+                <span class="icon-chart-pie-outline"></span>
+              </a>
+              <a href="#" title="Grafico de columnas" class="link_grafico_region" data-grafico="regvariable_{{$id_reg}}_columna">
+                <span class="icon-chart-bar-1"></span>
+              </a>
+              <a href="#" title="Grafico de puntos" class="link_grafico_region" data-grafico="regvariable_{{$id_reg}}_puntos">
+                <span class="icon-chart-alt-outline"></span>
+              </a>
+            </h4>
+          </div>
+          <div class="col-md-6">
+            <h4>
+              Graficos por frecuencia: 
+              <a href="#" title="Grafico de linea" class="link_grafico_region" data-grafico="regfrecuencia_{{$id_reg}}_linea">
+                <span class="icon-chart-line"></span>
+              </a>
+              <a href="#" title="Grafico de radar" class="link_grafico_region" data-grafico="regfrecuencia_{{$id_reg}}_radar">
+                <span class="icon-chart-pie-outline"></span>
+              </a>
+              <a href="#" title="Grafico de columnas" class="link_grafico_region" data-grafico="regfrecuencia_{{$id_reg}}_columna">
+                <span class="icon-chart-bar-1"></span>
+              </a>
+              <a href="#" title="Grafico de puntos" class="link_grafico_region" data-grafico="regfrecuencia_{{$id_reg}}_puntos">
+                <span class="icon-chart-alt-outline"></span>
+              </a>
+            </h4>
+          </div>
+        </div>
       </div>
       <hr>
       @endforeach

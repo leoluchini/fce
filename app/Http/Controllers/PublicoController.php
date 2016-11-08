@@ -148,6 +148,10 @@ class PublicoController extends Controller
 		$info_var = array('variables' => array(), 'unidades' => array(), 'fuentes' => array(), 'regiones' => array(), 'aniofrec' => array());
 		$data_var = array();
 		$data_var_inversa = array();
+		$data_reg = array();
+		$data_reg_inversa = array();
+		$data_frec = array();
+		$data_frec_inversa = array();
 		foreach($datos['resultados'] as $res)
 		{
 			if(!isset($info_var['variables'][$res->variable->id])){
@@ -168,9 +172,15 @@ class PublicoController extends Controller
 			}
 			$data_var[$res->variable->id][$res->zona->id][$anio_frecuencia] = $res->valor;
 			$data_var_inversa[$res->variable->id][$anio_frecuencia][$res->zona->id] = $res->valor;
+
+			$data_reg[$res->zona->id][$res->variable->id][$anio_frecuencia] = $res->valor;
+			$data_reg_inversa[$res->zona->id][$anio_frecuencia][$res->variable->id] = $res->valor;
+
+			$data_frec[$anio_frecuencia][$res->zona->id][$res->variable->id] = $res->valor;
+			$data_frec_inversa[$anio_frecuencia][$res->variable->id][$res->zona->id] = $res->valor;
 		}
 
-		$info_adicional = array();
+		/*$info_adicional = array();
 		foreach($info_var['variables'] as $k => $v)
 		{
 			$prom_frecuencia = array();
@@ -190,15 +200,45 @@ class PublicoController extends Controller
 				$prom_region[] = array_sum($value) / count($info_var['regiones']);
 			}
 			$info_adicional[$k] = array('minimo' => $min, 'maximo' => $max, 'promedio_frecuencia' => $prom_frecuencia, 'promedio_regional' => $prom_region);
-		}
+		}*/
+		$info_adicional = $this->get_info_adicional($info_var['variables'], $data_var, $data_var_inversa, 'promedio_frecuencia', count($info_var['aniofrec']), 'promedio_regional', count($info_var['regiones']));
+		$info_adicional_regiones = $this->get_info_adicional($info_var['regiones'], $data_reg, $data_reg_inversa, 'promedio_frecuencia', count($info_var['aniofrec']), 'promedio_variable', count($info_var['variables']));
+		$info_adicional_frecuencias = $this->get_info_adicional($info_var['aniofrec'], $data_frec, $data_frec_inversa, 'promedio_regional', count($info_var['regiones']), 'promedio_variable', count($info_var['variables']));
 
 
 		$datos['info_pivot'] = $info_var;
 		$datos['data_pivot'] = $data_var;
 		$datos['data_pivot_inversa'] = $data_var_inversa;
 		$datos['datos_adicionales'] = $info_adicional;
+		$datos['datos_adicionales_region'] = $info_adicional_regiones;
+		$datos['datos_adicionales_frecuencia'] = $info_adicional_frecuencias;
 		$datos['filtros'] = $input;
 		return view('frontend.variables.resultados_variables', $datos);
+	}
+	private function get_info_adicional($index, $datos, $datos_inv, $prom1_label, $prom1_total, $prom2_label, $prom2_total)
+	{
+		$info_adicional = array();
+		foreach($index as $k => $v)
+		{
+			$prom_1 = array();
+			$prom_regionprom_2 = array();
+			$min = null;
+			$max = null;
+			foreach($datos[$k] as $key => $value)
+			{
+				$prom_1[] = array_sum($value) / $prom1_total;
+				$actual_min = min($value);
+				$actual_max = max($value);
+				$min = ($min == null) ? $actual_min : (($actual_min < $min) ? $actual_min : $min);
+				$max = ($max == null) ? $actual_max : (($actual_max > $max) ? $actual_max : $max);
+			}
+			foreach($datos_inv[$k] as $key => $value)
+			{
+				$prom_2[] = array_sum($value) / $prom2_total;
+			}
+			$info_adicional[$k] = array('minimo' => $min, 'maximo' => $max, $prom1_label => $prom_1, $prom2_label => $prom_2);
+		}
+		return $info_adicional;
 	}
 	public function consulta_periodos(Request $request)
 	{
