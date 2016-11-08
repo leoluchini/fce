@@ -40,7 +40,7 @@
         @endforeach
         <div class="pull-right">
           <a href="#" id="reformular_consulta" data-toggle="tooltip" data-placement="top" title="Redefinir la consulta"><span class="icon-spin3"></span></a>
-          <a href="#" id="descargar_excel" data-toggle="tooltip" data-placement="top" title="Descargar Excel"><span class="icon-file-excel"></span></a>
+          <!--<a href="#" id="descargar_excel" data-toggle="tooltip" data-placement="top" title="Descargar Excel"><span class="icon-file-excel"></span></a>-->
         </div>
       </ol>
 
@@ -108,6 +108,15 @@
     <link href="{{ asset('DataTables-1.10.12/css/dataTables.bootstrap.min.css') }}" rel="stylesheet" type="text/css">
     <script src="{{ asset('DataTables-1.10.12/js/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('DataTables-1.10.12/js/dataTables.bootstrap.min.js') }}"></script>
+    <!--DataTables export a pdf y excel-->
+    <link href="{{ asset('DataTables-1.10.12/Buttons-1.2.2/css/buttons.dataTables.min.css') }}" rel="stylesheet" type="text/css">
+    <script src="{{ asset('DataTables-1.10.12/Buttons-1.2.2/js/dataTables.buttons.min.js') }}"></script>
+    <script src="{{ asset('DataTables-1.10.12/Buttons-1.2.2/js/buttons.flash.min.js') }}"></script>
+    <script src="{{ asset('DataTables-1.10.12/Buttons-1.2.2/js/buttons.html5.min.js') }}"></script>
+    <script src="{{ asset('DataTables-1.10.12/Buttons-1.2.2/js/buttons.print.min.js') }}"></script>
+    <script src="{{ asset('DataTables-1.10.12/Buttons-1.2.2/jszip.min.js') }}"></script>
+    <script src="{{ asset('DataTables-1.10.12/Buttons-1.2.2/pdfmake.min.js') }}"></script>
+    <script src="{{ asset('DataTables-1.10.12/Buttons-1.2.2/vfs_fonts.js') }}"></script>
     
     <script src="{{ asset('js/tabla_paginada.js') }}"></script>
 

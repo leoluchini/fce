@@ -10,7 +10,7 @@
               @foreach($info_pivot['aniofrec'] as $id_aniofrec => $aniofrec)
               <th class="text-right">{{$aniofrec}}</th>
               @endforeach
-              <th class="text-right">TOTAL REGION</th>
+              <th class="text-right">TOTAL</th>
             </tr>
           </thead>
           <tbody>

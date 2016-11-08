@@ -11,7 +11,7 @@
             @foreach($info_pivot['variables'] as $id_var => $variable)
             <th class="text-right"><span title="FUENTE: {{$info_pivot['fuentes'][$id_var]}} ( en {{$info_pivot['unidades'][$id_var]}} )" data-toggle="tooltip" data-placement="top">{{$variable}}</span></th>
             @endforeach
-            <th class="text-right">TOTAL REGION</th>
+            <th class="text-right">TOTAL</th>
           </tr>
         </thead>
         <tbody>
@@ -28,7 +28,7 @@
             </tr>
           @endforeach
             <tr class="gris_table_bg">
-                <td><strong>TOTAL FREC.</strong></td>
+                <td><strong>TOTAL VAR.</strong></td>
                 @foreach($info_pivot['variables'] as $id_var => $variable)
                 <td class="text-right"><strong>{{array_sum($data_pivot_inversa[$id_var][$id_aniofrec])}}</strong></td>
                 @endforeach

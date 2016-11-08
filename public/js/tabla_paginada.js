@@ -27,7 +27,11 @@ var data_tables_global_config = {
 				}    
             },
             pageLength: 5,
-            lengthMenu: [ 5, 20, 50, 100 ]
+            lengthMenu: [ 5, 20, 50, 100 ],
+            dom: 'lfrtiBp',
+	        buttons: [
+	            'excel', 'pdf'
+	        ]
 	    };
 $(function()
 {
