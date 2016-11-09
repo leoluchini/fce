@@ -80,7 +80,9 @@ class LecturaController extends Controller
     public function datos_lote($id)
     {
         $lote = Lote::findOrFail($id);
-        return view('lectura.datos')->withLote($lote);
+        $info = InformacionVariable::where('lote_id', '=', $id)->paginate(500);
+        return view('lectura.datos', ['lote' => $lote, 'datos' => $info]);
+        //return view('lectura.datos')->withLote($lote);
     }
 
     public function destroy($id){

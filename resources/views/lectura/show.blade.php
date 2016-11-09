@@ -125,9 +125,9 @@
 	              <div class="panel-heading" role="tab" id="headingDatos">
 	                <h4 class="panel-title">
 	                  <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseDatos" aria-expanded="true" aria-controls="collapseDatos">
-	                    <!--<a href="{{action('LecturaController@datos_lote', $lote->id)}}">-->
+	                    <a href="{{action('LecturaController@datos_lote', $lote->id)}}">
 	                    	<span class="badge pull-right">{!! $cantidad !!}</span>
-	                    <!--</a>-->
+	                    </a>
 			    		<p class="blanco">Datos</p>
 	                  </a>
 	                </h4>
