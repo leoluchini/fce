@@ -40,7 +40,15 @@
 				              <td>{{ $info->variable->nombre }}</td>
 				              <td>{{ $info->zona->nombre }}</td>
 				              <td>{{ $info->anio }}{{ ($info->frecuencia->tipo != 'ANIO') ? ' / '.$info->frecuencia->nombre : '' }}</td>
-				              <td>{{ number_format($info->valor, 2, ',', '.') }}</td>
+				              <td>
+				              @if($info->dato_adicional())
+				              	<span data-toggle="tooltip" data-position="top" title="{{$info->dato_adicional()}}">
+				              		{{ number_format($info->valor, 2, ',', '.') }}
+				              	</span>
+				              @else
+				              	{{ number_format($info->valor, 2, ',', '.') }}
+				              @endif
+				              </td>
 				              <td>{{ $info->unidad_medida->nombre }}</td>
 				              <td><span title="{{ $info->fuente->descripcion }}" data-toggle="tooltip" data-placement="top">{{ $info->fuente->codigo }}</span></td>
 				          </tr>

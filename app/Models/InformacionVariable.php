@@ -29,4 +29,15 @@ class InformacionVariable extends Model
 	{
 		return $this->hasOne('App\Models\ZonaGeografica', 'id', 'zona_id');
 	}
+
+	public function dato_adicional()
+	{
+		$dato = InformacionVariableDato::where('lote_id',$this->lote_id)->where('variable_id', $this->variable_id)->first();
+		if($dato){
+			return $dato->dato;
+		}
+		else{
+			return false;
+		}
+	}
 }

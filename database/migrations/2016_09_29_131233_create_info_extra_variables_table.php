@@ -22,10 +22,10 @@ class CreateInfoExtraVariablesTable extends Migration
             // claves foraneas
             $table->foreign('lote_id')
                   ->references('id')
-                  ->on('lotes');
+                  ->on('lotes')->onDelete('cascade');
             $table->foreign('variable_id')
                   ->references('id')
-                  ->on('variables');
+                  ->on('variables')->onDelete('cascade');
         });
     }
 

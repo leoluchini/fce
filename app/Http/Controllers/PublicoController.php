@@ -46,7 +46,7 @@ class PublicoController extends Controller
 		$data['semestres'] = Frecuencia::where('tipo', '=', 'SEMESTRE')->get();
 		$data['trimestres'] = Frecuencia::where('tipo', '=', 'TRIMESTRE')->get();
 		$data['meses'] = Frecuencia::where('tipo', '=', 'MES')->get();
-		$data['periodos'] = array_unique(InformacionVariable::lists('anio')->toArray());
+		$data['periodos'] = array_unique(InformacionVariable::orderBy('anio', 'ASC')->lists('anio')->toArray());
 
 		$data['temas'] = Tema::all();
 		$data['categorias'] = CategoriaVariable::whereNull('categoria_padre_id')->get();
@@ -246,6 +246,7 @@ class PublicoController extends Controller
 
 		$resultados = InformacionVariable::whereIn('informacion_variables.zona_id', $input['regiones'])
 										 ->whereIn('informacion_variables.variable_id', $input['variables'])
+										 ->orderBy('anio', 'ASC')
 										 ->get();
 		$periodos = array_values(array_unique($resultados->lists('anio')->toArray()));
 		

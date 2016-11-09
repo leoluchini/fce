@@ -129,7 +129,16 @@ function txt_to_array($filename='')
             $header = trim($data[0]);
         }
         if($header == "#Datos"){
-            $result[$header][] = [ 'variable_id' => trim($data[1]), 'zona_id' => trim($data[2]), 'unidad_medida_id' => trim($data[3]), 'fuente_id' => trim($data[4]), 'frecuencia_id' => trim($data[5]), 'anio' => trim($data[6]), 'valor' => (float)str_replace(',', '.', trim($data[7]))];
+            $result[$header][] = [ 'variable_id' => trim($data[1]), 
+                                    'zona_id' => trim($data[2]), 
+                                    'unidad_medida_id' => trim($data[3]), 
+                                    'fuente_id' => trim($data[4]), 
+                                    'frecuencia_id' => trim($data[5]), 
+                                    'anio' => trim($data[6]), 
+                                    'valor' => (float)str_replace(',', '.', trim($data[7]))];
+            if((isset($data[8])) && ($data[8] != "") && !isset($result['#DatosAdicionales'][trim($data[1])])){
+                $result['#DatosAdicionales'][trim($data[1])] = trim($data[8]);
+            }
         }else{
             if(($header == "#Variables")&&(isset($data[3]))&&($data[3] != "")){
                 $result[$header][] = [ 'codigo' => trim($data[1]), 'nombre' => trim($data[2]), 'tema' => trim($data[3])];

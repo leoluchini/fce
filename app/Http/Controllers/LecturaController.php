@@ -10,6 +10,7 @@ use App\Models\CategoriaVariable;
 use App\Models\Frecuencia;
 use App\Models\Fuente;
 use App\Models\InformacionVariable;
+use App\Models\InformacionVariableDato;
 use App\Models\Lote;
 use App\Models\Variable;
 use App\Models\UnidadMedida;
@@ -97,7 +98,7 @@ class LecturaController extends Controller
         $csvFile = public_path().'/storage/carga.csv';
         $datos = csv_to_array($csvFile);
         $references = [];
-        if( sizeof( array_keys($datos) ) == 5 ) 
+        if( sizeof( array_keys($datos) ) >= 5 ) 
             return "Faltan claves para definir la informacion";
         try {
             foreach ($datos['#Categorias'] as $attributes){
@@ -213,6 +214,14 @@ class LecturaController extends Controller
                 $attributes['unidad_medida_id'] = $references[strtolower($attributes['unidad_medida_id'])];
                 $attributes['frecuencia_id'] = Frecuencia::where('codigo', $attributes['frecuencia_id'])->first()->id;
                 InformacionVariable::create($attributes);
+            }
+            if(isset($datos['#DatosAdicionales'])){
+                foreach ($datos['#DatosAdicionales'] as $var_id => $dato) {
+                    $attributes['lote_id'] = $lote->id;
+                    $attributes['variable_id'] = $references[strtolower($var_id)];
+                    $attributes['dato'] = $dato;
+                    InformacionVariableDato::create($attributes);
+                }
             }
             //TODO borrar archivo
         } catch (\Exception $e) {
