@@ -34,6 +34,8 @@
 						<tr>
 							<th>N</th>
 							<th>Fecha</th>
+							<th>Estado</th>
+							<th>Error</th>
 							<th class="text-right">Acciones</th>
 						</tr>
 					</thead>
@@ -42,6 +44,8 @@
 						<tr>
 							<td>{!! $lote->id!!}</td>
 							<td>{!! $lote->created_at !!}</td>
+							<td>{!! $lote->estado !!}</td>
+							<td>{!! $lote->error !!}</td>
 							<td class="text-right">
 								<a class="btn btn-link btn-xs" data-toggle="tooltip" data-placement="top" title="Ver" href="{{ route('administracion.lectura.show', $lote->id)}}">
 									<span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
