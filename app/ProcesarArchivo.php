@@ -104,7 +104,10 @@ class ProcesarArchivo
     public function finalizarLote($job, $datos)
     {
         $lote = $datos['lote'];
-        $lote->update(['estado' => Lote::ESTADO_FINALIZADO]);
+        (if $lote->estado ==  Lote::ESTADO_PROCESANDO_)
+        {
+            $lote->update(['estado' => Lote::ESTADO_FINALIZADO]);
+        }
         $job->delete(); 
     }
 }
