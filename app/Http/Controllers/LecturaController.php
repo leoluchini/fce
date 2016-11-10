@@ -54,8 +54,11 @@ class LecturaController extends Controller
             $date = new \DateTime();
             $filename = $date->format('d_m_Y_H_i_s');
             $request->file('file')->move(public_path('storage'), $filename.'.txt');
-            $lote = Lote::create(['archivo' => $filename.'.txt']);
-           
+            $lote = Lote::create([
+                'archivo' => $filename.'.txt',
+                'usuario_id' => \Auth::user()->id
+            ]);
+
             \Queue::push('App\ProcesarArchivo', array('lote' => $lote));
         }
 

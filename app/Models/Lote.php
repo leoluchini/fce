@@ -11,7 +11,7 @@ class Lote extends Model
   	const ESTADO_ERROR = 2;
   	const ESTADO_FINALIZADO = 3;
   	
-  	protected $fillable = ['archivo', 'estado', 'error'];
+  	protected $fillable = ['archivo', 'estado', 'error', 'usuario_id'];
 
   	protected $estados = [
   		0 => 'Pendiente',
@@ -25,10 +25,15 @@ class Lote extends Model
         return public_path('storage').'/'.$value;
     }
 
-    public function getEstadoAttribute($value)
+    public function getEstadoActualAttribute()
     {
-        return $this->estados[$value];
+        return $this->estados[$this->estado];
     }
+    
+    public function usuario()
+	{
+		return $this->hasOne('App\User', 'id', 'usuario_id');
+	}
 
 	public function categorias()
 	{

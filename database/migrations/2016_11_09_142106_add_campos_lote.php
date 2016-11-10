@@ -16,6 +16,11 @@ class AddCamposLote extends Migration
             $table->string('archivo');
             $table->integer('estado')->default(0);
             $table->text('error')->nullable();
+            $table->integer('usuario_id')->unsigned();
+            $table->foreign('usuario_id')
+                  ->references('id')
+                  ->on('users')
+                  ->onDelete('cascade');
         });
     }
 
@@ -30,6 +35,8 @@ class AddCamposLote extends Migration
             $table->dropColumn('archivo');
             $table->dropColumn('estado');
             $table->dropColumn('error');
+            $table->dropIndex('usuario_id');
+            $table->dropColumn('usuario_id');
         });
     }
 }
