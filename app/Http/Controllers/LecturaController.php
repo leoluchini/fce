@@ -7,6 +7,7 @@ use App\Http\Requests\LecturaRequest;
 use App\Jobs\ProcesarArchivo;
 use App\Http\Requests;
 use App\Models\Lote;
+use App\Models\InformacionVariable;
 use Illuminate\Support\Facades\DB;
 
 class LecturaController extends Controller
@@ -17,9 +18,21 @@ class LecturaController extends Controller
      * @return \Illuminate\Http\Response
      */
     
-    public function index()
+    public function index(Request $request)
     {
-        $lotes = Lote::all();
+        //$lotes = Lote::orderBy('id')->paginate(2);
+        //$lotes->appends(['desde' => '', 'hasta' => '']);
+        $lotes = Lote::orderBy('id');
+        /*var_dump($request->get('fecha_desde'));
+        var_dump($request->get('fecha_hasta'));
+        die();*/
+        if($request->get('fecha_desde') != ''){
+            $lotes = $lotes->whereDate('created_at', '>=', $request->get('fecha_desde'));
+        }
+        if($request->get('fecha_hasta') != ''){
+            $lotes = $lotes->whereDate('created_at', '<=', $request->get('fecha_hasta'));
+        }
+        $lotes->paginate(2);
         return view('lectura.index')->withLotes($lotes);
     }
 
@@ -78,4 +91,15 @@ class LecturaController extends Controller
          return redirect(route('administracion.lectura.index'));
     }
 
+    public function cambiar_estado($id)
+    {
+        $lote = Lote::findOrFail($id);
+        if($lote->estado == 3){
+            $lote->update(['estado' => 4]);
+        }
+        else{
+            $lote->update(['estado' => 3]);
+        }
+        return redirect('administracion/lectura/'.$id);
+    }
 }

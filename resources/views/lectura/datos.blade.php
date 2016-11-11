@@ -21,7 +21,6 @@
   <div class="container">
    	<div class="col-xs-12"> 
    			<h4>Mostrando {{$datos->count()}} resultados de un total de {{$datos->total()}}</h4>
-			{{ $datos->render() }}
 			<div style="overflow-y:scroll;max-height:500px">
 				<table id="tabla_lote" class="table table-condensed">
 				    <thead>

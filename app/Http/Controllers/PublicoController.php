@@ -46,7 +46,8 @@ class PublicoController extends Controller
 		$data['semestres'] = Frecuencia::where('tipo', '=', 'SEMESTRE')->get();
 		$data['trimestres'] = Frecuencia::where('tipo', '=', 'TRIMESTRE')->get();
 		$data['meses'] = Frecuencia::where('tipo', '=', 'MES')->get();
-		$data['periodos'] = array_unique(InformacionVariable::orderBy('anio', 'ASC')->lists('anio')->toArray());
+		$info_anios = InformacionVariable::select('informacion_variables.*')->join('lotes', 'informacion_variables.lote_id', '=', 'lotes.id')->where('lotes.estado', 4)->orderBy('anio', 'ASC')->lists('anio')->toArray();
+		$data['periodos'] = array_unique($info_anios);
 
 		$data['temas'] = Tema::all();
 		$data['categorias'] = CategoriaVariable::whereNull('categoria_padre_id')->get();
@@ -65,10 +66,11 @@ class PublicoController extends Controller
 		$input = $request->all();
 		$query = "'%".str_replace(' ', '%', $input['busqueda'])."%'";
 		//$string_consulta = "replace(replace(replace(replace(replace(LOWER(\"variables\".\"nombre\"), 'á', 'a'), 'é', 'e'), 'í', 'i'), 'ó', 'o'), 'ú', 'u') like ".$query;
-		$string_consulta = "nombre like ".$query;
+		$string_consulta = "nombre ilike ".$query;
 		if(($input['tipo_busqueda'] == 'region_variable') && isset($input['regiones']))
 		{
 			$res = Variable::select('variables.*')
+				->join('lotes', 'variables.lote_id', '=', 'lotes.id')->where('lotes.estado', 4)
 				->whereRaw($string_consulta)
 				->join('informacion_variables', 'variables.id', '=', 'informacion_variables.variable_id')
 				->whereIn('informacion_variables.zona_id', $input['regiones'])
@@ -76,7 +78,10 @@ class PublicoController extends Controller
 				->get();
 		}
 		else{
-			$res = Variable::whereRaw($string_consulta)->get();
+			$res = Variable::select('variables.*')
+					->join('lotes', 'variables.lote_id', '=', 'lotes.id')->where('lotes.estado', 4)
+					->whereRaw($string_consulta)
+					->get();
 		}
 		if(count($res->toArray()) == 0){
 			VariableSinResultados::firstOrCreate($input['busqueda']);
@@ -105,6 +110,7 @@ class PublicoController extends Controller
 		$lista_variables = explode('-', $variables);
 
 		$res = ZonaGeografica::select('zonas_geograficas.*')
+			->join('lotes', 'zonas_geograficas.lote_id', '=', 'lotes.id')->where('lotes.estado', 4)
 			->join('informacion_variables', 'zonas_geograficas.id', '=', 'informacion_variables.zona_id')
 			->whereIn('informacion_variables.variable_id', $lista_variables)
 			->distinct()
@@ -135,7 +141,9 @@ class PublicoController extends Controller
 		$periodos = $input['periodo'];
 		$frecuencia = ($input['tipo_frecuencia'] == 'anual') ? array(Frecuencia::where('tipo', '=', 'ANIO')->first()->id) : $input[$input['tipo_frecuencia']];
 		
-		$datos['resultados'] = InformacionVariable::whereIn('variable_id', $variables)
+		$datos['resultados'] = InformacionVariable::select('informacion_variables')
+								->join('lotes', 'informacion_variables.lote_id', '=', 'lotes.id')->where('lotes.estado', 4)
+								->whereIn('variable_id', $variables)
 								->whereIn('zona_id', $zonas)
 								->whereIn('anio', $periodos)
 								->whereIn('frecuencia_id', $frecuencia)
@@ -244,7 +252,9 @@ class PublicoController extends Controller
 	{
 		$input = $request->all();
 
-		$resultados = InformacionVariable::whereIn('informacion_variables.zona_id', $input['regiones'])
+		$resultados = InformacionVariable::select('informacion_variables.*')
+										 ->join('lotes', 'informacion_variables.lote_id', '=', 'lotes.id')->where('lotes.estado', 4)
+										 ->whereIn('informacion_variables.zona_id', $input['regiones'])
 										 ->whereIn('informacion_variables.variable_id', $input['variables'])
 										 ->orderBy('anio', 'ASC')
 										 ->get();
@@ -256,7 +266,9 @@ class PublicoController extends Controller
 	{
 		$input = $request->all();
 
-		$resultados = InformacionVariable::whereIn('informacion_variables.zona_id', $input['regiones'])
+		$resultados = InformacionVariable::select('informacion_variables.*')
+										 ->join('lotes', 'informacion_variables.lote_id', '=', 'lotes.id')->where('lotes.estado', 4)
+										 ->whereIn('informacion_variables.zona_id', $input['regiones'])
 										 ->whereIn('informacion_variables.variable_id', $input['variables'])
 										 ->whereIn('informacion_variables.anio', $input['periodos'])
 										 ->get();

@@ -186,6 +186,8 @@ $(function(){
 		if(!isValid){
 			$('#generic_modal').find('#myModalLabel').empty().append('<span class="icon-info-circled-alt"></span>Formulario incompleto');
 			$('#generic_modal').find('.modal-body').empty().append(errores);
+			$('#generic_modal').find('.modal-footer').empty();
+			
 			$('#generic_modal').modal('show');
 		}
 	    return isValid;
@@ -201,6 +203,7 @@ $(function(){
 
 		$('#generic_modal').find('#myModalLabel').empty().append('<span class="icon-info-circled-alt"></span>Variables relacionadas a "'+span.attr('title')+'" por el tema "'+label.text()+'"');
 		$('#generic_modal').find('.modal-body').empty().append(lista.clone().css({'display':'block','max-height':'250px','overflow':'auto'}));
+		$('#generic_modal').find('.modal-footer').empty();
 		$('#generic_modal').modal('show');
 	});
 

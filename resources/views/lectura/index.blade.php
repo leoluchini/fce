@@ -29,6 +29,12 @@
     <div class="row">
 
 			<div class="col-md-12">
+				<h4>Mostrando {{$lotes->count()}} lotes de un total de {{$lotes->total()}}</h4>
+				<div class="pull-right">
+				{!! Form::open(array('action' => ['LecturaController@index'], 'method' => 'GET')) !!}
+					<p>Desde: <input type="text" name="fecha_desde" class="input_date_picker">&nbsp;&nbsp;Hasta: <input type="text" name="fecha_hasta" class="input_date_picker"> <button class="btn btn-default" type="submit">Filtrar</button></p>
+				{!! Form::close() !!}
+				</div>
 				<table class="table">
 					<thead>
 						<tr>
@@ -60,8 +66,20 @@
 						@endforeach
 					</tbody>
 				</table>
+				{{ $lotes->render() }}
 			</div>
 		</div>
 	</div>
 </div>
+@endsection
+
+@section('scripts_adicionales')
+    <link href="{{ asset('jquery-ui-1.12.0.smoothness/jquery-ui.min.css') }}" rel="stylesheet">*
+    <script src="{{ asset('jquery-ui-1.12.0.smoothness/jquery-ui.min.js') }}"></script>
+    <script src="{{ asset('jquery-ui-1.12.0.smoothness/i18n/datepicker-es.js') }}"></script>
+	<script>
+		$(function() {
+    		$( ".input_date_picker" ).datepicker();
+		});
+	</script>
 @endsection

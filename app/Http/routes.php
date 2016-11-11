@@ -21,6 +21,8 @@ Route::group(['prefix' => 'administracion', 'middleware' => ['auth'] ], function
 {
 	Route::get('/',  [ 'as' => 'administracion.index', 'uses' => 'AdministracionController@index' ]);
 	Route::get('lectura/lote/{lote}/datos', 'LecturaController@datos_lote');
+	Route::get('lectura/lote/{lote}/aceptar',  [ 'as' => 'administracion.lectura.lote.aceptar', 'uses' => 'LecturaController@cambiar_estado' ]);
+	Route::get('lectura/lote/{lote}/desactivar',  [ 'as' => 'administracion.lectura.lote.desactivar', 'uses' => 'LecturaController@cambiar_estado' ]);
 	Route::resource('lectura', 'LecturaController');
 
 	Route::group(['middleware' => ['level:2'] ], function()
