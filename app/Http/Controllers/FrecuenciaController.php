@@ -10,6 +10,7 @@ use App\Http\Requests\FrecuenciaRequest;
 
 class FrecuenciaController extends Controller
 {
+    
     public function index()
 	{
 		$data['frecuencias'] = Frecuencia::orderBy('id')->get();

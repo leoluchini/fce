@@ -11,10 +11,6 @@ use Bican\Roles\Models\Role;
 
 class UserController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('role:admin');
-    }
     /**
      * Display a listing of the resource.
      *
@@ -34,7 +30,9 @@ class UserController extends Controller
     public function create()
     { 
         $roles = Role::all()->lists('name', 'id');
-        return view('users.create')->withRoles($roles);
+        return view('users.create')
+            ->withRoles($roles)
+            ->withRolId('');
     }
 
     /**
@@ -73,7 +71,11 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
         $roles = Role::all()->lists('name', 'id');
-        return view('users.edit')->with(['user' => $user, 'roles' => $roles]);
+        return view('users.edit')->with([
+            'user' => $user, 
+            'roles' => $roles,
+            'rol_id' => $user->roles->first()->id
+        ]);
     }
 
     /**

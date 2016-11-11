@@ -26,32 +26,34 @@
             </a>
           </center>
         </div>
-
-        <div class="col-md-3 col-sm-6 col-xs-12">
-          <center>
-            <a href="{{action('CategoriaVariableController@index')}}">
-              <h2><span class="icon-flow-tree"></span></h2>
-              <h4>&Aacute;rbol de variables</h4>
-            </a>
-          </center>
-        </div>
-        <div class="col-md-3 col-sm-6 col-xs-12">
-          <center>
-            <a href="#">
-              <h2><span class="icon-upload-cloud"></span></h2>
-              <h4>Subir indicadores</h4>
-            </a>
-          </center>
-        </div>
-        <div class="col-md-3 col-sm-6 col-xs-12">
-          <center>
-            <a href="#">
-              <h2><span class="icon-flow-tree "></span></h2>
-              <h4>&Aacute;rbol de indicadores</h4>
-            </a>
-          </center>
-        </div>
+        @role('user|admin')
+          <div class="col-md-3 col-sm-6 col-xs-12">
+            <center>
+              <a href="{{action('CategoriaVariableController@index')}}">
+                <h2><span class="icon-flow-tree"></span></h2>
+                <h4>&Aacute;rbol de variables</h4>
+              </a>
+            </center>
+          </div>
+          <div class="col-md-3 col-sm-6 col-xs-12">
+            <center>
+              <a href="#">
+                <h2><span class="icon-upload-cloud"></span></h2>
+                <h4>Subir indicadores</h4>
+              </a>
+            </center>
+          </div>
+          <div class="col-md-3 col-sm-6 col-xs-12">
+            <center>
+              <a href="#">
+                <h2><span class="icon-flow-tree "></span></h2>
+                <h4>&Aacute;rbol de indicadores</h4>
+              </a>
+            </center>
+          </div>
+        @endrole
       </div>
+      @role('user|admin')
       <div class="row">
         <div class="col-md-3 col-sm-6 col-xs-12">
           <center>
@@ -86,7 +88,9 @@
           </center>
         </div>
       </div>
+      @endrole
       <div class="row">
+        @role('user|admin')
         <div class="col-md-3 col-sm-6 col-xs-12">
           <center>
             <a href="{{action('CategoriaController@index')}}">
@@ -95,6 +99,7 @@
             </a>
           </center>
         </div>
+        @endrole
         @role('admin')
           <div class="col-md-3 col-sm-6 col-xs-12">
             <center>

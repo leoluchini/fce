@@ -35,7 +35,6 @@ class AddCamposLote extends Migration
             $table->dropColumn('archivo');
             $table->dropColumn('estado');
             $table->dropColumn('error');
-            $table->dropIndex('usuario_id');
             $table->dropColumn('usuario_id');
         });
     }
