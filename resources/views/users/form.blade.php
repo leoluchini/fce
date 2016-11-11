@@ -9,9 +9,10 @@
 		{!! Form::text('email', null, array('class' => 'form-control')) !!}
 		@if ($errors->first('email'))<span class="help-block">{{$errors->first('email')}}</span>@endif
 	</div>
-	<div class="form-group">
+	<div class="form-group @if ($errors->first('roles')){!! 'has-error' !!}@endif">
 		{!! Form::label('roles', 'Rol', array('class' => 'control-label')) !!}
-		{!! Form::select('roles',$roles,null, array('placeholder'=>'','class' => 'form-control')) !!}
+		{!! Form::select('roles',$roles,$rol_id, array('placeholder'=>'','class' => 'form-control')) !!}
+		@if ($errors->first('roles'))<span class="help-block">{{$errors->first('roles')}}</span>@endif
 	</div>
 @if( !isset($user))
 	<div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">

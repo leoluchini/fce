@@ -25,10 +25,14 @@ class UserRequest extends Request
     {
         $validator =  [
             'name' => 'required',
-            'email' => "required|email|unique:users,email,{$this->usuarios},id",
+            'email' => "required|email|unique:users,email",
+            'roles' => "required",
         ];
         if($this->method() == "POST"){
             $validator['password'] = 'required|min:6|confirmed';
+        }
+        if($this->method() == "PUT"){
+            $validator['email'] .= ",{$this->usuarios},id";
         }
         return $validator;
     }
