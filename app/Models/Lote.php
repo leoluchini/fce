@@ -10,6 +10,7 @@ class Lote extends Model
   	const ESTADO_PROCESANDO = 1;
   	const ESTADO_ERROR = 2;
   	const ESTADO_FINALIZADO = 3;
+  	const ESTADO_ACEPTADO = 4;
   	
   	protected $fillable = ['archivo', 'estado', 'error', 'usuario_id'];
 
@@ -17,7 +18,8 @@ class Lote extends Model
   		0 => 'Pendiente',
   		1 => 'En proceso',
   		2 => 'Error',
-  		3 => 'Finalizado'
+  		3 => 'Finalizado',
+  		4 => 'Aceptado',
   	];
     
     public function getArchivoAttribute($value)
