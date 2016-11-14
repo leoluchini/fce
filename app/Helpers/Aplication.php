@@ -151,6 +151,45 @@ function txt_to_array($filename='')
     return $result;
 }
 
+function txt_indicadores_to_array($filename='')
+{
+    if(!file_exists($filename) || !is_readable($filename))
+        return FALSE;
+ 
+    $result = array();
+    $header = "";
+    
+    $lines = file($filename, FILE_IGNORE_NEW_LINES);
+    foreach ($lines as $line) {
+        $encoded_line = iconv(mb_detect_encoding($line, mb_detect_order(), true), "UTF-8", $line);
+        $data = explode("\t", $encoded_line);
+        if( trim($data[0]) != ""){
+            $result[trim($data[0])] = array();
+            $header = trim($data[0]);
+        }
+        if($header == "#Datos"){
+            $result[$header][] = [ 'indicador_id' => trim($data[1]), 
+                                    'zona_id' => trim($data[2]), 
+                                    'unidad_medida_id' => trim($data[3]), 
+                                    'fuente_id' => trim($data[4]), 
+                                    'frecuencia_id' => trim($data[5]), 
+                                    'anio' => trim($data[6]), 
+                                    'valor' => (float)str_replace(',', '.', trim($data[7]))];
+            if((isset($data[8])) && ($data[8] != "") && !isset($result['#DatosAdicionales'][trim($data[1])])){
+                $result['#DatosAdicionales'][trim($data[1])] = trim($data[8]);
+            }
+        }else{
+            if(($header == "#Indicadores")&&(isset($data[3]))&&($data[3] != "")){
+                $result[$header][] = [ 'codigo' => trim($data[1]), 'nombre' => trim($data[2]), 'tema' => trim($data[3])];
+            }else{
+                $result[$header][] = [ 'codigo' => trim($data[1]), 'nombre' => trim($data[2])];
+            }
+        }
+    }
+    
+    return $result;
+}
+
 function boolean_html($boolean)
 {
     if($boolean){

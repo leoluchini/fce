@@ -3,9 +3,18 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Nanigans\SingleTableInheritance\SingleTableInheritanceTrait;
 
 class Lote extends Model
 {
+	use SingleTableInheritanceTrait;
+
+	protected $table = "lotes";
+
+	protected static $singleTableTypeField = 'tipo';
+
+	protected static $singleTableSubclasses = [LoteVariable::class, LoteIndicador::class];
+
   	const ESTADO_PENDIENTE = 0;
   	const ESTADO_PROCESANDO = 1;
   	const ESTADO_ERROR = 2;
@@ -36,29 +45,21 @@ class Lote extends Model
 	{
 		return $this->hasOne('App\User', 'id', 'usuario_id');
 	}
-
-	public function categorias()
-	{
-		return $this->hasMany('App\Models\CategoriaVariable');
-	} 
-	public function variables()
-	{
-		return $this->hasMany('App\Models\Variable');
-	}  
+	
 	public function fuentes()
 	{
-		return $this->hasMany('App\Models\Fuente');
+		return $this->hasMany('App\Models\Fuente', 'lote_id');
 	}
 	public function unidades()
 	{
-		return $this->hasMany('App\Models\UnidadMedida');
+		return $this->hasMany('App\Models\UnidadMedida', 'lote_id');
 	}
 	public function zonas()
 	{
-		return $this->hasMany('App\Models\ZonaGeografica');
+		return $this->hasMany('App\Models\ZonaGeografica', 'lote_id');
 	}
 	public function datos()
 	{
-		return $this->hasMany('App\Models\InformacionVariable');
+		return $this->hasMany('App\Models\InformacionVariable', 'lote_id');
 	}
 }

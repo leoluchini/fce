@@ -15,6 +15,6 @@ class InformacionVariableDato extends Model
 	}
 	public function lote()
 	{
-		return $this->hasOne('App\Models\Lote', 'id', 'lote_id');
+		return $this->hasOne('App\Models\LoteVariable', 'id', 'lote_id');
 	}
 }

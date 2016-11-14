@@ -25,7 +25,7 @@
   </div>
 </div>
 
-{!! Form::open(array('action' => ['PublicoController@resultados_variables'], 'method' => 'POST', 'class' => 'form-horizontal', 'id' => 'consulta_variables' )) !!}
+{!! Form::open(array('action' => ['FrontendVariablesController@resultados_variables'], 'method' => 'POST', 'class' => 'form-horizontal', 'id' => 'consulta_variables' )) !!}
 <div class="container" id="div_titulo_busqueda" style="{{ isset($consulta) ? 'display:none' : 'display:block' }}">
     <div class="row">
       <div class="col-xs-12"> 
@@ -141,9 +141,9 @@
                                 name="variable" 
                                 value="" 
                                 placeholder="Busque variables ingresando 3 o m&aacute;s caracteres" 
-                                data-urlconsulta="{{action('PublicoController@consulta_variables')}}" 
+                                data-urlconsulta="{{action('FrontendVariablesController@consulta_variables')}}" 
                                 data-token="{{ csrf_token() }}"
-                                data-consultaregiones="{{action('PublicoController@consulta_regiones', [':query:'])}}" />
+                                data-consultaregiones="{{action('FrontendVariablesController@consulta_regiones', [':query:'])}}" />
                       </div>
                       <div class="col-md-12" id="div_lista_tags">
                         <div class="mb-container" style="overflow:auto;max-height: 180px;">
@@ -181,8 +181,8 @@
                           data-nselectedtext=" varibles escogidas" 
                           data-height="300"
                           data-maxheight="300"
-                          data-urlconsulta="{{action('PublicoController@consulta_periodos')}}"
-                          data-consultafrec="{{action('PublicoController@consulta_frecuencias')}}">
+                          data-urlconsulta="{{action('FrontendVariablesController@consulta_periodos')}}"
+                          data-consultafrec="{{action('FrontendVariablesController@consulta_frecuencias')}}">
                         </select>
                       </div>
                     </div>

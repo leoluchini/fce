@@ -3,11 +3,16 @@
 namespace App;
 
 use App\Models\CategoriaVariable;
+use App\Models\CategoriaIndicador;
 use App\Models\Frecuencia;
 use App\Models\Fuente;
 use App\Models\InformacionVariable;
+use App\Models\InformacionIndicador;
+use App\Models\InformacionVariableDato;
+use App\Models\InformacionIndicadorDato;
 use App\Models\Lote;
 use App\Models\Variable;
+use App\Models\Indicador;
 use App\Models\UnidadMedida;
 use App\Models\ZonaGeografica;
 
@@ -17,10 +22,15 @@ class ProcesarArchivo
     {
         $lote = $data['lote'];
         $lote->update(['estado' => Lote::ESTADO_PROCESANDO]);
-        
-        $datos = txt_to_array($lote->archivo);
+        if($lote->tipo == 'variable'){
+            $datos = txt_to_array($lote->archivo);
+        }
+        else{
+            $datos = txt_indicadores_to_array($lote->archivo);
+        }
         $references = [];
-        if( sizeof( array_keys($datos) ) == 5 )
+        //if( sizeof( array_keys($datos) ) == 5 )
+        if( sizeof( array_keys($datos) ) <= 4 )
         { 
             $lote->update([
                 'estado' => Lote::ESTADO_ERROR,
@@ -30,17 +40,33 @@ class ProcesarArchivo
         }
 
         try {
-            foreach ($datos['#Categorias'] as $attributes){
-                $attributes['lote_id'] = $lote->id;
-                $object = CategoriaVariable::firstOrCreate($attributes);
-                $references[strtolower($object->codigo)] = $object->id;
-                unset($object);
+            if($lote->tipo == 'variable'){
+                foreach ($datos['#Categorias'] as $attributes){
+                    $attributes['lote_id'] = $lote->id;
+                    $object = CategoriaVariable::firstOrCreate($attributes);
+                    $references[strtolower($object->codigo)] = $object->id;
+                    unset($object);
+                }
+                foreach ($datos['#Variables'] as $attributes){
+                    $attributes['lote_id'] = $lote->id;
+                    $object = Variable::firstOrCreate($attributes);
+                    $references[strtolower($object->codigo)] = $object->id;
+                    unset($object);
+                }
             }
-            foreach ($datos['#Variables'] as $attributes){
-                $attributes['lote_id'] = $lote->id;
-                $object = Variable::firstOrCreate($attributes);
-                $references[strtolower($object->codigo)] = $object->id;
-                unset($object);
+            else{
+                foreach ($datos['#Categorias'] as $attributes){
+                    $attributes['lote_id'] = $lote->id;
+                    $object = CategoriaIndicador::firstOrCreate($attributes);
+                    $references[strtolower($object->codigo)] = $object->id;
+                    unset($object);
+                }
+                foreach ($datos['#Indicadores'] as $attributes){
+                    $attributes['lote_id'] = $lote->id;
+                    $object = Indicador::firstOrCreate($attributes);
+                    $references[strtolower($object->codigo)] = $object->id;
+                    unset($object);
+                }
             }
             foreach ($datos['#Zonas'] as $attributes) {
                 $attributes['lote_id'] = $lote->id;
@@ -59,6 +85,20 @@ class ProcesarArchivo
                 $object = Fuente::firstOrCreate($attributes);
                 $references[strtolower($object->codigo)] = $object->id;
                 unset($object);
+            }
+            if(isset($datos['#DatosAdicionales'])){
+                foreach ($datos['#DatosAdicionales'] as $id => $dato) {
+                    $attributes['lote_id'] = $lote->id;
+                    $attributes['dato'] = $dato;
+                    if($lote->tipo == 'variable'){
+                        $attributes['variable_id'] = $references[strtolower($id)];
+                        InformacionVariableDato::create($attributes);
+                    }
+                    else{
+                        $attributes['indicador_id'] = $references[strtolower($id)];
+                        InformacionIndicadorDato::create($attributes);
+                    }
+                }
             }
            
             $resultado = array_chunk($datos['#Datos'], 5000);
@@ -91,12 +131,18 @@ class ProcesarArchivo
         $references = $datos['references'];
         foreach ($datos['datos'] as $attributes) {
             $attributes['lote_id'] = $lote->id;
-            $attributes['variable_id'] = $references[strtolower($attributes['variable_id'])];
             $attributes['zona_id'] = $references[strtolower($attributes['zona_id'])];
             $attributes['fuente_id'] = $references[strtolower($attributes['fuente_id'])];
             $attributes['unidad_medida_id'] = $references[strtolower($attributes['unidad_medida_id'])];
             $attributes['frecuencia_id'] = Frecuencia::where('codigo', $attributes['frecuencia_id'])->first()->id;
-            InformacionVariable::create($attributes);
+            if($lote->tipo == 'variable'){
+                $attributes['variable_id'] = $references[strtolower($attributes['variable_id'])];
+                InformacionVariable::create($attributes);
+            }
+            else{
+                $attributes['indicador_id'] = $references[strtolower($attributes['indicador_id'])];
+                InformacionIndicador::create($attributes);
+            }
         }
         $job->delete();
     }

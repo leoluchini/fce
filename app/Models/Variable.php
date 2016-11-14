@@ -9,7 +9,7 @@ class Variable extends Model
 	protected $table = 'variables';
 	protected $fillable = ['codigo', 'nombre', 'descripcion', 'categoria_id', 'lote_id', 'tema_id'];
 
-  public static function firstOrCreate(array $attributes)
+  	public static function firstOrCreate(array $attributes)
 	{
 		if ( ! is_null($instance = self::where('codigo',$attributes['codigo'])->first()))
 		{
@@ -28,10 +28,10 @@ class Variable extends Model
 		return $categoria->variables()->create($attributes);
 	}
 
-	public function asociacion_rango()
+	/*public function asociacion_rango()
 	{
 		return $this->hasOne('App\Models\AsociacionRango', 'asociacion_rango_id');
-	}
+	}*/
 
 	public function datos()
 	{

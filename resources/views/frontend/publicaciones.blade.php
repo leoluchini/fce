@@ -13,7 +13,7 @@
           </h1>
         </div>
         <div class="col-md-6">
-          {!! Form::open(array('action' => ['PublicoController@publicaciones'], 'method' => 'POST', "class" => "form-inline")) !!}
+          {!! Form::open(array('action' => ['FrontendPublicacionesController@publicaciones'], 'method' => 'POST', "class" => "form-inline")) !!}
           <div class="col-xs-12 buscador">
             <div class="pull-right"> 
               <div class="form-group">

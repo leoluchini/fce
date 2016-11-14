@@ -61,9 +61,9 @@
 
         <nav>
           <ul>
-            <li><a href="{{action('PublicoController@variables')}}" class="text-right">Variables</a></li>
-            <li><a href="{{action('PublicoController@indicadores')}}" class="text-right">Indicadores</a></li>
-            <li><a href="{{action('PublicoController@publicaciones')}}" class="text-right">Publicaciones</a></li>
+            <li><a href="{{action('FrontendVariablesController@variables')}}" class="text-right">Variables</a></li>
+            <li><a href="{{action('FrontendIndicadoresController@indicadores')}}" class="text-right">Indicadores</a></li>
+            <li><a href="{{action('FrontendPublicacionesController@publicaciones')}}" class="text-right">Publicaciones</a></li>
           </ul>
          </nav>
 

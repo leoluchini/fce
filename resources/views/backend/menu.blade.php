@@ -37,7 +37,7 @@
           </div>
           <div class="col-md-3 col-sm-6 col-xs-12">
             <center>
-              <a href="#">
+              <a href="{{action('LecturaIndicadorController@index')}}">
                 <h2><span class="icon-upload-cloud"></span></h2>
                 <h4>Subir indicadores</h4>
               </a>

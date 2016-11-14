@@ -48,7 +48,7 @@
                     lab<i>DATA</i>
                 </p>
                <p class="text-center secciones_index">
-                <a href="{{action('PublicoController@variables')}}">Variables</a><a href="{{action('PublicoController@indicadores')}}">Indicadores</a><a href="{{action('PublicoController@publicaciones')}}">Publicaciones</a>
+                <a href="{{action('FrontendVariablesController@variables')}}">Variables</a><a href="{{action('FrontendIndicadoresController@indicadores')}}">Indicadores</a><a href="{{action('FrontendPublicacionesController@publicaciones')}}">Publicaciones</a>
             </p>
         </div>
 

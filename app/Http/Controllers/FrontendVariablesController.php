@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
-use App\Models\Categoria;
 use App\Models\Variable;
 use App\Models\Pais;
 use App\Models\Provincia;
@@ -17,27 +16,8 @@ use App\Models\VariableSinResultados;
 use App\Models\Tema;
 use App\Models\CategoriaVariable;
 
-class PublicoController extends Controller
+class FrontendVariablesController extends Controller
 {
-	public function publicaciones(Request $request)
-	{
-		$data['categorias'] = Categoria::all();
-		$data['anios'] = get_anios(['' => 'Todos']);
-		//$data['filtros']['busqueda'] = '/^(?=.*fi)(?=.*uno).*$/';
-		if($request->isMethod('post')){
-			$data['filtros'] = $request->all();
-			if(isset($data['filtros']['busqueda']) && ($data['filtros']['busqueda'] != '')){
-				$data['filtros']['regex'] = '/^';
-				$palabras = explode(' ', $data['filtros']['busqueda']);
-				foreach($palabras as $palabra){
-					$data['filtros']['regex'] .= '(?=.*'.$palabra.')';
-				}
-				$data['filtros']['regex'] .= '.*$/';
-			}
-		}
-		return view('frontend.publicaciones', $data);
-	}
-
     public function variables(Request $request)
 	{
 		$data['paises'] = Pais::all();
@@ -141,7 +121,7 @@ class PublicoController extends Controller
 		$periodos = $input['periodo'];
 		$frecuencia = ($input['tipo_frecuencia'] == 'anual') ? array(Frecuencia::where('tipo', '=', 'ANIO')->first()->id) : $input[$input['tipo_frecuencia']];
 		
-		$datos['resultados'] = InformacionVariable::select('informacion_variables')
+		$datos['resultados'] = InformacionVariable::select('informacion_variables.*')
 								->join('lotes', 'informacion_variables.lote_id', '=', 'lotes.id')->where('lotes.estado', 4)
 								->whereIn('variable_id', $variables)
 								->whereIn('zona_id', $zonas)

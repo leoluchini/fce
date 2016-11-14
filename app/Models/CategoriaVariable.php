@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class CategoriaVariable extends Model
 {
-  protected $table = 'categorias_variables';
+  	protected $table = 'categorias_variables';
 
 	protected $fillable = ['codigo', 'nombre', 'descripcion', 'categoria_padre_id', 'lote_id'];
 	

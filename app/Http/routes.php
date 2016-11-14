@@ -20,10 +20,16 @@ Route::auth();
 Route::group(['prefix' => 'administracion', 'middleware' => ['auth'] ], function()
 {
 	Route::get('/',  [ 'as' => 'administracion.index', 'uses' => 'AdministracionController@index' ]);
+	//lectura de variables
 	Route::get('lectura/lote/{lote}/datos', 'LecturaController@datos_lote');
 	Route::get('lectura/lote/{lote}/aceptar',  [ 'as' => 'administracion.lectura.lote.aceptar', 'uses' => 'LecturaController@cambiar_estado' ]);
 	Route::get('lectura/lote/{lote}/desactivar',  [ 'as' => 'administracion.lectura.lote.desactivar', 'uses' => 'LecturaController@cambiar_estado' ]);
 	Route::resource('lectura', 'LecturaController');
+	//lectura de indicadores
+	Route::get('lectura_indicador/lote/{lote}/datos', 'LecturaIndicadorController@datos_lote');
+	Route::get('lectura_indicador/lote/{lote}/aceptar',  [ 'as' => 'administracion.lectura_indicador.lote.aceptar', 'uses' => 'LecturaIndicadorController@cambiar_estado' ]);
+	Route::get('lectura_indicador/lote/{lote}/desactivar',  [ 'as' => 'administracion.lectura_indicador.lote.desactivar', 'uses' => 'LecturaIndicadorController@cambiar_estado' ]);
+	Route::resource('lectura_indicador', 'LecturaIndicadorController');
 
 	Route::group(['middleware' => ['level:2'] ], function()
 	{
@@ -51,16 +57,19 @@ Route::get('publicaciones/ver_archivo/{publicacion}', 'PublicacionController@ver
 Route::get('publicaciones/descargar_archivo/{publicacion}', 'PublicacionController@descargar_archivo');
 
 Route::get('/home', 'HomeController@index');
+//publicaciones
 Route::match(array('GET', 'POST'), "publicaciones", array(
-    'uses' => 'PublicoController@publicaciones',
+    'uses' => 'FrontendPublicacionesController@publicaciones',
 ));
-Route::get('indicadores', 'PublicoController@indicadores');
+//variables
 Route::match(array('GET', 'POST'), "variables", array(
-    'uses' => 'PublicoController@variables',
+    'uses' => 'FrontendVariablesController@variables',
 ));
-Route::post('excel_variables', 'PublicoController@descarga_variables_excel');
-Route::post('consulta_variables', 'PublicoController@consulta_variables');
-Route::get('consulta_regiones/{variables}', 'PublicoController@consulta_regiones');
-Route::post('resultados_variables', 'PublicoController@resultados_variables');
-Route::post('consulta_periodos', 'PublicoController@consulta_periodos');
-Route::post('consulta_frecuencias', 'PublicoController@consulta_frecuencias');
+Route::post('excel_variables', 'FrontendVariablesController@descarga_variables_excel');
+Route::post('consulta_variables', 'FrontendVariablesController@consulta_variables');
+Route::get('consulta_regiones/{variables}', 'FrontendVariablesController@consulta_regiones');
+Route::post('resultados_variables', 'FrontendVariablesController@resultados_variables');
+Route::post('consulta_periodos', 'FrontendVariablesController@consulta_periodos');
+Route::post('consulta_frecuencias', 'FrontendVariablesController@consulta_frecuencias');
+//indicadores
+Route::get('indicadores', 'FrontendIndicadoresController@indicadores');
