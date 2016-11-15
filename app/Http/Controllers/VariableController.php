@@ -100,7 +100,9 @@ class VariableController extends Controller
 
 	public function temas()
 	{
-		$data['temas'] = Tema::all();
+		//$data['temas'] = Tema::all();
+		$temas_variables = Variable::select('variables.tema_id')->distinct()->whereNotNull('tema_id')->get()->lists('tema_id')->toArray();
+		$data['temas'] = Tema::whereIn('temas.id', $temas_variables)->get();
 		$data['variables'] = Variable::whereNull('tema_id')->get();
 		return view('variables.temas', $data);
 	}

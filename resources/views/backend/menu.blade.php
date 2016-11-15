@@ -45,7 +45,7 @@
           </div>
           <div class="col-md-3 col-sm-6 col-xs-12">
             <center>
-              <a href="#">
+              <a href="{{action('CategoriaIndicadorController@index')}}">
                 <h2><span class="icon-flow-tree "></span></h2>
                 <h4>&Aacute;rbol de indicadores</h4>
               </a>

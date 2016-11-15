@@ -38,14 +38,19 @@ Route::group(['prefix' => 'administracion', 'middleware' => ['auth'] ], function
 		Route::resource('categorias_variables','CategoriaVariableController');
 		Route::get('categorias_variables/create_sub_categoria/{categoria}','CategoriaVariableController@create_sub');
 		Route::resource('categoria.variables','VariableController');
+		Route::get('variables/agrupadas','VariableController@temas');
+		Route::get('variables/busquedas_sin_resultados','VariableController@busquedas');
 		Route::resource('frecuencias','FrecuenciaController');
 		Route::resource('fuentes_informacion','FuenteController');
 		Route::resource('unidades','UnidadController');
 		Route::resource('zonas','ZonaGeograficaController', ['except' => ['destroy', 'edit']]);
 		Route::delete('zonas/{tipo}/{id}','ZonaGeograficaController@destroy');
 		Route::get('zonas/{tipo}/{id}/edit','ZonaGeograficaController@edit');
-		Route::get('variables/agrupadas','VariableController@temas');
-		Route::get('variables/busquedas_sin_resultados','VariableController@busquedas');
+		Route::resource('categorias_indicadores','CategoriaIndicadorController');
+		Route::get('categorias_indicadores/create_sub_categoria/{categoria}','CategoriaIndicadorController@create_sub');
+		Route::resource('categoria.indicadores','IndicadorController');
+		Route::get('indicadores/agrupadas','IndicadorController@temas');
+		Route::get('indicadores/busquedas_sin_resultados','IndicadorController@busquedas');
 	});
 
 	Route::group(['middleware' => ['level:3'] ], function()

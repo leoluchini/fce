@@ -2,9 +2,9 @@
 
 @section('content')
 @include('variables.form',['metodo' => 'POST',
-							'titulo' => 'Nueva Variable para "'.$categoria->nombre.'"',
+							'titulo' => 'Nueva variable para "'.$categoria->nombre.'"',
 							'accion' => ['VariableController@store',$categoria->id],
-							'accion_breadcrumb' => 'Crear Variable',
+							'accion_breadcrumb' => 'Crear variable',
 							'boton' => 'Crear',
 							'cancelar' => action('CategoriaVariableController@index'),
 ])

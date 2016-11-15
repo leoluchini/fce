@@ -22,4 +22,9 @@ class Tema extends Model
 	{
 		return $this->hasMany('App\Models\Variable', 'tema_id', 'id');
 	}
+
+	public function indicadores()
+	{
+		return $this->hasMany('App\Models\Indicador', 'tema_id', 'id');
+	}
 }
