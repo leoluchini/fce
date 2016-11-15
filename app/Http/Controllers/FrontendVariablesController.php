@@ -29,88 +29,23 @@ class FrontendVariablesController extends Controller
 		$info_anios = InformacionVariable::select('informacion_variables.*')->join('lotes', 'informacion_variables.lote_id', '=', 'lotes.id')->where('lotes.estado', 4)->orderBy('anio', 'ASC')->lists('anio')->toArray();
 		$data['periodos'] = array_unique($info_anios);
 
-		$data['temas'] = Tema::all();
-		$data['categorias'] = CategoriaVariable::whereNull('categoria_padre_id')->get();
-		$data['variables_sin_tema'] = Variable::whereNull('tema_id')->get();
-
+		//$data['temas'] = Tema::all();
+		$temas_variables = Variable::select('variables.tema_id')
+									->join('lotes', 'variables.lote_id', '=', 'lotes.id')->where('lotes.estado', 4)
+									->distinct()->whereNotNull('tema_id')->get()->lists('tema_id')->toArray();
+		$data['temas'] = Tema::whereIn('temas.id', $temas_variables)->get();
+		$data['categorias'] = CategoriaVariable::select('categorias_variables.*')
+												->join('lotes', 'categorias_variables.lote_id', '=', 'lotes.id')->where('lotes.estado', 4)
+												->whereNull('categoria_padre_id')->get();
+		$data['variables_sin_tema'] = Variable::select('variables.*')
+												->join('lotes', 'variables.lote_id', '=', 'lotes.id')->where('lotes.estado', 4)
+												->whereNull('tema_id')->get();
 
 		if($request->isMethod('post')){
 			$data['consulta'] = $request->all();
 			$data['consulta']['variable_name'] = Variable::whereIn('variables.id', $data['consulta']['variable_id'])->get()->lists('nombre', 'id');
 		}
 		return view('frontend.variables.variables', $data);
-	}
-
-	public function consulta_variables(Request $request)
-	{
-		$input = $request->all();
-		$query = "'%".str_replace(' ', '%', $input['busqueda'])."%'";
-		//$string_consulta = "replace(replace(replace(replace(replace(LOWER(\"variables\".\"nombre\"), 'á', 'a'), 'é', 'e'), 'í', 'i'), 'ó', 'o'), 'ú', 'u') like ".$query;
-		$string_consulta = "nombre ilike ".$query;
-		if(($input['tipo_busqueda'] == 'region_variable') && isset($input['regiones']))
-		{
-			$res = Variable::select('variables.*')
-				->join('lotes', 'variables.lote_id', '=', 'lotes.id')->where('lotes.estado', 4)
-				->whereRaw($string_consulta)
-				->join('informacion_variables', 'variables.id', '=', 'informacion_variables.variable_id')
-				->whereIn('informacion_variables.zona_id', $input['regiones'])
-				->distinct()
-				->get();
-		}
-		else{
-			$res = Variable::select('variables.*')
-					->join('lotes', 'variables.lote_id', '=', 'lotes.id')->where('lotes.estado', 4)
-					->whereRaw($string_consulta)
-					->get();
-		}
-		if(count($res->toArray()) == 0){
-			VariableSinResultados::firstOrCreate($input['busqueda']);
-		}
-		$temporal = $res->lists('nombre', 'id')->toArray();
-		$ids = array();
-		$resultados = array();
-		foreach($temporal as $key => $temp){
-			$ids[] = $key;
-			$resultados[] = array('clave' => $key, 'valor' => $temp);
-		}
-		/*foreach($res as $variable){
-			if($variable->tema){
-				foreach($variable->tema->variables as $var_asociada){
-					if(!in_array($var_asociada->id, $ids)){
-						$resultados[] = array('clave' => $var_asociada->id, 'valor' => $var_asociada->nombre.' (asociada por tema)');
-					}
-				}
-			}
-		}*/
-
-		return response()->json($resultados);
-	}
-	public function consulta_regiones($variables)
-	{
-		$lista_variables = explode('-', $variables);
-
-		$res = ZonaGeografica::select('zonas_geograficas.*')
-			->join('lotes', 'zonas_geograficas.lote_id', '=', 'lotes.id')->where('lotes.estado', 4)
-			->join('informacion_variables', 'zonas_geograficas.id', '=', 'informacion_variables.zona_id')
-			->whereIn('informacion_variables.variable_id', $lista_variables)
-			->distinct()
-			->get();
-		$paises = $provincias = $municipios = array();
-		foreach($res as $zona)
-		{
-			switch ($zona->tipo) {
-				case 'pais':
-					$paises[] = ['id' => $zona->id, 'nombre' => $zona->nombre];
-					break;
-				case 'provincia':
-					$provincias[] = ['id' => $zona->id, 'nombre' => $zona->nombre.' ('.$zona->pais->nombre.')'];
-					break;
-				case 'municipio':
-					$municipios[] = ['id' => $zona->id, 'nombre' => $zona->nombre.' ('.$zona->provincia->nombre.', '.$zona->provincia->pais->nombre.')'];
-					break;
-			}
-		}
-		return response()->json(['paises' => $paises, 'provincias' => $provincias, 'municipios' => $municipios]);
 	}
 
 	public function resultados_variables(Request $request)
@@ -203,6 +138,7 @@ class FrontendVariablesController extends Controller
 		$datos['filtros'] = $input;
 		return view('frontend.variables.resultados_variables', $datos);
 	}
+
 	private function get_info_adicional($index, $datos, $datos_inv, $prom1_label, $prom1_total, $prom2_label, $prom2_total)
 	{
 		$info_adicional = array();
@@ -228,6 +164,79 @@ class FrontendVariablesController extends Controller
 		}
 		return $info_adicional;
 	}
+
+	public function consulta_variables(Request $request)
+	{
+		$input = $request->all();
+		$query = "'%".str_replace(' ', '%', $input['busqueda'])."%'";
+		//$string_consulta = "replace(replace(replace(replace(replace(LOWER(\"variables\".\"nombre\"), 'á', 'a'), 'é', 'e'), 'í', 'i'), 'ó', 'o'), 'ú', 'u') like ".$query;
+		$string_consulta = "nombre ilike ".$query;
+		if(($input['tipo_busqueda'] == 'region_variable') && isset($input['regiones']))
+		{
+			$res = Variable::select('variables.*')
+				->join('lotes', 'variables.lote_id', '=', 'lotes.id')->where('lotes.estado', 4)
+				->whereRaw($string_consulta)
+				->join('informacion_variables', 'variables.id', '=', 'informacion_variables.variable_id')
+				->whereIn('informacion_variables.zona_id', $input['regiones'])
+				->distinct()
+				->get();
+		}
+		else{
+			$res = Variable::select('variables.*')
+					->join('lotes', 'variables.lote_id', '=', 'lotes.id')->where('lotes.estado', 4)
+					->whereRaw($string_consulta)
+					->get();
+		}
+		if(count($res->toArray()) == 0){
+			VariableSinResultados::firstOrCreate($input['busqueda']);
+		}
+		$temporal = $res->lists('nombre', 'id')->toArray();
+		$ids = array();
+		$resultados = array();
+		foreach($temporal as $key => $temp){
+			$ids[] = $key;
+			$resultados[] = array('clave' => $key, 'valor' => $temp);
+		}
+		/*foreach($res as $variable){
+			if($variable->tema){
+				foreach($variable->tema->variables as $var_asociada){
+					if(!in_array($var_asociada->id, $ids)){
+						$resultados[] = array('clave' => $var_asociada->id, 'valor' => $var_asociada->nombre.' (asociada por tema)');
+					}
+				}
+			}
+		}*/
+
+		return response()->json($resultados);
+	}
+	public function consulta_regiones($variables)
+	{
+		$lista_variables = explode('-', $variables);
+
+		$res = ZonaGeografica::select('zonas_geograficas.*')
+			->join('lotes', 'zonas_geograficas.lote_id', '=', 'lotes.id')->where('lotes.estado', 4)
+			->join('informacion_variables', 'zonas_geograficas.id', '=', 'informacion_variables.zona_id')
+			->whereIn('informacion_variables.variable_id', $lista_variables)
+			->distinct()
+			->get();
+		$paises = $provincias = $municipios = array();
+		foreach($res as $zona)
+		{
+			switch ($zona->tipo) {
+				case 'pais':
+					$paises[] = ['id' => $zona->id, 'nombre' => $zona->nombre];
+					break;
+				case 'provincia':
+					$provincias[] = ['id' => $zona->id, 'nombre' => $zona->nombre.' ('.$zona->pais->nombre.')'];
+					break;
+				case 'municipio':
+					$municipios[] = ['id' => $zona->id, 'nombre' => $zona->nombre.' ('.$zona->provincia->nombre.', '.$zona->provincia->pais->nombre.')'];
+					break;
+			}
+		}
+		return response()->json(['paises' => $paises, 'provincias' => $provincias, 'municipios' => $municipios]);
+	}
+
 	public function consulta_periodos(Request $request)
 	{
 		$input = $request->all();
@@ -305,9 +314,5 @@ class FrontendVariablesController extends Controller
 		})->export('xlsx');
 
 	}
-
-	public function indicadores()
-	{
-		return view('frontend.indicadores');
-	}
+	
 }

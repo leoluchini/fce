@@ -6,14 +6,14 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h2 class="modal-title">
             <span class="icon-th-list-2"></span>
-            Indice de variables
+            Indice de indicadores
         </h2>
       </div>
 
       <div class="modal-body">
           <div class="col-md-12">
-            <p id="texto_seleccion_arbol" data-default="Seleccione las variables que desee consultar">
-              Seleccione las variables que desee consultar
+            <p id="texto_seleccion_arbol" data-default="Seleccione los indicadores que desee consultar">
+              Seleccione los indicadores que desee consultar
             </p>
             <div class="row">
               <div class="col-md-6">
@@ -22,7 +22,7 @@
                   <div style="overflow-y: scroll; overflow-x: hidden; height: 200px;">
                       <ul class="nav nav-list">
                           @foreach($categorias as $categoria)
-                            @include('frontend.variables.variables_nodo_consulta',['categoria' => $categoria])
+                            @include('frontend.indicadores.indicadores_nodo_consulta',['categoria' => $categoria])
                           @endforeach
                       </ul>
                   </div>
@@ -32,17 +32,17 @@
               <div class="col-md-6">
                 <h3>Por Temas</h3>
                 <div class="well well_fce">
-                  <div style="overflow-y: scroll; overflow-x: hidden; height: 200px;" id="arbol_temas_variables">
+                  <div style="overflow-y: scroll; overflow-x: hidden; height: 200px;" id="arbol_temas_indicadores">
                       <ul class="nav nav-list">
                           @foreach($temas as $tema)
-                            @include('frontend.variables.variables_tema_consulta',['categoria' => $categoria])
+                            @include('frontend.indicadores.indicadores_tema_consulta',['categoria' => $categoria])
                           @endforeach
-                          @if(count($variables_sin_tema) > 0)
+                          @if(count($indicadores_sin_tema) > 0)
                             <li class="subcategoria">
                               <label class="tree-toggler nav-header"><span class="icon-plus"></span>Otras</label>
-                              <ul class="nav nav-list tree indice_variables">
-                                  @foreach($variables_sin_tema as $variable)
-                                      <li><a href="#" class="selector_variable" data-id="{{$variable->id}}" data-nombre="{{$variable->nombre}}">{{ $variable->nombre }}</a></li>
+                              <ul class="nav nav-list tree indice_indicadores">
+                                  @foreach($indicadores_sin_tema as $indicador)
+                                      <li><a href="#" class="selector_indicador" data-id="{{$indicador->id}}" data-nombre="{{$indicador->nombre}}">{{ $indicador->nombre }}</a></li>
                                   @endforeach
                               </ul>
                             </li>

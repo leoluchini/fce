@@ -7,7 +7,7 @@
         <div class="page-header">
           <h1>
             <span class="icon-th-list-2"></span>
-            Variables
+            Indicadores
           </h1>
       </div>
     </div>
@@ -25,7 +25,7 @@
   </div>
 </div>
 
-{!! Form::open(array('action' => ['FrontendVariablesController@resultados_variables'], 'method' => 'POST', 'class' => 'form-horizontal', 'id' => 'consulta_variables' )) !!}
+{!! Form::open(array('action' => ['FrontendIndicadoresController@resultados_indicadores'], 'method' => 'POST', 'class' => 'form-horizontal', 'id' => 'consulta_indicadores' )) !!}
 <div class="container" id="div_titulo_busqueda" style="{{ isset($consulta) ? 'display:none' : 'display:block' }}">
     <div class="row">
       <div class="col-xs-12"> 
@@ -33,13 +33,13 @@
           <div data-toggle="buttons">
             <h4>Realizar búsqueda por
               <button  class="btn btn-none active">
-                <input type="radio" name="tipo_busqueda" id="busqueda_option1" value="region_variable" autocomplete="off" checked>
+                <input type="radio" name="tipo_busqueda" id="busqueda_option1" value="region_indicador" autocomplete="off" checked>
                 <h4 class="azul_FCE"><span class="icon-check-1"></span>Territorio</h4>
               </button>
               o por
               <button class="btn btn-none">
-                <input type="radio" name="tipo_busqueda" id="busqueda_option2" value="variable_region" autocomplete="off">
-                <h4 class="azul_FCE_apagado"><span class="icon-check-empty"></span>Variable</h4>
+                <input type="radio" name="tipo_busqueda" id="busqueda_option2" value="indicador_region" autocomplete="off">
+                <h4 class="azul_FCE_apagado"><span class="icon-check-empty"></span>Indicador</h4>
               </button>
             </h4>
           </div>
@@ -119,31 +119,31 @@
                   </div>
                      
 
-<!-- VARIABLES -->
+<!-- INDICADORES -->
 
                   <div  id="panel-accordion-2" class="panel-accordion">
                     <div class="header">
                       <div  class="texto-vertical-2">PASO 2</div>
                     </div>
                     <div class="panelContent"> 
-                      <h3 class="titulos_accordion">Variables <a id="arbol_consulta" href="#"><span class="icon-flow-tree pull-right" data-toggle="tooltip" data-placement="left" title="Arbol de variables"></span></a></h3>
+                      <h3 class="titulos_accordion">Indicadores <a id="arbol_consulta" href="#"><span class="icon-flow-tree pull-right" data-toggle="tooltip" data-placement="left" title="Arbol de indicadores"></span></a></h3>
                       <hr>
 
                        <div class="list-group list-plan" id="div_lista_seleccion_autocompletar">
-                        <label id="var_reg" style="display:none">Las variables seleccionadas condicionarán las regiones del paso 2</label>
-                        <label id="reg_var">Las variables estan condicionadas por las regiones seleccionadas en el paso 1</label>
-                        <div id="tilde_variable_agregada" class="pull-right" style="display:none">
+                        <label id="ind_reg" style="display:none">Los indicadores seleccionados condicionarán las regiones del paso 2</label>
+                        <label id="reg_ind">Los indicadores estan condicionados por las regiones seleccionadas en el paso 1</label>
+                        <div id="tilde_indicador_agregado" class="pull-right" style="display:none">
                           <span class="icon-ok-outline"></span>
                         </div>
                         <input type="text" 
                                 class="form-control" 
-                                id="variable" 
-                                name="variable" 
+                                id="indicador" 
+                                name="indicador" 
                                 value="" 
-                                placeholder="Busque variables ingresando 3 o m&aacute;s caracteres" 
-                                data-urlconsulta="{{action('FrontendVariablesController@consulta_variables')}}" 
+                                placeholder="Busque indicadores ingresando 3 o m&aacute;s caracteres" 
+                                data-urlconsulta="{{action('FrontendIndicadoresController@consulta_indicadores')}}" 
                                 data-token="{{ csrf_token() }}"
-                                data-consultaregiones="{{action('FrontendVariablesController@consulta_regiones', [':query:'])}}" />
+                                data-consultaregiones="{{action('FrontendIndicadoresController@consulta_regiones', [':query:'])}}" />
                       </div>
                       <div class="col-md-12" id="div_lista_tags">
                         <div class="mb-container" style="overflow:auto;max-height: 180px;">
@@ -169,17 +169,17 @@
                       <div class="list-group list-plan">
                         <label id="carga_periodos" style="display:none">
                           <img src="{{ asset('images/ajax-loader.gif') }}">
-                          Calculando periodos con informacion para la seleccion realizada de variables y regiones
+                          Calculando periodos con informacion para la seleccion realizada de indicadores y regiones
                         </label>
                         <select 
                           id="periodo" 
                           name="periodo[]" 
                           multiple="multiple" 
-                          class="bootstrapmultiselect_unfold"  
+                          class="bootstrapmultiselect_unfold" 
                           data-height="300"
                           data-maxheight="300"
-                          data-urlconsulta="{{action('FrontendVariablesController@consulta_periodos')}}"
-                          data-consultafrec="{{action('FrontendVariablesController@consulta_frecuencias')}}">
+                          data-urlconsulta="{{action('FrontendIndicadoresController@consulta_periodos')}}"
+                          data-consultafrec="{{action('FrontendIndicadoresController@consulta_frecuencias')}}">
                         </select>
                       </div>
                     </div>
@@ -200,7 +200,7 @@
                       <div class="list-group list-plan">
                         <label id="carga_frecuencias" style="display:none">
                           <img src="{{ asset('images/ajax-loader.gif') }}">
-                          Calculando frecuencias con informacion para la seleccion realizada de variables, regiones y periodos
+                          Calculando frecuencias con informacion para la seleccion realizada de indicadores, regiones y periodos
                         </label>
                         <ul class="nav nav-tabs nav-justified altura" role="tablist">
                           <li role="presentation" class="solapa_frecuencia active" data-frecuencia="anual">
@@ -291,7 +291,7 @@
     </section>
 </div>
 {!! Form::close() !!}
-@include('frontend.variables.variables_arbol_consulta')
+@include('frontend.indicadores.indicadores_arbol_consulta')
 @if(isset($consulta))
 <script>
   var consulta = <?php echo json_encode($consulta) ?>;
@@ -339,10 +339,10 @@
     font-family: "cuprumregular" !important;
   }
 </style>
-<script type="text/html" id="agregar_variable">
+<script type="text/html" id="agregar_indicador">
   <li style="opacity: 1; list-style-type: none" data-tag="">
     <span class="texto"></span>
-    <a href="#" class="ver_variables_relacionadas" ><span class="icon-link-outline" data-toggle="tooltip" data-placement="bottom" title="Ver variables relacionadas"></span></a>
+    <a href="#" class="ver_indicadores_relacionados" ><span class="icon-link-outline" data-toggle="tooltip" data-placement="bottom" title="Ver indicadores relacionadas"></span></a>
     <input type="hidden" value="" name="">
     <a class="mb-tag-remove pull-right"><span class="glyphicon glyphicon-remove-circle" data-toggle="tooltip" data-placement="bottom" title="Eliminar"></span> </a>
   </li>
@@ -369,8 +369,8 @@
 </script>
 @endsection
 @section('scripts_adicionales')
-    <script src="{{ asset('js/variables/filtros_variables.js') }}"></script>
-    <script src="{{ asset('js/variables/arbol_consulta_variables.js') }}"></script>
+    <script src="{{ asset('js/indicadores/filtros_indicadores.js') }}"></script>
+    <script src="{{ asset('js/indicadores/arbol_consulta_indicadores.js') }}"></script>
     <link href="{{ asset('jquery-ui-1.12.0.smoothness/jquery-ui.min.css') }}" rel="stylesheet">*
     <script src="{{ asset('jquery-ui-1.12.0.smoothness/jquery-ui.min.js') }}"></script>
 @endsection

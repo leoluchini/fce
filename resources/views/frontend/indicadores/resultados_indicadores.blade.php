@@ -9,7 +9,7 @@
         <div class=" pull-left"> 
           <h2>
             <span class="icon-th-list-2"></span>
-            Resultados de la consulta de Variables
+            Resultados de la consulta de Indicadores
           </h2>
         </div>
       </div>
@@ -40,7 +40,6 @@
         @endforeach
         <div class="pull-right">
           <a href="#" id="reformular_consulta" data-toggle="tooltip" data-placement="top" title="Redefinir la consulta"><span class="icon-spin3"></span></a>
-          <!--<a href="#" id="descargar_excel" data-toggle="tooltip" data-placement="top" title="Descargar Excel"><span class="icon-file-excel"></span></a>-->
         </div>
       </ol>
 
@@ -48,7 +47,7 @@
 <table class="table table-condensed tabla_resultados_paginada">
         <thead>
           <tr>
-            <th>Variable</th>
+            <th>Indicador</th>
             <th>Zona</th>
             <th>Año/Frecuencia</th>
             <th>Valor</th>
@@ -59,7 +58,7 @@
         <tbody>
             @foreach( $resultados as $info )
               <tr>
-                  <td>{{ $info->variable->nombre }}</td>
+                  <td>{{ $info->indicador->nombre }}</td>
                   <td>{{ $info->zona->nombre }}</td>
                   <td>{{ $info->anio }}{{ ($info->frecuencia->tipo != 'ANIO') ? ' / '.$info->frecuencia->nombre : '' }}</td>
                   <td>
@@ -83,8 +82,8 @@
       <div data-toggle="buttons">
         <h4>Resultados por
           <button  class="btn btn-none active">
-            <input type="radio" name="tablas_p" id="tablas_option1" value="variables" autocomplete="off" checked>
-            <h4 class="azul_FCE"><span class="icon-check-1"></span>Variables</h4>
+            <input type="radio" name="tablas_p" id="tablas_option1" value="indicadores" autocomplete="off" checked>
+            <h4 class="azul_FCE"><span class="icon-check-1"></span>Indicadores</h4>
           </button>
           ,&nbsp;
           <button class="btn btn-none">
@@ -100,15 +99,15 @@
       </div>
     </div>
 <!-- TABLAS PIVOT-->
-    @include('frontend.variables.pivot_variables')      
-    @include('frontend.variables.pivot_regiones')      
-    @include('frontend.variables.pivot_frecuencias')      
+    @include('frontend.indicadores.pivot_indicadores')      
+    @include('frontend.indicadores.pivot_regiones')      
+    @include('frontend.indicadores.pivot_frecuencias')      
       
 <!-- FIN TABLAS PIVOT-->
     </div> <!-- fin container -->
 </div><!-- fin page-body -->
-@include('frontend.variables.form_oculto_variables')
-@include('frontend.variables.graficos_variables')
+@include('frontend.indicadores.form_oculto_indicadores')
+@include('frontend.indicadores.graficos_indicadores')
 
 @endsection
 @section('scripts_adicionales')
@@ -133,7 +132,7 @@
     <script src="{{ asset('Highcharts-4.2.6/js/themes/sand-signika.js') }}"></script>
     <script src="{{ asset('Highcharts-4.2.6/js/modules/exporting.js') }}"></script>
     <script src="{{ asset('js/funciones_graficos.js') }}"></script>
-    <script src="{{ asset('js/variables/resultados_variables.js') }}"></script>
-    <script src="{{ asset('js/variables/graficos_variables.js') }}"></script>
+    <script src="{{ asset('js/indicadores/resultados_indicadores.js') }}"></script>
+    <script src="{{ asset('js/indicadores/graficos_indicadores.js') }}"></script>
     
 @endsection
