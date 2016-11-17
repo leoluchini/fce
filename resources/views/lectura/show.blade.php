@@ -19,10 +19,10 @@
 	      <div class="pull-right">
 	        <div class="btn-group">
 		      	<strong>Estado: {{ $lote->estadoActual }}</strong>
-		      	@if($lote->estado == 3)
+		      	@if($lote->estado == $lote::ESTADO_FINALIZADO)
      				<a href="{{ route('administracion.lectura.lote.aceptar', $lote->id)}}" data-titulo="Aceptar Lote" data-mensaje="¿Estas seguro que desea aceptar los datos del lote '{{$lote->id}}' ?" data-toggle="tooltip" data-placement="top" title="Aceptar lote" class="confirm_modal pull-right"><span class="icon-toggle-off"></span></a>
      			@endif
-     			@if($lote->estado == 4)
+     			@if($lote->estado == $lote::ESTADO_ACEPTADO)
      				<a href="{{ route('administracion.lectura.lote.desactivar', $lote->id)}}" data-titulo="Desactivar Lote" data-mensaje="¿Estas seguro que desea desactivar los datos del lote '{{$lote->id}}' ?" data-toggle="tooltip" data-placement="top" title="Desactivar lote" class="confirm_modal pull-right"><span class="icon-toggle-on"></span></a>
      			@endif
 	        </div>
