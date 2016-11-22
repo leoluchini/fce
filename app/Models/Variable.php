@@ -28,11 +28,6 @@ class Variable extends Model
 		return $categoria->variables()->create($attributes);
 	}
 
-	/*public function asociacion_rango()
-	{
-		return $this->hasOne('App\Models\AsociacionRango', 'asociacion_rango_id');
-	}*/
-
 	public function datos()
 	{
 		return $this->hasMany('App\Models\InformacionVariable', 'variable_id');
