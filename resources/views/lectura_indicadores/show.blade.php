@@ -8,25 +8,22 @@
   			@include('generic.breadcrumb_multiple',['modulo' => 'Lote', 'enlaces' => array('Subir indicadores' => action('LecturaIndicadorController@index'))])
 			<div class="pull-right">
 		        <div class="btn-group">
-	     			<a href="{{ route('administracion.lectura.destroy', $lote->id)}}" data-method="delete" data-title="Eliminar Lote" data-confirm="¿Estas seguro que desea eliminar los datos del lote '{{$lote->id}}' ?" data-toggle="tooltip" data-placement="top" title="Borar lote"><span class="icon-trash-4"></span></a>
-		        </div>
+	     				<a href="{{ route('administracion.lectura.destroy', $lote->id)}}" data-method="delete" data-title="Eliminar Lote" data-confirm="¿Estas seguro que desea eliminar los datos del lote '{{$lote->id}}' ?" data-toggle="tooltip" data-placement="top" title="Borar lote"><span class="icon-trash-4"></span></a>
+
+				      	<strong>Estado: {{ $lote->estadoActual }}</strong>
+				      	@if($lote->estado == $lote::ESTADO_FINALIZADO)
+		     				<a href="{{ route('administracion.lectura_indicador.lote.aceptar', $lote->id)}}" data-titulo="Aceptar Lote" data-mensaje="¿Estas seguro que desea aceptar los datos del lote '{{$lote->id}}' ?" data-toggle="tooltip" data-placement="top" title="Aceptar lote" class="confirm_modal pull-right"><span class="icon-toggle-off"></span></a>
+		     			@endif
+		     			@if($lote->estado == $lote::ESTADO_ACEPTADO)
+		     				<a href="{{ route('administracion.lectura_indicador.lote.desactivar', $lote->id)}}" data-titulo="Desactivar Lote" data-mensaje="¿Estas seguro que desea desactivar los datos del lote '{{$lote->id}}' ?" data-toggle="tooltip" data-placement="top" title="Desactivar lote" class="confirm_modal pull-right"><span class="icon-toggle-on"></span></a>
+		     			@endif
+	        </div>
 	      </div>
 
 	      <h1>
 	        <span class="icon-box-2"></span>
 	        Lote
 	      </h1>
-	      <div class="pull-right">
-	        <div class="btn-group">
-		      	<strong>Estado: {{ $lote->estadoActual }}</strong>
-		      	@if($lote->estado == 3)
-     				<a href="{{ route('administracion.lectura_indicador.lote.aceptar', $lote->id)}}" data-titulo="Aceptar Lote" data-mensaje="¿Estas seguro que desea aceptar los datos del lote '{{$lote->id}}' ?" data-toggle="tooltip" data-placement="top" title="Aceptar lote" class="confirm_modal pull-right"><span class="icon-toggle-off"></span></a>
-     			@endif
-     			@if($lote->estado == 4)
-     				<a href="{{ route('administracion.lectura_indicador.lote.desactivar', $lote->id)}}" data-titulo="Desactivar Lote" data-mensaje="¿Estas seguro que desea desactivar los datos del lote '{{$lote->id}}' ?" data-toggle="tooltip" data-placement="top" title="Desactivar lote" class="confirm_modal pull-right"><span class="icon-toggle-on"></span></a>
-     			@endif
-	        </div>
-	      </div>
       </div>
     </div>
   </div>

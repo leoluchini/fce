@@ -17,20 +17,20 @@
 
 	<div class="page-body">
 		<div class="container">
-			<div class="col-md-8 col-md-offset-2">
+			
+			<center>
 				{!! Form::open(['route' => 'administracion.lectura_indicador.store', 'files' => true]) !!}
 					<div class="form-group{{ $errors->has('file') ? ' has-error' : '' }}">
 		    		{{ Form::label('file', 'Archivo: ', ['class' => 'control-label']) }}
 						{!! Form::file('file', null, [ 'class' => 'form-control']) !!}
 						{!! $errors->first('file', '<p class="help-block">:message</p>') !!}
 		  		</div>
-				</div>
-				<div class="form-group">
-		    	<div class="col-sm-offset-2 col-sm-10">
-						{!! Form::submit('Procesar', ['class' => 'btn btn-primary']) !!}
-		    	</div>
-		  	</div>
+					<div class="form-group">
+							{!! Form::submit('Procesar', ['class' => 'btn btn-primary']) !!}
+			  	</div>
 		    {!! Form::close() !!}
+				</center>
+
 			</div>
 		</div>
 	</div>

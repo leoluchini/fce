@@ -102,11 +102,11 @@ class LecturaIndicadorController extends Controller
     public function cambiar_estado($id)
     {
         $lote = LoteIndicador::findOrFail($id);
-        if($lote->estado == 3){
-            $lote->update(['estado' => 4]);
+        if($lote->estado == LoteIndicador::ESTADO_FINALIZADO){
+            $lote->update(['estado' => LoteIndicador::ESTADO_ACEPTADO]);
         }
         else{
-            $lote->update(['estado' => 3]);
+            $lote->update(['estado' => LoteIndicador::ESTADO_FINALIZADO]);
         }
         return redirect('administracion/lectura_indicador/'.$id);
     }

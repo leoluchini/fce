@@ -102,11 +102,11 @@ class LecturaController extends Controller
     public function cambiar_estado($id)
     {
         $lote = LoteVariable::findOrFail($id);
-        if($lote->estado == 3){
-            $lote->update(['estado' => 4]);
+        if($lote->estado == LoteVariable::ESTADO_FINALIZADO){
+            $lote->update(['estado' => LoteVariable::ESTADO_ACEPTADO]);
         }
         else{
-            $lote->update(['estado' => 3]);
+            $lote->update(['estado' => LoteVariable::ESTADO_FINALIZADO]);
         }
         return redirect('administracion/lectura/'.$id);
     }
