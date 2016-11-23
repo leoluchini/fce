@@ -2,10 +2,10 @@
 
 @section('content')
 <div class="container">
+  @include('generic.breadcrumb_simple',['modulo' => 'Subir variables'])
   <div class="row">
     <div class="col-xs-12"> 
   		<div class="page-header">
-  		@include('generic.breadcrumb_simple',['modulo' => 'Subir variables'])
 			<div class="pull-right">
 		        <div class="btn-group">
 		          <a title="Nueva lectura" href="{{ route('administracion.lectura.create')}}" data-toggle="tooltip" data-placement="top"><span class="icon-upload-outline"></span></a>
@@ -20,12 +20,10 @@
       </div>
     </div>
   </div>
-</div>
 
 
 
-<div class="page-body">
-  <div class="container">
+
     <div class="row">
 
 			<div class="col-md-12">
@@ -43,10 +41,9 @@
 					</p>
 				{!! Form::close() !!}
 				</div>
-				<div style="overflow-y:scroll;max-height:500px">
 					<table class="table" id="tabla_lote">
 						<thead>
-							<tr>
+							<tr style="background-color:white;">
 								<th>N</th>
 								<th>Fecha</th>
 								<th>Responsable</th>
@@ -75,25 +72,26 @@
 							@endforeach
 						</tbody>
 					</table>
-				</div>
 				{{ $lotes->render() }}
 			</div>
 		</div>
-	</div>
-</div>
+	
 @endsection
-
+<style>
+  .ui-datepicker { z-index: 99999999999999 !important;}
+</style>
 @section('scripts_adicionales')
-    <link href="{{ asset('jquery-ui-1.12.0.smoothness/jquery-ui.min.css') }}" rel="stylesheet">*
+    <link href="{{ asset('jquery-ui-1.12.0.smoothness/jquery-ui.min.css') }}" rel="stylesheet">
     <script src="{{ asset('jquery-ui-1.12.0.smoothness/jquery-ui.min.js') }}"></script>
     <script src="{{ asset('jquery-ui-1.12.0.smoothness/i18n/datepicker-es.js') }}"></script>
     <script src="{{ asset('js/jquery.floatThead.min.js') }}"></script>
 	<script>
 		$(function() {
-    		$( ".input_date_picker" ).datepicker();
-		    $('#tabla_lote').floatThead({
+    	$( ".input_date_picker" ).datepicker();
+		  $('#tabla_lote').floatThead({
 			    scrollContainer: true
 			});
+		  $('.ui-datepicker').css('z-index', 99999999999999);
 		});
 	</script>
 @endsection

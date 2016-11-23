@@ -21,12 +21,22 @@ Route::group(['prefix' => 'administracion', 'middleware' => ['auth'] ], function
 {
 	Route::get('/',  [ 'as' => 'administracion.index', 'uses' => 'AdministracionController@index' ]);
 	//lectura de variables
-	Route::get('lectura/lote/{lote}/datos', 'LecturaController@datos_lote');
-	Route::get('lectura/lote/{lote}/aceptar',  [ 'as' => 'administracion.lectura.lote.aceptar', 'uses' => 'LecturaController@cambiar_estado' ]);
-	Route::get('lectura/lote/{lote}/desactivar',  [ 'as' => 'administracion.lectura.lote.desactivar', 'uses' => 'LecturaController@cambiar_estado' ]);
+	Route::get('lote-variables/{lote}/categorias', [ 'as' => 'lote.categorias', 'uses' => 'LecturaController@categorias' ]);
+	Route::get('lote-variables/{lote}/variables', [ 'as' => 'lote.variables', 'uses' => 'LecturaController@variables' ]);
+	Route::get('lote-variables/{lote}/unidades', [ 'as' => 'lote.unidades', 'uses' => 'LecturaController@unidades' ]);
+	Route::get('lote-variables/{lote}/zonas', [ 'as' => 'lote.zonas', 'uses' => 'LecturaController@zonas' ]);
+	Route::get('lote-variables/{lote}/fuentes', [ 'as' => 'lote.fuentes', 'uses' => 'LecturaController@fuentes' ]);
+	Route::get('lote-variables/{lote}/datos', [ 'as' => 'lote.datos', 'uses' => 'LecturaController@datos' ]);
+	Route::get('lote-variables/{lote}/aceptar',  [ 'as' => 'administracion.lote.aceptar', 'uses' => 'LecturaController@cambiar_estado' ]);
+	Route::get('lote-variables/{lote}/desactivar',  [ 'as' => 'administracion.lote.desactivar', 'uses' => 'LecturaController@cambiar_estado' ]);
 	Route::resource('lectura', 'LecturaController');
 	//lectura de indicadores
-	Route::get('lectura_indicador/lote/{lote}/datos', 'LecturaIndicadorController@datos_lote');
+	Route::get('lote-indicadores/{lote}/categorias', [ 'as' => 'lote-indicadores.categorias', 'uses' => 'LecturaIndicadorController@categorias' ]);
+	Route::get('lote-indicadores/{lote}/indicadores', [ 'as' => 'lote-indicadores.indicadores', 'uses' => 'LecturaIndicadorController@indicadores' ]);
+	Route::get('lote-indicadores/{lote}/unidades', [ 'as' => 'lote-indicadores.unidades', 'uses' => 'LecturaIndicadorController@unidades' ]);
+	Route::get('lote-indicadores/{lote}/zonas', [ 'as' => 'lote-indicadores.zonas', 'uses' => 'LecturaIndicadorController@zonas' ]);
+	Route::get('lote-indicadores/{lote}/fuentes', [ 'as' => 'lote-indicadores.fuentes', 'uses' => 'LecturaIndicadorController@fuentes' ]);
+	Route::get('lote-indicadores/{lote}/datos', [ 'as' => 'lote-indicadores.datos', 'uses' => 'LecturaIndicadorController@datos' ]);
 	Route::get('lectura_indicador/lote/{lote}/aceptar',  [ 'as' => 'administracion.lectura_indicador.lote.aceptar', 'uses' => 'LecturaIndicadorController@cambiar_estado' ]);
 	Route::get('lectura_indicador/lote/{lote}/desactivar',  [ 'as' => 'administracion.lectura_indicador.lote.desactivar', 'uses' => 'LecturaIndicadorController@cambiar_estado' ]);
 	Route::resource('lectura_indicador', 'LecturaIndicadorController');
