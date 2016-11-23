@@ -58,8 +58,4 @@ class Lote extends Model
 	{
 		return $this->hasMany('App\Models\ZonaGeografica', 'lote_id');
 	}
-	public function datos()
-	{
-		return $this->hasMany('App\Models\InformacionVariable', 'lote_id');
-	}
 }

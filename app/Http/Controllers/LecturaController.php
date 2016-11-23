@@ -6,6 +6,11 @@ use Illuminate\Http\Request;
 use App\Http\Requests\LecturaRequest;
 use App\Jobs\ProcesarArchivo;
 use App\Http\Requests;
+use App\Models\CategoriaVariable;
+use App\Models\Fuente;
+use App\Models\UnidadMedida;
+use App\Models\Variable;
+use App\Models\ZonaGeografica;
 use App\Models\LoteVariable;
 use App\Models\InformacionVariable;
 use Illuminate\Support\Facades\DB;
@@ -85,13 +90,6 @@ class LecturaController extends Controller
 
         return redirect(route('administracion.lectura.index'));
     }
-    
-    public function datos_lote($id)
-    {
-        $lote = LoteVariable::findOrFail($id);
-        $info = InformacionVariable::where('lote_id', '=', $id)->paginate(500);
-        return view('lectura.datos', ['lote' => $lote, 'datos' => $info]);
-    }
 
     public function destroy($id){
         $lote = LoteVariable::findOrFail($id);
@@ -109,5 +107,47 @@ class LecturaController extends Controller
             $lote->update(['estado' => LoteVariable::ESTADO_FINALIZADO]);
         }
         return redirect('administracion/lectura/'.$id);
+    }
+    
+    public function categorias($id)
+    {
+        $lote = LoteVariable::findOrFail($id);
+        $info = CategoriaVariable::where('lote_id', '=', $id)->paginate(50);
+        return view('lectura.categorias', ['lote' => $lote, 'categorias' => $info]);
+    } 
+
+    public function variables($id)
+    {
+        $lote = LoteVariable::findOrFail($id);
+        $info = Variable::where('lote_id', '=', $id)->paginate(50);
+        return view('lectura.variables', ['lote' => $lote, 'variables' => $info]);
+    }
+
+    public function unidades($id)
+    {
+        $lote = LoteVariable::findOrFail($id);
+        $info = UnidadMedida::where('lote_id', '=', $id)->paginate(50);
+        return view('lectura.unidades', ['lote' => $lote, 'unidades' => $info]);
+    }
+
+    public function zonas($id)
+    {
+        $lote = LoteVariable::findOrFail($id);
+        $info = ZonaGeografica::where('lote_id', '=', $id)->paginate(50);
+        return view('lectura.zonas', ['lote' => $lote, 'zonas' => $info]);
+    }
+
+    public function fuentes($id)
+    {
+        $lote = LoteVariable::findOrFail($id);
+        $info = Fuente::where('lote_id', '=', $id)->paginate(50);
+        return view('lectura.fuentes', ['lote' => $lote, 'fuentes' => $info]);
+    }
+    
+    public function datos($id)
+    {
+        $lote = LoteVariable::findOrFail($id);
+        $info = InformacionVariable::where('lote_id', '=', $id)->paginate(50);
+        return view('lectura.datos', ['lote' => $lote, 'datos' => $info]);
     }
 }

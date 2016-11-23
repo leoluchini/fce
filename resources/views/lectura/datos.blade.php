@@ -1,27 +1,12 @@
 @extends('layouts.app_back')
 
 @section('content')
-<div class="container">
-  <div class="row">
-    <div class="col-xs-12"> 
-  		<div class="page-header">
-  			@include('generic.breadcrumb_multiple',['modulo' => 'Datos del lote', 'enlaces' => array('Subir variables' => action('LecturaController@index'), 'Lote' => action('LecturaController@show', $lote->id))])
-
-	      <h1>
-	        <span class="icon-box-2"></span>
-	        Datos del Lote {{$lote->id}}
-	      </h1>
-
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="page-body">
   <div class="container">
+  	@include('generic.breadcrumb_multiple',['modulo' => 'Datos del lote', 'enlaces' => array('Subir variables' => action('LecturaController@index'), 'Lote' => action('LecturaController@show', $lote->id))])
+		@include('lectura.navs')
+		<div class="row">
    	<div class="col-xs-12"> 
    			<h4>Mostrando {{$datos->count()}} resultados de un total de {{$datos->total()}}</h4>
-			<div style="overflow-y:scroll;max-height:500px">
 				<table id="tabla_lote" class="table table-condensed">
 				    <thead>
 				      <tr style="background-color:white;">
@@ -54,20 +39,8 @@
 				      @endforeach
 				    </tbody>
 			  	</table>
-		  	</div>
 		  	{{ $datos->render() }}
 		</div>
 	</div>
 </div>
-@endsection
-
-@section('scripts_adicionales')
-    <script src="{{ asset('js/jquery.floatThead.min.js') }}"></script>
-	<script>
-		$(function() {
-		    $('#tabla_lote').floatThead({
-			    scrollContainer: true
-			});	   
-		});
-	</script>
 @endsection

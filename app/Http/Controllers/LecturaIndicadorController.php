@@ -7,6 +7,11 @@ use App\Http\Requests\LecturaRequest;
 use App\Jobs\ProcesarArchivo;
 use App\Http\Requests;
 use App\Models\LoteIndicador;
+use App\Models\CategoriaIndicador;
+use App\Models\Fuente;
+use App\Models\UnidadMedida;
+use App\Models\Indicador;
+use App\Models\ZonaGeografica;
 use App\Models\InformacionIndicador;
 use Illuminate\Support\Facades\DB;
 
@@ -85,13 +90,6 @@ class LecturaIndicadorController extends Controller
 
         return redirect(route('administracion.lectura_indicador.index'));
     }
-    
-    public function datos_lote($id)
-    {
-        $lote = LoteIndicador::findOrFail($id);
-        $info = InformacionIndicador::where('lote_id', '=', $id)->paginate(500);
-        return view('lectura_indicadores.datos', ['lote' => $lote, 'datos' => $info]);
-    }
 
     public function destroy($id){
         $lote = LoteIndicador::findOrFail($id);
@@ -109,5 +107,47 @@ class LecturaIndicadorController extends Controller
             $lote->update(['estado' => LoteIndicador::ESTADO_FINALIZADO]);
         }
         return redirect('administracion/lectura_indicador/'.$id);
+    }
+    
+    public function categorias($id)
+    {
+        $lote = LoteIndicador::findOrFail($id);
+        $info = CategoriaIndicador::where('lote_id', '=', $id)->paginate(50);
+        return view('lectura_indicadores.categorias', ['lote' => $lote, 'categorias' => $info]);
+    } 
+
+    public function indicadores($id)
+    {
+        $lote = LoteIndicador::findOrFail($id);
+        $info = Indicador::where('lote_id', '=', $id)->paginate(50);
+        return view('lectura_indicadores.indicadores', ['lote' => $lote, 'indicadores' => $info]);
+    }
+
+    public function unidades($id)
+    {
+        $lote = LoteIndicador::findOrFail($id);
+        $info = UnidadMedida::where('lote_id', '=', $id)->paginate(50);
+        return view('lectura_indicadores.unidades', ['lote' => $lote, 'unidades' => $info]);
+    }
+
+    public function zonas($id)
+    {
+        $lote = LoteIndicador::findOrFail($id);
+        $info = ZonaGeografica::where('lote_id', '=', $id)->paginate(50);
+        return view('lectura_indicadores.zonas', ['lote' => $lote, 'zonas' => $info]);
+    }
+
+    public function fuentes($id)
+    {
+        $lote = LoteIndicador::findOrFail($id);
+        $info = Fuente::where('lote_id', '=', $id)->paginate(50);
+        return view('lectura_indicadores.fuentes', ['lote' => $lote, 'fuentes' => $info]);
+    }
+    
+    public function datos($id)
+    {
+        $lote = LoteIndicador::findOrFail($id);
+        $info = InformacionIndicador::where('lote_id', '=', $id)->paginate(50);
+        return view('lectura_indicadores.datos', ['lote' => $lote, 'datos' => $info]);
     }
 }

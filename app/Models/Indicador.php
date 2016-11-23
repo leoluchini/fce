@@ -28,11 +28,6 @@ class Indicador extends Model
 		return $categoria->indicadores()->create($attributes);
 	}
 
-	/*public function asociacion_rango()
-	{
-		return $this->hasOne('App\Models\AsociacionRango', 'asociacion_rango_id');
-	}*/
-
 	public function datos()
 	{
 		return $this->hasMany('App\Models\InformacionIndicador', 'indicador_id');
