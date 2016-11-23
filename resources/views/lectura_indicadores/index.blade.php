@@ -37,7 +37,6 @@
 				</p>
 			{!! Form::close() !!}
 			</div>
-			<div style="overflow-y:auto;max-height:500px">
 				<table class="table" id="tabla_lote">
 					<thead>
 						<tr style="background-color:white;">
@@ -69,7 +68,6 @@
 						@endforeach
 					</tbody>
 				</table>
-			</div>
 			{{ $lotes->render() }}
 		</div>
 	</div>
@@ -77,16 +75,19 @@
 
 @endsection
 <style>
-  .ui-datepicker { z-index: 99999999999999 !important;}
+  .datepicker{z-index:9999 !important;}
 </style>
 @section('scripts_adicionales')
-    <link href="{{ asset('jquery-ui-1.12.0.smoothness/jquery-ui.min.css') }}" rel="stylesheet">
-    <script src="{{ asset('jquery-ui-1.12.0.smoothness/jquery-ui.min.js') }}"></script>
-    <script src="{{ asset('jquery-ui-1.12.0.smoothness/i18n/datepicker-es.js') }}"></script>
+    <link href="{{ asset('bootstrap-datepicker-1.6.4-dist/css/bootstrap-datepicker.css') }}" rel="stylesheet">
+    <script src="{{ asset('bootstrap-datepicker-1.6.4-dist/js/bootstrap-datepicker.js') }}"></script>
+    <script src="{{ asset('bootstrap-datepicker-1.6.4-dist/locales/bootstrap-datepicker.es.min.js') }}"></script>
     <script src="{{ asset('js/jquery.floatThead.min.js') }}"></script>
 	<script>
 		$(function() {
-    		$( ".input_date_picker" ).datepicker();
+    		$( ".input_date_picker" ).datepicker({
+    			format: 'dd-mm-yyyy',
+    			language: 'es',
+    	  	});
 		    $('#tabla_lote').floatThead({
 			    scrollContainer: true
 			});

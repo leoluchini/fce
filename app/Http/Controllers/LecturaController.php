@@ -26,14 +26,14 @@ class LecturaController extends Controller
     public function index(Request $request)
     {
         if( ($request->get('fecha_desde') == '') && ($request->get('fecha_hasta') == '') ){
-            $lotes = LoteVariable::orderBy('id')->paginate(50);
+            $lotes = LoteVariable::orderBy('id')->paginate(25);
             $fechas = null;
         }
         else{
             if( ($request->get('fecha_desde') != '') && ($request->get('fecha_hasta') != '') ){
                 $lotes = LoteVariable::whereDate('created_at', '>=', $request->get('fecha_desde'))
                             ->whereDate('created_at', '<=', $request->get('fecha_hasta'))
-                            ->orderBy('id')->paginate(50);
+                            ->orderBy('id')->paginate(25);
                 $fechas = ['desde' => $request->get('fecha_desde'), 'hasta' => $request->get('fecha_hasta')];
             }
             else{
@@ -41,7 +41,7 @@ class LecturaController extends Controller
                 $valor = ($request->get('fecha_desde') != '') ? $request->get('fecha_desde') : $request->get('fecha_hasta');
                 ($request->get('fecha_desde') != '') ? $fechas['desde'] = $valor : $fechas['hasta'] = $valor;
                 $lotes = LoteVariable::whereDate('created_at', $operador, $valor)
-                            ->orderBy('id')->paginate(50);
+                            ->orderBy('id')->paginate(25);
             }
             $lotes->appends(['fecha_desde' => $request->get('fecha_desde'), 'fecha_hasta' => $request->get('fecha_hasta')]);
         }
@@ -112,42 +112,42 @@ class LecturaController extends Controller
     public function categorias($id)
     {
         $lote = LoteVariable::findOrFail($id);
-        $info = CategoriaVariable::where('lote_id', '=', $id)->paginate(50);
+        $info = CategoriaVariable::where('lote_id', '=', $id)->paginate(25);
         return view('lectura.categorias', ['lote' => $lote, 'categorias' => $info]);
     } 
 
     public function variables($id)
     {
         $lote = LoteVariable::findOrFail($id);
-        $info = Variable::where('lote_id', '=', $id)->paginate(50);
+        $info = Variable::where('lote_id', '=', $id)->paginate(25);
         return view('lectura.variables', ['lote' => $lote, 'variables' => $info]);
     }
 
     public function unidades($id)
     {
         $lote = LoteVariable::findOrFail($id);
-        $info = UnidadMedida::where('lote_id', '=', $id)->paginate(50);
+        $info = UnidadMedida::where('lote_id', '=', $id)->paginate(25);
         return view('lectura.unidades', ['lote' => $lote, 'unidades' => $info]);
     }
 
     public function zonas($id)
     {
         $lote = LoteVariable::findOrFail($id);
-        $info = ZonaGeografica::where('lote_id', '=', $id)->paginate(50);
+        $info = ZonaGeografica::where('lote_id', '=', $id)->paginate(25);
         return view('lectura.zonas', ['lote' => $lote, 'zonas' => $info]);
     }
 
     public function fuentes($id)
     {
         $lote = LoteVariable::findOrFail($id);
-        $info = Fuente::where('lote_id', '=', $id)->paginate(50);
+        $info = Fuente::where('lote_id', '=', $id)->paginate(25);
         return view('lectura.fuentes', ['lote' => $lote, 'fuentes' => $info]);
     }
     
     public function datos($id)
     {
         $lote = LoteVariable::findOrFail($id);
-        $info = InformacionVariable::where('lote_id', '=', $id)->paginate(50);
+        $info = InformacionVariable::where('lote_id', '=', $id)->paginate(25);
         return view('lectura.datos', ['lote' => $lote, 'datos' => $info]);
     }
 }
