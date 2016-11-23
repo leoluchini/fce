@@ -23,4 +23,3 @@ class LoteVariable extends Lote
 		return $this->hasMany('App\Models\InformacionVariable', 'lote_id');
 	}
 }
-}
