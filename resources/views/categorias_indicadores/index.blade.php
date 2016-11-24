@@ -10,9 +10,11 @@
           
           <div class="pull-right">
             <div class="btn-group">
-            <a title="Nueva categoria" href="{{ action('CategoriaIndicadorController@create') }}" data-toggle="tooltip" data-placement="top"><span class="glyphicon glyphicon-plus"></span></a>
-            <a title="Indicadores agrupados" href="{{ action('IndicadorController@temas') }}" data-toggle="tooltip" data-placement="top"><span class="glyphicon glyphicon-list-alt"></span></a>
-            <a title="Busquedas sin resultados" href="{{ action('IndicadorController@busquedas') }}" data-toggle="tooltip" data-placement="top"><span class="icon-binoculars"></span></a>
+              <h3>
+              <a title="Nueva categoria" href="{{ action('CategoriaIndicadorController@create') }}" data-toggle="tooltip" data-placement="top"><span class="icon-plus"></span></a>
+              <a title="Indicadores agrupados" href="{{ action('IndicadorController@temas') }}" data-toggle="tooltip" data-placement="top"><span class="icon-list"></span></a>
+              <a title="Busquedas sin resultados" href="{{ action('IndicadorController@busquedas') }}" data-toggle="tooltip" data-placement="top"><span class="icon-cancel-alt"></span></a>
+          </h3>
             </div>
           </div>
 

@@ -62,7 +62,7 @@
 								<td>{!! $lote->error !!}</td>
 								<td class="text-right">
 									<a class="btn btn-link btn-xs" data-toggle="tooltip" data-placement="top" title="Ver" href="{{ route('administracion.lectura.show', $lote->id)}}">
-										<span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+										<span class="icon-eye-3"aria-hidden="true"></span>
 									</a>
 									<a class="btn btn-link btn-xs confirm-delete" data-toggle="tooltip" data-placement="top" title="Borrar" href="{{ route('administracion.lectura.destroy', $lote->id)}}" data-method="delete" data-title="Eliminar Lote" data-confirm="¿Estas seguro que desea eliminar los datos del lote '{{$lote->id}}' ?">
 										<span class="icon-trash-4"></span>

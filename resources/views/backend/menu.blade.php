@@ -95,7 +95,7 @@
           <center>
             <a href="{{action('CategoriaController@index')}}">
               <h2><span class="icon-newspaper"></span></h2>
-              <h4>Categorias y Publicaciones</h4>
+              <h4>Categor&iacute;as y Publicaciones</h4>
             </a>
           </center>
         </div>

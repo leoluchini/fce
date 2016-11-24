@@ -38,8 +38,11 @@
 			@if($metodo == 'POST')
 				<div class="form-group @if ($errors->first('archivo')){!! 'has-error' !!}@endif">
 					{!! Form::label('archivo', 'Archivo', array('class' => 'control-label')) !!}
-					<span title="Seleccionar archivo" class="glyphicon glyphicon-upload pull-right input_file_image" data-inputid="archivo" data-containerid="informe_name_container"></span>
-					
+					<h3 class="text-center">
+						<a href="">
+					<span title="Seleccionar archivo" class="icon-upload-outline input_file_image" data-inputid="archivo" data-containerid="informe_name_container"></span>
+					</a>
+					</h3>
 					<div class="col-xs-12">
 						{!! Form::file('archivo', ['id' => 'archivo', 'style' => 'display:none']) !!}
 						<div id="informe_name_container" class="text-center">

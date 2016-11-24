@@ -8,8 +8,10 @@
       <div class="page-header">
         <div class="pull-right">
           <div class="btn-group">
-            <a href="{{ route('administracion.usuarios.create') }}" title="Nuevo usuario"  data-toggle="tooltip" data-placement="top"><span class="glyphicon glyphicon-plus"></span></a>
-          </div>
+            <h3>
+              <a href="{{ route('administracion.usuarios.create') }}" title="Nuevo usuario"  data-toggle="tooltip" data-placement="top"><span class="icon-plus"></span></a>
+            </h3>
+        </div>
         </div>
 
         <h1>
@@ -40,9 +42,9 @@
               <td>{!! boolean_html($user->active) !!}</td>
               <td>{!! boolean_html($user->is('admin')) !!}</td>
               <td class="text-right">
-                <a title="Editar usuario" href="{{ route('administracion.usuarios.edit', [$user->id]) }}" data-toggle="tooltip" data-placement="top"><span class="glyphicon glyphicon-pencil"></span></a>
+                <a title="Editar usuario" href="{{ route('administracion.usuarios.edit', [$user->id]) }}" data-toggle="tooltip" data-placement="top"><span class="icon-pencil-4"></span></a>
                 &nbsp;
-                <a title="Eliminar usuario" href="{{ route('administracion.usuarios.destroy', [$user->id]) }}" data-toggle="tooltip" data-placement="top" data-method="delete" data-title="Eliminar usuario" data-confirm="¿Estas seguro que desea eliminar a {{$user}} ?"><span class="glyphicon glyphicon-trash"></span></a>  
+                <a title="Eliminar usuario" href="{{ route('administracion.usuarios.destroy', [$user->id]) }}" data-toggle="tooltip" data-placement="top" data-method="delete" data-title="Eliminar usuario" data-confirm="¿Estas seguro que desea eliminar a {{$user}} ?"><span class="icon-trash-4"></span></a>  
               </td>
             </tr>
           @endforeach

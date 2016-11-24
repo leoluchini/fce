@@ -8,7 +8,9 @@
   		<div class="page-header">
 		  <div class="pull-right">
 	        <div class="btn-group">
-	        	<a title="Nueva frecuencia" href="{{ action('FrecuenciaController@create') }}" data-toggle="tooltip" data-placement="top"><span class="glyphicon glyphicon-plus"></span></a>
+	        	<h3>
+	        	<a title="Nueva frecuencia" href="{{ action('FrecuenciaController@create') }}" data-toggle="tooltip" data-placement="top"><span class="icon-plus"></span></a>
+	        	</h3>
 	        </div>
 	      </div>
 

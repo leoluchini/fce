@@ -8,8 +8,10 @@
       <div class="page-header">
         <div class="pull-right">
           <div class="btn-group">
-            <a title="Nueva publicacion" href="{{ action('PublicacionController@create', [$categoria->id]) }}" data-toggle="tooltip" data-placement="top"><span class="glyphicon glyphicon-plus"></span></a>
-          </div>
+            <h3>
+              <a title="Nueva publicacion" href="{{ action('PublicacionController@create', [$categoria->id]) }}" data-toggle="tooltip" data-placement="top"><span class="icon-plus"></span></a>
+            </h3>
+        </div>
         </div>
         <h1>
           <span class="icon-newspaper"></span>

@@ -2,7 +2,7 @@
 
 @section('content')
 @include('publicaciones.form',['metodo' => 'PATCH',
-							'titulo' => 'Edicion de la publicacion "'.$publicacion->nombre.'"',
+							'titulo' => 'Edici&oacute;n de la publicaci&oacute;n "'.$publicacion->nombre.'"',
 							'accion' => ['PublicacionController@update', $categoria->id, $publicacion->id],
 							'accion_breadcrumb' => 'Editar',
 							'boton' => 'Guardar',
