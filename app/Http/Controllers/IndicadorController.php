@@ -16,7 +16,7 @@ class IndicadorController extends Controller
 	public function index($categoria_id)
 	{
 		$data['categoria'] = CategoriaIndicador::findOrFail($categoria_id);
-		$data['indicadores'] = Indicador::where('categoria_id', $categoria_id)->orderBy('id')->paginate(3);
+		$data['indicadores'] = Indicador::where('categoria_id', $categoria_id)->orderBy('id')->paginate(25);
 		return view('indicadores.index', $data);
 	}
 	public function create($categoria_id)
