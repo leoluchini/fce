@@ -59,11 +59,7 @@ class LecturaIndicadorController extends Controller
     {
         $lote = LoteIndicador::findOrFail($id);
 
-        $cantidad = DB::table('informacion_indicadores')
-                 ->select(DB::raw('count(*) as cantidad'))
-                 ->where('lote_id', '=', $id)
-                 ->get();
-        $cantidad_datos = $cantidad[0]->cantidad;
+        $cantidad_datos = $this->contar_datos($id);
         
         return view('lectura_indicadores.show', ['lote' => $lote, 'cantidad' => $cantidad_datos]);
     }
@@ -113,41 +109,56 @@ class LecturaIndicadorController extends Controller
     {
         $lote = LoteIndicador::findOrFail($id);
         $info = CategoriaIndicador::where('lote_id', '=', $id)->paginate(25);
-        return view('lectura_indicadores.categorias', ['lote' => $lote, 'categorias' => $info]);
+        $cantidad_datos = $this->contar_datos($id);
+        return view('lectura_indicadores.categorias', ['lote' => $lote, 'categorias' => $info, 'cantidad' => $cantidad_datos]);
     } 
 
     public function indicadores($id)
     {
         $lote = LoteIndicador::findOrFail($id);
         $info = Indicador::where('lote_id', '=', $id)->paginate(25);
-        return view('lectura_indicadores.indicadores', ['lote' => $lote, 'indicadores' => $info]);
+        $cantidad_datos = $this->contar_datos($id);
+        return view('lectura_indicadores.indicadores', ['lote' => $lote, 'indicadores' => $info, 'cantidad' => $cantidad_datos]);
     }
 
     public function unidades($id)
     {
         $lote = LoteIndicador::findOrFail($id);
         $info = UnidadMedida::where('lote_id', '=', $id)->paginate(25);
-        return view('lectura_indicadores.unidades', ['lote' => $lote, 'unidades' => $info]);
+        $cantidad_datos = $this->contar_datos($id);
+        return view('lectura_indicadores.unidades', ['lote' => $lote, 'unidades' => $info, 'cantidad' => $cantidad_datos]);
     }
 
     public function zonas($id)
     {
         $lote = LoteIndicador::findOrFail($id);
         $info = ZonaGeografica::where('lote_id', '=', $id)->paginate(25);
-        return view('lectura_indicadores.zonas', ['lote' => $lote, 'zonas' => $info]);
+        $cantidad_datos = $this->contar_datos($id);
+        return view('lectura_indicadores.zonas', ['lote' => $lote, 'zonas' => $info, 'cantidad' => $cantidad_datos]);
     }
 
     public function fuentes($id)
     {
         $lote = LoteIndicador::findOrFail($id);
         $info = Fuente::where('lote_id', '=', $id)->paginate(25);
-        return view('lectura_indicadores.fuentes', ['lote' => $lote, 'fuentes' => $info]);
+        $cantidad_datos = $this->contar_datos($id);
+        return view('lectura_indicadores.fuentes', ['lote' => $lote, 'fuentes' => $info, 'cantidad' => $cantidad_datos]);
     }
     
     public function datos($id)
     {
         $lote = LoteIndicador::findOrFail($id);
         $info = InformacionIndicador::where('lote_id', '=', $id)->paginate(25);
-        return view('lectura_indicadores.datos', ['lote' => $lote, 'datos' => $info]);
+        $cantidad_datos = $this->contar_datos($id);
+        return view('lectura_indicadores.datos', ['lote' => $lote, 'datos' => $info, 'cantidad' => $cantidad_datos]);
+    }
+
+    protected function contar_datos($id)
+    {
+        $cantidad = DB::table('informacion_indicadores')
+                 ->select(DB::raw('count(*) as cantidad'))
+                 ->where('lote_id', '=', $id)
+                 ->get();
+        return $cantidad[0]->cantidad;
     }
 }

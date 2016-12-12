@@ -122,7 +122,8 @@ function txt_to_array($filename='')
     
     $lines = file($filename, FILE_IGNORE_NEW_LINES);
     foreach ($lines as $line) {
-        $encoded_line = iconv(mb_detect_encoding($line, mb_detect_order(), true), "UTF-8", $line);
+        //$encoded_line = iconv(mb_detect_encoding($line, mb_detect_order(), true), "UTF-8", $line);
+        $encoded_line = $line;
         $data = explode("\t", $encoded_line);
         if( trim($data[0]) != ""){
             $result[trim($data[0])] = array();
@@ -161,7 +162,8 @@ function txt_indicadores_to_array($filename='')
     
     $lines = file($filename, FILE_IGNORE_NEW_LINES);
     foreach ($lines as $line) {
-        $encoded_line = iconv(mb_detect_encoding($line, mb_detect_order(), true), "UTF-8", $line);
+        //$encoded_line = iconv(mb_detect_encoding($line, mb_detect_order(), true), "UTF-8", $line);
+        $encoded_line = $line;
         $data = explode("\t", $encoded_line);
         if( trim($data[0]) != ""){
             $result[trim($data[0])] = array();

@@ -61,7 +61,7 @@
       <li class="nav-item {{ Route::getCurrentRoute()->getName() == 'lote-indicadores.datos' ? 'active' : '' }}">
         <a class="nav-link" href="{{ route('lote-indicadores.datos', $lote->id)}}">
         	Datos
-        	<span class="badge">{!! $lote->datos->count() !!}</span>
+        	<span class="badge">{!! $cantidad !!}</span>
         </a>
       </li>
       
