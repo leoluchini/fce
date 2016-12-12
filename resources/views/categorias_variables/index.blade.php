@@ -28,11 +28,12 @@
   </div>
 
   <div class="col-xs-12">
-		<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true" style="overflow:auto;">
+		<div class="panel-group" role="tablist" aria-multiselectable="true">
 		@foreach($categorias as $categoria)
-				@include('categorias_variables.panel',['categoria' => $categoria, 'grupo' => 'accordion', 'nivel' => 1])
+				@include('categorias_variables.panel',['categoria' => $categoria])
 		@endforeach
     </div>
+    {{ $categorias->render() }}
   </div>
 </div>
 

@@ -12,7 +12,7 @@ class CategoriaVariableController extends Controller
 {
     public function index()
 	{
-		$data['categorias'] = CategoriaVariable::whereNull('categoria_padre_id')->orderBy('id')->get();
+		$data['categorias'] = CategoriaVariable::whereNull('categoria_padre_id')->orderBy('id')->paginate(25);
 		return view('categorias_variables.index', $data);
 	}
 

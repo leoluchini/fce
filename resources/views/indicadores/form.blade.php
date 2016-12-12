@@ -1,5 +1,5 @@
 <div class="container">
-  @include('generic.breadcrumb_multiple',['modulo' => $accion_breadcrumb, 'enlaces' => array('&Aacute;rbol de indicadores' => $cancelar)])
+  @include('generic.breadcrumb_multiple',['modulo' => $accion_breadcrumb, 'enlaces' => array('&Aacute;rbol de indicadores' => action('CategoriaIndicadorController@index'), 'Indicadores de la categoría '.$categoria->nombre => action('IndicadorController@index', $categoria->id))])
     <div class="row">
       <div class="col-xs-12"> 
         <div class="page-header">

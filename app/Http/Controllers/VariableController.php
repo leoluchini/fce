@@ -13,6 +13,13 @@ use App\Http\Requests\VariableRequest;
 
 class VariableController extends Controller
 {
+
+	public function index($categoria_id)
+	{
+		$data['categoria'] = CategoriaVariable::findOrFail($categoria_id);
+		$data['variables'] = Variable::where('categoria_id', $categoria_id)->orderBy('id')->paginate(25);
+		return view('variables.index', $data);
+	}
 	public function create($categoria_id)
 	{
 		try
@@ -57,7 +64,7 @@ class VariableController extends Controller
 		catch(ModelNotFoundException $e)
 		{
 			\Session::flash('error', 'La variable no existe.');
-			return redirect('administracion/categorias_variables');
+			return redirect('administracion/categoria/'.$categoria_id.'/variables');
 		}
 	}
 
@@ -75,9 +82,9 @@ class VariableController extends Controller
 		catch(ModelNotFoundException $e)
 		{
 			\Session::flash('error', 'La variable no existe.');
-			return redirect('administracion/categorias_variables');
+			return redirect('administracion/categoria/'.$categoria_id.'/variables');
 		}
-		return redirect('administracion/categorias_variables');
+		return redirect('administracion/categoria/'.$categoria_id.'/variables');
 	}
 
 	public function destroy($categoria_id, $id)
@@ -95,7 +102,7 @@ class VariableController extends Controller
 
 		\Session::flash('noticia', 'La variable "'.$variable->nombre.'" fue eliminada con exito.');
 		
-		return redirect('administracion/categorias_variables');
+		return redirect('administracion/categoria/'.$categoria_id.'/variables');
 	}
 
 	public function temas()
@@ -108,7 +115,7 @@ class VariableController extends Controller
 	}
 	public function busquedas()
 	{
-		$data['busquedas'] = VariableSinResultados::all();
+		$data['busquedas'] = VariableSinResultados::paginate(25);
 		return view('variables.busquedas', $data);
 	}
 }
