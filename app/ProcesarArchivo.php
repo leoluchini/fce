@@ -71,19 +71,19 @@ class ProcesarArchivo
             foreach ($datos['#Zonas'] as $attributes) {
                 $attributes['lote_id'] = $lote->id;
                 $object = ZonaGeografica::firstOrCreate($attributes);
-                $references[$object->codigo] = $object->id;
+                $references[strtolower($object->codigo)] = $object->id;
                 unset($object);
             }
             foreach ($datos['#Unidades'] as $attributes){
                 $attributes['lote_id'] = $lote->id;
                 $object = UnidadMedida::firstOrCreate($attributes);
-                $references[$object->codigo] = $object->id;
+                $references[strtolower($object->codigo)] = $object->id;
                 unset($object);
             }
             foreach ($datos['#Fuentes'] as $attributes) {
                 $attributes['lote_id'] = $lote->id;
                 $object = Fuente::firstOrCreate($attributes);
-                $references[$object->codigo] = $object->id;
+                $references[strtolower($object->codigo)] = $object->id;
                 unset($object);
             }
             if(isset($datos['#DatosAdicionales'])){
@@ -131,9 +131,9 @@ class ProcesarArchivo
         $references = $datos['references'];
         foreach ($datos['datos'] as $attributes) {
             $attributes['lote_id'] = $lote->id;
-            $attributes['zona_id'] = $references[$attributes['zona_id']];
-            $attributes['fuente_id'] = $references[$attributes['fuente_id']];
-            $attributes['unidad_medida_id'] = $references[$attributes['unidad_medida_id']];
+            $attributes['zona_id'] = $references[strtolower($attributes['zona_id'])];
+            $attributes['fuente_id'] = $references[strtolower($attributes['fuente_id'])];
+            $attributes['unidad_medida_id'] = $references[strtolower($attributes['unidad_medida_id'])];
             $attributes['frecuencia_id'] = Frecuencia::where('codigo', $attributes['frecuencia_id'])->first()->id;
             if($lote->tipo == 'variable'){
                 $attributes['variable_id'] = $references[$attributes['variable_id']];
