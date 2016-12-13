@@ -15,6 +15,8 @@ use App\Models\ZonaGeografica;
 use App\Models\VariableSinResultados;
 use App\Models\Tema;
 use App\Models\CategoriaVariable;
+use App\Models\Lote;
+use Illuminate\Support\Facades\DB;
 
 class FrontendVariablesController extends Controller
 {
@@ -26,8 +28,11 @@ class FrontendVariablesController extends Controller
 		$data['semestres'] = Frecuencia::where('tipo', '=', 'SEMESTRE')->get();
 		$data['trimestres'] = Frecuencia::where('tipo', '=', 'TRIMESTRE')->get();
 		$data['meses'] = Frecuencia::where('tipo', '=', 'MES')->get();
-		$info_anios = InformacionVariable::select('informacion_variables.*')->join('lotes', 'informacion_variables.lote_id', '=', 'lotes.id')->where('lotes.estado', 4)->orderBy('anio', 'ASC')->lists('anio')->toArray();
-		$data['periodos'] = array_unique($info_anios);
+		$info_anios = DB::select('SELECT distinct anio FROM informacion_variables join lotes on informacion_variables.lote_id = lotes.id where lotes.estado = '.Lote::ESTADO_ACEPTADO.' order by anio ASC');
+		$data['periodos'] = [];
+		foreach($info_anios as $anio){
+			$data['periodos'][] = $anio->anio;
+		}
 
 		//$data['temas'] = Tema::all();
 		$temas_variables = Variable::select('variables.tema_id')
