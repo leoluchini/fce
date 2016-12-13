@@ -35,14 +35,14 @@ class FrontendIndicadoresController extends Controller
 		}
 
 		$temas_indicadores = Indicador::select('indicadores.tema_id')
-										->join('lotes', 'indicadores.lote_id', '=', 'lotes.id')->where('lotes.estado', 4)
+										->join('lotes', 'indicadores.lote_id', '=', 'lotes.id')->where('lotes.estado', Lote::ESTADO_ACEPTADO)
 										->distinct()->whereNotNull('tema_id')->get()->lists('tema_id')->toArray();
 		$data['temas'] = Tema::whereIn('temas.id', $temas_indicadores)->get();
 		$data['categorias'] = CategoriaIndicador::select('categorias_indicadores.*')
-												->join('lotes', 'categorias_indicadores.lote_id', '=', 'lotes.id')->where('lotes.estado', 4)
+												->join('lotes', 'categorias_indicadores.lote_id', '=', 'lotes.id')->where('lotes.estado', Lote::ESTADO_ACEPTADO)
 												->whereNull('categoria_padre_id')->get();
 		$data['indicadores_sin_tema'] = Indicador::select('indicadores.*')
-													->join('lotes', 'indicadores.lote_id', '=', 'lotes.id')->where('lotes.estado', 4)
+													->join('lotes', 'indicadores.lote_id', '=', 'lotes.id')->where('lotes.estado', Lote::ESTADO_ACEPTADO)
 													->whereNull('tema_id')->get();
 
 
@@ -62,7 +62,7 @@ class FrontendIndicadoresController extends Controller
 		$frecuencia = ($input['tipo_frecuencia'] == 'anual') ? array(Frecuencia::where('tipo', '=', 'ANIO')->first()->id) : $input[$input['tipo_frecuencia']];
 		
 		$datos['resultados'] = InformacionIndicador::select('informacion_indicadores.*')
-								->join('lotes', 'informacion_indicadores.lote_id', '=', 'lotes.id')->where('lotes.estado', 4)
+								->join('lotes', 'informacion_indicadores.lote_id', '=', 'lotes.id')->where('lotes.estado', Lote::ESTADO_ACEPTADO)
 								->whereIn('indicador_id', $indicadores)
 								->whereIn('zona_id', $zonas)
 								->whereIn('anio', $periodos)
@@ -157,7 +157,7 @@ class FrontendIndicadoresController extends Controller
 		if(($input['tipo_busqueda'] == 'region_indicador') && isset($input['regiones']))
 		{
 			$res = Indicador::select('indicadores.*')
-				->join('lotes', 'indicadores.lote_id', '=', 'lotes.id')->where('lotes.estado', 4)
+				->join('lotes', 'indicadores.lote_id', '=', 'lotes.id')->where('lotes.estado', Lote::ESTADO_ACEPTADO)
 				->whereRaw($string_consulta)
 				->join('informacion_indicadores', 'indicadores.id', '=', 'informacion_indicadores.indicador_id')
 				->whereIn('informacion_indicadores.zona_id', $input['regiones'])
@@ -166,7 +166,7 @@ class FrontendIndicadoresController extends Controller
 		}
 		else{
 			$res = Indicador::select('indicadores.*')
-					->join('lotes', 'indicadores.lote_id', '=', 'lotes.id')->where('lotes.estado', 4)
+					->join('lotes', 'indicadores.lote_id', '=', 'lotes.id')->where('lotes.estado', Lote::ESTADO_ACEPTADO)
 					->whereRaw($string_consulta)
 					->get();
 		}
@@ -189,7 +189,7 @@ class FrontendIndicadoresController extends Controller
 		$indicadores = explode('-', $indicadores);
 
 		$res = ZonaGeografica::select('zonas_geograficas.*')
-			->join('lotes', 'zonas_geograficas.lote_id', '=', 'lotes.id')->where('lotes.estado', 4)
+			->join('lotes', 'zonas_geograficas.lote_id', '=', 'lotes.id')->where('lotes.estado', Lote::ESTADO_ACEPTADO)
 			->join('informacion_indicadores', 'zonas_geograficas.id', '=', 'informacion_indicadores.zona_id')
 			->whereIn('informacion_indicadores.indicador_id', $indicadores)
 			->distinct()
@@ -217,7 +217,7 @@ class FrontendIndicadoresController extends Controller
 		$input = $request->all();
 
 		$resultados = InformacionIndicador::select('informacion_indicadores.*')
-										 ->join('lotes', 'informacion_indicadores.lote_id', '=', 'lotes.id')->where('lotes.estado', 4)
+										 ->join('lotes', 'informacion_indicadores.lote_id', '=', 'lotes.id')->where('lotes.estado', Lote::ESTADO_ACEPTADO)
 										 ->whereIn('informacion_indicadores.zona_id', $input['regiones'])
 										 ->whereIn('informacion_indicadores.indicador_id', $input['indicadores'])
 										 ->orderBy('anio', 'ASC')
@@ -231,7 +231,7 @@ class FrontendIndicadoresController extends Controller
 		$input = $request->all();
 
 		$resultados = InformacionIndicador::select('informacion_indicadores.*')
-										 ->join('lotes', 'informacion_indicadores.lote_id', '=', 'lotes.id')->where('lotes.estado', 4)
+										 ->join('lotes', 'informacion_indicadores.lote_id', '=', 'lotes.id')->where('lotes.estado', Lote::ESTADO_ACEPTADO)
 										 ->whereIn('informacion_indicadores.zona_id', $input['regiones'])
 										 ->whereIn('informacion_indicadores.indicador_id', $input['indicadores'])
 										 ->whereIn('informacion_indicadores.anio', $input['periodos'])

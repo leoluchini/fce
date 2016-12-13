@@ -36,14 +36,14 @@ class FrontendVariablesController extends Controller
 
 		//$data['temas'] = Tema::all();
 		$temas_variables = Variable::select('variables.tema_id')
-									->join('lotes', 'variables.lote_id', '=', 'lotes.id')->where('lotes.estado', 4)
+									->join('lotes', 'variables.lote_id', '=', 'lotes.id')->where('lotes.estado', Lote::ESTADO_ACEPTADO)
 									->distinct()->whereNotNull('tema_id')->get()->lists('tema_id')->toArray();
 		$data['temas'] = Tema::whereIn('temas.id', $temas_variables)->get();
 		$data['categorias'] = CategoriaVariable::select('categorias_variables.*')
-												->join('lotes', 'categorias_variables.lote_id', '=', 'lotes.id')->where('lotes.estado', 4)
+												->join('lotes', 'categorias_variables.lote_id', '=', 'lotes.id')->where('lotes.estado', Lote::ESTADO_ACEPTADO)
 												->whereNull('categoria_padre_id')->get();
 		$data['variables_sin_tema'] = Variable::select('variables.*')
-												->join('lotes', 'variables.lote_id', '=', 'lotes.id')->where('lotes.estado', 4)
+												->join('lotes', 'variables.lote_id', '=', 'lotes.id')->where('lotes.estado', Lote::ESTADO_ACEPTADO)
 												->whereNull('tema_id')->get();
 
 		if($request->isMethod('post')){
@@ -62,7 +62,7 @@ class FrontendVariablesController extends Controller
 		$frecuencia = ($input['tipo_frecuencia'] == 'anual') ? array(Frecuencia::where('tipo', '=', 'ANIO')->first()->id) : $input[$input['tipo_frecuencia']];
 		
 		$datos['resultados'] = InformacionVariable::select('informacion_variables.*')
-								->join('lotes', 'informacion_variables.lote_id', '=', 'lotes.id')->where('lotes.estado', 4)
+								->join('lotes', 'informacion_variables.lote_id', '=', 'lotes.id')->where('lotes.estado', Lote::ESTADO_ACEPTADO)
 								->whereIn('variable_id', $variables)
 								->whereIn('zona_id', $zonas)
 								->whereIn('anio', $periodos)
@@ -179,7 +179,7 @@ class FrontendVariablesController extends Controller
 		if(($input['tipo_busqueda'] == 'region_variable') && isset($input['regiones']))
 		{
 			$res = Variable::select('variables.*')
-				->join('lotes', 'variables.lote_id', '=', 'lotes.id')->where('lotes.estado', 4)
+				->join('lotes', 'variables.lote_id', '=', 'lotes.id')->where('lotes.estado', Lote::ESTADO_ACEPTADO)
 				->whereRaw($string_consulta)
 				->join('informacion_variables', 'variables.id', '=', 'informacion_variables.variable_id')
 				->whereIn('informacion_variables.zona_id', $input['regiones'])
@@ -188,7 +188,7 @@ class FrontendVariablesController extends Controller
 		}
 		else{
 			$res = Variable::select('variables.*')
-					->join('lotes', 'variables.lote_id', '=', 'lotes.id')->where('lotes.estado', 4)
+					->join('lotes', 'variables.lote_id', '=', 'lotes.id')->where('lotes.estado', Lote::ESTADO_ACEPTADO)
 					->whereRaw($string_consulta)
 					->get();
 		}
@@ -219,7 +219,7 @@ class FrontendVariablesController extends Controller
 		$lista_variables = explode('-', $variables);
 
 		$res = ZonaGeografica::select('zonas_geograficas.*')
-			->join('lotes', 'zonas_geograficas.lote_id', '=', 'lotes.id')->where('lotes.estado', 4)
+			->join('lotes', 'zonas_geograficas.lote_id', '=', 'lotes.id')->where('lotes.estado', Lote::ESTADO_ACEPTADO)
 			->join('informacion_variables', 'zonas_geograficas.id', '=', 'informacion_variables.zona_id')
 			->whereIn('informacion_variables.variable_id', $lista_variables)
 			->distinct()
@@ -247,7 +247,7 @@ class FrontendVariablesController extends Controller
 		$input = $request->all();
 
 		$resultados = InformacionVariable::select('informacion_variables.*')
-										 ->join('lotes', 'informacion_variables.lote_id', '=', 'lotes.id')->where('lotes.estado', 4)
+										 ->join('lotes', 'informacion_variables.lote_id', '=', 'lotes.id')->where('lotes.estado', Lote::ESTADO_ACEPTADO)
 										 ->whereIn('informacion_variables.zona_id', $input['regiones'])
 										 ->whereIn('informacion_variables.variable_id', $input['variables'])
 										 ->orderBy('anio', 'ASC')
@@ -261,7 +261,7 @@ class FrontendVariablesController extends Controller
 		$input = $request->all();
 
 		$resultados = InformacionVariable::select('informacion_variables.*')
-										 ->join('lotes', 'informacion_variables.lote_id', '=', 'lotes.id')->where('lotes.estado', 4)
+										 ->join('lotes', 'informacion_variables.lote_id', '=', 'lotes.id')->where('lotes.estado', Lote::ESTADO_ACEPTADO)
 										 ->whereIn('informacion_variables.zona_id', $input['regiones'])
 										 ->whereIn('informacion_variables.variable_id', $input['variables'])
 										 ->whereIn('informacion_variables.anio', $input['periodos'])
