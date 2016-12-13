@@ -80,6 +80,9 @@ Route::match(array('GET', 'POST'), "publicaciones", array(
 Route::match(array('GET', 'POST'), "variables", array(
     'uses' => 'FrontendVariablesController@variables',
 ));
+Route::get('consulta_por_categoria/{categoria}', 'FrontendVariablesController@lista_categoria');
+Route::get('consulta_por_tema/{tema}', 'FrontendVariablesController@lista_tema');
+Route::get('consulta_sin_tema', 'FrontendVariablesController@lista_sin_tema');
 Route::post('excel_variables', 'FrontendVariablesController@descarga_variables_excel');
 Route::post('consulta_variables', 'FrontendVariablesController@consulta_variables');
 Route::get('consulta_regiones/{variables}', 'FrontendVariablesController@consulta_regiones');

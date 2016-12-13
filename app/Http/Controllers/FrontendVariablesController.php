@@ -15,6 +15,8 @@ use App\Models\ZonaGeografica;
 use App\Models\VariableSinResultados;
 use App\Models\Tema;
 use App\Models\CategoriaVariable;
+use App\Models\Lote;
+use Illuminate\Support\Facades\DB;
 
 class FrontendVariablesController extends Controller
 {
@@ -26,26 +28,48 @@ class FrontendVariablesController extends Controller
 		$data['semestres'] = Frecuencia::where('tipo', '=', 'SEMESTRE')->get();
 		$data['trimestres'] = Frecuencia::where('tipo', '=', 'TRIMESTRE')->get();
 		$data['meses'] = Frecuencia::where('tipo', '=', 'MES')->get();
-		$info_anios = InformacionVariable::select('informacion_variables.*')->join('lotes', 'informacion_variables.lote_id', '=', 'lotes.id')->where('lotes.estado', 4)->orderBy('anio', 'ASC')->lists('anio')->toArray();
-		$data['periodos'] = array_unique($info_anios);
+		//$info_anios = InformacionVariable::select('informacion_variables.*')->join('lotes', 'informacion_variables.lote_id', '=', 'lotes.id')->where('lotes.estado', Lote::ESTADO_ACEPTADO)->orderBy('anio', 'ASC')->lists('anio')->toArray();
+		$info_anios = DB::select('SELECT distinct anio FROM informacion_variables join lotes on informacion_variables.lote_id = lotes.id where lotes.estado = '.Lote::ESTADO_ACEPTADO.' order by anio ASC');
+		$data['periodos'] = [];
+		foreach($info_anios as $anio){
+			$data['periodos'][] = $anio->anio;
+		}
 
 		//$data['temas'] = Tema::all();
 		$temas_variables = Variable::select('variables.tema_id')
-									->join('lotes', 'variables.lote_id', '=', 'lotes.id')->where('lotes.estado', 4)
+									->join('lotes', 'variables.lote_id', '=', 'lotes.id')->where('lotes.estado', Lote::ESTADO_ACEPTADO)
 									->distinct()->whereNotNull('tema_id')->get()->lists('tema_id')->toArray();
 		$data['temas'] = Tema::whereIn('temas.id', $temas_variables)->get();
 		$data['categorias'] = CategoriaVariable::select('categorias_variables.*')
-												->join('lotes', 'categorias_variables.lote_id', '=', 'lotes.id')->where('lotes.estado', 4)
+												->join('lotes', 'categorias_variables.lote_id', '=', 'lotes.id')->where('lotes.estado', Lote::ESTADO_ACEPTADO)
 												->whereNull('categoria_padre_id')->get();
-		$data['variables_sin_tema'] = Variable::select('variables.*')
-												->join('lotes', 'variables.lote_id', '=', 'lotes.id')->where('lotes.estado', 4)
-												->whereNull('tema_id')->get();
+		/*$data['variables_sin_tema'] = Variable::select('variables.*')
+												->join('lotes', 'variables.lote_id', '=', 'lotes.id')->where('lotes.estado', Lote::ESTADO_ACEPTADO)
+												->whereNull('tema_id')->get();*/
 
 		if($request->isMethod('post')){
 			$data['consulta'] = $request->all();
 			$data['consulta']['variable_name'] = Variable::whereIn('variables.id', $data['consulta']['variable_id'])->get()->lists('nombre', 'id');
 		}
 		return view('frontend.variables.variables', $data);
+	}
+	public function lista_categoria($id)
+	{
+		$variables = Variable::where('categoria_id', $id)->orderBy('id', 'ASC')->paginate(25);
+		$returnHTML = view('frontend.variables.lista_paginada')->with('variables', $variables)->render();
+		return response()->json(array('success' => true, 'html'=>$returnHTML));
+	}
+	public function lista_tema($id)
+	{
+		$variables = Variable::where('tema_id', $id)->orderBy('id', 'ASC')->paginate(5);
+		$returnHTML = view('frontend.variables.lista_paginada')->with('variables', $variables)->render();
+		return response()->json(array('success' => true, 'html'=>$returnHTML));
+	}
+	public function lista_sin_tema()
+	{
+		$variables = Variable::whereNull('tema_id')->orderBy('id', 'ASC')->paginate(5);
+		$returnHTML = view('frontend.variables.lista_paginada')->with('variables', $variables)->render();
+		return response()->json(array('success' => true, 'html'=>$returnHTML));
 	}
 
 	public function resultados_variables(Request $request)
@@ -57,7 +81,7 @@ class FrontendVariablesController extends Controller
 		$frecuencia = ($input['tipo_frecuencia'] == 'anual') ? array(Frecuencia::where('tipo', '=', 'ANIO')->first()->id) : $input[$input['tipo_frecuencia']];
 		
 		$datos['resultados'] = InformacionVariable::select('informacion_variables.*')
-								->join('lotes', 'informacion_variables.lote_id', '=', 'lotes.id')->where('lotes.estado', 4)
+								->join('lotes', 'informacion_variables.lote_id', '=', 'lotes.id')->where('lotes.estado', Lote::ESTADO_ACEPTADO)
 								->whereIn('variable_id', $variables)
 								->whereIn('zona_id', $zonas)
 								->whereIn('anio', $periodos)
@@ -174,7 +198,7 @@ class FrontendVariablesController extends Controller
 		if(($input['tipo_busqueda'] == 'region_variable') && isset($input['regiones']))
 		{
 			$res = Variable::select('variables.*')
-				->join('lotes', 'variables.lote_id', '=', 'lotes.id')->where('lotes.estado', 4)
+				->join('lotes', 'variables.lote_id', '=', 'lotes.id')->where('lotes.estado', Lote::ESTADO_ACEPTADO)
 				->whereRaw($string_consulta)
 				->join('informacion_variables', 'variables.id', '=', 'informacion_variables.variable_id')
 				->whereIn('informacion_variables.zona_id', $input['regiones'])
@@ -183,7 +207,7 @@ class FrontendVariablesController extends Controller
 		}
 		else{
 			$res = Variable::select('variables.*')
-					->join('lotes', 'variables.lote_id', '=', 'lotes.id')->where('lotes.estado', 4)
+					->join('lotes', 'variables.lote_id', '=', 'lotes.id')->where('lotes.estado', Lote::ESTADO_ACEPTADO)
 					->whereRaw($string_consulta)
 					->get();
 		}
@@ -214,7 +238,7 @@ class FrontendVariablesController extends Controller
 		$lista_variables = explode('-', $variables);
 
 		$res = ZonaGeografica::select('zonas_geograficas.*')
-			->join('lotes', 'zonas_geograficas.lote_id', '=', 'lotes.id')->where('lotes.estado', 4)
+			->join('lotes', 'zonas_geograficas.lote_id', '=', 'lotes.id')->where('lotes.estado', Lote::ESTADO_ACEPTADO)
 			->join('informacion_variables', 'zonas_geograficas.id', '=', 'informacion_variables.zona_id')
 			->whereIn('informacion_variables.variable_id', $lista_variables)
 			->distinct()
@@ -242,7 +266,7 @@ class FrontendVariablesController extends Controller
 		$input = $request->all();
 
 		$resultados = InformacionVariable::select('informacion_variables.*')
-										 ->join('lotes', 'informacion_variables.lote_id', '=', 'lotes.id')->where('lotes.estado', 4)
+										 ->join('lotes', 'informacion_variables.lote_id', '=', 'lotes.id')->where('lotes.estado', Lote::ESTADO_ACEPTADO)
 										 ->whereIn('informacion_variables.zona_id', $input['regiones'])
 										 ->whereIn('informacion_variables.variable_id', $input['variables'])
 										 ->orderBy('anio', 'ASC')
@@ -256,7 +280,7 @@ class FrontendVariablesController extends Controller
 		$input = $request->all();
 
 		$resultados = InformacionVariable::select('informacion_variables.*')
-										 ->join('lotes', 'informacion_variables.lote_id', '=', 'lotes.id')->where('lotes.estado', 4)
+										 ->join('lotes', 'informacion_variables.lote_id', '=', 'lotes.id')->where('lotes.estado', Lote::ESTADO_ACEPTADO)
 										 ->whereIn('informacion_variables.zona_id', $input['regiones'])
 										 ->whereIn('informacion_variables.variable_id', $input['variables'])
 										 ->whereIn('informacion_variables.anio', $input['periodos'])

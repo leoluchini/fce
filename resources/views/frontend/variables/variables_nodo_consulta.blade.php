@@ -1,11 +1,5 @@
 <li  class="subcategoria">
-    <label class="tree-toggler nav-header"><span class="icon-plus"></span>{{$categoria->nombre}}</label>
-    <ul class="nav nav-list tree indice_variables">
-        @foreach($categoria->variables as $variable)
-            <li><a href="#" class="selector_variable" data-id="{{$variable->id}}" data-nombre="{{$variable->nombre}}">{{ $variable->nombre }}</a></li>
-        @endforeach
-        @foreach($categoria->subcategorias as $subcategoria)
-            @include('frontend.variables.variables_nodo_consulta',['categoria' => $subcategoria])
-        @endforeach
-    </ul>
+    <label class="tree-toggler nav-header consulta_variables" data-href="{{action('FrontendVariablesController@lista_categoria', $categoria->id)}}" data-href=""><span class="icon-plus"></span>{{$categoria->nombre}}</label>
+    <div class="contenedor">
+    </div>
 </li>

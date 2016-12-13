@@ -37,16 +37,11 @@
                           @foreach($temas as $tema)
                             @include('frontend.variables.variables_tema_consulta',['categoria' => $categoria])
                           @endforeach
-                          @if(count($variables_sin_tema) > 0)
-                            <li class="subcategoria">
-                              <label class="tree-toggler nav-header"><span class="icon-plus"></span>Otras</label>
-                              <ul class="nav nav-list tree indice_variables">
-                                  @foreach($variables_sin_tema as $variable)
-                                      <li><a href="#" class="selector_variable" data-id="{{$variable->id}}" data-nombre="{{$variable->nombre}}">{{ $variable->nombre }}</a></li>
-                                  @endforeach
-                              </ul>
-                            </li>
-                          @endif
+                          <li class="subcategoria">
+                            <label class="tree-toggler nav-header consulta_variables" data-href="{{action('FrontendVariablesController@lista_sin_tema')}}"><span class="icon-plus"></span>Otras</label>
+                            <div class="contenedor">
+                            </div>
+                          </li>
                       </ul>
                   </div>
                 </div>
