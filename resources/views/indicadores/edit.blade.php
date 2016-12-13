@@ -6,6 +6,6 @@
 							'accion' => ['IndicadorController@update', $categoria->id, $indicador->id],
 							'accion_breadcrumb' => 'Editar indicador',
 							'boton' => 'Guardar',
-							'cancelar' => action('CategoriaIndicadorController@index'),
+							'cancelar' => action('IndicadorController@index', $categoria->id),
 ])
 @endsection

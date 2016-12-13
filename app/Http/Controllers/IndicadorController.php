@@ -13,6 +13,12 @@ use App\Http\Requests\IndicadorRequest;
 
 class IndicadorController extends Controller
 {
+	public function index($categoria_id)
+	{
+		$data['categoria'] = CategoriaIndicador::findOrFail($categoria_id);
+		$data['indicadores'] = Indicador::where('categoria_id', $categoria_id)->orderBy('id')->paginate(25);
+		return view('indicadores.index', $data);
+	}
 	public function create($categoria_id)
 	{
 		try
@@ -57,7 +63,7 @@ class IndicadorController extends Controller
 		catch(ModelNotFoundException $e)
 		{
 			\Session::flash('error', 'El indicador no existe.');
-			return redirect('administracion/categorias_indicadores');
+			return redirect('administracion/categoria/'.$categoria_id.'/indicadores');
 		}
 	}
 
@@ -76,7 +82,7 @@ class IndicadorController extends Controller
 		{
 			\Session::flash('error', 'El indicador no existe.');
 		}
-		return redirect('administracion/categorias_indicadores');
+		return redirect('administracion/categoria/'.$categoria_id.'/indicadores');
 	}
 
 	public function destroy($categoria_id, $id)
@@ -92,7 +98,7 @@ class IndicadorController extends Controller
 			\Session::flash('error', 'El indicador no existe.');
 		}
 		
-		return redirect('administracion/categorias_indicadores');
+		return redirect('administracion/categoria/'.$categoria_id.'/indicadores');
 	}
 
 	public function temas()
@@ -104,7 +110,7 @@ class IndicadorController extends Controller
 	}
 	public function busquedas()
 	{
-		$data['busquedas'] = IndicadorSinResultados::all();
+		$data['busquedas'] = IndicadorSinResultados::paginate(25);
 		return view('indicadores.busquedas', $data);
 	}
 }

@@ -6,6 +6,6 @@
 							'accion' => ['VariableController@store',$categoria->id],
 							'accion_breadcrumb' => 'Crear variable',
 							'boton' => 'Crear',
-							'cancelar' => action('CategoriaVariableController@index'),
+							'cancelar' => action('VariableController@index', $categoria->id),
 ])
 @endsection

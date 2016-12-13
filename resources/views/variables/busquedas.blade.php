@@ -20,6 +20,7 @@
           <a href="#" class="list-group-item active">{{$busqueda->busqueda}}</a>
         @endforeach
       </div>
+      {{ $busquedas->render() }}
 	  </div>
 </div>
 @endsection

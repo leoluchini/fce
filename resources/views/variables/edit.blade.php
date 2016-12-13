@@ -6,6 +6,6 @@
 							'accion' => ['VariableController@update', $categoria->id, $variable->id],
 							'accion_breadcrumb' => 'Editar variable',
 							'boton' => 'Guardar',
-							'cancelar' => action('CategoriaVariableController@index'),
+							'cancelar' => action('VariableController@index', $categoria->id),
 ])
 @endsection
