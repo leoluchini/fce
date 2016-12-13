@@ -26,8 +26,13 @@ class FrontendIndicadoresController extends Controller
 		$data['semestres'] = Frecuencia::where('tipo', '=', 'SEMESTRE')->get();
 		$data['trimestres'] = Frecuencia::where('tipo', '=', 'TRIMESTRE')->get();
 		$data['meses'] = Frecuencia::where('tipo', '=', 'MES')->get();
-		$info_anios = InformacionIndicador::select('informacion_indicadores.*')->join('lotes', 'informacion_indicadores.lote_id', '=', 'lotes.id')->where('lotes.estado', 4)->orderBy('anio', 'ASC')->lists('anio')->toArray();
-		$data['periodos'] = array_unique($info_anios);
+		/*$info_anios = InformacionIndicador::select('informacion_indicadores.*')->join('lotes', 'informacion_indicadores.lote_id', '=', 'lotes.id')->where('lotes.estado', 4)->orderBy('anio', 'ASC')->lists('anio')->toArray();
+		$data['periodos'] = array_unique($info_anios);*/
+		$info_anios = DB::select('SELECT distinct anio FROM informacion_indicadores join lotes on informacion_variables.lote_id = lotes.id where lotes.estado = '.Lote::ESTADO_ACEPTADO.' order by anio ASC');
+		$data['periodos'] = [];
+		foreach($info_anios as $anio){
+			$data['periodos'][] = $anio->anio;
+		}
 
 		$temas_indicadores = Indicador::select('indicadores.tema_id')
 										->join('lotes', 'indicadores.lote_id', '=', 'lotes.id')->where('lotes.estado', 4)
