@@ -38,89 +38,97 @@ class ProcesarArchivo
             ]);
             return false;
         }
-
-        try {
-            if($lote->tipo == 'variable'){
-                foreach ($datos['#Categorias'] as $attributes){
-                    $attributes['lote_id'] = $lote->id;
-                    $object = CategoriaVariable::firstOrCreate($attributes);
-                    $references[$object->codigo] = $object->id;
-                    unset($object);
-                }
-                foreach ($datos['#Variables'] as $attributes){
-                    $attributes['lote_id'] = $lote->id;
-                    $object = Variable::firstOrCreate($attributes);
-                    $references[$object->codigo] = $object->id;
-                    unset($object);
-                }
-            }
-            else{
-                foreach ($datos['#Categorias'] as $attributes){
-                    $attributes['lote_id'] = $lote->id;
-                    $object = CategoriaIndicador::firstOrCreate($attributes);
-                    $references[$object->codigo] = $object->id;
-                    unset($object);
-                }
-                foreach ($datos['#Indicadores'] as $attributes){
-                    $attributes['lote_id'] = $lote->id;
-                    $object = Indicador::firstOrCreate($attributes);
-                    $references[$object->codigo] = $object->id;
-                    unset($object);
-                }
-            }
-            foreach ($datos['#Zonas'] as $attributes) {
-                $attributes['lote_id'] = $lote->id;
-                $object = ZonaGeografica::firstOrCreate($attributes);
-                $references[strtolower($object->codigo)] = $object->id;
-                unset($object);
-            }
-            foreach ($datos['#Unidades'] as $attributes){
-                $attributes['lote_id'] = $lote->id;
-                $object = UnidadMedida::firstOrCreate($attributes);
-                $references[strtolower($object->codigo)] = $object->id;
-                unset($object);
-            }
-            foreach ($datos['#Fuentes'] as $attributes) {
-                $attributes['lote_id'] = $lote->id;
-                $object = Fuente::firstOrCreate($attributes);
-                $references[strtolower($object->codigo)] = $object->id;
-                unset($object);
-            }
-            if(isset($datos['#DatosAdicionales'])){
-                foreach ($datos['#DatosAdicionales'] as $id => $dato) {
-                    $attributes['lote_id'] = $lote->id;
-                    $attributes['dato'] = $dato;
-                    if($lote->tipo == 'variable'){
-                        $attributes['variable_id'] = $references[$id];
-                        InformacionVariableDato::create($attributes);
+        $resultado_check = pre_check($datos, $lote->tipo);
+        if($resultado_check === true){
+            try {
+                if($lote->tipo == 'variable'){
+                    foreach ($datos['#Categorias'] as $attributes){
+                        $attributes['lote_id'] = $lote->id;
+                        $object = CategoriaVariable::firstOrCreate($attributes);
+                        $references[$object->codigo] = $object->id;
+                        unset($object);
                     }
-                    else{
-                        $attributes['indicador_id'] = $references[$id];
-                        InformacionIndicadorDato::create($attributes);
+                    foreach ($datos['#Variables'] as $attributes){
+                        $attributes['lote_id'] = $lote->id;
+                        $object = Variable::firstOrCreate($attributes);
+                        $references[$object->codigo] = $object->id;
+                        unset($object);
                     }
                 }
-            }
-           
-            $resultado = array_chunk($datos['#Datos'], 5000);
-            
-            foreach ($resultado as $value) {
-                \Queue::push('App\ProcesarArchivo@guardarDatos', [
-                    'datos' => $value, 
-                    'references' => $references,
-                    'lote' => $lote,
+                else{
+                    foreach ($datos['#Categorias'] as $attributes){
+                        $attributes['lote_id'] = $lote->id;
+                        $object = CategoriaIndicador::firstOrCreate($attributes);
+                        $references[$object->codigo] = $object->id;
+                        unset($object);
+                    }
+                    foreach ($datos['#Indicadores'] as $attributes){
+                        $attributes['lote_id'] = $lote->id;
+                        $object = Indicador::firstOrCreate($attributes);
+                        $references[$object->codigo] = $object->id;
+                        unset($object);
+                    }
+                }
+                foreach ($datos['#Zonas'] as $attributes) {
+                    $attributes['lote_id'] = $lote->id;
+                    $object = ZonaGeografica::firstOrCreate($attributes);
+                    $references[strtolower($object->codigo)] = $object->id;
+                    unset($object);
+                }
+                foreach ($datos['#Unidades'] as $attributes){
+                    $attributes['lote_id'] = $lote->id;
+                    $object = UnidadMedida::firstOrCreate($attributes);
+                    $references[strtolower($object->codigo)] = $object->id;
+                    unset($object);
+                }
+                foreach ($datos['#Fuentes'] as $attributes) {
+                    $attributes['lote_id'] = $lote->id;
+                    $object = Fuente::firstOrCreate($attributes);
+                    $references[strtolower($object->codigo)] = $object->id;
+                    unset($object);
+                }
+                if(isset($datos['#DatosAdicionales'])){
+                    foreach ($datos['#DatosAdicionales'] as $id => $dato) {
+                        $attributes['lote_id'] = $lote->id;
+                        $attributes['dato'] = $dato;
+                        if($lote->tipo == 'variable'){
+                            $attributes['variable_id'] = $references[$id];
+                            InformacionVariableDato::create($attributes);
+                        }
+                        else{
+                            $attributes['indicador_id'] = $references[$id];
+                            InformacionIndicadorDato::create($attributes);
+                        }
+                    }
+                }
+               
+                $resultado = array_chunk($datos['#Datos'], 5000);
+                
+                foreach ($resultado as $value) {
+                    \Queue::push('App\ProcesarArchivo@guardarDatos', [
+                        'datos' => $value, 
+                        'references' => $references,
+                        'lote' => $lote,
+                    ]);
+                }
+                
+                \Queue::push('App\ProcesarArchivo@finalizarLote', [
+                    'lote' => $lote
                 ]);
+                unlink($lote->archivo);
+            } catch (\Exception $e) {
+                $lote->update([
+                    'estado' => Lote::ESTADO_ERROR,
+                    'error' => "Error al procesar el archivo, revise que esté correctamente escrito y vuelva a intentarlo."
+                ]);
+                
             }
-            
-            \Queue::push('App\ProcesarArchivo@finalizarLote', [
-                'lote' => $lote
-            ]);
-            unlink($lote->archivo);
-        } catch (\Exception $e) {
+        }
+        else{
             $lote->update([
-                'estado' => Lote::ESTADO_ERROR,
-                'error' => "Error al procesar el archivo, revise que esté correctamente escrito y vuelva a intentarlo."
-            ]);
-            
+                    'estado' => Lote::ESTADO_ERROR,
+                    'error' => implode(' - ', $resultado_check)
+                ]);
         }
         $job->delete();
     }
