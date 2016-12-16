@@ -9,6 +9,15 @@ class InformacionVariable extends Model
     protected $table = 'informacion_variables';
 	protected $fillable = ['anio', 'valor', 'variable_id', 'zona_id', 'unidad_medida_id', 'fuente_id', 'frecuencia_id', 'lote_id'];
 
+	public static function firstOrCreate(array $attributes)
+	{
+		if ( ! is_null($instance = self::where($attributes)) )
+		{
+			return $instance;
+		}
+		return self::create($attributes);
+	}
+
 	public function variable()
 	{
 		return $this->hasOne('App\Models\Variable', 'id', 'variable_id');
