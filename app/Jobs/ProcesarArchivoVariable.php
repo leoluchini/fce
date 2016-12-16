@@ -80,11 +80,11 @@ class ProcesarArchivoVariable extends Job implements ShouldQueue, SelfHandling
         }
 
         try {
-            $references = $this->procesarCabera('App\Models\CategoriaVariable', $datos['#Categorias'], $references);
-            $references = $this->procesarCabera('App\Models\Variable', $datos['#Variables'], $references);
-            $references = $this->procesarCabera('App\Models\ZonaGeografica',$datos['#Zonas'], $references, true);
-            $references = $this->procesarCabera('App\Models\UnidadMedida', $datos['#Unidades'], $references, true);
-            $references = $this->procesarCabera('App\Models\Fuente', $datos['#Fuentes'], $references, true);
+            $references = $this->procesarCabecera('App\Models\CategoriaVariable', $datos['#Categorias'], $references);
+            $references = $this->procesarCabecera('App\Models\Variable', $datos['#Variables'], $references);
+            $references = $this->procesarCabecera('App\Models\ZonaGeografica',$datos['#Zonas'], $references, true);
+            $references = $this->procesarCabecera('App\Models\UnidadMedida', $datos['#Unidades'], $references, true);
+            $references = $this->procesarCabecera('App\Models\Fuente', $datos['#Fuentes'], $references, true);
             
             if(isset($datos['#DatosAdicionales'])){
                 foreach ($datos['#DatosAdicionales'] as $id => $dato) {
@@ -117,7 +117,7 @@ class ProcesarArchivoVariable extends Job implements ShouldQueue, SelfHandling
         
     }
 
-    protected function procesarCabera($class, $datos, $references, $downcase = false){
+    protected function procesarCabecera($class, $datos, $references, $downcase = false){
         $count = 0;
         $loteId = $this->lote->id;
         foreach ($datos as $attributes){
@@ -167,6 +167,12 @@ class ProcesarArchivoVariable extends Job implements ShouldQueue, SelfHandling
 
     protected function preCheck($datos)
     {
+        $categorias = array_column($datos['#Categorias'], 'codigo');
+        $check_categorias = array_filter($categorias, create_function('$value', 'return strpos($value, "-") !== false;'));
+        if(count($check_categorias) > 0){
+            return [false, ['Los codigos de categorias no pueden contener el caracter \'-\'']];
+        }
+
         $items = array_column($datos['#Variables'], 'codigo');
 
         $zonas = array_map('strtolower', array_column($datos['#Zonas'], 'codigo'));
@@ -174,6 +180,28 @@ class ProcesarArchivoVariable extends Job implements ShouldQueue, SelfHandling
         $unidades = array_map('strtolower', array_column($datos['#Unidades'], 'codigo'));
 
         $fuentes = array_map('strtolower', array_column($datos['#Fuentes'], 'codigo'));
+
+        $check_variables = array_filter($items, create_function('$value', 'return count(explode("-", $value)) == 2;'));
+        if(count($check_variables) != count($items)){
+            return [false, ['Los codigos de variables deben contener un unico separador  \'-\'']];
+        }
+
+        $temas = array_column($datos['#Variables'], 'tema');
+        if(count($temas) > 0){
+            $check_temas = array_filter($temas, create_function('$value', 'return count(explode("_", $value)) == 2;'));
+            if(count($check_temas) != count($temas)){
+                return [false, ['Los temas de variables deben contener un unico separador  \'_\'']];
+            }
+        }
+
+        $check_zonas = array_filter($zonas, create_function('$value', 'return strlen($value) == 7;'));
+        if(count($check_zonas) != count($zonas)){
+            return [false, ['Los codigos de zonas geograficas deben ser de 7 caracteres']];
+        }
+        $check_zonas_2 = array_filter($zonas, create_function('$value', '$pais = substr($value, 0, 2);$provincia = substr($value, 2, 2);$municipio = substr($value, 4, 3);return ($provincia == "00") && ($municipio != "000");'));
+        if(count($check_zonas_2) > 0){
+            return [false, ['Existen codigos de zonas geograficas que no cumplen la nomenclatura']];
+        }
 
         $info_items = array_unique(array_column($datos['#Datos'], 'variable_id'));
 
@@ -199,8 +227,7 @@ class ProcesarArchivoVariable extends Job implements ShouldQueue, SelfHandling
         else{
             $errores = [];
             if((count($diff_items) != 0)){
-                $label = 'Variables no definidas';
-                $errores[] = $label.' en la seccion de catalogos: '.implode(', ', $diff_items);
+                $errores[] = 'Variables no definidas en la seccion de catalogos: '.implode(', ', $diff_items);
             }
             if(count($diff_zonas) != 0){
                 $errores[] = 'Regiones no definidas en la seccion de catalogos: '.implode(', ', $diff_zonas);
