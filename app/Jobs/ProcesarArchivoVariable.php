@@ -85,6 +85,7 @@ class ProcesarArchivoVariable extends Job implements ShouldQueue, SelfHandling
             $references = $this->procesarCabecera('App\Models\ZonaGeografica',$datos['#Zonas'], $references, true);
             $references = $this->procesarCabecera('App\Models\UnidadMedida', $datos['#Unidades'], $references, true);
             $references = $this->procesarCabecera('App\Models\Fuente', $datos['#Fuentes'], $references, true);
+            $references = $this->obtenerFrecuencias($references);
             
             if(isset($datos['#DatosAdicionales'])){
                 foreach ($datos['#DatosAdicionales'] as $id => $dato) {
@@ -117,6 +118,13 @@ class ProcesarArchivoVariable extends Job implements ShouldQueue, SelfHandling
         
     }
 
+    protected function obtenerFrecuencias($references)
+    {
+        $frecuencias = Frecuencia::lists('id', 'codigo')->toArray();
+        $references = array_merge($frecuencias, $references);
+        return $references;
+    }
+
     protected function procesarCabecera($class, $datos, $references, $downcase = false){
         $count = 0;
         $loteId = $this->lote->id;
@@ -140,7 +148,8 @@ class ProcesarArchivoVariable extends Job implements ShouldQueue, SelfHandling
             $attributes['zona_id'] = $references[strtolower($attributes['zona_id'])];
             $attributes['fuente_id'] = $references[strtolower($attributes['fuente_id'])];
             $attributes['unidad_medida_id'] = $references[strtolower($attributes['unidad_medida_id'])];
-            $attributes['frecuencia_id'] = Frecuencia::where('codigo', $attributes['frecuencia_id'])->first()->id;
+            //$attributes['frecuencia_id'] = Frecuencia::where('codigo', $attributes['frecuencia_id'])->first()->id;
+            $attributes['frecuencia_id'] = $references[strtoupper($attributes['frecuencia_id'])];
             $attributes['variable_id'] = $references[$attributes['variable_id']];
             //InformacionVariable::firstOrCreate($attributes);
             InformacionVariable::create($attributes);
@@ -182,6 +191,8 @@ class ProcesarArchivoVariable extends Job implements ShouldQueue, SelfHandling
 
         $fuentes = array_map('strtolower', array_column($datos['#Fuentes'], 'codigo'));
 
+        $frecuencias = Frecuencia::lists('codigo')->toArray();
+
         $check_variables = array_filter($items, create_function('$value', 'return count(explode("-", $value)) >= 2;'));
         if(count($check_variables) != count($items)){
             return [false, ['Los codigos de variables deben contener un separador  \'-\'']];
@@ -212,16 +223,21 @@ class ProcesarArchivoVariable extends Job implements ShouldQueue, SelfHandling
         
         $info_fuentes = array_map('strtolower', array_unique(array_column($datos['#Datos'], 'fuente_id')));
 
+        $info_frec = array_map('strtoupper', array_unique(array_column($datos['#Datos'], 'frecuencia_id')));
+
         $diff_items = array_diff($info_items, $items);
         $diff_zonas = array_diff($info_zonas, $zonas);
         $diff_unidades = array_diff($info_unidades, $unidades);
         $diff_fuentes = array_diff($info_fuentes, $fuentes);
+        $diff_frec = array_diff($info_frec, $frecuencias);
+
         $diff_items = array_filter($diff_items, create_function('$value', 'return $value !== "";'));
         $diff_zonas = array_filter($diff_zonas, create_function('$value', 'return $value !== "";'));
         $diff_unidades = array_filter($diff_unidades, create_function('$value', 'return $value !== "";'));
         $diff_fuentes = array_filter($diff_fuentes, create_function('$value', 'return $value !== "";'));
+        $diff_frec = array_filter($diff_frec, create_function('$value', 'return $value !== "";'));
 
-        if((count($diff_items) == 0)&&(count($diff_zonas) == 0)&&(count($diff_unidades) == 0)&&(count($diff_fuentes) == 0))
+        if((count($diff_items) == 0)&&(count($diff_zonas) == 0)&&(count($diff_unidades) == 0)&&(count($diff_fuentes) == 0)&&(count($diff_frec) == 0))
         {
             return [ true, []];
         }
@@ -238,6 +254,9 @@ class ProcesarArchivoVariable extends Job implements ShouldQueue, SelfHandling
             }
             if(count($diff_fuentes) != 0){
                 $errores[] = 'Fuentes no definidas en la seccion de catalogos: '.implode(', ', $diff_fuentes);
+            }
+            if(count($diff_frec) != 0){
+                $errores[] = 'Frecuencias no definidas en el sistema: '.implode(', ', $diff_frec);
             }
             return [false, $errores];
         }
