@@ -142,7 +142,8 @@ class ProcesarArchivoVariable extends Job implements ShouldQueue, SelfHandling
             $attributes['unidad_medida_id'] = $references[strtolower($attributes['unidad_medida_id'])];
             $attributes['frecuencia_id'] = Frecuencia::where('codigo', $attributes['frecuencia_id'])->first()->id;
             $attributes['variable_id'] = $references[$attributes['variable_id']];
-            InformacionVariable::firstOrCreate($attributes);
+            //InformacionVariable::firstOrCreate($attributes);
+            InformacionVariable::create($attributes);
             $count ++;
         }
         Log::info($count . " datos procesados para el Lote ". $loteId);
@@ -181,9 +182,9 @@ class ProcesarArchivoVariable extends Job implements ShouldQueue, SelfHandling
 
         $fuentes = array_map('strtolower', array_column($datos['#Fuentes'], 'codigo'));
 
-        $check_variables = array_filter($items, create_function('$value', 'return count(explode("-", $value)) == 2;'));
+        $check_variables = array_filter($items, create_function('$value', 'return count(explode("-", $value)) >= 2;'));
         if(count($check_variables) != count($items)){
-            return [false, ['Los codigos de variables deben contener un unico separador  \'-\'']];
+            return [false, ['Los codigos de variables deben contener un separador  \'-\'']];
         }
 
         $temas = array_column($datos['#Variables'], 'tema');
