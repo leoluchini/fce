@@ -216,13 +216,18 @@ class FrontendIndicadoresController extends Controller
 	{
 		$input = $request->all();
 
-		$resultados = InformacionIndicador::select('informacion_indicadores.*')
-										 ->join('lotes', 'informacion_indicadores.lote_id', '=', 'lotes.id')->where('lotes.estado', Lote::ESTADO_ACEPTADO)
-										 ->whereIn('informacion_indicadores.zona_id', $input['regiones'])
-										 ->whereIn('informacion_indicadores.indicador_id', $input['indicadores'])
-										 ->orderBy('anio', 'ASC')
-										 ->get();
-		$periodos = array_values(array_unique($resultados->lists('anio')->toArray()));
+		$listado_regiones = '('.implode(',', $input['regiones']).')';
+		$listado_indicadores = '('.implode(',', $input['indicadores']).')';
+		$resultados = DB::select('SELECT distinct anio 
+									FROM informacion_indicadores join lotes on informacion_indicadores.lote_id = lotes.id 
+									WHERE lotes.estado = '.Lote::ESTADO_ACEPTADO.' 
+									AND informacion_indicadores.zona_id in '.$listado_regiones.' 
+									AND informacion_indicadores.indicador_id in '.$listado_indicadores.' 
+									ORDER by anio ASC');
+		$periodos = [];
+		foreach($resultados as $anio){
+			$periodos[] = $anio->anio;
+		}
 		
 		return response()->json($periodos);
 	}
@@ -230,13 +235,19 @@ class FrontendIndicadoresController extends Controller
 	{
 		$input = $request->all();
 
-		$resultados = InformacionIndicador::select('informacion_indicadores.*')
-										 ->join('lotes', 'informacion_indicadores.lote_id', '=', 'lotes.id')->where('lotes.estado', Lote::ESTADO_ACEPTADO)
-										 ->whereIn('informacion_indicadores.zona_id', $input['regiones'])
-										 ->whereIn('informacion_indicadores.indicador_id', $input['indicadores'])
-										 ->whereIn('informacion_indicadores.anio', $input['periodos'])
-										 ->get();
-		$frecuencias = array_values(array_unique($resultados->lists('frecuencia_id')->toArray()));
+		$listado_regiones = '('.implode(',', $input['regiones']).')';
+		$listado_indicadores = '('.implode(',', $input['indicadores']).')';
+		$listado_anios = '('.implode(',', $input['periodos']).')';
+		$resultados = DB::select('SELECT distinct frecuencia_id 
+									FROM informacion_indicadores join lotes on informacion_indicadores.lote_id = lotes.id 
+									WHERE lotes.estado = '.Lote::ESTADO_ACEPTADO.' 
+									AND informacion_indicadores.zona_id in '.$listado_regiones.' 
+									AND informacion_indicadores.indicador_id in '.$listado_indicadores.' 
+									AND informacion_indicadores.anio in '.$listado_anios);
+		$frecuencias = [];
+		foreach($resultados as $frecuencia){
+			$frecuencias[] = $frecuencia->frecuencia_id;
+		}
 		
 		return response()->json(array('frecuencias' => $frecuencias));
 	}

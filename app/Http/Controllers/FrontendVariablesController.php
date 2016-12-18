@@ -28,7 +28,10 @@ class FrontendVariablesController extends Controller
 		$data['semestres'] = Frecuencia::where('tipo', '=', 'SEMESTRE')->get();
 		$data['trimestres'] = Frecuencia::where('tipo', '=', 'TRIMESTRE')->get();
 		$data['meses'] = Frecuencia::where('tipo', '=', 'MES')->get();
-		$info_anios = DB::select('SELECT distinct anio FROM informacion_variables join lotes on informacion_variables.lote_id = lotes.id where lotes.estado = '.Lote::ESTADO_ACEPTADO.' order by anio ASC');
+		$info_anios = DB::select('SELECT distinct anio 
+									FROM informacion_variables join lotes on informacion_variables.lote_id = lotes.id 
+									WHERE lotes.estado = '.Lote::ESTADO_ACEPTADO.' 
+									ORDER by anio ASC');
 		$data['periodos'] = [];
 		foreach($info_anios as $anio){
 			$data['periodos'][] = $anio->anio;
@@ -246,13 +249,18 @@ class FrontendVariablesController extends Controller
 	{
 		$input = $request->all();
 
-		$resultados = InformacionVariable::select('informacion_variables.*')
-										 ->join('lotes', 'informacion_variables.lote_id', '=', 'lotes.id')->where('lotes.estado', Lote::ESTADO_ACEPTADO)
-										 ->whereIn('informacion_variables.zona_id', $input['regiones'])
-										 ->whereIn('informacion_variables.variable_id', $input['variables'])
-										 ->orderBy('anio', 'ASC')
-										 ->get();
-		$periodos = array_values(array_unique($resultados->lists('anio')->toArray()));
+		$listado_regiones = '('.implode(',', $input['regiones']).')';
+		$listado_variables = '('.implode(',', $input['variables']).')';
+		$resultados = DB::select('SELECT distinct anio 
+									FROM informacion_variables join lotes on informacion_variables.lote_id = lotes.id 
+									WHERE lotes.estado = '.Lote::ESTADO_ACEPTADO.' 
+									AND informacion_variables.zona_id in '.$listado_regiones.' 
+									AND informacion_variables.variable_id in '.$listado_variables.' 
+									ORDER by anio ASC');
+		$periodos = [];
+		foreach($resultados as $anio){
+			$periodos[] = $anio->anio;
+		}
 		
 		return response()->json($periodos);
 	}
@@ -260,13 +268,19 @@ class FrontendVariablesController extends Controller
 	{
 		$input = $request->all();
 
-		$resultados = InformacionVariable::select('informacion_variables.*')
-										 ->join('lotes', 'informacion_variables.lote_id', '=', 'lotes.id')->where('lotes.estado', Lote::ESTADO_ACEPTADO)
-										 ->whereIn('informacion_variables.zona_id', $input['regiones'])
-										 ->whereIn('informacion_variables.variable_id', $input['variables'])
-										 ->whereIn('informacion_variables.anio', $input['periodos'])
-										 ->get();
-		$frecuencias = array_values(array_unique($resultados->lists('frecuencia_id')->toArray()));
+		$listado_regiones = '('.implode(',', $input['regiones']).')';
+		$listado_variables = '('.implode(',', $input['variables']).')';
+		$listado_anios = '('.implode(',', $input['periodos']).')';
+		$resultados = DB::select('SELECT distinct frecuencia_id 
+									FROM informacion_variables join lotes on informacion_variables.lote_id = lotes.id 
+									WHERE lotes.estado = '.Lote::ESTADO_ACEPTADO.' 
+									AND informacion_variables.zona_id in '.$listado_regiones.' 
+									AND informacion_variables.variable_id in '.$listado_variables.' 
+									AND informacion_variables.anio in '.$listado_anios);
+		$frecuencias = [];
+		foreach($resultados as $frecuencia){
+			$frecuencias[] = $frecuencia->frecuencia_id;
+		}
 		
 		return response()->json(array('frecuencias' => $frecuencias));
 	}
