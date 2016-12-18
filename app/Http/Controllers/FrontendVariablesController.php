@@ -177,13 +177,20 @@ class FrontendVariablesController extends Controller
 		$string_consulta = "nombre ilike ".$query;
 		if(($input['tipo_busqueda'] == 'region_variable') && isset($input['regiones']))
 		{
-			$res = Variable::select('variables.*')
+			/*$res = Variable::select('variables.*')
 				->join('lotes', 'variables.lote_id', '=', 'lotes.id')->where('lotes.estado', Lote::ESTADO_ACEPTADO)
 				->whereRaw($string_consulta)
 				->join('informacion_variables', 'variables.id', '=', 'informacion_variables.variable_id')
 				->whereIn('informacion_variables.zona_id', $input['regiones'])
 				->distinct()
-				->get();
+				->get();*/
+			$listado_regiones = '('.implode(',', $input['regiones']).')';
+			$res = Variable::whereRaw('variables.id in (SELECT distinct variable_id 
+									FROM informacion_variables join lotes on informacion_variables.lote_id = lotes.id 
+									WHERE lotes.estado = '.Lote::ESTADO_ACEPTADO.' 
+									AND informacion_variables.zona_id in '.$listado_regiones.')')
+							->whereRaw($string_consulta)
+							->get();
 		}
 		else{
 			$res = Variable::select('variables.*')
@@ -215,14 +222,20 @@ class FrontendVariablesController extends Controller
 	}
 	public function consulta_regiones($variables)
 	{
-		$lista_variables = explode('-', $variables);
+		$listado_variables = '('.str_replace('-', ',', $variables).')';
+		//TESTEAR SI ES MAS RAPIDA ESTA CONSULTA
+		/*$resultados = DB::select('SELECT distinct zona_id 
+									FROM informacion_variables join lotes on informacion_variables.lote_id = lotes.id 
+									WHERE lotes.estado = '.Lote::ESTADO_ACEPTADO.' 
+									AND informacion_variables.variable_id in '.$listado_variables);
+		$listado_zonas = convert_object_array($resultados, 'zona_id');
+		$res = ZonaGeografica::whereIn('zonas_geograficas.id', $listado_zonas)->get();*/
 
-		$res = ZonaGeografica::select('zonas_geograficas.*')
-			->join('lotes', 'zonas_geograficas.lote_id', '=', 'lotes.id')->where('lotes.estado', Lote::ESTADO_ACEPTADO)
-			->join('informacion_variables', 'zonas_geograficas.id', '=', 'informacion_variables.zona_id')
-			->whereIn('informacion_variables.variable_id', $lista_variables)
-			->distinct()
-			->get();
+		$res = ZonaGeografica::whereRaw('zonas_geograficas.id in (SELECT distinct zona_id 
+									FROM informacion_variables join lotes on informacion_variables.lote_id = lotes.id 
+									WHERE lotes.estado = '.Lote::ESTADO_ACEPTADO.' 
+									AND informacion_variables.variable_id in '.$listado_variables.')')->get();
+
 		$paises = $provincias = $municipios = array();
 		foreach($res as $zona)
 		{
@@ -252,7 +265,7 @@ class FrontendVariablesController extends Controller
 									WHERE lotes.estado = '.Lote::ESTADO_ACEPTADO.' 
 									AND informacion_variables.zona_id in '.$listado_regiones.' 
 									AND informacion_variables.variable_id in '.$listado_variables.' 
-									ORDER by anio ASC');
+									ORDER BY anio ASC');
 		$periodos = convert_object_array($resultados, 'anio');
 		
 		return response()->json($periodos);
