@@ -31,13 +31,9 @@ class FrontendVariablesController extends Controller
 		$info_anios = DB::select('SELECT distinct anio 
 									FROM informacion_variables join lotes on informacion_variables.lote_id = lotes.id 
 									WHERE lotes.estado = '.Lote::ESTADO_ACEPTADO.' 
-									ORDER by anio ASC');
-		$data['periodos'] = [];
-		foreach($info_anios as $anio){
-			$data['periodos'][] = $anio->anio;
-		}
+									ORDER BY anio ASC');
+		$data['periodos'] = convert_object_array($info_anios, 'anio');
 
-		//$data['temas'] = Tema::all();
 		$temas_variables = Variable::select('variables.tema_id')
 									->join('lotes', 'variables.lote_id', '=', 'lotes.id')->where('lotes.estado', Lote::ESTADO_ACEPTADO)
 									->distinct()->whereNotNull('tema_id')->get()->lists('tema_id')->toArray();
@@ -257,10 +253,7 @@ class FrontendVariablesController extends Controller
 									AND informacion_variables.zona_id in '.$listado_regiones.' 
 									AND informacion_variables.variable_id in '.$listado_variables.' 
 									ORDER by anio ASC');
-		$periodos = [];
-		foreach($resultados as $anio){
-			$periodos[] = $anio->anio;
-		}
+		$periodos = convert_object_array($resultados, 'anio');
 		
 		return response()->json($periodos);
 	}
@@ -277,10 +270,7 @@ class FrontendVariablesController extends Controller
 									AND informacion_variables.zona_id in '.$listado_regiones.' 
 									AND informacion_variables.variable_id in '.$listado_variables.' 
 									AND informacion_variables.anio in '.$listado_anios);
-		$frecuencias = [];
-		foreach($resultados as $frecuencia){
-			$frecuencias[] = $frecuencia->frecuencia_id;
-		}
+		$frecuencias = convert_object_array($resultados, 'frecuencia_id');
 		
 		return response()->json(array('frecuencias' => $frecuencias));
 	}

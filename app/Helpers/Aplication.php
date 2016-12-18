@@ -210,4 +210,12 @@ function get_anios($datos = null)
     }
     return $lista;
 }
+function convert_object_array($arreglo, $atributo)
+{
+    $resultado = [];
+    foreach($arreglo as $object){
+        $resultado[] = $object->$atributo;
+    }
+    return $resultado;
+}
 ?>
