@@ -27,4 +27,9 @@ class Provincia extends ZonaGeografica
     {
     	return $this->municipios();
     }
+
+    public function fullName()
+    {
+        return $this->nombre.' ('.$this->pais->nombre.')';
+    }
 }

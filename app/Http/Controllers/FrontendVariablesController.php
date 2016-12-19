@@ -91,7 +91,7 @@ class FrontendVariablesController extends Controller
 				$info_var['fuentes'][$res->variable->id] = $res->fuente->nombre;
 			}
 			if(!isset($info_var['regiones'][$res->zona->id])){
-				$info_var['regiones'][$res->zona->id] = $res->zona->nombre;
+				$info_var['regiones'][$res->zona->id] = $res->zona->fullName();
 			}
 			$anio_frecuencia = $res->anio.'-'.$res->frecuencia->id;
 			if(!isset($info_var['aniofrec'][$anio_frecuencia])){
@@ -241,13 +241,13 @@ class FrontendVariablesController extends Controller
 		{
 			switch ($zona->tipo) {
 				case 'pais':
-					$paises[] = ['id' => $zona->id, 'nombre' => $zona->nombre];
+					$paises[] = ['id' => $zona->id, 'nombre' => $zona->fullName()];
 					break;
 				case 'provincia':
-					$provincias[] = ['id' => $zona->id, 'nombre' => $zona->nombre.' ('.$zona->pais->nombre.')'];
+					$provincias[] = ['id' => $zona->id, 'nombre' => $zona->fullName()];
 					break;
 				case 'municipio':
-					$municipios[] = ['id' => $zona->id, 'nombre' => $zona->nombre.' ('.$zona->provincia->nombre.', '.$zona->provincia->pais->nombre.')'];
+					$municipios[] = ['id' => $zona->id, 'nombre' => $zona->fullName()];
 					break;
 			}
 		}
