@@ -192,54 +192,6 @@ function txt_indicadores_to_array($filename='')
     return $result;
 }
 
-function pre_check($datos, $tipo)
-{
-    $items = ($tipo == 'variable')
-                ? array_column($datos['#Variables'], 'codigo')
-                : array_column($datos['#Indicadores'], 'codigo');
-    $zonas = array_map('strtolower', array_column($datos['#Zonas'], 'codigo'));
-    $unidades = array_map('strtolower', array_column($datos['#Unidades'], 'codigo'));
-    $fuentes = array_map('strtolower', array_column($datos['#Fuentes'], 'codigo'));
-
-    $info_items = ($tipo == 'variable')
-                ? array_unique(array_column($datos['#Datos'], 'variable_id'))
-                : array_unique(array_column($datos['#Datos'], 'indicador_id'));
-    $info_zonas = array_map('strtolower', array_unique(array_column($datos['#Datos'], 'zona_id')));
-    $info_unidades = array_map('strtolower', array_unique(array_column($datos['#Datos'], 'unidad_medida_id')));
-    $info_fuentes = array_map('strtolower', array_unique(array_column($datos['#Datos'], 'fuente_id')));
-
-    $diff_items = array_diff($info_items, $items);
-    $diff_zonas = array_diff($info_zonas, $zonas);
-    $diff_unidades = array_diff($info_unidades, $unidades);
-    $diff_fuentes = array_diff($info_fuentes, $fuentes);
-    $diff_items = array_filter($diff_items, create_function('$value', 'return $value !== "";'));
-    $diff_zonas = array_filter($diff_zonas, create_function('$value', 'return $value !== "";'));
-    $diff_unidades = array_filter($diff_unidades, create_function('$value', 'return $value !== "";'));
-    $diff_fuentes = array_filter($diff_fuentes, create_function('$value', 'return $value !== "";'));
-
-    if((count($diff_items) == 0)&&(count($diff_zonas) == 0)&&(count($diff_unidades) == 0)&&(count($diff_fuentes) == 0))
-    {
-        return true;
-    }
-    else{
-        $errores = [];
-        if((count($diff_items) != 0)){
-            $label = ($tipo == 'variable') ? 'Variables no definidas' : 'Indicadores no definidos';
-            $errores[] = $label.' en la seccion de catalogos: '.implode(', ', $diff_items);
-        }
-        if(count($diff_zonas) != 0){
-            $errores[] = 'Regiones no definidas en la seccion de catalogos: '.implode(', ', $diff_zonas);
-        }
-        if(count($diff_unidades) != 0){
-            $errores[] = 'Unidades no definidas en la seccion de catalogos: '.implode(', ', $diff_unidades);
-        }
-        if(count($diff_fuentes) != 0){
-            $errores[] = 'Fuentes no definidas en la seccion de catalogos: '.implode(', ', $diff_fuentes);
-        }
-        return $errores;
-    }
-}
-
 function boolean_html($boolean)
 {
     if($boolean){
@@ -257,5 +209,13 @@ function get_anios($datos = null)
         $lista[$i] = $i;
     }
     return $lista;
+}
+function convert_object_array($arreglo, $atributo)
+{
+    $resultado = [];
+    foreach($arreglo as $object){
+        $resultado[] = $object->$atributo;
+    }
+    return $resultado;
 }
 ?>

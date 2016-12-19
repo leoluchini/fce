@@ -3,11 +3,24 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Log;
 
 class InformacionVariable extends Model
 {
     protected $table = 'informacion_variables';
 	protected $fillable = ['anio', 'valor', 'variable_id', 'zona_id', 'unidad_medida_id', 'fuente_id', 'frecuencia_id', 'lote_id'];
+
+	public static function firstOrCreate(array $attributes)
+	{
+		$loteId = $attributes['lote_id'];
+		unset($attributes['lote_id']);
+		if ( ! is_null($instance = self::where($attributes)->first()) )
+		{
+			return $instance;
+		}
+		$attributes['lote_id'] = $loteId;
+		return InformacionVariable::create($attributes);
+	}
 
 	public function variable()
 	{

@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\LecturaRequest;
-use App\Jobs\ProcesarArchivo;
+use App\Jobs\ProcesarArchivoVariable;
 use App\Http\Requests;
 use App\Models\CategoriaVariable;
 use App\Models\Fuente;
@@ -80,7 +80,7 @@ class LecturaController extends Controller
                 'usuario_id' => \Auth::user()->id
             ]);
 
-            \Queue::push('App\ProcesarArchivo', array('lote' => $lote));
+            dispatch(new ProcesarArchivoVariable($lote));
         }
 
         return redirect(route('administracion.lectura.index'));

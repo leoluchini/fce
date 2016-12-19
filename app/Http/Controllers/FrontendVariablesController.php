@@ -28,13 +28,12 @@ class FrontendVariablesController extends Controller
 		$data['semestres'] = Frecuencia::where('tipo', '=', 'SEMESTRE')->get();
 		$data['trimestres'] = Frecuencia::where('tipo', '=', 'TRIMESTRE')->get();
 		$data['meses'] = Frecuencia::where('tipo', '=', 'MES')->get();
-		$info_anios = DB::select('SELECT distinct anio FROM informacion_variables join lotes on informacion_variables.lote_id = lotes.id where lotes.estado = '.Lote::ESTADO_ACEPTADO.' order by anio ASC');
-		$data['periodos'] = [];
-		foreach($info_anios as $anio){
-			$data['periodos'][] = $anio->anio;
-		}
+		$info_anios = DB::select('SELECT distinct anio 
+									FROM informacion_variables join lotes on informacion_variables.lote_id = lotes.id 
+									WHERE lotes.estado = '.Lote::ESTADO_ACEPTADO.' 
+									ORDER BY anio ASC');
+		$data['periodos'] = convert_object_array($info_anios, 'anio');
 
-		//$data['temas'] = Tema::all();
 		$temas_variables = Variable::select('variables.tema_id')
 									->join('lotes', 'variables.lote_id', '=', 'lotes.id')->where('lotes.estado', Lote::ESTADO_ACEPTADO)
 									->distinct()->whereNotNull('tema_id')->get()->lists('tema_id')->toArray();
@@ -92,7 +91,7 @@ class FrontendVariablesController extends Controller
 				$info_var['fuentes'][$res->variable->id] = $res->fuente->nombre;
 			}
 			if(!isset($info_var['regiones'][$res->zona->id])){
-				$info_var['regiones'][$res->zona->id] = $res->zona->nombre;
+				$info_var['regiones'][$res->zona->id] = $res->zona->fullName();
 			}
 			$anio_frecuencia = $res->anio.'-'.$res->frecuencia->id;
 			if(!isset($info_var['aniofrec'][$anio_frecuencia])){
@@ -178,13 +177,20 @@ class FrontendVariablesController extends Controller
 		$string_consulta = "nombre ilike ".$query;
 		if(($input['tipo_busqueda'] == 'region_variable') && isset($input['regiones']))
 		{
-			$res = Variable::select('variables.*')
+			/*$res = Variable::select('variables.*')
 				->join('lotes', 'variables.lote_id', '=', 'lotes.id')->where('lotes.estado', Lote::ESTADO_ACEPTADO)
 				->whereRaw($string_consulta)
 				->join('informacion_variables', 'variables.id', '=', 'informacion_variables.variable_id')
 				->whereIn('informacion_variables.zona_id', $input['regiones'])
 				->distinct()
-				->get();
+				->get();*/
+			$listado_regiones = '('.implode(',', $input['regiones']).')';
+			$res = Variable::whereRaw('variables.id in (SELECT distinct variable_id 
+									FROM informacion_variables join lotes on informacion_variables.lote_id = lotes.id 
+									WHERE lotes.estado = '.Lote::ESTADO_ACEPTADO.' 
+									AND informacion_variables.zona_id in '.$listado_regiones.')')
+							->whereRaw($string_consulta)
+							->get();
 		}
 		else{
 			$res = Variable::select('variables.*')
@@ -216,26 +222,32 @@ class FrontendVariablesController extends Controller
 	}
 	public function consulta_regiones($variables)
 	{
-		$lista_variables = explode('-', $variables);
+		$listado_variables = '('.str_replace('-', ',', $variables).')';
+		//TESTEAR SI ES MAS RAPIDA ESTA CONSULTA
+		/*$resultados = DB::select('SELECT distinct zona_id 
+									FROM informacion_variables join lotes on informacion_variables.lote_id = lotes.id 
+									WHERE lotes.estado = '.Lote::ESTADO_ACEPTADO.' 
+									AND informacion_variables.variable_id in '.$listado_variables);
+		$listado_zonas = convert_object_array($resultados, 'zona_id');
+		$res = ZonaGeografica::whereIn('zonas_geograficas.id', $listado_zonas)->get();*/
 
-		$res = ZonaGeografica::select('zonas_geograficas.*')
-			->join('lotes', 'zonas_geograficas.lote_id', '=', 'lotes.id')->where('lotes.estado', Lote::ESTADO_ACEPTADO)
-			->join('informacion_variables', 'zonas_geograficas.id', '=', 'informacion_variables.zona_id')
-			->whereIn('informacion_variables.variable_id', $lista_variables)
-			->distinct()
-			->get();
+		$res = ZonaGeografica::whereRaw('zonas_geograficas.id in (SELECT distinct zona_id 
+									FROM informacion_variables join lotes on informacion_variables.lote_id = lotes.id 
+									WHERE lotes.estado = '.Lote::ESTADO_ACEPTADO.' 
+									AND informacion_variables.variable_id in '.$listado_variables.')')->get();
+
 		$paises = $provincias = $municipios = array();
 		foreach($res as $zona)
 		{
 			switch ($zona->tipo) {
 				case 'pais':
-					$paises[] = ['id' => $zona->id, 'nombre' => $zona->nombre];
+					$paises[] = ['id' => $zona->id, 'nombre' => $zona->fullName()];
 					break;
 				case 'provincia':
-					$provincias[] = ['id' => $zona->id, 'nombre' => $zona->nombre.' ('.$zona->pais->nombre.')'];
+					$provincias[] = ['id' => $zona->id, 'nombre' => $zona->fullName()];
 					break;
 				case 'municipio':
-					$municipios[] = ['id' => $zona->id, 'nombre' => $zona->nombre.' ('.$zona->provincia->nombre.', '.$zona->provincia->pais->nombre.')'];
+					$municipios[] = ['id' => $zona->id, 'nombre' => $zona->fullName()];
 					break;
 			}
 		}
@@ -246,13 +258,15 @@ class FrontendVariablesController extends Controller
 	{
 		$input = $request->all();
 
-		$resultados = InformacionVariable::select('informacion_variables.*')
-										 ->join('lotes', 'informacion_variables.lote_id', '=', 'lotes.id')->where('lotes.estado', Lote::ESTADO_ACEPTADO)
-										 ->whereIn('informacion_variables.zona_id', $input['regiones'])
-										 ->whereIn('informacion_variables.variable_id', $input['variables'])
-										 ->orderBy('anio', 'ASC')
-										 ->get();
-		$periodos = array_values(array_unique($resultados->lists('anio')->toArray()));
+		$listado_regiones = '('.implode(',', $input['regiones']).')';
+		$listado_variables = '('.implode(',', $input['variables']).')';
+		$resultados = DB::select('SELECT distinct anio 
+									FROM informacion_variables join lotes on informacion_variables.lote_id = lotes.id 
+									WHERE lotes.estado = '.Lote::ESTADO_ACEPTADO.' 
+									AND informacion_variables.zona_id in '.$listado_regiones.' 
+									AND informacion_variables.variable_id in '.$listado_variables.' 
+									ORDER BY anio ASC');
+		$periodos = convert_object_array($resultados, 'anio');
 		
 		return response()->json($periodos);
 	}
@@ -260,13 +274,16 @@ class FrontendVariablesController extends Controller
 	{
 		$input = $request->all();
 
-		$resultados = InformacionVariable::select('informacion_variables.*')
-										 ->join('lotes', 'informacion_variables.lote_id', '=', 'lotes.id')->where('lotes.estado', Lote::ESTADO_ACEPTADO)
-										 ->whereIn('informacion_variables.zona_id', $input['regiones'])
-										 ->whereIn('informacion_variables.variable_id', $input['variables'])
-										 ->whereIn('informacion_variables.anio', $input['periodos'])
-										 ->get();
-		$frecuencias = array_values(array_unique($resultados->lists('frecuencia_id')->toArray()));
+		$listado_regiones = '('.implode(',', $input['regiones']).')';
+		$listado_variables = '('.implode(',', $input['variables']).')';
+		$listado_anios = '('.implode(',', $input['periodos']).')';
+		$resultados = DB::select('SELECT distinct frecuencia_id 
+									FROM informacion_variables join lotes on informacion_variables.lote_id = lotes.id 
+									WHERE lotes.estado = '.Lote::ESTADO_ACEPTADO.' 
+									AND informacion_variables.zona_id in '.$listado_regiones.' 
+									AND informacion_variables.variable_id in '.$listado_variables.' 
+									AND informacion_variables.anio in '.$listado_anios);
+		$frecuencias = convert_object_array($resultados, 'frecuencia_id');
 		
 		return response()->json(array('frecuencias' => $frecuencias));
 	}

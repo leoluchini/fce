@@ -28,11 +28,11 @@ class FrontendIndicadoresController extends Controller
 		$data['semestres'] = Frecuencia::where('tipo', '=', 'SEMESTRE')->get();
 		$data['trimestres'] = Frecuencia::where('tipo', '=', 'TRIMESTRE')->get();
 		$data['meses'] = Frecuencia::where('tipo', '=', 'MES')->get();
-		$info_anios = DB::select('SELECT distinct anio FROM informacion_indicadores join lotes on informacion_variables.lote_id = lotes.id where lotes.estado = '.Lote::ESTADO_ACEPTADO.' order by anio ASC');
-		$data['periodos'] = [];
-		foreach($info_anios as $anio){
-			$data['periodos'][] = $anio->anio;
-		}
+		$info_anios = DB::select('SELECT distinct anio 
+									FROM informacion_indicadores join lotes on informacion_variables.lote_id = lotes.id 
+									WHERE lotes.estado = '.Lote::ESTADO_ACEPTADO.' 
+									ORDER BY anio ASC');
+		$data['periodos'] = convert_object_array($info_anios, 'anio');
 
 		$temas_indicadores = Indicador::select('indicadores.tema_id')
 										->join('lotes', 'indicadores.lote_id', '=', 'lotes.id')->where('lotes.estado', Lote::ESTADO_ACEPTADO)
@@ -92,7 +92,7 @@ class FrontendIndicadoresController extends Controller
 				$info_ind['fuentes'][$res->indicador->id] = $res->fuente->nombre;
 			}
 			if(!isset($info_ind['regiones'][$res->zona->id])){
-				$info_ind['regiones'][$res->zona->id] = $res->zona->nombre;
+				$info_ind['regiones'][$res->zona->id] = $res->zona->fullName();
 			}
 			$anio_frecuencia = $res->anio.'-'.$res->frecuencia->id;
 			if(!isset($info_ind['aniofrec'][$anio_frecuencia])){
@@ -156,13 +156,20 @@ class FrontendIndicadoresController extends Controller
 		$string_consulta = "nombre ilike ".$query;
 		if(($input['tipo_busqueda'] == 'region_indicador') && isset($input['regiones']))
 		{
-			$res = Indicador::select('indicadores.*')
+			/*$res = Indicador::select('indicadores.*')
 				->join('lotes', 'indicadores.lote_id', '=', 'lotes.id')->where('lotes.estado', Lote::ESTADO_ACEPTADO)
 				->whereRaw($string_consulta)
 				->join('informacion_indicadores', 'indicadores.id', '=', 'informacion_indicadores.indicador_id')
 				->whereIn('informacion_indicadores.zona_id', $input['regiones'])
 				->distinct()
-				->get();
+				->get();*/
+			$listado_regiones = '('.implode(',', $input['regiones']).')';
+			$res = Indicador::whereRaw('indicadores.id in (SELECT distinct indicador_id 
+									FROM informacion_indicadores join lotes on informacion_indicadores.lote_id = lotes.id 
+									WHERE lotes.estado = '.Lote::ESTADO_ACEPTADO.' 
+									AND informacion_indicadores.zona_id in '.$listado_regiones.')')
+							->whereRaw($string_consulta)
+							->get();
 		}
 		else{
 			$res = Indicador::select('indicadores.*')
@@ -186,26 +193,25 @@ class FrontendIndicadoresController extends Controller
 
 	public function consulta_regiones($indicadores)
 	{
-		$indicadores = explode('-', $indicadores);
+		$listado_indicadores = '('.str_replace('-', ',', $indicadores).')';
+		
+		$res = ZonaGeografica::whereRaw('zonas_geograficas.id in (SELECT distinct zona_id 
+									FROM informacion_indicadores join lotes on informacion_indicadores.lote_id = lotes.id 
+									WHERE lotes.estado = '.Lote::ESTADO_ACEPTADO.' 
+									AND informacion_indicadores.indicador_id in '.$listado_indicadores.')')->get();
 
-		$res = ZonaGeografica::select('zonas_geograficas.*')
-			->join('lotes', 'zonas_geograficas.lote_id', '=', 'lotes.id')->where('lotes.estado', Lote::ESTADO_ACEPTADO)
-			->join('informacion_indicadores', 'zonas_geograficas.id', '=', 'informacion_indicadores.zona_id')
-			->whereIn('informacion_indicadores.indicador_id', $indicadores)
-			->distinct()
-			->get();
 		$paises = $provincias = $municipios = array();
 		foreach($res as $zona)
 		{
 			switch ($zona->tipo) {
 				case 'pais':
-					$paises[] = ['id' => $zona->id, 'nombre' => $zona->nombre];
+					$paises[] = ['id' => $zona->id, 'nombre' => $zona->fullName()];
 					break;
 				case 'provincia':
-					$provincias[] = ['id' => $zona->id, 'nombre' => $zona->nombre.' ('.$zona->pais->nombre.')'];
+					$provincias[] = ['id' => $zona->id, 'nombre' => $zona->fullName()];
 					break;
 				case 'municipio':
-					$municipios[] = ['id' => $zona->id, 'nombre' => $zona->nombre.' ('.$zona->provincia->nombre.', '.$zona->provincia->pais->nombre.')'];
+					$municipios[] = ['id' => $zona->id, 'nombre' => $zona->fullName()];
 					break;
 			}
 		}
@@ -216,13 +222,15 @@ class FrontendIndicadoresController extends Controller
 	{
 		$input = $request->all();
 
-		$resultados = InformacionIndicador::select('informacion_indicadores.*')
-										 ->join('lotes', 'informacion_indicadores.lote_id', '=', 'lotes.id')->where('lotes.estado', Lote::ESTADO_ACEPTADO)
-										 ->whereIn('informacion_indicadores.zona_id', $input['regiones'])
-										 ->whereIn('informacion_indicadores.indicador_id', $input['indicadores'])
-										 ->orderBy('anio', 'ASC')
-										 ->get();
-		$periodos = array_values(array_unique($resultados->lists('anio')->toArray()));
+		$listado_regiones = '('.implode(',', $input['regiones']).')';
+		$listado_indicadores = '('.implode(',', $input['indicadores']).')';
+		$resultados = DB::select('SELECT distinct anio 
+									FROM informacion_indicadores join lotes on informacion_indicadores.lote_id = lotes.id 
+									WHERE lotes.estado = '.Lote::ESTADO_ACEPTADO.' 
+									AND informacion_indicadores.zona_id in '.$listado_regiones.' 
+									AND informacion_indicadores.indicador_id in '.$listado_indicadores.' 
+									ORDER BY anio ASC');
+		$periodos = convert_object_array($resultados, 'anio');
 		
 		return response()->json($periodos);
 	}
@@ -230,13 +238,16 @@ class FrontendIndicadoresController extends Controller
 	{
 		$input = $request->all();
 
-		$resultados = InformacionIndicador::select('informacion_indicadores.*')
-										 ->join('lotes', 'informacion_indicadores.lote_id', '=', 'lotes.id')->where('lotes.estado', Lote::ESTADO_ACEPTADO)
-										 ->whereIn('informacion_indicadores.zona_id', $input['regiones'])
-										 ->whereIn('informacion_indicadores.indicador_id', $input['indicadores'])
-										 ->whereIn('informacion_indicadores.anio', $input['periodos'])
-										 ->get();
-		$frecuencias = array_values(array_unique($resultados->lists('frecuencia_id')->toArray()));
+		$listado_regiones = '('.implode(',', $input['regiones']).')';
+		$listado_indicadores = '('.implode(',', $input['indicadores']).')';
+		$listado_anios = '('.implode(',', $input['periodos']).')';
+		$resultados = DB::select('SELECT distinct frecuencia_id 
+									FROM informacion_indicadores join lotes on informacion_indicadores.lote_id = lotes.id 
+									WHERE lotes.estado = '.Lote::ESTADO_ACEPTADO.' 
+									AND informacion_indicadores.zona_id in '.$listado_regiones.' 
+									AND informacion_indicadores.indicador_id in '.$listado_indicadores.' 
+									AND informacion_indicadores.anio in '.$listado_anios);
+		$frecuencias = convert_object_array($resultados, 'frecuencia_id');
 		
 		return response()->json(array('frecuencias' => $frecuencias));
 	}

@@ -106,7 +106,12 @@ $(function(){
         	}
         	else{
 	        	$('#variable').val('');
-				actualizar_regiones();
+	        	if($('input[name="tipo_busqueda"]:checked').val() == 'variable_region'){
+					actualizar_regiones();
+	        	}
+	        	else{
+	        		actualizar_periodos();
+	        	}
         	}
 	    },
 	});

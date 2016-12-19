@@ -23,4 +23,8 @@ class Pais extends ZonaGeografica
     	return $this->provincias();
     }
 
+    public function fullName()
+    {
+        return $this->nombre;
+    }
 }

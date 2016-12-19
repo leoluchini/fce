@@ -60,7 +60,7 @@
             @foreach( $resultados as $info )
               <tr>
                   <td>{{ $info->variable->nombre }}</td>
-                  <td>{{ $info->zona->nombre }}</td>
+                  <td>{{ $info->zona->fullName() }}</td>
                   <td>{{ $info->anio }}{{ ($info->frecuencia->tipo != 'ANIO') ? ' / '.$info->frecuencia->nombre : '' }}</td>
                   <td>
                     @if($info->dato_adicional())

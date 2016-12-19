@@ -17,4 +17,9 @@ class Municipio extends ZonaGeografica
     {
     	return false;
     }
+
+    public function fullName()
+    {
+        return $this->nombre.' ('.$this->provincia->nombre.', '.$this->provincia->pais->nombre.')';
+    }
 }
