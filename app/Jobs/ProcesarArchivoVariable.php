@@ -148,11 +148,9 @@ class ProcesarArchivoVariable extends Job implements ShouldQueue, SelfHandling
             $attributes['zona_id'] = $references[strtolower($attributes['zona_id'])];
             $attributes['fuente_id'] = $references[strtolower($attributes['fuente_id'])];
             $attributes['unidad_medida_id'] = $references[strtolower($attributes['unidad_medida_id'])];
-            //$attributes['frecuencia_id'] = Frecuencia::where('codigo', $attributes['frecuencia_id'])->first()->id;
             $attributes['frecuencia_id'] = $references[strtoupper($attributes['frecuencia_id'])];
             $attributes['variable_id'] = $references[$attributes['variable_id']];
-            //InformacionVariable::firstOrCreate($attributes);
-            InformacionVariable::create($attributes);
+            InformacionVariable::firstOrCreate($attributes);
             $count ++;
         }
         Log::info($count . " datos procesados para el Lote ". $loteId);

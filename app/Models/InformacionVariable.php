@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Log;
 
 class InformacionVariable extends Model
 {
@@ -11,11 +12,14 @@ class InformacionVariable extends Model
 
 	public static function firstOrCreate(array $attributes)
 	{
-		if ( ! is_null($instance = self::where($attributes)) )
+		$loteId = $attributes['lote_id'];
+		unset($attributes['lote_id']);
+		if ( ! is_null($instance = self::where($attributes)->first()) )
 		{
 			return $instance;
 		}
-		return self::create($attributes);
+		$attributes['lote_id'] = $loteId;
+		return InformacionVariable::create($attributes);
 	}
 
 	public function variable()
