@@ -105,6 +105,7 @@ class ProcesarArchivoVariable extends Job implements ShouldQueue, SelfHandling
         } 
         catch ( \Exception $e) {
             $this->error();
+            Log::error($e->getMessage());
         }
         catch( Symfony\Component\Debug\Exception\FatalErrorException $e) {
             $this->error($e->getMessage());
