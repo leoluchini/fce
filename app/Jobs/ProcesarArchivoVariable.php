@@ -138,6 +138,8 @@ class ProcesarArchivoVariable extends Job implements ShouldQueue, SelfHandling
     {
         $count = 0;
         $loteId = $this->lote->id;
+        Log::info("Datos a procesar". count($datos));
+
         foreach ($datos as $attributes) {
             $attributes['lote_id'] = $loteId;
             $attributes['zona_id'] = $references[strtolower($attributes['zona_id'])];
@@ -147,6 +149,7 @@ class ProcesarArchivoVariable extends Job implements ShouldQueue, SelfHandling
             $attributes['variable_id'] = $references[$attributes['variable_id']];
             InformacionVariable::firstOrCreate($attributes);
             $count ++;
+            Log::info("Linea nro:". $count);
         }
         Log::info($count . " datos procesados para el Lote ". $loteId);
     }
