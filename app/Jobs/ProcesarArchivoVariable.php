@@ -94,7 +94,6 @@ class ProcesarArchivoVariable extends Job implements ShouldQueue, SelfHandling
 
             $this->procesarDatos($datos['#Datos'],$references);
             
-            unlink($this->lote->archivo);
             
             if($this->lote->estado ==  Lote::ESTADO_PROCESANDO)
             {
