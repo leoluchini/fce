@@ -47,11 +47,6 @@ class ProcesarArchivoVariable extends Job implements ShouldQueue, SelfHandling
     public function handle()
     {
         Log::info('Inicia el proceso del lote: '. $this->lote->id); 
-        if( $this->lote->estado == Lote::ESTADO_PROCESANDO)
-        {
-            $this->error();
-            return false;
-        }
 
         $this->actualizarLote(['estado' => Lote::ESTADO_PROCESANDO]);
         $datos = txt_to_array($this->lote->archivo);
