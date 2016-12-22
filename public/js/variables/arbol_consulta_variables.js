@@ -14,7 +14,12 @@ $(document).ready(function () {
   		actualizar_variables_seleccionadas();
   	});
   	$('#modal_consulta').on('hidden.bs.modal', function () {
-		actualizar_regiones();
+		if($('input[name="tipo_busqueda"]:checked').val() == 'variable_region'){
+			actualizar_regiones();
+    	}
+    	else{
+    		actualizar_periodos();
+    	}
 	});
 });
 
