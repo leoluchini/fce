@@ -46,6 +46,10 @@ class ProcesarArchivoVariable extends Job implements ShouldQueue, SelfHandling
      */
     public function handle()
     {
+        if( $this->lote->estado == Lote::ESTADO_PROCESANDO)
+        {
+            return false;
+        }
         Log::info('Inicia el proceso del lote: '. $this->lote->id); 
 
         $this->actualizarLote(['estado' => Lote::ESTADO_PROCESANDO]);
@@ -74,7 +78,7 @@ class ProcesarArchivoVariable extends Job implements ShouldQueue, SelfHandling
             return false;
         }
 
-        //try {
+        try {
             $references = $this->procesarCabecera('App\Models\CategoriaVariable', $datos['#Categorias'], $references);
             $references = $this->procesarCabecera('App\Models\Variable', $datos['#Variables'], $references);
             $references = $this->procesarCabecera('App\Models\ZonaGeografica',$datos['#Zonas'], $references, true);
@@ -94,6 +98,7 @@ class ProcesarArchivoVariable extends Job implements ShouldQueue, SelfHandling
 
             $this->procesarDatos($datos['#Datos'],$references);
             
+            unlink($this->lote->archivo);
             
             if($this->lote->estado ==  Lote::ESTADO_PROCESANDO)
             {
@@ -101,15 +106,14 @@ class ProcesarArchivoVariable extends Job implements ShouldQueue, SelfHandling
                 Log::info('Finaliza el proceso del lote: '. $this->lote->id); 
             }
 
-        /*} 
+        } 
         catch ( \Exception $e) {
-            $this->error();
-            Log::error($e->getMessage());
+            $this->error($e->getMessage());
         }
         catch( Symfony\Component\Debug\Exception\FatalErrorException $e) {
             $this->error();
             Log::error($e->getMessage());
-        }*/
+        }
         
     }
 
