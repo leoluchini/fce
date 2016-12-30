@@ -31,15 +31,20 @@ class LecturaIndicadorController extends Controller
         }
         else{
             if( ($request->get('fecha_desde') != '') && ($request->get('fecha_hasta') != '') ){
-                $lotes = LoteIndicador::whereDate('created_at', '>=', $request->get('fecha_desde'))
-                            ->whereDate('created_at', '<=', $request->get('fecha_hasta'))
+                $desde = date( "Y-m-d", strtotime($request->get('fecha_desde')) );
+                $hasta = date( "Y-m-d", strtotime($request->get('fecha_hasta')) );
+
+                $lotes = LoteIndicador::whereDate('created_at', '>=', $desde)
+                            ->whereDate('created_at', '<=', $hasta)
                             ->orderBy('id')->paginate(25);
                 $fechas = ['desde' => $request->get('fecha_desde'), 'hasta' => $request->get('fecha_hasta')];
             }
             else{
                 $operador = ($request->get('fecha_desde') != '') ? '>=' : '<=';
                 $valor = ($request->get('fecha_desde') != '') ? $request->get('fecha_desde') : $request->get('fecha_hasta');
-                ($request->get('fecha_desde') != '') ? $fechas['desde'] = $valor : $fechas['hasta'] = $valor;
+                $valor = date( "Y-m-d", strtotime($valor) );
+                
+                ($request->get('fecha_desde') != '') ? $fechas['desde'] = $request->get('fecha_desde') : $fechas['hasta'] = $request->get('fecha_hasta');
                 $lotes = LoteIndicador::whereDate('created_at', $operador, $valor)
                             ->orderBy('id')->paginate(25);
             }

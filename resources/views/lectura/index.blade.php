@@ -56,7 +56,7 @@
 							@foreach($lotes as $lote)
 							<tr>
 								<td>{!! $lote->id!!}</td>
-								<td>{!! $lote->created_at !!}</td>
+								<td>{!! date_format($lote->created_at, 'd-m-Y H:i:s') !!}</td>
 								<td>{!! $lote->usuario !!}</td>
 								<td>{!! $lote->estadoActual !!}</td>
 								<td>{!! $lote->error !!}</td>
