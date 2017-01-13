@@ -65,11 +65,13 @@ function transponer_tabla(tabla)
     tabla.empty();
     tabla.append($("<thead></thead>"));
     tabla.append($("<tbody></tbody>"));
+    tabla.append($("<tfoot></tfoot>"));
     
     $.each(newrows, function(){
     	tabla.find('tbody').append(this);
     });
     tabla.find('thead').append(tabla.find("tbody").find('tr').first());
+    tabla.find('tfoot').append(tabla.find("tbody").find('tr').last());
 }
 
 function refresh_check_tablas()

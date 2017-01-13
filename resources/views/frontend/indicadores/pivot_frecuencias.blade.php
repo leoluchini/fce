@@ -27,14 +27,16 @@
                 <?php $total += array_sum($anio_region[$id_aniofrec][$id_reg]) ?>
             </tr>
           @endforeach
+        </tbody>
+        <tfoot>
             <tr class="gris_table_bg">
-                <td><strong>TOTAL IND.</strong></td>
+                <td><strong>TOTAL GRAL. IND.</strong></td>
                 @foreach($info_pivot['indicadores'] as $id_ind => $indicador)
                 <td class="text-right"><strong>{{array_sum($data_pivot_inversa[$id_ind][$id_aniofrec])}}</strong></td>
                 @endforeach
                 <td class="text-right"><strong>{{ $total }}</strong></td>
             </tr>
-        </tbody>
+        </tfoot>
       </table>
       <p class="help-block text-right" ><a href="#" class="transponer_pivot" data-tablaid="tabla_pivot_frecuencia_{{$id_aniofrec}}" data-toggle="tooltip" data-placement="top" title="Transponer datos de la tabla">Transponer tabla <span class="icon-exchange"></span></a></p>
       <div class="row">

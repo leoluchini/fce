@@ -24,8 +24,10 @@
                   <?php $total += array_sum($data_pivot[$id_var][$id_reg]) ?>
               </tr>
             @endforeach
+          </tbody>
+          <tfoot>
               <tr class="gris_table_bg">
-                  <td><strong>TOTAL FREC.</strong></td>
+                  <td><strong>TOTAL GRAL. FREC.</strong></td>
                   @foreach($info_pivot['aniofrec'] as $id_aniofrec => $aniofrec)
                   <?php $tot_reg = 0 ?>
                     @foreach($info_pivot['regiones'] as $id_reg => $zona)
@@ -35,7 +37,7 @@
                   @endforeach
                   <td class="text-right"><strong>{{ $total }}</strong></td>
               </tr>
-          </tbody>
+          </tfoot>
         </table>
         <p class="help-block text-right" ><a href="#" class="transponer_pivot" data-tablaid="tabla_pivot_{{$id_var}}" data-toggle="tooltip" data-placement="top" title="Transponer datos de la tabla">Transponer tabla <span class="icon-exchange"></span></a></p>
         <div class="row">
