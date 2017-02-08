@@ -29,7 +29,7 @@ class FrontendIndicadoresController extends Controller
 		$data['trimestres'] = Frecuencia::where('tipo', '=', 'TRIMESTRE')->get();
 		$data['meses'] = Frecuencia::where('tipo', '=', 'MES')->get();
 		$info_anios = DB::select('SELECT distinct anio 
-									FROM informacion_indicadores join lotes on informacion_variables.lote_id = lotes.id 
+									FROM informacion_indicadores join lotes on informacion_indicadores.lote_id = lotes.id 
 									WHERE lotes.estado = '.Lote::ESTADO_ACEPTADO.' 
 									ORDER BY anio ASC');
 		$data['periodos'] = convert_object_array($info_anios, 'anio');
@@ -198,7 +198,8 @@ class FrontendIndicadoresController extends Controller
 		$res = ZonaGeografica::whereRaw('zonas_geograficas.id in (SELECT distinct zona_id 
 									FROM informacion_indicadores join lotes on informacion_indicadores.lote_id = lotes.id 
 									WHERE lotes.estado = '.Lote::ESTADO_ACEPTADO.' 
-									AND informacion_indicadores.indicador_id in '.$listado_indicadores.')')->get();
+									AND informacion_indicadores.indicador_id in '.$listado_indicadores.')')
+									->orderBy('tipo', 'ASC')->orderBy('zona_padre_id', 'ASC')->orderBy('nombre', 'ASC')->get();
 
 		$paises = $provincias = $municipios = array();
 		foreach($res as $zona)

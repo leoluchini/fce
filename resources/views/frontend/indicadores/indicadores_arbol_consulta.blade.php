@@ -39,7 +39,7 @@
                           @endforeach
                           @if(count($indicadores_sin_tema) > 0)
                             <li class="subcategoria">
-                              <label class="tree-toggler nav-header"><span class="icon-plus"></span>Otras</label>
+                              <label class="tree-toggler nav-header"><span class="icon-plus"></span>Más Indicadores</label>
                               <ul class="nav nav-list tree indice_indicadores">
                                   @foreach($indicadores_sin_tema as $indicador)
                                       <li><a href="#" class="selector_indicador" data-id="{{$indicador->id}}" data-nombre="{{$indicador->nombre}}">{{ $indicador->nombre }}</a></li>

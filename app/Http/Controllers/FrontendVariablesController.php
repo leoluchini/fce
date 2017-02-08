@@ -234,7 +234,8 @@ class FrontendVariablesController extends Controller
 		$res = ZonaGeografica::whereRaw('zonas_geograficas.id in (SELECT distinct zona_id 
 									FROM informacion_variables join lotes on informacion_variables.lote_id = lotes.id 
 									WHERE lotes.estado = '.Lote::ESTADO_ACEPTADO.' 
-									AND informacion_variables.variable_id in '.$listado_variables.')')->get();
+									AND informacion_variables.variable_id in '.$listado_variables.')')
+									->orderBy('tipo', 'ASC')->orderBy('zona_padre_id', 'ASC')->orderBy('nombre', 'ASC')->get();
 
 		$paises = $provincias = $municipios = array();
 		foreach($res as $zona)

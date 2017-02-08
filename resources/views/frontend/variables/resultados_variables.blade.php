@@ -40,6 +40,7 @@
         @endforeach
         <div class="pull-right">
           <a href="#" id="reformular_consulta" data-toggle="tooltip" data-placement="top" title="Redefinir la consulta"><span class="icon-spin3"></span></a>
+          <a href="{{action('FrontendVariablesController@variables')}}" data-toggle="tooltip" data-placement="top" title="Nueva consulta"><span class="icon-eraser"></span></a>
           <!--<a href="#" id="descargar_excel" data-toggle="tooltip" data-placement="top" title="Descargar Excel"><span class="icon-file-excel"></span></a>-->
         </div>
       </ol>

@@ -33,7 +33,9 @@ $(function(){
 			$('div#panel-accordion-2').append(filtro_indicador);
 			filtro_indicador.find('#ind_reg').hide();
 			filtro_indicador.find('#reg_ind').show();
-			$('#activar_cascada').show();
+			$('#desactivar_cascada').show();
+			$('#filtro_cascada').prop('checked', true);
+			$('#filtro_cascada').trigger('change');
 		}
 		limpiar_indicadores_regiones();
 	});
@@ -231,8 +233,8 @@ $(function(){
 		}
 		else{
 			$('span.icono_filtro_cascada').hide();
-			reset_regiones();
 		}
+		reset_regiones();
 	});
 
 	$(window).load(function(e) {
@@ -300,6 +302,7 @@ function reset_regiones()
 	reset_select_with_list($('select#pais'), $('#listado_paises'));
 	reset_select_with_list($('select#provincia'), $('#listado_provincias'));
 	reset_select_with_list($('select#municipio'), $('#listado_municipios'));
+	$('a[href="#div_pais"]').trigger('click');
 }
 function reset_select_with_list(select, listado)
 {

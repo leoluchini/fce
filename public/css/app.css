@@ -429,3 +429,7 @@ button {
 	  position: absolute;
     top: 0px;
 }
+.descripcion_filtro{
+	font-size: 0.7em;
+	padding-top: 3px;
+}

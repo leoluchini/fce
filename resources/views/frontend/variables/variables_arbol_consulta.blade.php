@@ -39,7 +39,7 @@
                           @endforeach
                           @if(count($variables_sin_tema) > 0)
                             <li class="subcategoria">
-                              <label class="tree-toggler nav-header"><span class="icon-plus"></span>Otras</label>
+                              <label class="tree-toggler nav-header"><span class="icon-plus"></span>Más Variables</label>
                               <ul class="nav nav-list tree indice_variables">
                                   @foreach($variables_sin_tema as $variable)
                                       <li><a href="#" class="selector_variable" data-id="{{$variable->id}}" data-nombre="{{$variable->nombre}}">{{ $variable->nombre }}</a></li>

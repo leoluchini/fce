@@ -61,9 +61,15 @@
                     <div class="panelContent">
                       <h3 class="titulos_accordion">
                           Territorio&nbsp;
-                          <a id="activar_cascada" href="#"><span class="icon-toggle-off pull-right" data-toggle="tooltip" data-placement="left" title="Activar filtro de territorios en cascada"></span></a>
-                          <a id="desactivar_cascada" href="#" style="display:none"><span class="icon-toggle-on pull-right" data-toggle="tooltip" data-placement="left" title="Desactivar filtro de territorios en cascada"></span></a>
-                          <input id="filtro_cascada" type="checkbox" style="display:none">
+                          <a id="activar_cascada" href="#" style="display:none">
+                            <span class="icon-toggle-off pull-right" data-toggle="tooltip" data-placement="left" title="Activar filtro de territorios en cascada"></span>
+                            <span class="pull-right descripcion_filtro">Asistente desactivado</span>
+                          </a>
+                          <a id="desactivar_cascada" href="#" >
+                            <span class="icon-toggle-on pull-right" data-toggle="tooltip" data-placement="left" title="Desactivar filtro de territorios en cascada"></span>
+                            <span class="pull-right descripcion_filtro">Asistente activado</span>
+                          </a>
+                          <input id="filtro_cascada" type="checkbox" style="display:none" checked="true">
                         </h3>
                       <hr>
 
@@ -72,14 +78,14 @@
                       </div>
                       <ul class="nav nav-tabs nav-justified altura" role="tablist">
                           <li role="presentation" class="solapa_zona active" data-region="pais">
-                            <a href="#div_pais" role="tab" data-toggle="tab" aria-controls="div_pais"><span class="icon-right-open-1 icono_filtro_cascada" style="display:none"></span>Países</a>
+                            <a href="#div_pais" role="tab" data-toggle="tab" aria-controls="div_pais"><span class="icon-right-open-1 icono_filtro_cascada"></span>Países</a>
                             
                           </li>
                           <li role="presentation" class="solapa_zona" data-region="provincia">
-                            <a href="#div_provincia" role="tab" data-toggle="tab" aria-controls="div_provincia"><span class="icon-right-open-1 icono_filtro_cascada" style="display:none"></span>Provincias</a>
+                            <a href="#div_provincia" role="tab" data-toggle="tab" aria-controls="div_provincia"><span class="icon-right-open-1 icono_filtro_cascada"></span>Provincias</a>
                           </li>
                           <li role="presentation" class="solapa_zona" data-region="municipio">
-                            <a href="#div_municipio" role="tab" data-toggle="tab" aria-controls="div_municipio"><span class="icon-right-open-1 icono_filtro_cascada" style="display:none"></span>Municipios/Departamentos</a>
+                            <a href="#div_municipio" role="tab" data-toggle="tab" aria-controls="div_municipio"><span class="icon-right-open-1 icono_filtro_cascada"></span>Municipios/Departamentos</a>
                           </li>
                       </ul>
                       <input type="hidden" id="tipo_zona" name="tipo_zona" value="pais">
