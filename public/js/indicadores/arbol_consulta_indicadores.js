@@ -10,7 +10,7 @@ $(document).ready(function () {
   	//$('a.selector_variable').on('click', function(e){
   	$(document).on("click", "a.selector_indicador", function(e) {
   		e.preventDefault();
-  		agregar_tag_indicador($(this).data('id'), $(this).data('nombre'));
+  		agregar_tag_indicador($(this).data('id'), $(this).data('nombre'), $(this).data('relacionados'));
   		actualizar_indicadores_seleccionadas();
   	});
   	$('#modal_consulta').on('hidden.bs.modal', function () {
@@ -18,6 +18,7 @@ $(document).ready(function () {
 			actualizar_regiones();
     	}
     	else{
+    		$('#carga_periodos').show();
     		actualizar_periodos();
     	}
 	});

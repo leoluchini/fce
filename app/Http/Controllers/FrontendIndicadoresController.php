@@ -180,12 +180,9 @@ class FrontendIndicadoresController extends Controller
 		if(count($res->toArray()) == 0){
 			IndicadorSinResultados::firstOrCreate($input['busqueda']);
 		}
-		$temporal = $res->lists('nombre', 'id')->toArray();
-		$ids = array();
 		$resultados = array();
-		foreach($temporal as $key => $temp){
-			$ids[] = $key;
-			$resultados[] = array('clave' => $key, 'valor' => $temp);
+		foreach($res as $indicador){
+			$resultados[] = array('clave' => $indicador->id, 'valor' => $indicador->nombre, 'relacionados' => ($indicador->tema ? true : false));
 		}
 
 		return response()->json($resultados);

@@ -78,7 +78,8 @@ $(function(){
 			                        return {
 			                        	label: value.valor,
 			                            value: value.valor,
-			                            key: value.clave
+			                            key: value.clave,
+			                            relacionados: value.relacionados
 			                        };
 			                   	}));
 		                	}
@@ -91,7 +92,7 @@ $(function(){
 					$( "#indicador" ).data('close', 'false');
     				if(ui.item.key != 0)
     				{
-    					agregar_tag_indicador(ui.item.key, ui.item.label);
+    					agregar_tag_indicador(ui.item.key, ui.item.label, ui.item.relacionados);
 					}
 			},
 		search: function(){$('#indicador').addClass('image_background_loading');},
@@ -111,6 +112,7 @@ $(function(){
 					actualizar_regiones();
 	        	}
 	        	else{
+	        		$('#carga_periodos').show();
 	        		actualizar_periodos();
 	        	}
         	}
@@ -557,7 +559,7 @@ function carga_previa_frecuencia()
 	}, 500);
 }
 
-function agregar_tag_indicador(id, nombre)
+function agregar_tag_indicador(id, nombre, relacionados)
 {
 	if($('#lista_tags').find('input[name="indicador_id['+id+']"]').length == 0){
 		var tag = $($('#agregar_indicador').html());
@@ -566,6 +568,9 @@ function agregar_tag_indicador(id, nombre)
 		tag.find('span[class="texto"]').prop('title', nombre);
 		tag.find('input').prop('name', 'indicador_id['+id+']');
 		tag.find('input').val(id);
+		if(!relacionados){
+			tag.find('a[class="ver_indicadores_relacionados"]').remove();
+		}
 		$('#lista_tags').append(tag);
 		$("#tilde_indicador_agregado").fadeIn(400).fadeOut(400);
 	}
