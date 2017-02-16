@@ -17,7 +17,7 @@
             <tr>
                 <td><span title="FUENTE: {{$info_pivot['fuentes'][$id_ind]}} ( en {{$info_pivot['unidades'][$id_ind]}} )" data-toggle="tooltip" data-placement="top">{{ $indicador }} </span></td>
                 @foreach($info_pivot['aniofrec'] as $id_aniofrec => $aniofrec)
-                <td class="text-right">{{$data_pivot[$id_ind][$id_reg][$id_aniofrec]}}</td>
+                <td class="text-right">{{isset($data_pivot[$id_ind][$id_reg][$id_aniofrec]) ? $data_pivot[$id_ind][$id_reg][$id_aniofrec] : '-'}}</td>
                 @endforeach
                 <td class="text-right"><strong>{{ array_sum($data_pivot[$id_ind][$id_reg]) }}</strong></td>
                 <?php $total += array_sum($data_pivot[$id_ind][$id_reg]) ?>
@@ -30,7 +30,7 @@
                 @foreach($info_pivot['aniofrec'] as $id_aniofrec => $aniofrec)
                 <?php $tot_ind = 0 ?>
                   @foreach($info_pivot['indicadores'] as $id_ind => $indicador)
-                    <?php $tot_ind += $data_pivot[$id_ind][$id_reg][$id_aniofrec] ?>
+                    <?php $tot_ind += isset($data_pivot[$id_ind][$id_reg][$id_aniofrec]) ? $data_pivot[$id_ind][$id_reg][$id_aniofrec] : 0 ?>
                   @endforeach
                 <td class="text-right"><strong>{{$tot_ind}}</strong></td>
                 @endforeach

@@ -18,7 +18,7 @@
               <tr>
                   <td>{{ $zona }}</td>
                   @foreach($info_pivot['aniofrec'] as $id_aniofrec => $aniofrec)
-                  <td class="text-right">{{$data_pivot[$id_var][$id_reg][$id_aniofrec]}}</td>
+                  <td class="text-right">{{isset($data_pivot[$id_var][$id_reg][$id_aniofrec]) ? $data_pivot[$id_var][$id_reg][$id_aniofrec] : '-'}}</td>
                   @endforeach
                   <td class="text-right"><strong>{{ array_sum($data_pivot[$id_var][$id_reg]) }}</strong></td>
                   <?php $total += array_sum($data_pivot[$id_var][$id_reg]) ?>
@@ -31,7 +31,7 @@
                   @foreach($info_pivot['aniofrec'] as $id_aniofrec => $aniofrec)
                   <?php $tot_reg = 0 ?>
                     @foreach($info_pivot['regiones'] as $id_reg => $zona)
-                      <?php $tot_reg += $data_pivot[$id_var][$id_reg][$id_aniofrec] ?>
+                      <?php $tot_reg += isset($data_pivot[$id_var][$id_reg][$id_aniofrec]) ? $data_pivot[$id_var][$id_reg][$id_aniofrec] : 0 ?>
                     @endforeach
                   <td class="text-right"><strong>{{$tot_reg}}</strong></td>
                   @endforeach

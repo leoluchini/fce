@@ -20,8 +20,8 @@
             <tr>
                 <td>{{ $zona }}</td>
                 @foreach($info_pivot['variables'] as $id_var => $variable)
-                <td class="text-right">{{$data_pivot[$id_var][$id_reg][$id_aniofrec]}}</td>
-                <?php $anio_region[$id_aniofrec][$id_reg][$id_var] = $data_pivot[$id_var][$id_reg][$id_aniofrec]; ?>
+                <td class="text-right">{{isset($data_pivot[$id_var][$id_reg][$id_aniofrec]) ? $data_pivot[$id_var][$id_reg][$id_aniofrec] : '-'}}</td>
+                <?php $anio_region[$id_aniofrec][$id_reg][$id_var] = isset($data_pivot[$id_var][$id_reg][$id_aniofrec]) ? $data_pivot[$id_var][$id_reg][$id_aniofrec] : 0; ?>
                 @endforeach
                 <td class="text-right"><strong>{{ array_sum($anio_region[$id_aniofrec][$id_reg]) }}</strong></td>
                 <?php $total += array_sum($anio_region[$id_aniofrec][$id_reg]) ?>
@@ -32,7 +32,7 @@
             <tr class="gris_table_bg">
                 <td><strong>TOTAL GRAL. VAR.</strong></td>
                 @foreach($info_pivot['variables'] as $id_var => $variable)
-                <td class="text-right"><strong>{{array_sum($data_pivot_inversa[$id_var][$id_aniofrec])}}</strong></td>
+                <td class="text-right"><strong>{{isset($data_pivot_inversa[$id_var][$id_aniofrec]) ? array_sum($data_pivot_inversa[$id_var][$id_aniofrec]) : '-'}}</strong></td>
                 @endforeach
                 <td class="text-right"><strong>{{ $total }}</strong></td>
             </tr>

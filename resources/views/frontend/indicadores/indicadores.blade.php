@@ -377,6 +377,6 @@
 @section('scripts_adicionales')
     <script src="{{ asset('js/indicadores/filtros_indicadores.js') }}"></script>
     <script src="{{ asset('js/indicadores/arbol_consulta_indicadores.js') }}"></script>
-    <link href="{{ asset('jquery-ui-1.12.0.smoothness/jquery-ui.min.css') }}" rel="stylesheet">*
+    <link href="{{ asset('jquery-ui-1.12.0.smoothness/jquery-ui.min.css') }}" rel="stylesheet">
     <script src="{{ asset('jquery-ui-1.12.0.smoothness/jquery-ui.min.js') }}"></script>
 @endsection
