@@ -189,7 +189,7 @@ $(function(){
               div = generar_div_grafico_radar(ancho, variable, categorias, serie, partes[0]);
               break;
           case 'columna':
-              promedio = (partes[0] == 'frecregion') ? datos_adicionales_frecuencia[partes[1]].promedio_regional : datos_adicionales_frecuencia[partes[1]].promedio_variable;
+              promedio = (partes[0] != 'frecregion') ? datos_adicionales_frecuencia[partes[1]].promedio_regional : datos_adicionales_frecuencia[partes[1]].promedio_variable;
               div = generar_div_grafico_columna(ancho, variable, categorias, serie, partes[0], promedio);
               break;
           case 'puntos':

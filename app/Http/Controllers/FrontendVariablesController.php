@@ -149,7 +149,7 @@ class FrontendVariablesController extends Controller
 		foreach($index as $k => $v)
 		{
 			$prom_1 = array();
-			$prom_regionprom_2 = array();
+			$prom_2 = array();
 			$min = null;
 			$max = null;
 			foreach($datos[$k] as $key => $value)
