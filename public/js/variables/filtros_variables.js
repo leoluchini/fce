@@ -10,7 +10,12 @@ $(function(){
 		$('input#tipo_zona').val($(this).data('region'));
 	});
 	$('li.solapa_frecuencia').on('click', function(){
-		$('input#tipo_frecuencia').val($(this).data('frecuencia'));
+		if(($(this).data('frecuencia') == 'anual') && $(this).find('span#frec_anual_no').is(':visible')){
+			$('input#tipo_frecuencia').val('');
+		}
+		else{
+			$('input#tipo_frecuencia').val($(this).data('frecuencia'));
+		}
 	});
 	$('input[name="tipo_busqueda"]').on('change', function(){
 		switch_tipo_busqueda();
@@ -188,7 +193,12 @@ $(function(){
 			isValid = false;
 			errores += '<p>Paso 3: Período</p>';
 		}
-		if(($('#tipo_frecuencia').val() != 'anual')&&($('#'+$('input[name="tipo_frecuencia"]').val()).find('option:selected').length == 0)){
+		if(
+			(($('#tipo_frecuencia').val() != 'anual')
+			&&
+			($('#'+$('input[name="tipo_frecuencia"]').val()).find('option:selected').length == 0))
+			||
+			($('#tipo_frecuencia').val() == '')){
 			isValid = false;
 			errores += '<p>Paso 4: Frecuencia</p>';
 		}
@@ -422,7 +432,8 @@ function actualizar_frecuencias(callback)
 					}
 					else{
 						$('#frec_anual_no').show();
-						$('#frec_anual_ok').hide();	
+						$('#frec_anual_ok').hide();
+						$('input#tipo_frecuencia').val('');
 					}
 					check_frecuencias($('#semestral'), data['frecuencias']);
 					check_frecuencias($('#trimestral'), data['frecuencias']);
