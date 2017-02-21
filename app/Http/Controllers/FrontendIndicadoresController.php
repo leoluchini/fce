@@ -57,7 +57,10 @@ class FrontendIndicadoresController extends Controller
 	{
 		$input = $request->all();
 		$indicadores = $input['indicador_id'];
-		$zonas = $input[$input['tipo_zona']];
+		$zonas = array();
+		if(isset($input['pais'])){ $zonas = array_merge($zonas, $input['pais']); }
+		if(isset($input['provincia'])){ $zonas = array_merge($zonas, $input['provincia']); }
+		if(isset($input['municipio'])){ $zonas = array_merge($zonas, $input['municipio']); }
 		$periodos = $input['periodo'];
 		$frecuencia = ($input['tipo_frecuencia'] == 'anual') ? array(Frecuencia::where('tipo', '=', 'ANIO')->first()->id) : $input[$input['tipo_frecuencia']];
 		

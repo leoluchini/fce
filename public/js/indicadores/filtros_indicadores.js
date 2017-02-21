@@ -54,10 +54,7 @@ $(function(){
 					var ruta = $('#indicador').data('urlconsulta');
 					texto = $('#indicador').val().toLowerCase();
 					texto = texto.replaceArray(["á", "é", "í", "ó", "ú"], ["a", "e", "i", "o", "u"]);
-					var zonas = [];
-					$('#'+$('input[name="tipo_zona"]').val()).find('option:selected').each(function(){ 
-						zonas.push($(this).val()); 
-					});
+					var zonas = recuperar_zonas_cargadas();
 					datos = { tipo_busqueda: $('input[name="tipo_busqueda"]:checked').val(),
 							 tipo_zona: $('input[name="tipo_zona"]').val(),
 							 regiones: zonas,
@@ -184,7 +181,8 @@ $(function(){
 			isValid = false;
 			errores += '<p>Le faltan completar los siguientes pasos:</p>';
 		}
-		if($('#'+$('input[name="tipo_zona"]').val()).find('option:selected').length == 0){
+		var zonas = recuperar_zonas_cargadas();
+		if(zonas.length == 0){
 			isValid = false;
 			errores += '<p>Paso 2: Region</p>';
 		}
@@ -354,10 +352,7 @@ function actualizar_periodos(callback)
 		$('#lista_tags').find('input[name^="indicador_id"]').each(function(){
 			indicadores.push($(this).val()); 
 		});
-		var zonas = [];
-		$('#'+$('input[name="tipo_zona"]').val()).find('option:selected').each(function(){ 
-			zonas.push($(this).val()); 
-		});
+		var zonas = recuperar_zonas_cargadas();
 		datos = {regiones: zonas,
 				 indicadores: indicadores,
 				 _token: $( "#indicador" ).data('token')};
@@ -406,10 +401,7 @@ function actualizar_frecuencias(callback)
 		$('#lista_tags').find('input[name^="indicador_id"]').each(function(){
 			indicadores.push($(this).val()); 
 		});
-		var zonas = [];
-		$('#'+$('input[name="tipo_zona"]').val()).find('option:selected').each(function(){ 
-			zonas.push($(this).val()); 
-		});
+		var zonas = recuperar_zonas_cargadas();
 		var periodos = [];
 		$('#periodo').find('option:selected').each(function(){ 
 			periodos.push($(this).val()); 
@@ -608,4 +600,18 @@ function filtrar_region(padres, select)
 	$(select).multiselect('refresh');
 	$(select).multiselect('enable');
 	fijar_busqueda_multiselect();
+}
+
+function recuperar_zonas_cargadas(){
+	zonas = [];
+	$('#pais').find('option:selected').each(function(){ 
+		zonas.push($(this).val()); 
+	});
+	$('#provincia').find('option:selected').each(function(){ 
+		zonas.push($(this).val()); 
+	});
+	$('#municipio').find('option:selected').each(function(){ 
+		zonas.push($(this).val()); 
+	});
+	return zonas;
 }
