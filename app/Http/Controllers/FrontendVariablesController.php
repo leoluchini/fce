@@ -44,6 +44,7 @@ class FrontendVariablesController extends Controller
 		$data['variables_sin_tema'] = Variable::select('variables.*')
 												->join('lotes', 'variables.lote_id', '=', 'lotes.id')->where('lotes.estado', Lote::ESTADO_ACEPTADO)
 												->whereNull('tema_id')->get();
+		$data['variables_sin_tema'] = count($data['variables_sin_tema']);
 
 		if($request->isMethod('post')){
 			$data['consulta'] = $request->all();
@@ -206,9 +207,45 @@ class FrontendVariablesController extends Controller
 		}
 		$resultados = array();
 		foreach($res as $variable){
-			$resultados[] = array('clave' => $variable->id, 'valor' => $variable->nombre, 'relacionados' => ($variable->tema ? true : false));
+			$resultados[] = array('clave' => $variable->id, 'valor' => $variable->nombre, 'relacionados' => ($variable->tema ? $variable->tema->id : 0));
 		}
 
+		return response()->json($resultados);
+	}
+	public function variables_por_categoria($categoria_id)
+	{
+		$categoria = CategoriaVariable::find($categoria_id);
+		$resultados = array();
+		foreach($categoria->variables as $variable){
+			if($variable->lote->estado == Lote::ESTADO_ACEPTADO){
+				$datos_variable = array('id' => $variable->id,
+										'nombre' => $variable->nombre,
+										'tema' => ($variable->tema ? $variable->tema->id : 0));
+				$resultados[] = $datos_variable;
+			}
+		}
+		return response()->json($resultados);
+	}
+	public function variables_por_tema($tema_id)
+	{
+		if($tema_id == 0){
+			$variables = Variable::select('variables.*')
+							->join('lotes', 'variables.lote_id', '=', 'lotes.id')->where('lotes.estado', Lote::ESTADO_ACEPTADO)
+							->whereNull('tema_id')->get();
+		}
+		else{
+			$tema = Tema::find($tema_id);
+			$variables = $tema->variables;
+		}
+		$resultados = array();
+		foreach($variables as $variable){
+			if($variable->lote->estado == Lote::ESTADO_ACEPTADO){
+				$datos_variable = array('id' => $variable->id,
+										'nombre' => $variable->nombre,
+										'tema' => $tema_id);
+				$resultados[] = $datos_variable;
+			}
+		}
 		return response()->json($resultados);
 	}
 	public function consulta_regiones($variables)

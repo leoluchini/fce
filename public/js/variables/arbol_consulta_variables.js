@@ -22,6 +22,24 @@ $(document).ready(function () {
     		actualizar_periodos();
     	}
 	});
+
+	$('label.label_categoria').on('click', function(){
+		var lista = $(this).parent().find('ul#contenedor_categoria_'+$(this).data('id'));
+		if(lista.find('li').length == 0){
+			var ruta = $('#arbol_categorias_variables').data('consulta');
+			ruta = ruta.replace(":query:", $(this).data('id'));
+			cargar_listado_variables(ruta, lista);
+		}
+	});
+
+	$('label.label_tema').on('click', function(){
+		var lista = $(this).parent().find('ul#contenedor_tema_'+$(this).data('id'));
+		if(lista.find('li').length == 0){
+			var ruta = $('#arbol_temas_variables').data('consulta');
+			ruta = ruta.replace(":query:", $(this).data('id'));
+			cargar_listado_variables(ruta, lista);
+		}
+	});
 });
 
 function actualizar_variables_seleccionadas()
@@ -40,4 +58,35 @@ function actualizar_variables_seleccionadas()
 		ul.append(lista);
 		ul.insertAfter($('#modal_consulta').find('p#texto_seleccion_arbol'));
 	}
+}
+
+function cargar_listado_variables(ruta, ul, callback, param)
+{
+	$.ajax({
+		url: ruta,
+		type: 'GET',
+		dataType: 'json',
+		success: function (data) {
+			if(data.length > 0)
+			{
+				cantidad = data.length;
+				$.each(data, function(key, value) {
+					var li = $($('#nuevo_selector_variable').html());
+					li.find('a').attr('data-id', value.id);
+					li.find('a').attr('data-nombre', value.nombre);
+					li.find('a').attr('data-relacionados', value.tema);
+					li.find('a').text(value.nombre);
+					ul.append(li);
+					cantidad--;
+					if(cantidad == 0){
+						if (typeof callback !== 'undefined') { callback(param); }
+					}
+				});
+			}
+			else{
+				select.append('<li><a href="#"> No existen variables cargadas </a></li>');
+				if (typeof callback !== 'undefined') { callback(param); }
+			}
+		},
+	});
 }

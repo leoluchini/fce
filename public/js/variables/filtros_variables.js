@@ -213,10 +213,14 @@ $(function(){
 	$(document).on("click", "a[class*='ver_variables_relacionadas']", function(e) {
 		e.preventDefault();
 		span = $(this).prev();
-		input = $(this).next();
-		enlace = $('#arbol_temas_variables').find('a[class="selector_variable"][data-id="'+input.val()+'"]');
-		lista = enlace.closest('ul');
+		lista = $('#arbol_temas_variables').find('ul#contenedor_tema_'+$(this).data('id'));
 		label = lista.prev();
+
+		if(lista.find('li').length == 0){
+			var ruta = $('#arbol_temas_variables').data('consulta');
+			ruta = ruta.replace(":query:", label.data('id'));
+			cargar_listado_variables(ruta, lista, clonar_listado_temas, $(this));
+		}
 
 		$('#generic_modal').find('#myModalLabel').empty().append('<span class="icon-info-circled-alt"></span>Variables relacionadas a "'+span.attr('title')+'" por el tema "'+label.text()+'"');
 		$('#generic_modal').find('.modal-body').empty().append(lista.clone().css({'display':'block','max-height':'250px','overflow':'auto'}));
@@ -257,6 +261,17 @@ $(function(){
 		fijar_busqueda_multiselect();
 	});
 });
+
+function clonar_listado_temas(enlace)
+{
+	span = enlace.prev();
+	lista = $('#arbol_temas_variables').find('ul#contenedor_tema_'+enlace.data('id'));
+	label = lista.prev();
+	$('#generic_modal').find('#myModalLabel').empty().append('<span class="icon-info-circled-alt"></span>Variables relacionadas a "'+span.attr('title')+'" por el tema "'+label.text()+'"');
+	$('#generic_modal').find('.modal-body').empty().append(lista.clone().css({'display':'block','max-height':'250px','overflow':'auto'}));
+	$('#generic_modal').find('.modal-footer').empty();
+	$('#generic_modal').modal('show');
+}
 
 var actualizando_regiones = false;
 function actualizar_regiones(callback)
@@ -572,8 +587,11 @@ function agregar_tag_variable(id, nombre, relacionados)
 		tag.find('span[class="texto"]').prop('title', nombre);
 		tag.find('input').prop('name', 'variable_id['+id+']');
 		tag.find('input').val(id);
-		if(!relacionados){
+		if(relacionados == 0){
 			tag.find('a[class="ver_variables_relacionadas"]').remove();
+		}
+		else{
+			tag.find('a[class="ver_variables_relacionadas"]').attr('data-id', relacionados);
 		}
 		$('#lista_tags').append(tag);
 		$("#tilde_variable_agregada").fadeIn(400).fadeOut(400);

@@ -86,6 +86,8 @@ Route::get('consulta_regiones/{variables}', 'FrontendVariablesController@consult
 Route::post('resultados_variables', 'FrontendVariablesController@resultados_variables');
 Route::post('consulta_periodos', 'FrontendVariablesController@consulta_periodos');
 Route::post('consulta_frecuencias', 'FrontendVariablesController@consulta_frecuencias');
+Route::get('consulta_variables/categoria/{categoria_id}', 'FrontendVariablesController@variables_por_categoria');
+Route::get('consulta_variables/tema/{tema_id}', 'FrontendVariablesController@variables_por_tema');
 //indicadores
 Route::match(array('GET', 'POST'), "indicadores", array(
     'uses' => 'FrontendIndicadoresController@indicadores',

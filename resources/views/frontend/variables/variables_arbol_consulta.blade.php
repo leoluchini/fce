@@ -19,7 +19,9 @@
               <div class="col-md-6">
                 <h3>Por Categorias</h3>
                 <div class="well well_fce">
-                  <div style="overflow-y: scroll; overflow-x: hidden; height: 200px;">
+                  <div style="overflow-y: scroll; overflow-x: hidden; height: 200px;" 
+                      id="arbol_categorias_variables"
+                      data-consulta="{{action('FrontendVariablesController@variables_por_categoria', [':query:'])}}">
                       <ul class="nav nav-list">
                           @foreach($categorias as $categoria)
                             @include('frontend.variables.variables_nodo_consulta',['categoria' => $categoria])
@@ -32,18 +34,17 @@
               <div class="col-md-6">
                 <h3>Por Temas</h3>
                 <div class="well well_fce">
-                  <div style="overflow-y: scroll; overflow-x: hidden; height: 200px;" id="arbol_temas_variables">
+                  <div style="overflow-y: scroll; overflow-x: hidden; height: 200px;" }
+                      id="arbol_temas_variables"
+                      data-consulta="{{action('FrontendVariablesController@variables_por_tema', [':query:'])}}">
                       <ul class="nav nav-list">
                           @foreach($temas as $tema)
                             @include('frontend.variables.variables_tema_consulta',['categoria' => $categoria])
                           @endforeach
-                          @if(count($variables_sin_tema) > 0)
+                          @if($variables_sin_tema > 0)
                             <li class="subcategoria">
-                              <label class="tree-toggler nav-header"><span class="icon-plus"></span>Más Variables</label>
-                              <ul class="nav nav-list tree indice_variables">
-                                  @foreach($variables_sin_tema as $variable)
-                                      <li><a href="#" class="selector_variable" data-id="{{$variable->id}}" data-nombre="{{$variable->nombre}}" data-relacionados="false">{{ $variable->nombre }}</a></li>
-                                  @endforeach
+                              <label class="tree-toggler nav-header label_tema" data-id="0"><span class="icon-plus"></span>Más Variables</label>
+                              <ul class="nav nav-list tree indice_variables" id="contenedor_tema_0">
                               </ul>
                             </li>
                           @endif
@@ -77,3 +78,8 @@
     </div>
   </div>
 </div>
+<script type="text/html" id="nuevo_selector_variable">
+  <li>
+    <a href="#" class="selector_variable" data-id="" data-nombre="" data-relacionados=""></a>
+  </li>
+</script>
