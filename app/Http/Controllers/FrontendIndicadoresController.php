@@ -44,7 +44,7 @@ class FrontendIndicadoresController extends Controller
 		$data['indicadores_sin_tema'] = Indicador::select('indicadores.*')
 													->join('lotes', 'indicadores.lote_id', '=', 'lotes.id')->where('lotes.estado', Lote::ESTADO_ACEPTADO)
 													->whereNull('tema_id')->get();
-
+		$data['indicadores_sin_tema'] = count($data['indicadores_sin_tema']);
 
 		if($request->isMethod('post')){
 			$data['consulta'] = $request->all();
@@ -185,9 +185,46 @@ class FrontendIndicadoresController extends Controller
 		}
 		$resultados = array();
 		foreach($res as $indicador){
-			$resultados[] = array('clave' => $indicador->id, 'valor' => $indicador->nombre, 'relacionados' => ($indicador->tema ? true : false));
+			$resultados[] = array('clave' => $indicador->id, 'valor' => $indicador->nombre, 'relacionados' => ($indicador->tema ? $indicador->tema->id : 0));
 		}
 
+		return response()->json($resultados);
+	}
+
+	public function indicadores_por_categoria($categoria_id)
+	{
+		$categoria = CategoriaIndicador::find($categoria_id);
+		$resultados = array();
+		foreach($categoria->indicadores as $indicador){
+			if($indicador->lote->estado == Lote::ESTADO_ACEPTADO){
+				$datos_indicador = array('id' => $indicador->id,
+										'nombre' => $indicador->nombre,
+										'tema' => ($indicador->tema ? $indicador->tema->id : 0));
+				$resultados[] = $datos_indicador;
+			}
+		}
+		return response()->json($resultados);
+	}
+	public function indicadores_por_tema($tema_id)
+	{
+		if($tema_id == 0){
+			$indicadores = Indicador::select('indicadores.*')
+								->join('lotes', 'indicadores.lote_id', '=', 'lotes.id')->where('lotes.estado', Lote::ESTADO_ACEPTADO)
+								->whereNull('tema_id')->get();
+		}
+		else{
+			$tema = Tema::find($tema_id);
+			$indicadores = $tema->indicadores;
+		}
+		$resultados = array();
+		foreach($indicadores as $indicador){
+			if($indicador->lote->estado == Lote::ESTADO_ACEPTADO){
+				$datos_indicador = array('id' => $indicador->id,
+										'nombre' => $indicador->nombre,
+										'tema' => $tema_id);
+				$resultados[] = $datos_indicador;
+			}
+		}
 		return response()->json($resultados);
 	}
 

@@ -19,7 +19,9 @@
               <div class="col-md-6">
                 <h3>Por Categorias</h3>
                 <div class="well well_fce">
-                  <div style="overflow-y: scroll; overflow-x: hidden; height: 200px;">
+                  <div style="overflow-y: scroll; overflow-x: hidden; height: 200px;"
+                      id="arbol_categorias_indicadores"
+                      data-consulta="{{action('FrontendIndicadoresController@indicadores_por_categoria', [':query:'])}}">
                       <ul class="nav nav-list">
                           @foreach($categorias as $categoria)
                             @include('frontend.indicadores.indicadores_nodo_consulta',['categoria' => $categoria])
@@ -32,18 +34,17 @@
               <div class="col-md-6">
                 <h3>Por Temas</h3>
                 <div class="well well_fce">
-                  <div style="overflow-y: scroll; overflow-x: hidden; height: 200px;" id="arbol_temas_indicadores">
+                  <div style="overflow-y: scroll; overflow-x: hidden; height: 200px;" 
+                      id="arbol_temas_indicadores"
+                      data-consulta="{{action('FrontendIndicadoresController@indicadores_por_tema', [':query:'])}}">
                       <ul class="nav nav-list">
                           @foreach($temas as $tema)
                             @include('frontend.indicadores.indicadores_tema_consulta',['categoria' => $categoria])
                           @endforeach
-                          @if(count($indicadores_sin_tema) > 0)
+                          @if($indicadores_sin_tema > 0)
                             <li class="subcategoria">
-                              <label class="tree-toggler nav-header"><span class="icon-plus"></span>Más Indicadores</label>
-                              <ul class="nav nav-list tree indice_indicadores">
-                                  @foreach($indicadores_sin_tema as $indicador)
-                                      <li><a href="#" class="selector_indicador" data-id="{{$indicador->id}}" data-nombre="{{$indicador->nombre}}" data-relacionados="false">{{ $indicador->nombre }}</a></li>
-                                  @endforeach
+                              <label class="tree-toggler nav-header label_tema" data-id="0"><span class="icon-plus"></span>Más Indicadores</label>
+                              <ul class="nav nav-list tree indice_indicadores" id="contenedor_tema_0">
                               </ul>
                             </li>
                           @endif
@@ -77,3 +78,8 @@
     </div>
   </div>
 </div>
+<script type="text/html" id="nuevo_selector_indicador">
+  <li>
+    <a href="#" class="selector_indicador" data-id="" data-nombre="" data-relacionados=""></a>
+  </li>
+</script>

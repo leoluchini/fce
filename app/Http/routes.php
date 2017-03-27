@@ -97,3 +97,5 @@ Route::get('consulta_regiones_indicadores/{indicadores}', 'FrontendIndicadoresCo
 Route::post('resultados_indicadores', 'FrontendIndicadoresController@resultados_indicadores');
 Route::post('consulta_periodos_indicadores', 'FrontendIndicadoresController@consulta_periodos');
 Route::post('consulta_frecuencias_indicadores', 'FrontendIndicadoresController@consulta_frecuencias');
+Route::get('consulta_indicadores/categoria/{categoria_id}', 'FrontendIndicadoresController@indicadores_por_categoria');
+Route::get('consulta_indicadores/tema/{tema_id}', 'FrontendIndicadoresController@indicadores_por_tema');

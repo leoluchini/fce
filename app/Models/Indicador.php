@@ -42,4 +42,9 @@ class Indicador extends Model
 	{
 		return $this->hasOne('App\Models\Tema', 'id', 'tema_id');
 	}
+
+	public function lote()
+	{
+		return $this->hasOne('App\Models\LoteIndicador', 'id', 'lote_id');
+	}
 }
