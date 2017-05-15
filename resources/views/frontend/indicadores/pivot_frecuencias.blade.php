@@ -23,8 +23,8 @@
                 <td class="text-right">{{isset($data_pivot[$id_ind][$id_reg][$id_aniofrec]) ? $data_pivot[$id_ind][$id_reg][$id_aniofrec] : '-'}}</td>
                 <?php $anio_region[$id_aniofrec][$id_reg][$id_ind] = isset($data_pivot[$id_ind][$id_reg][$id_aniofrec]) ? $data_pivot[$id_ind][$id_reg][$id_aniofrec] : 0; ?>
                 @endforeach
-                <td class="text-right"><strong>{{ array_sum($anio_region[$id_aniofrec][$id_reg]) }}</strong></td>
-                <?php $total += array_sum($anio_region[$id_aniofrec][$id_reg]) ?>
+                <td class="text-right"><strong>{{ isset($anio_region[$id_aniofrec][$id_reg]) ? array_sum($anio_region[$id_aniofrec][$id_reg]) : '-' }}</strong></td>
+                <?php $total += isset($anio_region[$id_aniofrec][$id_reg]) ? array_sum($anio_region[$id_aniofrec][$id_reg]) : 0 ?>
             </tr>
           @endforeach
         </tbody>

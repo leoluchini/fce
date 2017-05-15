@@ -20,8 +20,8 @@
                   @foreach($info_pivot['aniofrec'] as $id_aniofrec => $aniofrec)
                   <td class="text-right">{{isset($data_pivot[$id_var][$id_reg][$id_aniofrec]) ? $data_pivot[$id_var][$id_reg][$id_aniofrec] : '-'}}</td>
                   @endforeach
-                  <td class="text-right"><strong>{{ array_sum($data_pivot[$id_var][$id_reg]) }}</strong></td>
-                  <?php $total += array_sum($data_pivot[$id_var][$id_reg]) ?>
+                  <td class="text-right"><strong>{{ isset($data_pivot[$id_var][$id_reg]) ? array_sum($data_pivot[$id_var][$id_reg]) : '-' }}</strong></td>
+                  <?php $total += isset($data_pivot[$id_var][$id_reg]) ? array_sum($data_pivot[$id_var][$id_reg]) : 0 ?>
               </tr>
             @endforeach
           </tbody>
