@@ -15,6 +15,9 @@
             <p id="texto_seleccion_arbol" data-default="Seleccione los indicadores que desee consultar">
               Seleccione los indicadores que desee consultar
             </p>
+            <div class="loading" style="display:none" id="loading_arbol_indicadores">
+              {{ Html::image('images/ajax-loader.gif') }} <strong>Cargando</strong>
+            </div>
             <div class="row">
               <div class="col-md-6">
                 <h3>Por Categorias</h3>

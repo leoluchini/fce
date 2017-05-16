@@ -26,6 +26,7 @@ $(document).ready(function () {
 	$('label.label_categoria').on('click', function(){
 		var lista = $(this).parent().find('ul#contenedor_categoria_'+$(this).data('id'));
 		if(lista.find('li').length == 0){
+			$('#loading_arbol_variables').show();
 			var ruta = $('#arbol_categorias_variables').data('consulta');
 			ruta = ruta.replace(":query:", $(this).data('id'));
 			cargar_listado_variables(ruta, lista);
@@ -35,6 +36,7 @@ $(document).ready(function () {
 	$('label.label_tema').on('click', function(){
 		var lista = $(this).parent().find('ul#contenedor_tema_'+$(this).data('id'));
 		if(lista.find('li').length == 0){
+			$('#loading_arbol_variables').show();
 			var ruta = $('#arbol_temas_variables').data('consulta');
 			ruta = ruta.replace(":query:", $(this).data('id'));
 			cargar_listado_variables(ruta, lista);
@@ -84,9 +86,10 @@ function cargar_listado_variables(ruta, ul, callback, param)
 				});
 			}
 			else{
-				select.append('<li><a href="#"> No existen variables cargadas </a></li>');
+				ul.append('<li><a href="#"> No existen variables cargadas </a></li>');
 				if (typeof callback !== 'undefined') { callback(param); }
 			}
+			$('#loading_arbol_variables').hide();
 		},
 	});
 }
