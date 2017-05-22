@@ -172,12 +172,14 @@ class FrontendIndicadoresController extends Controller
 									WHERE lotes.estado = '.Lote::ESTADO_ACEPTADO.' 
 									AND informacion_indicadores.zona_id in '.$listado_regiones.')')
 							->whereRaw($string_consulta)
+							->orderBy('nombre')
 							->get();
 		}
 		else{
 			$res = Indicador::select('indicadores.*')
 					->join('lotes', 'indicadores.lote_id', '=', 'lotes.id')->where('lotes.estado', Lote::ESTADO_ACEPTADO)
 					->whereRaw($string_consulta)
+					->orderBy('nombre')
 					->get();
 		}
 		if(count($res->toArray()) == 0){

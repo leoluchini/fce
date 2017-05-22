@@ -194,12 +194,14 @@ class FrontendVariablesController extends Controller
 									WHERE lotes.estado = '.Lote::ESTADO_ACEPTADO.' 
 									AND informacion_variables.zona_id in '.$listado_regiones.')')
 							->whereRaw($string_consulta)
+							->orderBy('nombre')
 							->get();
 		}
 		else{
 			$res = Variable::select('variables.*')
 					->join('lotes', 'variables.lote_id', '=', 'lotes.id')->where('lotes.estado', Lote::ESTADO_ACEPTADO)
 					->whereRaw($string_consulta)
+					->orderBy('nombre')
 					->get();
 		}
 		if(count($res->toArray()) == 0){
