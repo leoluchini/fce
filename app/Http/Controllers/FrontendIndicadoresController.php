@@ -110,11 +110,10 @@ class FrontendIndicadoresController extends Controller
 			$data_frec[$anio_frecuencia][$res->zona->id][$res->indicador->id] = $res->valor;
 			$data_frec_inversa[$anio_frecuencia][$res->indicador->id][$res->zona->id] = $res->valor;
 		}
-
+		ksort($info_ind['aniofrec']);
 		$info_adicional = $this->get_info_adicional($info_ind['indicadores'], $data_ind, $data_ind_inversa, 'promedio_frecuencia', count($info_ind['aniofrec']), 'promedio_regional', count($info_ind['regiones']));
 		$info_adicional_regiones = $this->get_info_adicional($info_ind['regiones'], $data_reg, $data_reg_inversa, 'promedio_frecuencia', count($info_ind['aniofrec']), 'promedio_indicador', count($info_ind['indicadores']));
 		$info_adicional_frecuencias = $this->get_info_adicional($info_ind['aniofrec'], $data_frec, $data_frec_inversa, 'promedio_regional', count($info_ind['regiones']), 'promedio_indicador', count($info_ind['indicadores']));
-
 
 		$datos['info_pivot'] = $info_ind;
 		$datos['data_pivot'] = $data_ind;

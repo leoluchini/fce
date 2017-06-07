@@ -110,7 +110,6 @@ class FrontendVariablesController extends Controller
 			$data_frec[$anio_frecuencia][$res->zona->id][$res->variable->id] = $res->valor;
 			$data_frec_inversa[$anio_frecuencia][$res->variable->id][$res->zona->id] = $res->valor;
 		}
-
 		/*$info_adicional = array();
 		foreach($info_var['variables'] as $k => $v)
 		{
@@ -132,10 +131,10 @@ class FrontendVariablesController extends Controller
 			}
 			$info_adicional[$k] = array('minimo' => $min, 'maximo' => $max, 'promedio_frecuencia' => $prom_frecuencia, 'promedio_regional' => $prom_region);
 		}*/
+		ksort($info_var['aniofrec']);
 		$info_adicional = $this->get_info_adicional($info_var['variables'], $data_var, $data_var_inversa, 'promedio_frecuencia', count($info_var['aniofrec']), 'promedio_regional', count($info_var['regiones']));
 		$info_adicional_regiones = $this->get_info_adicional($info_var['regiones'], $data_reg, $data_reg_inversa, 'promedio_frecuencia', count($info_var['aniofrec']), 'promedio_variable', count($info_var['variables']));
 		$info_adicional_frecuencias = $this->get_info_adicional($info_var['aniofrec'], $data_frec, $data_frec_inversa, 'promedio_regional', count($info_var['regiones']), 'promedio_variable', count($info_var['variables']));
-
 
 		$datos['info_pivot'] = $info_var;
 		$datos['data_pivot'] = $data_var;
